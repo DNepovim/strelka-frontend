@@ -1,6 +1,5 @@
 import * as yup from "yup"
 import { Block, BlockDef } from "../blocks"
-import { enumToSchemaOptions } from "../../../utils/enumToSchemaOptions"
 import { BlockFields, withBlockSchema } from "../../components/Block/Block"
 import { BlockTemplates, InputType } from "../enums"
 

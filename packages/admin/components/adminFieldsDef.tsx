@@ -132,45 +132,40 @@ const AdminFieldset: React.FC<AdminFieldsetProps<Record<string, any>>> = ({
   legend,
   fields,
   path,
-}) => {
-  return (
-    <fieldset>
-      {legend && <legend>{legend}</legend>}
-      {Object.entries(fields).map(([name, field]) => {
-        if (field.clonable) {
-          if (isGroupField(field)) {
-            return (
-              <ClonableFields
-                name={getPath(name, path)}
-                fields={field.fields}
-              />
-            )
-          }
-          return (
-            <ClonableFields
-              name={getPath(name, path)}
-              component={adminInputsComponents[field.inputType]}
-            />
-          ) // TODO resolve typescript
-        }
+}) => (
+  <fieldset>
+    {legend && <legend>{legend}</legend>}
+    {Object.entries(fields).map(([name, field]) => {
+      if (field.clonable) {
         if (isGroupField(field)) {
           return (
-            <AdminFieldset
-              legend={field.label}
-              fields={field.fields}
-              path={getPath(name, path)}
-            />
+            <ClonableFields name={getPath(name, path)} fields={field.fields} />
           )
         }
-        return React.createElement(adminInputsComponents[field.inputType], {
-          key: getPath(name, path),
-          name: getPath(name, path),
-          label: field.label,
-        }) // TODO resolve typescript
-      })}
-    </fieldset>
-  )
-}
+        return (
+          <ClonableFields
+            name={getPath(name, path)}
+            component={adminInputsComponents[field.inputType]}
+          />
+        ) // TODO resolve typescript
+      }
+      if (isGroupField(field)) {
+        return (
+          <AdminFieldset
+            legend={field.label}
+            fields={field.fields}
+            path={getPath(name, path)}
+          />
+        )
+      }
+      return React.createElement(adminInputsComponents[field.inputType], {
+        key: getPath(name, path),
+        name: getPath(name, path),
+        label: field.label,
+      }) // TODO resolve typescript
+    })}
+  </fieldset>
+)
 
 const getPath = (name: string, path?: string): string =>
   path ? `${path}[${name}]` : name

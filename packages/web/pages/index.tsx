@@ -38,7 +38,7 @@ const Home: NextPage<Props> = ({ page }) => (
   </div>
 )
 
-export const getStaticProps: GetStaticProps<Props> = async () => ({
+export const getStaticProps: GetStaticProps<Props> = () => ({
   props: {
     page: {
       blocks: [

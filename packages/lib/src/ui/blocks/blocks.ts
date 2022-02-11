@@ -32,14 +32,14 @@ export type AdminFields<T> = {
   [K in keyof T]: AdminField<Unarray<T[K]>>
 }
 
-type AdminField<T> = GroupDef<T> | FieldDef<T>
+type AdminField<T> = GroupDef<T> | FieldDef
 
 interface GeneralDef {
   label: string
   clonable?: true
 }
 
-interface FieldDef<T> extends GeneralDef {
+interface FieldDef extends GeneralDef {
   inputType: InputType
   options?: {
     // TODO only for select
@@ -55,5 +55,3 @@ interface GroupDef<T> extends GeneralDef {
 export const isGroupField = <T extends {}>(
   component: AdminField<T>
 ): component is GroupDef<T> => "fields" in component
-
-export const checkBlockType = (block: BlocksDefs) => {}

@@ -39,7 +39,7 @@ import {
   enumToSchemaOptions,
 } from "@local/lib/src"
 
-export const PageEditPage = ({ user }: { user: User }) => {
+export const PageEditPage = () => {
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -75,7 +75,7 @@ export const PageEditPage = ({ user }: { user: User }) => {
         const today = new Date()
         const pageValues: Page = {
           title: page.title,
-          lastEditedBy: user.email ?? "",
+          lastEditedBy: "",
           lastEditedTime: today.toLocaleString("cs-CZ"),
           blocks: values.blocks,
         }

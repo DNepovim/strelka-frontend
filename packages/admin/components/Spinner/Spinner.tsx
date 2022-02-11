@@ -1,4 +1,3 @@
-import styled from "@emotion/styled"
 import React from "react"
 import Loader from "react-loader-spinner"
 import { Centered } from "../Centered/Centered"
