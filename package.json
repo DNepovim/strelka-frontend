@@ -14,7 +14,8 @@
     "dev:admin": "cd packages/admin && yarn dev",
     "lint": "lerna run lint",
     "test": "lerna run test --stream",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test:ci": "lerna run test:ci --stream"
   },
   "dependencies": {
     "@dnd-kit/core": "^4.0.3",

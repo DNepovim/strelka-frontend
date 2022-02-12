@@ -6,6 +6,7 @@
   "scripts": {
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "test": "jest --watchAll",
+    "test:ci": "jest --coverage",
     "test:coverage": "jest --coverage --watchAll"
   },
   "peerDependencies": {
