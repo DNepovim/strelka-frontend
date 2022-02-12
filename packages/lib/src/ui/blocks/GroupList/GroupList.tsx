@@ -1,7 +1,7 @@
 import { Block } from "../../components/Block/Block"
 import { Container } from "../../components/Container/Container"
 import styled from "@emotion/styled"
-import { Header3, Text } from "../../components/base/Typography"
+import { Header3, Text } from "../../components/Typography/Typography"
 import React from "react"
 import { GroupListProps } from "./groupListDef"
 
