@@ -9,6 +9,7 @@ import {
   RenderBlocks,
   theme,
 } from "@local/lib"
+import { GroupProps } from "../../lib/src/ui/blocks/GroupList/GroupList"
 
 import { NavLinkProps } from "../../lib/src/ui/components/navigation/NavLinks"
 
@@ -103,6 +104,51 @@ export const links: NavLinkProps[] = [
   { name: "English", address: "/english" },
 ]
 
+const groupData: GroupProps[] = [
+  {
+    name: "Benjaminci",
+    address: "benjaminci",
+    image: LogoBenja,
+    comment: "kluci a holky od 6 do 10 let",
+  },
+  {
+    name: "Světlušky",
+    address: "svetlusky",
+    image: LogoSvetlusky,
+    comment: "holky od 10 do 16 let",
+  },
+  {
+    name: "Vlčata",
+    address: "vlcata",
+    image: LogoVlcata,
+    comment: "kluci od 10 do 15 let",
+  },
+  {
+    name: "Skautky",
+    address: "skautky",
+    image: LogoSkautky,
+    comment: "kluci od 10 do 15 let",
+  },
+  {
+    name: "Skauti",
+    address: "skauti",
+    image: LogoSkauti,
+    comment: "kluci od 10 do 15 let",
+  },
+  {
+    name: "Roveři",
+    address: "roveri",
+    image: LogoRoveri,
+    comment: "kluci od 10 do 15 let",
+  },
+  {
+    name: "Oldskauti",
+    address: "oldskauti",
+    image: LogoOldskauti,
+    comment: "kluci od 10 do 15 let",
+  },
+]
+
 const Home: NextPage<Props> = ({ page }) => (
   <div>
     <Head>
@@ -138,9 +184,9 @@ export const getServerSideProps: () => { props: Props } = () => ({
       blocks: [
         {
           id: "",
-          template: BlockTemplates.Header,
+          template: BlockTemplates.GroupList,
           fields: {
-            content: links,
+            content: groupData,
           },
         },
       ],

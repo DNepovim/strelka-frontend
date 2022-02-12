@@ -1,5 +1,6 @@
 export enum BlockTemplates {
   Header = "header",
+  GroupList = "groupList",
 }
 
 export enum InputType {

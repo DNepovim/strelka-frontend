@@ -3,6 +3,8 @@ import React from "react"
 import { BlockTemplates, InputType } from "./enums"
 import { Header } from "./Header/Header"
 import { HeaderBlock } from "./Header/headerDef"
+import { GroupListBlock } from "./GroupList/groupListDef"
+import { GroupList } from "./GroupList/GroupList"
 
 export type Unarray<T> = T extends Array<infer U> ? U : T
 
@@ -10,11 +12,12 @@ export interface Block {
   id: string
 }
 
-export type BlocksDefs = HeaderBlock
+export type BlocksDefs = HeaderBlock | GroupListBlock
 
 // TODO dynamic import
 export const blocksComponentList: Record<BlockTemplates, React.FC<any>> = {
   header: Header,
+  groupList: GroupList,
 }
 
 export interface BlockDef<T> {
