@@ -1,48 +1,21 @@
 /** @jsxImportSource @emotion/react */
+import { v4 as uuid } from "uuid"
 import SaveOutlined from "@ant-design/icons/lib/icons/SaveOutlined"
-import AppstoreAddOutlined from "@ant-design/icons/lib/icons/AppstoreAddOutlined"
-import {
-  closestCenter,
-  DndContext,
-  KeyboardSensor,
-  PointerSensor,
-  useSensor,
-  useSensors,
-} from "@dnd-kit/core"
-import {
-  arrayMove,
-  SortableContext,
-  sortableKeyboardCoordinates,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable"
-import { Button, Form, Row, Col, Space, Switch } from "antd"
+import { Button, Form, Col, Space, Switch } from "antd"
 import { Formik, FormikHelpers } from "formik"
-import { SortableAdminBlockFields } from "../../components/adminFieldsDef"
 import { useState } from "react"
 import { css } from "@emotion/react"
 import { Preview } from "../../components/Preview/Preview"
 import { PageWrapper } from "../../components/PageHeader/PageWrapper"
-import {
-  BlockTemplates,
-  blocksDefList,
-  RenderBlocks,
-  fonts,
-  global,
-} from "@local/lib/src"
+import { RenderBlocks, fonts, global, BlockTemplates } from "@local/lib/src"
 import { NextPage } from "next"
 import { pageToCreateSchema, PageWithContent } from "../../schemas/page"
 import { TextInput } from "../../components/Inputs/TextInput/TextInput"
-import { v4 as uuid } from "uuid"
 import { createPage } from "../../api/createPage"
+import { BlockEditor } from "../../components/BlockEditor/BlockEditor"
+import { FlexRow } from "../../components/FlexRow/FlexRow"
 
 export const PageCreatePage: NextPage = () => {
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
-  )
-
   const [isPreviewVisible, setIsPreviewVisible] = useState(false)
 
   return (
@@ -55,7 +28,23 @@ export const PageCreatePage: NextPage = () => {
         helpers.setValues(values)
       }}
       validationSchema={pageToCreateSchema}
-      initialValues={{ name: "", slug: "", content: [] }}
+      initialValues={{
+        name: "",
+        slug: "",
+        content: [
+          {
+            id: uuid(),
+            template: BlockTemplates.Example,
+            fields: {
+              title: "",
+              button: {
+                label: "",
+                link: "",
+              },
+            },
+          },
+        ],
+      }}
     >
       {(props) => (
         <PageWrapper
@@ -91,12 +80,7 @@ export const PageCreatePage: NextPage = () => {
               onChange={() => setIsPreviewVisible(!isPreviewVisible)}
             />
           </Space>
-          <Row
-            gutter={16}
-            css={css`
-              display: flex;
-            `}
-          >
+          <FlexRow>
             {isPreviewVisible && (
               <Col span={12}>
                 <Preview zoom={0.4}>
@@ -108,66 +92,14 @@ export const PageCreatePage: NextPage = () => {
             )}
             <Col span={isPreviewVisible ? 12 : 24}>
               <Form>
-                <DndContext
-                  sensors={sensors}
-                  collisionDetection={closestCenter}
-                  onDragEnd={(event) => {
-                    const { active, over } = event
-                    const items = props.values.content?.map((v) => v.id)
-
-                    if (!over || active.id === over.id || !items) {
-                      return
-                    }
-
-                    const overIndex = items.indexOf(over.id)
-                    const activeIndex = items.indexOf(active.id)
-                    const newOrder = arrayMove(items, activeIndex, overIndex)
-
-                    props.setFieldValue("content", newOrder)
-                  }}
-                >
-                  <SortableContext
-                    items={props.values.content?.map((v) => v.id) ?? []}
-                    strategy={verticalListSortingStrategy}
-                  >
-                    {props.values.content?.map((block, index) => (
-                      <SortableAdminBlockFields
-                        key={block.id}
-                        index={index}
-                        id={block.id}
-                        {...(block.template
-                          ? blocksDefList[block.template as BlockTemplates]
-                          : {})}
-                        onRemove={() =>
-                          props.setFieldValue(
-                            "content",
-                            props.values.content?.filter((_, i) => i !== index)
-                          )
-                        }
-                        onTemplateChange={(template) =>
-                          props.setFieldValue(
-                            `content[${index}].template`,
-                            template
-                          )
-                        }
-                      />
-                    ))}
-                  </SortableContext>
-                </DndContext>
-                <Button
-                  icon={<AppstoreAddOutlined />}
-                  onClick={() =>
-                    props.setFieldValue("content", [
-                      ...(props.values.content ?? []),
-                      { id: uuid() },
-                    ])
-                  }
-                >
-                  Přidat blok
-                </Button>
+                <BlockEditor
+                  name="content"
+                  blocks={props.values.content ?? []}
+                  setValue={props.setFieldValue}
+                />
               </Form>
             </Col>
-          </Row>
+          </FlexRow>
         </PageWrapper>
       )}
     </Formik>
