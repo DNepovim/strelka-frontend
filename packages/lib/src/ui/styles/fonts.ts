@@ -3,6 +3,9 @@ import { css } from "@emotion/react"
 
 export const fonts = css`
   @charset "utf-8";
+
+  @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap");
+
   @font-face {
     font-family: "themix";
     src: url("https://cdn.skauting.cz/fonts/TheMix_LT_400.eot");
@@ -17,7 +20,6 @@ export const fonts = css`
     font-style: normal;
     font-display: optional;
   }
-
   @font-face {
     font-family: "themix";
     src: url("https://cdn.skauting.cz/fonts/TheMix_LT_400i.eot");
