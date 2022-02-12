@@ -1,9 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { v4 as uuid } from "uuid"
 import * as yup from "yup"
 import SaveOutlined from "@ant-design/icons/lib/icons/SaveOutlined"
 import AppstoreAddOutlined from "@ant-design/icons/lib/icons/AppstoreAddOutlined"
-import EyeOutlined from "@ant-design/icons/lib/icons/EyeOutlined"
 import {
   closestCenter,
   DndContext,
@@ -21,10 +19,7 @@ import {
 import { Button, Form, Spin, Typography, Row, Col, Space, Switch } from "antd"
 import { Formik, FormikHelpers } from "formik"
 import { SortableAdminBlockFields } from "../../components/adminFieldsDef"
-import { useParams } from "react-router"
-import { User } from "@firebase/auth"
 import { Centered } from "../../components/Centered/Centered"
-import useSwr from "swr"
 import { useState } from "react"
 import { css } from "@emotion/react"
 import { Preview } from "../../components/Preview/Preview"
@@ -38,8 +33,9 @@ import {
   global,
   enumToSchemaOptions,
 } from "@local/lib/src"
+import { NextPage } from "next"
 
-export const PageEditPage = () => {
+export const PageEditPage: NextPage<Props> = ({ page }) => {
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -47,19 +43,6 @@ export const PageEditPage = () => {
     })
   )
   const [isPreviewVisible, setIsPreviewVisible] = useState(false)
-
-  const { slug } = useParams()
-  const { data: page } = useSwr<Page>("/api/page/get", async (url) => {
-    const result = await fetch(url, {
-      method: "POST",
-      body: JSON.stringify({ slug }),
-    })
-    return await result.json()
-  })
-
-  if (!slug) {
-    console.error("Slug is not defined.")
-  }
 
   if (!page) {
     return (
@@ -71,7 +54,7 @@ export const PageEditPage = () => {
 
   return (
     <Formik<Page>
-      onSubmit={async (values: Page, helpers: FormikHelpers<Page>) => {
+      onSubmit={(values: Page, helpers: FormikHelpers<Page>) => {
         const today = new Date()
         const pageValues: Page = {
           title: page.title,
@@ -79,10 +62,8 @@ export const PageEditPage = () => {
           lastEditedTime: today.toLocaleString("cs-CZ"),
           blocks: values.blocks,
         }
-        await fetch("/api/page/edit", {
-          method: "POST",
-          body: JSON.stringify({ slug, pageValues }),
-        })
+        // eslint-disable-next-line
+        console.log(pageValues)
         helpers.setValues(pageValues)
       }}
       validationSchema={() =>
@@ -115,14 +96,6 @@ export const PageEditPage = () => {
             ],
           }}
           extra={[
-            <Button
-              key="preview"
-              icon={<EyeOutlined />}
-              href={`/api/preview?secret=${process.env.NEXT_PUBLIC_PREVIEW_TOKEN}&slug=/`} // TODO dynamic path
-              target="_blank"
-            >
-              Náhled
-            </Button>,
             <Button
               key="save"
               type="primary"
@@ -216,10 +189,7 @@ export const PageEditPage = () => {
                 <Button
                   icon={<AppstoreAddOutlined />}
                   onClick={() =>
-                    props.setFieldValue("blocks", [
-                      ...props.values.blocks,
-                      { id: uuid() },
-                    ])
+                    props.setFieldValue("blocks", [...props.values.blocks])
                   }
                 >
                   Přidat blok
@@ -232,3 +202,30 @@ export const PageEditPage = () => {
     </Formik>
   )
 }
+
+// export const getServerSideProps: GetServerSideProps<Props> = () => ({
+export const getServerSideProps: () => { props: Props } = () => ({
+  props: {
+    page: {
+      blocks: [
+        {
+          id: "",
+          template: BlockTemplates.Example,
+          fields: {
+            title: "Nadpis",
+            button: {
+              label: "Čudlík",
+              link: "http://www.neco.cz",
+            },
+          },
+        },
+      ],
+    },
+  },
+})
+
+interface Props {
+  page: Page
+}
+
+export default PageEditPage

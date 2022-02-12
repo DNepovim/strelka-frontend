@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import type { GetStaticProps, NextPage } from "next"
+import type { NextPage } from "next"
 import Head from "next/head"
 import {
   GlobalStyles,
@@ -38,7 +38,8 @@ const Home: NextPage<Props> = ({ page }) => (
   </div>
 )
 
-export const getStaticProps: GetStaticProps<Props> = () => ({
+// export const getServerSideProps: GetServerSideProps<Props> = async () => ({
+export const getServerSideProps: () => { props: Props } = () => ({
   props: {
     page: {
       blocks: [
