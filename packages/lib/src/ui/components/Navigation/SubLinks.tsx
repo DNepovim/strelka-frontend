@@ -1,10 +1,10 @@
 import React from "react"
-import { LinkItem, NavLinkProps } from "./NavLinks"
+import { LinkItem, NavLinkProps } from "../NavLinks/NavLinks"
 import styled from "@emotion/styled"
 import { max, min, theme } from "../../styles/theme"
 import SquareMask from "../../assets/vectors/potatoes/rectangle_5.svg"
 import CircleMask from "../../assets/vectors/potatoes/circle_2.svg"
-import { SmallText } from "../base/Typography"
+import { SmallText } from "../Typography/Typography"
 
 export interface SubLinksProps {
   linkPrefix: string

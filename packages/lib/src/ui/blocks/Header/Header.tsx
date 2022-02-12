@@ -2,12 +2,12 @@
 import React, { useState } from "react"
 import { HeaderProps } from "./headerDef"
 import styled from "@emotion/styled"
-import { Logo } from "../../components/base/Logo"
+import { Logo } from "../../components/Logo/Logo"
 import { Block } from "../../components/Block/Block"
 import { Container } from "../../components/Container/Container"
-import { NavLinks } from "../../components/navigation/NavLinks"
+import { NavLinks } from "../../components/NavLinks/NavLinks"
 
-import { Button } from "../../components/base/Button"
+import { Button } from "../../components/Button/Button"
 import { max, min, theme } from "../../styles/theme"
 
 export const Header: React.FC<HeaderProps> = (props) => {

@@ -1,7 +1,7 @@
 import { Block } from "../blocks"
 import { BlockFields } from "../../components/Block/Block"
 import { BlockTemplates } from "../enums"
-import { NavLinkProps } from "../../components/navigation/NavLinks"
+import { NavLinkProps } from "../../components/NavLinks/NavLinks"
 
 export interface HeaderBlock extends Block {
   template: BlockTemplates.Header
