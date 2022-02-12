@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState } from "react"
-import Link from "next/link"
-import { Avatar, Button, Layout as AntLayout, Menu, Space } from "antd"
+import { Avatar, Button, Layout as AntLayout, Space } from "antd"
 import { LogoutOutlined } from "@ant-design/icons"
 import { Content } from "antd/lib/layout/layout"
 import { css } from "@emotion/react"
 import { routes } from "../../routes"
+import { Navigation } from "../Navigation/Navigation"
 
 export const Layout: React.FC = ({ children }) => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false)
@@ -44,15 +44,7 @@ export const Layout: React.FC = ({ children }) => {
             }
           `}
         >
-          <Menu>
-            {routes
-              .filter((item) => item.showInMenu)
-              .map(({ title, menuIcon, getLink, key }) => (
-                <Menu.Item icon={menuIcon} key={key}>
-                  <Link href={getLink()}>{title()}</Link>
-                </Menu.Item>
-              ))}
-          </Menu>
+          <Navigation routes={routes} />
           {user && (
             <div
               css={css`

@@ -3,24 +3,31 @@ import FileOutlined from "@ant-design/icons/lib/icons/FileOutlined"
 
 export interface Route {
   title: (title?: string) => string
-  key: string
   showInMenu: boolean
+  menuParentId?: string
   menuIcon?: ReactElement
   getLink: (param?: string) => string
 }
 
-export const routes: Route[] = [
-  {
+export type Routes = Record<string, Route>
+
+export const routes: Routes = {
+  pagesList: {
     title: () => "Stránky",
-    key: "pages",
     showInMenu: true,
     menuIcon: <FileOutlined />,
     getLink: () => "/",
   },
-  {
+  editPage: {
     title: (title) => `Editace stránky ${title}`,
-    key: "pages",
+    menuParentId: "pagesList",
     showInMenu: false,
     getLink: (slug) => `/stranky/${slug}`,
   },
-]
+  newPage: {
+    title: () => "Nová stránka",
+    menuParentId: "pagesList",
+    showInMenu: false,
+    getLink: () => `/stranky/nova`,
+  },
+}

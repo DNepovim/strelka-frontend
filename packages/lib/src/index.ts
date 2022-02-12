@@ -21,4 +21,4 @@ export { enumToSchemaOptions } from "./utils/enumToSchemaOptions"
 // types
 export { BlockTemplates } from "./ui/blocks/enums"
 export type { Page } from "./types/data"
-export type { AdminFields, BlockDef } from "./ui/blocks/blocks"
+export type { AdminFields, BlockDef, BlocksDefs } from "./ui/blocks/blocks"

@@ -4,11 +4,16 @@ import Link from "next/link"
 import EditOutlined from "@ant-design/icons/lib/icons/EditOutlined"
 import { BlockTemplates, Page } from "@local/lib"
 import { PageWrapper } from "../components/PageHeader/PageWrapper"
+import { ButtonLink } from "../components/ButtonLink/ButtonLink"
+import { routes } from "../routes"
 
 const PagesListPage: NextPage<Props> = ({ pages }) => (
   <PageWrapper
     title={<Typography.Title>Stránky</Typography.Title>}
     breadcrumb={{ routes: [{ breadcrumbName: "Stránky", path: "" }] }}
+    extra={
+      <ButtonLink link={routes.newPage.getLink()}>Nová stránka</ButtonLink>
+    }
   >
     <Table
       loading={!pages}

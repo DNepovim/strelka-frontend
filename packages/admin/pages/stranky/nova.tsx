@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import * as yup from "yup"
 import SaveOutlined from "@ant-design/icons/lib/icons/SaveOutlined"
 import AppstoreAddOutlined from "@ant-design/icons/lib/icons/AppstoreAddOutlined"
 import {
@@ -16,79 +15,52 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable"
-import { Button, Form, Spin, Typography, Row, Col, Space, Switch } from "antd"
+import { Button, Form, Row, Col, Space, Switch } from "antd"
 import { Formik, FormikHelpers } from "formik"
 import { SortableAdminBlockFields } from "../../components/adminFieldsDef"
-import { Centered } from "../../components/Centered/Centered"
 import { useState } from "react"
 import { css } from "@emotion/react"
 import { Preview } from "../../components/Preview/Preview"
 import { PageWrapper } from "../../components/PageHeader/PageWrapper"
 import {
-  Page,
   BlockTemplates,
   blocksDefList,
   RenderBlocks,
   fonts,
   global,
-  enumToSchemaOptions,
 } from "@local/lib/src"
 import { NextPage } from "next"
+import { pageToCreateSchema, PageWithContent } from "../../schemas/page"
+import { TextInput } from "../../components/Inputs/TextInput/TextInput"
+import { v4 as uuid } from "uuid"
+import { createPage } from "../../api/createPage"
 
-export const PageEditPage: NextPage<Props> = ({ page }) => {
+export const PageCreatePage: NextPage = () => {
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     })
   )
+
   const [isPreviewVisible, setIsPreviewVisible] = useState(false)
 
-  if (!page) {
-    return (
-      <Centered>
-        <Spin />
-      </Centered>
-    )
-  }
-
   return (
-    <Formik<Page>
-      onSubmit={(values: Page, helpers: FormikHelpers<Page>) => {
-        const today = new Date()
-        const pageValues: Page = {
-          title: page.title,
-          lastEditedBy: "",
-          lastEditedTime: today.toLocaleString("cs-CZ"),
-          blocks: values.blocks,
-        }
-        // eslint-disable-next-line
-        console.log(pageValues)
-        helpers.setValues(pageValues)
+    <Formik<PageWithContent>
+      onSubmit={async (
+        values: PageWithContent,
+        helpers: FormikHelpers<PageWithContent>
+      ) => {
+        await createPage(values)
+        helpers.setValues(values)
       }}
-      validationSchema={() =>
-        yup.lazy(() =>
-          yup.array().of(
-            yup.object().shape({
-              template: yup
-                .string()
-                .oneOf(enumToSchemaOptions(BlockTemplates))
-                .required(),
-              fields: yup
-                .mixed()
-                .when("template", (template: BlockTemplates) =>
-                  template ? blocksDefList[template].schema : yup.mixed()
-                ),
-            })
-          )
-        )
-      }
-      initialValues={page}
+      validationSchema={pageToCreateSchema}
+      initialValues={{ name: "", slug: "", content: [] }}
     >
       {(props) => (
         <PageWrapper
-          title={<Typography.Title>{page.title}</Typography.Title>}
-          subTitle={`naposledny upraveno ${props.values.lastEditedTime} uživatelem ${props.values.lastEditedBy}`}
+          title={<TextInput name="name" />}
+          subTitle={<TextInput name="slug" />}
           breadcrumb={{
             routes: [
               { breadcrumbName: "Stránky", path: "" },
@@ -129,7 +101,7 @@ export const PageEditPage: NextPage<Props> = ({ page }) => {
               <Col span={12}>
                 <Preview zoom={0.4}>
                   <div css={[fonts, global]}>
-                    <RenderBlocks blocks={page.blocks} />
+                    <RenderBlocks blocks={props.values.content} />
                   </div>
                 </Preview>
               </Col>
@@ -141,28 +113,24 @@ export const PageEditPage: NextPage<Props> = ({ page }) => {
                   collisionDetection={closestCenter}
                   onDragEnd={(event) => {
                     const { active, over } = event
+                    const items = props.values.content?.map((v) => v.id)
 
-                    if (!over || active.id === over.id) {
+                    if (!over || active.id === over.id || !items) {
                       return
                     }
 
-                    const items = props.values.blocks.map((v) => v.id)
                     const overIndex = items.indexOf(over.id)
                     const activeIndex = items.indexOf(active.id)
-                    const newOrder = arrayMove(
-                      props.values.blocks,
-                      activeIndex,
-                      overIndex
-                    )
+                    const newOrder = arrayMove(items, activeIndex, overIndex)
 
-                    props.setFieldValue("blocks", newOrder)
+                    props.setFieldValue("content", newOrder)
                   }}
                 >
                   <SortableContext
-                    items={props.values.blocks.map((v) => v.id)}
+                    items={props.values.content?.map((v) => v.id) ?? []}
                     strategy={verticalListSortingStrategy}
                   >
-                    {props.values.blocks.map((block, index) => (
+                    {props.values.content?.map((block, index) => (
                       <SortableAdminBlockFields
                         key={block.id}
                         index={index}
@@ -172,13 +140,13 @@ export const PageEditPage: NextPage<Props> = ({ page }) => {
                           : {})}
                         onRemove={() =>
                           props.setFieldValue(
-                            "blocks",
-                            props.values.blocks.filter((_, i) => i !== index)
+                            "content",
+                            props.values.content?.filter((_, i) => i !== index)
                           )
                         }
                         onTemplateChange={(template) =>
                           props.setFieldValue(
-                            `blocks[${index}].template`,
+                            `content[${index}].template`,
                             template
                           )
                         }
@@ -189,7 +157,10 @@ export const PageEditPage: NextPage<Props> = ({ page }) => {
                 <Button
                   icon={<AppstoreAddOutlined />}
                   onClick={() =>
-                    props.setFieldValue("blocks", [...props.values.blocks])
+                    props.setFieldValue("content", [
+                      ...(props.values.content ?? []),
+                      { id: uuid() },
+                    ])
                   }
                 >
                   Přidat blok
@@ -203,29 +174,4 @@ export const PageEditPage: NextPage<Props> = ({ page }) => {
   )
 }
 
-// export const getServerSideProps: GetServerSideProps<Props> = () => ({
-export const getServerSideProps: () => { props: Props } = () => ({
-  props: {
-    page: {
-      blocks: [
-        {
-          id: "",
-          template: BlockTemplates.Example,
-          fields: {
-            title: "Nadpis",
-            button: {
-              label: "Čudlík",
-              link: "http://www.neco.cz",
-            },
-          },
-        },
-      ],
-    },
-  },
-})
-
-interface Props {
-  page: Page
-}
-
-export default PageEditPage
+export default PageCreatePage
