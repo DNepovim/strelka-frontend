@@ -1,10 +1,10 @@
 import React, { useState } from "react"
 import styled from "@emotion/styled"
 import { max, min, theme } from "../../styles/theme"
-import { SubLinksProps, ItemContent } from "./SubLinks"
+import { SubLinksProps, ItemContent } from "../Navigation/SubLinks"
 
 import SquareMask from "../../assets/vectors/potatoes/rectangle_5.svg"
-import { SubLinks } from "./SubLinks"
+import { SubLinks } from "../Navigation/SubLinks"
 
 interface NavLinksProps {
   className?: string

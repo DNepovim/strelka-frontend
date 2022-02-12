@@ -10,7 +10,7 @@ import {
   theme,
 } from "@local/lib"
 
-import { NavLinkProps } from "../../lib/src/ui/components/navigation/NavLinks"
+import { NavLinkProps } from "../../lib/src/ui/components/NavLinks/NavLinks"
 
 import LogoBenja from "../../lib/src/ui/assets/images/groups/benjaminci.jpg"
 import LogoSvetlusky from "../../lib/src/ui/assets/images/groups/svetlusky.jpg"
