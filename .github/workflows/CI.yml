@@ -1,0 +1,66 @@
+name: Pull request
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  lint:
+    name: "Lint"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v1
+        with:
+          version: 16.x
+      - name: Install dependencies
+        run: yarn bootstrap
+      - name: Lint
+        run: yarn lint
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v1
+        with:
+          version: 16.x
+      - name: Install dependencies
+        run: yarn bootstrap
+      - name: Build
+        run: yarn build
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v1
+        with:
+          version: 16.x
+      - name: Install dependencies
+        run: yarn bootstrap
+      - name: Test
+        run: yarn build
+
+  deploy_now:
+    needs: build
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Deploy
+        uses: amondnet/vercel-action@v20.0.0
+        run: |
+          prodRun=""
+          if [[ ${GITHUB_REF} == "refs/heads/main" ]]; then
+            prodRun="--prod"
+          fi
+
+          npx vercel --token ${VERCEL_TOKEN} $prodRun
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}

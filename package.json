@@ -12,6 +12,7 @@
     "dev:admin": "cd packages/admin && yarn dev",
     "lint": "lerna run lint",
     "test": "lerna run test --stream",
+    "test:ci": "lerna run test:ci --stream",
     "prepare": "husky install"
   },
   "dependencies": {
