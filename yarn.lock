@@ -1796,15 +1796,6 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@strelka-skaut/js-api-client@1.0.13":
-  version "1.0.13"
-  resolved "https://npm.pkg.github.com/download/@strelka-skaut/js-api-client/1.0.13/8aa56d8f88c76d47b74519ec1e7aa1aca5fd4ff784eb36a55218adc821ad3c29#51211db7ef5caddcf6c798cfb0e072b6e98960a5"
-  integrity sha512-SlL+gHya+bhVquRUGBho01lGCOdKBJ8hAIaacZ3bxeSt8ZySSokaYpT/8plbW3SJXYjDY+m+26t3kUogblTJPw==
-  dependencies:
-    google-protobuf "^3.19.4"
-    grpc-web "^1.3.1"
-    xhr2 "^0.2.1"
-
 "@testing-library/dom@^8.0.0":
   version "8.11.3"
   resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-8.11.3.tgz#38fd63cbfe14557021e88982d931e33fb7c1a808"
@@ -2022,11 +2013,6 @@
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/@types/typopo/-/typopo-2.5.1.tgz#7ac2b4aefd6f03bf9c7e202694b6489f3e9b08b4"
   integrity sha512-/L5o6z5uufpV7R9C3KwflHwAisxCAa7EDxoMj/conQDKp2coCJ3uUqOVXxmUEAk10CsqCDTudyspsQubQbS21A==
-
-"@types/uuid@^8.3.4":
-  version "8.3.4"
-  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-8.3.4.tgz#bd86a43617df0594787d38b735f55c805becf1bc"
-  integrity sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==
 
 "@types/yargs-parser@*":
   version "20.2.1"
@@ -4728,20 +4714,10 @@ globby@^11.0.2, globby@^11.0.3, globby@^11.0.4:
     merge2 "^1.4.1"
     slash "^3.0.0"
 
-google-protobuf@^3.19.4:
-  version "3.19.4"
-  resolved "https://registry.yarnpkg.com/google-protobuf/-/google-protobuf-3.19.4.tgz#8d32c3e34be9250956f28c0fb90955d13f311888"
-  integrity sha512-OIPNCxsG2lkIvf+P5FNfJ/Km95CsXOBecS9ZcAU6m2Rq3svc0Apl9nB3GMDNKfQ9asNv4KjyAqGwPQFrVle3Yg==
-
 graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.2.0, graceful-fs@^4.2.2, graceful-fs@^4.2.3, graceful-fs@^4.2.4, graceful-fs@^4.2.9:
   version "4.2.9"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.9.tgz#041b05df45755e587a24942279b9d113146e1c96"
   integrity sha512-NtNxqUcXgpW2iMrfqSfR73Glt39K+BLwWsPs94yR63v45T0Wbej7eRmL5cWfwEgqXnmjQp3zaJTshdRW/qC2ZQ==
-
-grpc-web@^1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/grpc-web/-/grpc-web-1.3.1.tgz#6d8affe75a103790b7ad570824e765a1d6a418e4"
-  integrity sha512-VxyYEAGsatecAFY3xieRDzsuhm92yQBsJD7fd5Z3MY150hZWPwkrUWetzJ0QK5W0uym4+VedPQrei38wk0eIjQ==
 
 gzip-size@^6.0.0:
   version "6.0.0"
@@ -9575,11 +9551,6 @@ uuid@^3.3.2:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
 
-uuid@^8.3.2:
-  version "8.3.2"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
-  integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
-
 v8-compile-cache@^2.0.3:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/v8-compile-cache/-/v8-compile-cache-2.3.0.tgz#2de19618c66dc247dcfb6f99338035d8245a2cee"
@@ -9658,11 +9629,6 @@ wcwidth@^1.0.0:
   integrity sha1-8LDc+RW8X/FSivrbLA4XtTLaL+g=
   dependencies:
     defaults "^1.0.3"
-
-webalize@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/webalize/-/webalize-0.1.0.tgz#8b716fa436cfb7e11875009ed5f99e2f21801186"
-  integrity sha1-i3FvpDbPt+EYdQCe1fmeLyGAEYY=
 
 webidl-conversions@^3.0.0:
   version "3.0.1"
@@ -9870,11 +9836,6 @@ ws@^7.3.1, ws@^7.4.6:
   version "7.5.7"
   resolved "https://registry.yarnpkg.com/ws/-/ws-7.5.7.tgz#9e0ac77ee50af70d58326ecff7e85eb3fa375e67"
   integrity sha512-KMvVuFzpKBuiIXW3E4u3mySRO2/mCHSyZDJQM5NQ9Q9KHWHWh0NHgfbRMLLrceUK5qAL4ytALJbpRMjixFZh8A==
-
-xhr2@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/xhr2/-/xhr2-0.2.1.tgz#4e73adc4f9cfec9cbd2157f73efdce3a5f108a93"
-  integrity sha512-sID0rrVCqkVNUn8t6xuv9+6FViXjUVXq8H5rWOH2rz9fDNQEd4g0EA2XlcEdJXRz5BMEn4O1pJFdT+z4YHhoWw==
 
 xml-name-validator@^3.0.0:
   version "3.0.0"

@@ -1,15 +1,5 @@
-import {
-  blocksDefList,
-  BlocksDefs,
-  BlockTemplates,
-  enumToSchemaOptions,
-} from "@local/lib"
-import { Pages } from "@strelka-skaut/js-api-client"
+import { blocksDefList, BlockTemplates, enumToSchemaOptions } from "@local/lib"
 import * as yup from "yup"
-
-export interface PageWithContent extends Omit<Pages.Page.AsObject, "content"> {
-  content: BlocksDefs[]
-}
 
 export const pageToCreateSchema = yup.lazy(() =>
   yup.array().of(
