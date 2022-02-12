@@ -8,5 +8,4 @@ export const Container: React.FC = styled("div")`
   box-sizing: border-box;
   max-width: ${theme.layout.width}px;
   margin: 0 auto;
-  padding: 100px 16px;
 `

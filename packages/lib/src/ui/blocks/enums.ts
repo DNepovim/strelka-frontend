@@ -1,5 +1,5 @@
 export enum BlockTemplates {
-  Example = "example",
+  Header = "header",
 }
 
 export enum InputType {

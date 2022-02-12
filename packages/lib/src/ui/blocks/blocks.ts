@@ -1,8 +1,8 @@
 import * as yup from "yup"
 import React from "react"
-import { ExampleBlock, exampleDef } from "./Example/exampleDef"
 import { BlockTemplates, InputType } from "./enums"
-import { Example } from "./Example/Example"
+import { Header } from "./Header/Header"
+import { HeaderBlock } from "./Header/headerDef"
 
 export type Unarray<T> = T extends Array<infer U> ? U : T
 
@@ -10,15 +10,11 @@ export interface Block {
   id: string
 }
 
-export type BlocksDefs = ExampleBlock
-
-export const blocksDefList: Record<BlockTemplates, BlockDef<any>> = {
-  example: exampleDef,
-}
+export type BlocksDefs = HeaderBlock
 
 // TODO dynamic import
 export const blocksComponentList: Record<BlockTemplates, React.FC<any>> = {
-  example: Example,
+  header: Header,
 }
 
 export interface BlockDef<T> {
