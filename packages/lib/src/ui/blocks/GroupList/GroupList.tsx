@@ -14,6 +14,8 @@ import Circle6 from "../../assets/vectors/potatoes/circle_6.svg"
 import Circle7 from "../../assets/vectors/potatoes/circle_7.svg"
 import Circle8 from "../../assets/vectors/potatoes/circle_8.svg"
 
+import { max } from "../../styles/theme"
+
 const circles = [
   Circle1,
   Circle2,
@@ -52,19 +54,122 @@ export const GroupList: React.FC<GroupListProps> = (props) => (
   </Block>
 )
 
-const GroupListContainer = styled.div``
+const GroupListContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    ". . skautky ."
+    ". svetlusky skautky oldskauti"
+    "benjaminci svetlusky skauti oldskauti"
+    "benjaminci vlcata skauti ."
+    ". vlcata roveri ."
+    ". . roveri .";
+  padding: 6rem;
+
+  @media ${max("l")} {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+      "benjaminci ."
+      "benjaminci svetlusky"
+      "vlcata svetlusky"
+      "vlcata skautky"
+      "skauti skautky"
+      "skauti roveri"
+      "oldskauti roveri"
+      "oldskauti .";
+  }
+
+  @media ${max("m")} {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+      "benjaminci"
+      "benjaminci"
+      "svetlusky"
+      "svetlusky"
+      "vlcata"
+      "vlcata"
+      "skautky"
+      "skautky"
+      "skauti"
+      "skauti"
+      "roveri"
+      "roveri"
+      "oldskauti"
+      "oldskauti";
+    padding: 4rem;
+  }
+
+  @media ${max("s")} {
+    padding: 1.5rem;
+  }
+`
 
 const Group = styled.a`
-  display: block;
-  height: 10em;
-  background-image: url("${(props: { backgroundImg: string; mask: string }) =>
-    props.backgroundImg}");
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 13em;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("${(props: { backgroundImg: string; mask: string }) =>
+      props.backgroundImg}");
   mask-image: url("${(props: { backgroundImg: string; mask: string }) =>
     props.mask}");
   mask-size: 100% 100%;
   mask-position: center;
+  background-size: cover;
+  margin: 0.2rem;
+  transittion: 500ms;
+
+  &:nth-child(1) {
+    grid-area: benjaminci;
+  }
+
+  &:nth-child(2) {
+    grid-area: svetlusky;
+  }
+
+  &:nth-child(3) {
+    grid-area: vlcata;
+  }
+
+  &:nth-child(4) {
+    grid-area: skautky;
+  }
+
+  &:nth-child(5) {
+    grid-area: skauti;
+  }
+
+  &:nth-child(6) {
+    grid-area: roveri;
+  }
+
+  &:nth-child(7) {
+    grid-area: oldskauti;
+  }
+
+  @media ${max("l")} {
+    height: 15em;
+  }
 `
 
-const Name = styled(Header3)``
+const Name = styled(Header3)`
+  color: white;
+  font-size: 1.7rem;
+  text-align: center;
+  margin-bottom: 0;
+`
 
-const Comment = styled(Text)``
+const Comment = styled(Text)`
+  color: white;
+  font-size: 1rem;
+  text-align: center;
+  padding: 25%;
+  padding-bottom: 1.7rem;
+  padding-top: 0.2rem;
+  margin-top: 0;
+`
