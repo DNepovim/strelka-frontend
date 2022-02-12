@@ -106,7 +106,7 @@ export const links: NavLinkProps[] = [
 
 const groupData: GroupProps[] = [
   {
-    name: "Benjaminci",
+    name: "Benjamínci",
     address: "benjaminci",
     image: LogoBenja,
     comment: "kluci a holky od 6 do 10 let",
