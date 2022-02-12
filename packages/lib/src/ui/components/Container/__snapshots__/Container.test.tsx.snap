@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Container component should renders correctly 1`] = `
+.emotion-0 {
+  position: relative;
+  z-index: 10;
+  box-sizing: border-box;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 100px 16px;
+}
+
+<div
+  className="emotion-0"
+>
+  <h1>
+    Title
+  </h1>
+</div>
+`;

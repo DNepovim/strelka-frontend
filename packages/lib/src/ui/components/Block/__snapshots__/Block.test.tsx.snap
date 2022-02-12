@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Block component should renders correctly 1`] = `
+.emotion-0 {
+  position: relative;
+}
+
+<section
+  className="emotion-0"
+>
+  <h1>
+    Title
+  </h1>
+</section>
+`;
+
+exports[`Block component should renders correctly with id and background 1`] = `
+.emotion-0 {
+  position: relative;
+  background-color: #ffffff;
+}
+
+<section
+  className="emotion-0"
+  id="main"
+>
+  <h1>
+    Title
+  </h1>
+</section>
+`;

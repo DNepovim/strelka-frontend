@@ -1,0 +1,164 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RenderBlocks component should renders correctly 1`] = `
+Array [
+  .emotion-0 {
+  position: relative;
+  background-color: #ffffff;
+}
+
+.emotion-1 {
+  position: relative;
+  z-index: 10;
+  box-sizing: border-box;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 100px 16px;
+}
+
+.emotion-2 {
+  position: relative;
+  display: inline-block;
+  font-family: themix;
+  font-size: 1.4rem;
+  color: #ffffff;
+  padding: 0.6em 1em;
+  border-radius: 4px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-color: #ccc15a;
+  overflow: hidden;
+}
+
+.emotion-2:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: #aac15a;
+  -webkit-transition: width 700ms cubic-bezier(0.1, 0.15, 0, 0.97);
+  transition: width 700ms cubic-bezier(0.1, 0.15, 0, 0.97);
+}
+
+.emotion-2 span {
+  position: relative;
+  z-index: 10;
+}
+
+.emotion-2:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-2:hover:before {
+  width: 100%;
+}
+
+@media (min-width: 400px) {
+  .emotion-2 {
+    font-size: 1.4rem;
+  }
+}
+
+<section
+    className="emotion-0"
+  >
+    <div
+      className="emotion-1"
+    >
+      <h1>
+        Title
+      </h1>
+      <a
+        className="emotion-2"
+        href="url"
+      >
+        <span>
+          Label
+        </span>
+      </a>
+    </div>
+  </section>,
+  .emotion-0 {
+  position: relative;
+  background-color: #ffffff;
+}
+
+.emotion-1 {
+  position: relative;
+  z-index: 10;
+  box-sizing: border-box;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 100px 16px;
+}
+
+.emotion-2 {
+  position: relative;
+  display: inline-block;
+  font-family: themix;
+  font-size: 1.4rem;
+  color: #ffffff;
+  padding: 0.6em 1em;
+  border-radius: 4px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-color: #ccc15a;
+  overflow: hidden;
+}
+
+.emotion-2:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: #aac15a;
+  -webkit-transition: width 700ms cubic-bezier(0.1, 0.15, 0, 0.97);
+  transition: width 700ms cubic-bezier(0.1, 0.15, 0, 0.97);
+}
+
+.emotion-2 span {
+  position: relative;
+  z-index: 10;
+}
+
+.emotion-2:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-2:hover:before {
+  width: 100%;
+}
+
+@media (min-width: 400px) {
+  .emotion-2 {
+    font-size: 1.4rem;
+  }
+}
+
+<section
+    className="emotion-0"
+  >
+    <div
+      className="emotion-1"
+    >
+      <h1>
+        Title 2
+      </h1>
+      <a
+        className="emotion-2"
+        href="url"
+      >
+        <span>
+          Label
+        </span>
+      </a>
+    </div>
+  </section>,
+]
+`;

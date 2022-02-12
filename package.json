@@ -11,7 +11,7 @@
     "dev:web": "cd packages/web && yarn dev",
     "dev:admin": "cd packages/admin && yarn dev",
     "lint": "lerna run lint",
-    "test": "jest",
+    "test": "lerna run test --stream",
     "prepare": "husky install"
   },
   "dependencies": {

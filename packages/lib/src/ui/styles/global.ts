@@ -4,7 +4,7 @@ import { theme } from "./theme"
 
 export const global = css`
   html {
-    background-color: ${theme.color.lightBlue};
+    background-color: ${theme.color.second};
   }
 
   body {
@@ -16,7 +16,7 @@ export const global = css`
   }
 
   a {
-    color: ${theme.color.lightBlue};
+    color: ${theme.color.second};
     text-decoration: none;
 
     &:hover {
@@ -25,7 +25,7 @@ export const global = css`
   }
 
   ::selection {
-    background-color: ${theme.color.brown};
-    color: ${theme.color.beige};
+    background-color: ${theme.color.brand};
+    color: ${theme.color.brand};
   }
 `
