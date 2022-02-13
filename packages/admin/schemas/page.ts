@@ -24,7 +24,9 @@ export const pageContentSchema = yup.array().of(
     fields: yup
       .object()
       .when("template", (template: BlockTemplates) =>
-        template ? blocksDefsList[template].schema : yup.mixed()
+        template && blocksDefsList[template]
+          ? blocksDefsList[template]!.schema
+          : yup.mixed()
       )
       .required(),
   })

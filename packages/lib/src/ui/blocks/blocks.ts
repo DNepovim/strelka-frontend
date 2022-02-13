@@ -29,6 +29,9 @@ export const blocksDefsList: { [key in BlockTemplates]?: BlockDef<any> } = {
   galleryList: galleryListDef,
 }
 
+export const getBlockDef = (template: BlockTemplates): BlockDef<any> | false =>
+  template && blocksDefsList[template] ? blocksDefsList[template]! : false
+
 export interface BlockDef<T> {
   title: string
   template: BlockTemplates
