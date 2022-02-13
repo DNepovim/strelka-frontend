@@ -4,7 +4,7 @@
   "private": true,
   "main": "src/",
   "scripts": {
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint": "eslint --fix",
     "test": "jest --watchAll",
     "test:ci": "jest --coverage",
     "test:coverage": "jest --coverage --watchAll"
@@ -33,6 +33,7 @@
     "@types/react-test-renderer": "^17.0.1",
     "jest": "^27.5.1",
     "react-test-renderer": "^17.0.2",
-    "ts-jest": "^27.1.3"
+    "ts-jest": "^27.1.3",
+    "ts-node": "^10.5.0"
   }
 }

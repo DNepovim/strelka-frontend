@@ -21,7 +21,10 @@ import LogoOldskauti from "../../lib/src/ui/assets/images/groups/oldskauti.jpg"
 import { NavLink } from "@local/lib/src/types/navigation"
 
 export const links: NavLink[] = [
-  { name: "Úvod", address: "/" },
+  {
+    name: "Úvod",
+    address: "/",
+  },
   {
     name: "Oddíly",
     subLinks: {
@@ -98,9 +101,18 @@ export const links: NavLink[] = [
       ],
     },
   },
-  { name: "Historie", address: "/historie" },
-  { name: "Kontakt", address: "/kontakt" },
-  { name: "English", address: "/english" },
+  {
+    name: "Historie",
+    address: "/historie",
+  },
+  {
+    name: "Kontakt",
+    address: "/kontakt",
+  },
+  {
+    name: "English",
+    address: "/english",
+  },
 ]
 
 const groupData: GroupProps[] = [
