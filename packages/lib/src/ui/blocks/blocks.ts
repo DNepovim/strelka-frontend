@@ -2,9 +2,9 @@ import * as yup from "yup"
 import React from "react"
 import { BlockTemplates, InputType } from "./enums"
 import { Header } from "./Header/Header"
-import { HeaderBlock } from "./Header/headerDef"
-import { GroupListBlock } from "./GroupList/groupListDef"
+import { groupDef, GroupListBlock } from "./GroupList/groupListDef"
 import { GroupList } from "./GroupList/GroupList"
+import { HeaderBlock, headerDef } from "./Header/headerDef"
 
 export type Unarray<T> = T extends Array<infer U> ? U : T
 
@@ -18,6 +18,11 @@ export type BlocksDefs = HeaderBlock | GroupListBlock
 export const blocksComponentList: Record<BlockTemplates, React.FC<any>> = {
   header: Header,
   groupList: GroupList,
+}
+
+export const blocksDefsList: Record<BlockTemplates, BlockDef<any>> = {
+  header: headerDef,
+  groupList: groupDef,
 }
 
 export interface BlockDef<T> {
@@ -34,7 +39,7 @@ export type AdminFields<T> = {
 type AdminField<T> = GroupDef<T> | FieldDef
 
 interface GeneralDef {
-  label: string
+  label?: string
   clonable?: true
 }
 

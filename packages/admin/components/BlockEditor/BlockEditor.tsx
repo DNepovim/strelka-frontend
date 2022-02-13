@@ -13,7 +13,7 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable"
-import { blocksDefList, BlocksDefs, BlockTemplates } from "@local/lib/src"
+import { blocksDefsList, BlocksDefs, BlockTemplates } from "@local/lib/src"
 import { Button } from "antd"
 import React from "react"
 import { SortableAdminBlockFields } from "../adminFieldsDef"
@@ -66,7 +66,7 @@ export const BlockEditor: React.FC<BlockEditorProps> = ({
               index={index}
               id={block.id}
               {...(block.template
-                ? blocksDefList[block.template as BlockTemplates]
+                ? blocksDefsList[block.template as BlockTemplates]
                 : {})}
               onRemove={() =>
                 setValue(

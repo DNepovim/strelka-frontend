@@ -2,7 +2,7 @@
 import { Button, Card, Dropdown, Menu, Space } from "antd"
 import { FieldArray, useField } from "formik"
 import React, { useState } from "react"
-import { AdminFields, BlockDef, blocksDefList, isGroupField } from "@local/lib"
+import { AdminFields, BlockDef, blocksDefsList, isGroupField } from "@local/lib"
 import { DeleteOutlined } from "@ant-design/icons"
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
@@ -72,12 +72,12 @@ export const SortableAdminBlockFields: React.FC<AdminBlockFieldsProps> = ({
                 margin: 0 !important;
               `}
             >
-              {template ? blocksDefList[template].title : "..."}
+              {template ? blocksDefsList[template].title : "..."}
               <Dropdown
                 trigger={["click"]}
                 overlay={
                   <Menu>
-                    {Object.values(blocksDefList).map((block, index) => (
+                    {Object.values(blocksDefsList).map((block, index) => (
                       <Menu.Item key={index}>
                         <Button
                           block

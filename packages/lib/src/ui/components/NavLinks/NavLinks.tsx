@@ -1,22 +1,17 @@
 import React, { useState } from "react"
 import styled from "@emotion/styled"
 import { max, min, theme } from "../../styles/theme"
-import { SubLinksProps, ItemContent } from "../Navigation/SubLinks"
-
 import SquareMask from "../../assets/vectors/potatoes/rectangle_5.svg"
-import { SubLinks } from "../Navigation/SubLinks"
+import { MenuItemContent } from "../MenuItemContent/MenuItemContent"
+import { LinkItem } from "../LinkItem/LinkItem"
+import { NavLink } from "../../../types/navigation"
+import { SubLinks } from "../SubLinks/SubLinks"
 
 interface NavLinksProps {
   className?: string
   id?: string
   visible: boolean
-  data: NavLinkProps[]
-}
-
-export interface NavLinkProps {
-  name: string
-  address?: string
-  subLinks?: SubLinksProps
+  data: NavLink[]
 }
 
 export const NavLinks: React.FC<NavLinksProps> = (props) => {
@@ -34,7 +29,9 @@ export const NavLinks: React.FC<NavLinksProps> = (props) => {
                 setOpenSubLinks={setOpenedSubLinks}
               />
             ) : (
-              <ItemContent href={navLink.address}>{navLink.name}</ItemContent>
+              <MenuItemContent href={navLink.address}>
+                {navLink.name}
+              </MenuItemContent>
             )}
           </LinkItem>
         ))}
@@ -88,30 +85,5 @@ const Links = styled.ul`
       props.isVisible
         ? `transform: translateX(0);`
         : `transform: translateX(110%);`}
-  }
-`
-
-export const LinkItem = styled.li`
-  list-style-type: none;
-  display: flex;
-  align-items: stretch;
-  box-sizing: border-box;
-
-  @media ${max("l")} {
-    flex-direction: column;
-  }
-
-  @media ${min("l")} {
-    &:hover {
-      button {
-        &:after {
-          transform: rotate(-180deg);
-        }
-      }
-      ul {
-        opacity: 1;
-        pointer-events: all;
-      }
-    }
   }
 `

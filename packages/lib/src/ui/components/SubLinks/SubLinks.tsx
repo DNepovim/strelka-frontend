@@ -1,29 +1,21 @@
 import React from "react"
-import { LinkItem, NavLinkProps } from "../NavLinks/NavLinks"
 import styled from "@emotion/styled"
 import { max, min, theme } from "../../styles/theme"
 import SquareMask from "../../assets/vectors/potatoes/rectangle_5.svg"
 import CircleMask from "../../assets/vectors/potatoes/circle_2.svg"
 import { SmallText } from "../Typography/Typography"
+import { MenuItemContent } from "../MenuItemContent/MenuItemContent"
+import { LinkItem } from "../LinkItem/LinkItem"
+import { NavLink, SubLinksData } from "../../../types/navigation"
 
-export interface SubLinksProps {
-  linkPrefix: string
-  data: SubLinkProps[]
-}
-
-interface SubLinkProps {
-  name: string
-  address: string
-  image: { src: string }
-  comment?: string
-}
-
-export const SubLinks: React.FC<{
-  link: NavLinkProps
-  subLinks: SubLinksProps
+interface SublinksProps {
+  link: NavLink
+  subLinks: SubLinksData
   openSubLinks: string
-  setOpenSubLinks: (_: string) => void
-}> = (props) => (
+  setOpenSubLinks: (name: string) => void
+}
+
+export const SubLinks: React.FC<SublinksProps> = (props) => (
   <>
     <SubLinksToggle
       onClick={() =>
@@ -51,22 +43,7 @@ export const SubLinks: React.FC<{
   </>
 )
 
-export const ItemContent = styled.a`
-  font-family: ${theme.fonts.accent};
-  color: ${theme.color.darkest};
-  font-weight: bold;
-  font-size: ${theme.navSize.horizontal.linkSize};
-  display: flex;
-  align-items: center;
-  padding-left: ${theme.navSize.horizontal.linkPadding};
-  padding-right: ${theme.navSize.horizontal.linkPadding};
-
-  @media ${max("l")} {
-    padding: 0.5rem 1em;
-  }
-`
-
-const SubLinksToggle = styled(ItemContent.withComponent("button"))`
+const SubLinksToggle = styled(MenuItemContent.withComponent("button"))`
   border: none;
   background: none;
   &:after {

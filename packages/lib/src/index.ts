@@ -6,7 +6,7 @@ export { RenderBlocks } from "./ui/components/RenderBlocks/RenderBlocks"
 //blocks
 export {
   blocksComponentList,
-  blocksDefList,
+  blocksDefsList,
   isGroupField,
 } from "./ui/blocks/blocks"
 

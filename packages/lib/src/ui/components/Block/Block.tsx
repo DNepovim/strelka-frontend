@@ -10,8 +10,7 @@ export interface BlockFields {
 
 export const withBlockSchema = <T extends {}>(schema: yup.ObjectSchema<T>) =>
   yup
-    .object()
-    .shape({
+    .object({
       id: yup.string(),
       backgroundColor: yup.string(),
     })
