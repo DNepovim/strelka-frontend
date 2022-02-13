@@ -2,7 +2,7 @@ import { NextPage } from "next"
 import { Button, Table, Typography } from "antd"
 import Link from "next/link"
 import EditOutlined from "@ant-design/icons/lib/icons/EditOutlined"
-import { BlockTemplates, Page } from "@local/lib"
+import { Page } from "@local/lib"
 import { PageWrapper } from "../components/PageHeader/PageWrapper"
 import { ButtonLink } from "../components/ButtonLink/ButtonLink"
 import { routes } from "../routes"
@@ -57,19 +57,7 @@ export const getServerSideProps: () => { props: Props } = () => ({
   props: {
     pages: [
       {
-        blocks: [
-          {
-            id: "",
-            template: BlockTemplates.Example,
-            fields: {
-              title: "Nadpis",
-              button: {
-                label: "Čudlík",
-                link: "http://www.neco.cz",
-              },
-            },
-          },
-        ],
+        blocks: [],
       },
     ],
   },

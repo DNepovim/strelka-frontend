@@ -7,15 +7,20 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
-    "build:web": "cd packages/web && yarn build",
     "build:admin": "cd packages/admin && yarn build",
+    "build:web": "cd packages/web && yarn build",
     "dev": "lerna run dev --stream",
-    "dev:web": "cd packages/web && yarn dev",
     "dev:admin": "cd packages/admin && yarn dev",
+    "dev:web": "cd packages/web && yarn dev",
     "lint": "lerna run lint",
-    "test": "lerna run test --stream",
     "prepare": "husky install",
+    "test": "lerna run test --stream",
     "test:ci": "lerna run test:ci --stream"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "dependencies": {
     "@dnd-kit/core": "^4.0.3",
@@ -24,6 +29,7 @@
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@local/lib": "^0.1.0",
+    "@strelka-skaut/js-api-client": "^1.0.15",
     "@types/typopo": "^2.5.1",
     "antd": "^4.17.2",
     "formik": "^2.2.9",
@@ -34,6 +40,8 @@
     "sharp": "^0.29.3",
     "typopo": "^2.5.2",
     "utility-types": "^3.10.0",
+    "uuid": "^8.3.2",
+    "webalize": "^0.1.0",
     "yup": "^0.32.9"
   },
   "devDependencies": {
@@ -41,6 +49,7 @@
     "@next/bundle-analyzer": "^12.0.10",
     "@types/react": "17.0.26",
     "@types/react-sortable-hoc": "^0.7.1",
+    "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.11.0",
     "@typescript-eslint/parser": "5.0.0",
     "eslint": "7.32.0",
@@ -56,10 +65,5 @@
     "next-transpile-modules": "^9.0.0",
     "prettier": "^2.5.1",
     "typescript": "4.4.3"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   }
 }

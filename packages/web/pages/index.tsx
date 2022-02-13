@@ -11,8 +11,6 @@ import {
 } from "@local/lib"
 import { GroupProps } from "../../lib/src/ui/blocks/GroupList/GroupList"
 
-import { NavLinkProps } from "../../lib/src/ui/components/NavLinks/NavLinks"
-
 import LogoBenja from "../../lib/src/ui/assets/images/groups/benjaminci.jpg"
 import LogoSvetlusky from "../../lib/src/ui/assets/images/groups/svetlusky.jpg"
 import LogoVlcata from "../../lib/src/ui/assets/images/groups/vlcata.jpg"
@@ -20,8 +18,9 @@ import LogoSkautky from "../../lib/src/ui/assets/images/groups/skautky.jpg"
 import LogoSkauti from "../../lib/src/ui/assets/images/groups/skauti.jpg"
 import LogoRoveri from "../../lib/src/ui/assets/images/groups/roveri.jpg"
 import LogoOldskauti from "../../lib/src/ui/assets/images/groups/oldskauti.jpg"
+import { NavLink } from "@local/lib/src/types/navigation"
 
-export const links: NavLinkProps[] = [
+export const links: NavLink[] = [
   { name: "Úvod", address: "/" },
   {
     name: "Oddíly",
