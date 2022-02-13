@@ -1,7 +1,13 @@
 import { BlockTemplates } from "../enums"
 import { Block } from "../blocks"
 import { BlockFields } from "../../components/Block/Block"
-import { GalleryViewProps } from "./Gallery"
+
+export interface GalleryViewProps {
+  name: string
+  address: string
+  image: { src: string }
+  comment: string
+}
 
 export interface GalleryBlock extends Block {
   template: BlockTemplates.Gallery

@@ -13,13 +13,6 @@ import { max, theme } from "../../styles/theme"
 
 const rectangles = [Rectangle_1, Rectangle_2, Rectangle_3, Rectangle_4]
 
-export interface GalleryViewProps {
-  name: string
-  address: string
-  image: { src: string }
-  comment: string
-}
-
 export const Gallery: React.FC<GalleryProps> = (props) => (
   <Block>
     <Container>
