@@ -11,14 +11,17 @@ const logoColors = {
 }
 
 const LogoWrapper = styled.a`
-  width: auto;
-  height: 100%;
-  display: block;
+  ${(props: { width: string; height: string }) => `
+    width: ${props.width};
+    height: ${props.height};}
+    display: block;
+  `}
 `
 
 const LogoImage = styled.svg`
   width: auto;
   height: 100%;
+  width: 100%;
   .dog {
     fill: ${logoColors.darkestBlue};
   }
@@ -36,8 +39,13 @@ const LogoImage = styled.svg`
   }
 `
 
-export const Logo = () => (
-  <LogoWrapper href="/">
+interface LogoProps {
+  width?: string
+  height?: string
+}
+
+export const Logo: React.FC<LogoProps> = ({ width, height }) => (
+  <LogoWrapper href="/" width={width ?? "auto"} height={height ?? "100%"}>
     <LogoImage
       width="238.09"
       height="81.921"

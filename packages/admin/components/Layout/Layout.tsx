@@ -6,6 +6,7 @@ import { Content } from "antd/lib/layout/layout"
 import { css } from "@emotion/react"
 import { routes } from "../../routes"
 import { Navigation } from "../Navigation/Navigation"
+import { Logo } from "@local/lib/src/ui/components/Logo/Logo"
 
 export const Layout: React.FC = ({ children }) => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false)
@@ -28,7 +29,6 @@ export const Layout: React.FC = ({ children }) => {
             position: fixed;
             left: 0;
             height: 100vh;
-            padding-top: 64px;
             overflow: auto;
             background-color: white;
             .ant-layout-sider-children {
@@ -44,6 +44,13 @@ export const Layout: React.FC = ({ children }) => {
             }
           `}
         >
+          <div
+            css={css`
+              padding: 16px 24px;
+            `}
+          >
+            <Logo width="100%" height="90px" />
+          </div>
           <Navigation routes={routes} />
           {user && (
             <div
