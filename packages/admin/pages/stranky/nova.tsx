@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { v4 as uuid } from "uuid"
 import SaveOutlined from "@ant-design/icons/lib/icons/SaveOutlined"
 import { Button, Form, Col, Space, Switch } from "antd"
 import { Formik, FormikHelpers } from "formik"
@@ -7,7 +6,7 @@ import { useState } from "react"
 import { css } from "@emotion/react"
 import { Preview } from "../../components/Preview/Preview"
 import { PageWrapper } from "../../components/PageHeader/PageWrapper"
-import { RenderBlocks, fonts, global, BlockTemplates } from "@local/lib/src"
+import { RenderBlocks, fonts, global } from "@local/lib/src"
 import { NextPage } from "next"
 import { pageToCreateSchema, PageWithContent } from "../../schemas/page"
 import { TextInput } from "../../components/Inputs/TextInput/TextInput"
@@ -31,19 +30,7 @@ export const PageCreatePage: NextPage = () => {
       initialValues={{
         name: "",
         slug: "",
-        content: [
-          {
-            id: uuid(),
-            template: BlockTemplates.Example,
-            fields: {
-              title: "",
-              button: {
-                label: "",
-                link: "",
-              },
-            },
-          },
-        ],
+        content: [],
       }}
     >
       {(props) => (
