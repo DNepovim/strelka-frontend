@@ -1,4 +1,4 @@
-import { InputType } from "@local/lib/src/ui/blocks/enums"
+import { InputType } from "@local/lib"
 import React from "react"
 import { CheckInput } from "./CheckInput/CheckInput"
 import { NumberInput } from "./NumberInput/NumberInput"

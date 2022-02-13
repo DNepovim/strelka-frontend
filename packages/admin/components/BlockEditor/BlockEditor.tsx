@@ -13,11 +13,11 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable"
-import { blocksDefsList, BlocksDefs, BlockTemplates } from "@local/lib/src"
+import { blocksDefsList, BlocksDefs, BlockTemplates } from "@local/lib"
 import { Button } from "antd"
 import React from "react"
-import { SortableAdminBlockFields } from "../adminFieldsDef"
 import AppstoreAddOutlined from "@ant-design/icons/lib/icons/AppstoreAddOutlined"
+import { BlockEditorBlock } from "../BlockEditorBlock/BlockEditorBlock"
 
 export interface BlockEditorProps {
   blocks: BlocksDefs[]
@@ -61,7 +61,8 @@ export const BlockEditor: React.FC<BlockEditorProps> = ({
           strategy={verticalListSortingStrategy}
         >
           {blocks.map((block, index) => (
-            <SortableAdminBlockFields
+            <BlockEditorBlock
+              name={name}
               key={block.id}
               index={index}
               id={block.id}
