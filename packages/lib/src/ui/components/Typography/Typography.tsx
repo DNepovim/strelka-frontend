@@ -22,9 +22,11 @@ export const Header3 = styled.h3`
 export const Text = styled.p`
   font-family: ${theme.fonts.text};
   font-size: 1.3rem;
+  line-height: 1.4em;
 `
 
 export const SmallText = styled.p`
   font-family: ${theme.fonts.text};
   font-size: 1.1rem;
+  line-height: 1.3em;
 `
