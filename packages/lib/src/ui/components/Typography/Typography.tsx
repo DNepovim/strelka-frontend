@@ -5,12 +5,14 @@ export const Header1 = styled.h1`
   font-family: ${theme.fonts.headings};
   font-weight: bold;
   font-size: 4rem;
+  color: ${theme.color.darkest};
 `
 
 export const Header2 = styled.h2`
   font-family: ${theme.fonts.accent};
   font-weight: bold;
-  font-size: 2.4rem;
+  font-size: 2.8rem;
+  color: ${theme.color.darkest};
 `
 
 export const Header3 = styled.h3`
@@ -18,6 +20,7 @@ export const Header3 = styled.h3`
   font-weight: bold;
   font-size: 1.8rem;
   line-height: 1.2em;
+  color: ${theme.color.darkest};
 `
 
 export const Text = styled.p`
