@@ -25,11 +25,6 @@ import Gallery2 from "../../lib/src/ui/assets/images/gallery/eVPQDxHt.webp"
 import Gallery3 from "../../lib/src/ui/assets/images/gallery/gWxHWOCt.webp"
 import Gallery4 from "../../lib/src/ui/assets/images/gallery/zmrWAoUt.webp"
 
-import Gallery1 from "../../lib/src/ui/assets/images/gallery/2e0sFeVt.webp"
-import Gallery2 from "../../lib/src/ui/assets/images/gallery/eVPQDxHt.webp"
-import Gallery3 from "../../lib/src/ui/assets/images/gallery/gWxHWOCt.webp"
-import Gallery4 from "../../lib/src/ui/assets/images/gallery/zmrWAoUt.webp"
-
 const groupData: GroupProps[] = [
   {
     name: "Benjamínci",

@@ -67,7 +67,9 @@ export const BlockEditorBlock: React.FC<BlockEditorBlockProps> = ({
                 margin: 0 !important;
               `}
             >
-              {template ? blocksDefsList[template].title : "..."}
+              {template && blocksDefsList[template]
+                ? blocksDefsList[template]?.title
+                : "..."}
               <Dropdown
                 trigger={["click"]}
                 overlay={
