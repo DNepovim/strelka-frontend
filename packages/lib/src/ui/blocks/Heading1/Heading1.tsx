@@ -4,6 +4,7 @@ import { Header1 } from "../../components/Typography/Typography"
 
 import styled from "@emotion/styled"
 import { Heading1Props } from "./heading1Def"
+import { max } from "../../styles/theme"
 
 export interface HeadingProps {
   content: string
@@ -17,4 +18,8 @@ export const Heading1: React.FC<Heading1Props> = (props) => (
   </Block>
 )
 
-const Heading = styled(Header1)``
+const Heading = styled(Header1)`
+  @media ${max("s")} {
+    font-size: 3rem;
+  }
+`
