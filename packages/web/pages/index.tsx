@@ -10,9 +10,8 @@ import {
   RenderBlocks,
   theme,
 } from "@local/lib"
-
+import { GalleryProps } from "@local/lib/src/ui/blocks/GalleryList/galleryListDef"
 import { GroupProps } from "../../lib/src/ui/blocks/GroupList/GroupList"
-import { GalleryViewProps } from "../../lib/src/ui/blocks/Gallery/Gallery"
 
 import LogoBenja from "../../lib/src/ui/assets/images/groups/benjaminci.jpg"
 import LogoSvetlusky from "../../lib/src/ui/assets/images/groups/svetlusky.jpg"
@@ -21,6 +20,11 @@ import LogoSkautky from "../../lib/src/ui/assets/images/groups/skautky.jpg"
 import LogoSkauti from "../../lib/src/ui/assets/images/groups/skauti.jpg"
 import LogoRoveri from "../../lib/src/ui/assets/images/groups/roveri.jpg"
 import LogoOldskauti from "../../lib/src/ui/assets/images/groups/oldskauti.jpg"
+import Gallery1 from "../../lib/src/ui/assets/images/gallery/2e0sFeVt.webp"
+import Gallery2 from "../../lib/src/ui/assets/images/gallery/eVPQDxHt.webp"
+import Gallery3 from "../../lib/src/ui/assets/images/gallery/gWxHWOCt.webp"
+import Gallery4 from "../../lib/src/ui/assets/images/gallery/zmrWAoUt.webp"
+
 import Gallery1 from "../../lib/src/ui/assets/images/gallery/2e0sFeVt.webp"
 import Gallery2 from "../../lib/src/ui/assets/images/gallery/eVPQDxHt.webp"
 import Gallery3 from "../../lib/src/ui/assets/images/gallery/gWxHWOCt.webp"
@@ -120,7 +124,7 @@ export const links: NavLink[] = [
   },
 ]
 
-const galleryData: GalleryViewProps[] = [
+const galleryData: GalleryProps[] = [
   {
     name: "Tábor 2023",
     address: "benjaminci",
@@ -200,7 +204,7 @@ export const getServerSideProps: () => { props: Props } = () => ({
       blocks: [
         {
           id: "",
-          template: BlockTemplates.Gallery,
+          template: BlockTemplates.GalleryList,
           fields: {
             content: galleryData,
           },

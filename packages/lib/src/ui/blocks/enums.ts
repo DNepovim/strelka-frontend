@@ -1,7 +1,7 @@
 export enum BlockTemplates {
   Header = "header",
   GroupList = "groupList",
-  Gallery = "gallery",
+  GalleryList = "galleryList",
 }
 
 export enum InputType {

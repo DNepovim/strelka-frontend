@@ -5,8 +5,8 @@ import { Header } from "./Header/Header"
 import { groupDef, GroupListBlock } from "./GroupList/groupListDef"
 import { GroupList } from "./GroupList/GroupList"
 import { HeaderBlock, headerDef } from "./Header/headerDef"
-import { GalleryBlock } from "./Gallery/galleryDef"
-import { Gallery } from "./Gallery/Gallery"
+import { GalleryListBlock, galleryListDef } from "./GalleryList/galleryListDef"
+import { GalleryList } from "./GalleryList/GalleryList"
 
 export type Unarray<T> = T extends Array<infer U> ? U : T
 
@@ -14,18 +14,19 @@ export interface Block {
   id: string
 }
 
-export type BlocksDefs = HeaderBlock | GroupListBlock | GalleryBlock
+export type BlocksDefs = HeaderBlock | GroupListBlock | GalleryListBlock
 
 // TODO dynamic import
 export const blocksComponentList: Record<BlockTemplates, React.FC<any>> = {
   header: Header,
   groupList: GroupList,
-  gallery: Gallery,
+  galleryList: GalleryList,
 }
 
 export const blocksDefsList: { [key in BlockTemplates]?: BlockDef<any> } = {
   header: headerDef,
   groupList: groupDef,
+  galleryList: galleryListDef,
 }
 
 export interface BlockDef<T> {
