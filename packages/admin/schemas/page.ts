@@ -4,14 +4,22 @@ import {
   BlockTemplates,
   enumToSchemaOptions,
 } from "@local/lib"
-import { Pages } from "@strelka-skaut/js-api-client"
+import { Common } from "@strelka-skaut/js-api-client"
 import * as yup from "yup"
 
 export type PageContent = BlocksDefs[]
 
-export interface PageWithContent extends Omit<Pages.Page.AsObject, "content"> {
+export interface PageWithContent {
+  id: string
+  name: string
+  updatedUserId: string | null
+  updatedAt: string | null
   content: PageContent
+  siteId: string | null
+  slug: string
 }
+
+export type PageId = Common.Uuid.AsObject
 
 export const pageContentSchema = yup.array().of(
   yup.object({

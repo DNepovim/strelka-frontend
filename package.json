@@ -29,9 +29,10 @@
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@local/lib": "^0.1.0",
-    "@strelka-skaut/js-api-client": "^1.0.15",
+    "@strelka-skaut/js-api-client": "^1.0.18",
     "@types/typopo": "^2.5.1",
     "antd": "^4.17.2",
+    "dateformat": "^5.0.2",
     "formik": "^2.2.9",
     "next": "11.1.2",
     "react": "17.0.2",
@@ -46,7 +47,9 @@
   },
   "devDependencies": {
     "@emotion/babel-preset-css-prop": "^11.2.0",
+    "@emotion/babel-plugin": "^11.7.2",
     "@next/bundle-analyzer": "^12.0.10",
+    "@types/dateformat": "^5.0.0",
     "@types/react": "17.0.26",
     "@types/react-sortable-hoc": "^0.7.1",
     "@types/uuid": "^8.3.4",
@@ -64,6 +67,8 @@
     "lint-staged": "^12.3.3",
     "next-transpile-modules": "^9.0.0",
     "prettier": "^2.5.1",
-    "typescript": "4.4.3"
+    "ts-node": "^10.5.0",
+    "typescript": "4.4.3",
+    "use-onclickoutside": "^0.4.0"
   }
 }

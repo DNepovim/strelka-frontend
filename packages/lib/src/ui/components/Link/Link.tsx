@@ -1,7 +1,7 @@
 import React from "react"
 import NextLink from "next/link"
 
-export const Link: React.FC<{ to: string; className: string }> = ({
+export const Link: React.FC<{ to: string; className?: string }> = ({
   to,
   className,
   children,
