@@ -84,21 +84,14 @@ const GroupListContainer = styled.div`
 
   @media ${max("m")} {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas:
       "benjaminci"
-      "benjaminci"
-      "svetlusky"
       "svetlusky"
       "vlcata"
-      "vlcata"
-      "skautky"
       "skautky"
       "skauti"
-      "skauti"
       "roveri"
-      "roveri"
-      "oldskauti"
       "oldskauti";
     padding: 4rem;
   }
@@ -107,6 +100,24 @@ const GroupListContainer = styled.div`
     padding: 1.5rem;
   }
 `
+
+const groupList = [
+  "benjaminci",
+  "svetlusky",
+  "vlcata",
+  "skautky",
+  "skauti",
+  "roveri",
+  "oldskauti",
+]
+
+const createGroupList = () =>
+  groupList.map(
+    (groupItem, index) => `
+    &:nth-of-type(${index + 1}) {
+      grid-area: ${groupItem};
+    }`
+  )
 
 const Group = styled.a`
   display: flex;
@@ -122,35 +133,8 @@ const Group = styled.a`
   mask-position: center;
   background-size: cover;
   margin: 0.2rem;
-  transittion: 500ms;
 
-  &:nth-child(1) {
-    grid-area: benjaminci;
-  }
-
-  &:nth-child(2) {
-    grid-area: svetlusky;
-  }
-
-  &:nth-child(3) {
-    grid-area: vlcata;
-  }
-
-  &:nth-child(4) {
-    grid-area: skautky;
-  }
-
-  &:nth-child(5) {
-    grid-area: skauti;
-  }
-
-  &:nth-child(6) {
-    grid-area: roveri;
-  }
-
-  &:nth-child(7) {
-    grid-area: oldskauti;
-  }
+  ${createGroupList()};
 
   @media ${max("l")} {
     height: 15em;
