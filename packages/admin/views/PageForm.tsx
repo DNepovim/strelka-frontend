@@ -9,7 +9,7 @@ import { FlexRow } from "../components/FlexRow/FlexRow"
 import { TextInput } from "../components/Inputs/TextInput/TextInput"
 import { PageWrapper } from "../components/PageHeader/PageWrapper"
 import { Preview } from "../components/Preview/Preview"
-import { PageWithContent, pageToCreateSchema } from "../schemas/page"
+import { PageWithContent, pageToCreateSchema, PageId } from "../schemas/page"
 
 type Model = PageWithContent
 

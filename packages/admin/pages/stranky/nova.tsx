@@ -28,9 +28,13 @@ export const PageCreatePage: NextPage = () => {
       }}
       validationSchema={pageToCreateSchema}
       initialValues={{
+        id: "",
         name: "",
-        slug: "",
+        updatedUserId: null,
+        updatedAt: null,
         content: [],
+        siteId: null,
+        slug: "",
       }}
     >
       {(props) => (
