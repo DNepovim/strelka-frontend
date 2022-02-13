@@ -12,8 +12,6 @@ import {
 
 import { HeadingProps } from "@local/lib/src/ui/blocks/Heading1/Heading1"
 
-
-
 const Home: NextPage<Props> = ({ page }) => (
   <div>
     <Head>
