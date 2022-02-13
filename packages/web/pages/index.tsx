@@ -205,7 +205,7 @@ export const getServerSideProps: () => { props: Props } = () => ({
       blocks: [
         {
           id: "",
-          template: BlockTemplates.Heading2,
+          template: BlockTemplates.Heading1,
           fields: {
             content: headerData,
           },
