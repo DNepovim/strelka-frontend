@@ -3,12 +3,15 @@ export { MetaTags } from "./ui/components/MetaTags/MetaTags"
 export { GlobalStyles } from "./ui/components/GlobaStyles/GlobalStyles"
 export { RenderBlocks } from "./ui/components/RenderBlocks/RenderBlocks"
 
-//blocks
+// blocks
 export {
   blocksComponentList,
   blocksDefsList,
   isGroupField,
 } from "./ui/blocks/blocks"
+
+// components
+export { Link } from "./ui/components/Link/Link"
 
 //styles
 export { theme } from "./ui/styles/theme"
