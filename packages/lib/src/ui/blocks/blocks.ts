@@ -23,6 +23,7 @@ export type BlocksDefs =
   | GroupListBlock
   | Heading1Block
   | Heading2Block
+  | GalleryListBlock
 
 // TODO dynamic import
 export const blocksComponentList: Record<BlockTemplates, React.FC<any>> = {
