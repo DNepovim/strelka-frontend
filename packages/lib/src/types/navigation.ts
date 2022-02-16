@@ -1,3 +1,5 @@
+import { Image } from "./data"
+
 export interface SubLinksData {
   linkPrefix: string
   data: SubLink[]

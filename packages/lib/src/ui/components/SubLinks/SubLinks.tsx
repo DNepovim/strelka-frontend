@@ -131,7 +131,7 @@ const SubLink = styled.a`
   }
 `
 
-const SubLinkPicture = styled.img`
+const SubLinkPicture = styled.div`
   width: ${theme.navSize.horizontal.subLinkImageSize};
   min-width: ${theme.navSize.horizontal.subLinkImageSize};
   height: ${theme.navSize.horizontal.subLinkImageSize};
