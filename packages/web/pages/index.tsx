@@ -10,7 +10,7 @@ import {
   theme,
 } from "@local/lib"
 
-import { HeadingProps } from "@local/lib/src/ui/blocks/Heading1/Heading1"
+import { linkData } from "../../lib/src/ui/assets/mockData/mockData"
 
 const Home: NextPage<Props> = ({ page }) => (
   <div>
@@ -40,10 +40,6 @@ const Home: NextPage<Props> = ({ page }) => (
   </div>
 )
 
-const headerData: HeadingProps = {
-  content: "Hello world!",
-}
-
 // export const getServerSideProps: GetServerSideProps<Props> = async () => ({
 export const getServerSideProps: () => { props: Props } = () => ({
   props: {
@@ -51,9 +47,9 @@ export const getServerSideProps: () => { props: Props } = () => ({
       blocks: [
         {
           id: "",
-          template: BlockTemplates.Heading1,
+          template: BlockTemplates.Header,
           fields: {
-            content: headerData,
+            content: linkData,
           },
         },
       ],
