@@ -23,7 +23,9 @@ export const getPages = async (config?: {
     const client = new PagesClient.ServiceClient(apiEndpoint)
     const response = await client.getPages(getPagesRquest, {})
     const pages = response.getPagesList()
-    return pages.map((page) => getPageWithContentFromResponse(page))
+    return Promise.all(
+      pages.map(async (page) => await getPageWithContentFromResponse(page))
+    )
   } catch (e) {
     throw e
   }
