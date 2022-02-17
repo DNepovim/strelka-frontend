@@ -11,6 +11,8 @@ import { Heading1 } from "./Heading1/Heading1"
 import { Heading1Block, heading1Def } from "./Heading1/heading1Def"
 import { Heading2Block, heading2Def } from "./Heading2/heading2Def"
 import { Heading2 } from "./Heading2/Heading2"
+import { PersonListBlock, personListDef } from "./PersonList/personListDef"
+import { PersonList } from "./PersonList/PersonList"
 
 export type Unarray<T> = T extends Array<infer U> ? U : T
 
@@ -24,6 +26,7 @@ export type BlocksDefs =
   | Heading1Block
   | Heading2Block
   | GalleryListBlock
+  | PersonListBlock
 
 // TODO dynamic import
 export const blocksComponentList: Record<BlockTemplates, React.FC<any>> = {
@@ -32,6 +35,7 @@ export const blocksComponentList: Record<BlockTemplates, React.FC<any>> = {
   galleryList: GalleryList,
   heading1: Heading1,
   heading2: Heading2,
+  personList: PersonList,
 }
 
 export const blocksDefsList: { [key in BlockTemplates]?: BlockDef<any> } = {
@@ -40,6 +44,7 @@ export const blocksDefsList: { [key in BlockTemplates]?: BlockDef<any> } = {
   galleryList: galleryListDef,
   heading1: heading1Def,
   heading2: heading2Def,
+  personList: personListDef,
 }
 
 export const getBlockDef = (template: BlockTemplates): BlockDef<any> | false =>

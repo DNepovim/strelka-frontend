@@ -1,3 +1,5 @@
+import { Image } from "./Image"
+
 export interface SubLinksData {
   linkPrefix: string
   data: SubLink[]
@@ -6,7 +8,7 @@ export interface SubLinksData {
 export interface SubLink {
   name: string
   address: string
-  image: { src: string }
+  image: Image
   comment?: string
 }
 
