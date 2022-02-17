@@ -10,7 +10,7 @@ import {
   theme,
 } from "@local/lib"
 
-import { personData } from "@local/lib/src/ui/mockData/mockData"
+import { galleryListData } from "@local/lib/src/ui/mockData/mockData"
 
 const Home: NextPage<Props> = ({ page }) => (
   <div>
@@ -47,9 +47,9 @@ export const getServerSideProps: () => { props: Props } = () => ({
       blocks: [
         {
           id: "",
-          template: BlockTemplates.PersonList,
+          template: BlockTemplates.Gallery,
           fields: {
-            content: personData,
+            content: galleryListData,
           },
         },
       ],
