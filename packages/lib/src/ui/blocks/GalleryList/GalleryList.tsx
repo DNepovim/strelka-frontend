@@ -5,7 +5,7 @@ import { Header3, SmallText } from "../../components/Typography/Typography"
 import React from "react"
 import { GalleryListProps } from "./galleryListDef"
 import { max, theme } from "../../styles/theme"
-import { FixedHeightImage } from "../../components/FixedHeightImage/FixedHeightImage"
+import { Image } from "../../components/Image/Image"
 
 export const GalleryList: React.FC<GalleryListProps> = (props) => (
   <Block>
@@ -13,7 +13,7 @@ export const GalleryList: React.FC<GalleryListProps> = (props) => (
       <GalleryViewContainer>
         {props.content.map((galleryView, index) => (
           <GalleryView key={index} href={galleryView.address}>
-            <FixedHeightImage src={galleryView.image.src} />
+            <GalleryImage image={galleryView.image} />
             <Title>{galleryView.name}</Title>
             <Date>{galleryView.comment}</Date>
           </GalleryView>
@@ -28,27 +28,40 @@ const GalleryViewContainer = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   gap: 2rem;
+
+  @media ${max("m")} {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
 `
 
 const GalleryView = styled.a`
   display: flex;
   flex-direction: column;
-  max-width: 100vw;
+  align-items: center;
+`
 
+const GalleryImage = styled(Image)`
+  height: 20em;
   img {
     border-radius: 1rem;
+  }
+
+  @media ${max("m")} {
+    height: auto;
+    width: 90%;
   }
 `
 
 const Title = styled(Header3)`
   color: ${theme.color.darkest};
   text-align: center;
-  max-width: 40vw;
   align-self: center;
+  max-width: 15em;
   margin: 0.3em 0 0;
 
   @media ${max("m")} {
-    max-width: 80vw;
+    max-width: 20em;
   }
 `
 
@@ -56,4 +69,5 @@ const Date = styled(SmallText)`
   color: ${theme.color.darkAccent};
   margin: 0 0 0.2em;
   text-align: center;
+  align-self: center;
 `

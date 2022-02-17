@@ -23,9 +23,9 @@ export { enumToSchemaOptions } from "./utils/enumToSchemaOptions"
 
 // types
 export { BlockTemplates } from "./ui/blocks/enums"
-export type { Page } from "./types/data"
+export type { Page } from "./types/Page"
 export type { AdminFields, BlockDef, BlocksDefs } from "./ui/blocks/blocks"
-export type { NavLink } from "./types/navigation"
+export type { NavLink } from "./types/Navigation"
 
 // enums
 export { InputType } from "./ui/blocks/enums"

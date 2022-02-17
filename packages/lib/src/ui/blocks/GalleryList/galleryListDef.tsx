@@ -2,12 +2,12 @@ import { BlockTemplates, InputType } from "../enums"
 import { Block, BlockDef } from "../blocks"
 import { BlockFields, withBlockSchema } from "../../components/Block/Block"
 import * as yup from "yup"
-import { GroupListProps } from "../GroupList/groupListDef"
+import { Image, imageDef, imageSchema } from "../../../types/Image"
 
 export interface GalleryProps {
   name: string
   address: string
-  image: { src: string }
+  image: Image
   comment: string
 }
 
@@ -29,7 +29,7 @@ export const galleryListSchema: yup.SchemaOf<GalleryListProps> =
           yup.object({
             name: yup.string().required(),
             address: yup.string().required(),
-            image: yup.object({ src: yup.string().required() }).required(),
+            image: imageSchema,
             comment: yup.string().required(),
           })
         )
@@ -37,7 +37,7 @@ export const galleryListSchema: yup.SchemaOf<GalleryListProps> =
     })
   )
 
-export const galleryListDef: BlockDef<GroupListProps> = {
+export const galleryListDef: BlockDef<GalleryListProps> = {
   title: "Galerie",
   template: BlockTemplates.GalleryList,
   schema: galleryListSchema,
@@ -53,15 +53,7 @@ export const galleryListDef: BlockDef<GroupListProps> = {
           label: "Odkaz",
           inputType: InputType.Text,
         },
-        image: {
-          label: "Obrázek",
-          fields: {
-            src: {
-              label: "Odkaz",
-              inputType: InputType.Text,
-            },
-          },
-        },
+        image: imageDef,
         comment: {
           label: "Komentář",
           inputType: InputType.Text,

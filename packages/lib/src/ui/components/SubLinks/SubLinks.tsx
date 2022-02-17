@@ -6,7 +6,7 @@ import CircleMask from "../../assets/vectors/potatoes/circle_2.svg"
 import { SmallText } from "../Typography/Typography"
 import { MenuItemContent } from "../MenuItemContent/MenuItemContent"
 import { LinkItem } from "../LinkItem/LinkItem"
-import { NavLink, SubLinksData } from "../../../types/navigation"
+import { NavLink, SubLinksData } from "../../../types/Navigation"
 
 interface SublinksProps {
   link: NavLink
@@ -131,7 +131,7 @@ const SubLink = styled.a`
   }
 `
 
-const SubLinkPicture = styled.img`
+const SubLinkPicture = styled.div`
   width: ${theme.navSize.horizontal.subLinkImageSize};
   min-width: ${theme.navSize.horizontal.subLinkImageSize};
   height: ${theme.navSize.horizontal.subLinkImageSize};
