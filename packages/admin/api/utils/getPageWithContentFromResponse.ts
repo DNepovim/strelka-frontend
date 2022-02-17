@@ -1,14 +1,16 @@
 import { Pages } from "@strelka-skaut/js-api-client"
 import { PageWithContent } from "../../schemas/page"
 import { gptbTimestampToString } from "./gptbTimestampTostring"
+import { parseJson } from "./parseJson"
 
-export const getPageWithContentFromResponse = (
+export const getPageWithContentFromResponse = async (
   page: Pages.Page
-): PageWithContent => {
+): Promise<PageWithContent> => {
   const pageId = page.getId()?.getValue()
   if (!pageId) {
     throw new Error("Missing page id on response.")
   }
+
   return {
     id: pageId,
     name: page.getName(),
@@ -17,7 +19,7 @@ export const getPageWithContentFromResponse = (
     updatedAt: page.hasUpdatedAt()
       ? gptbTimestampToString(page.getUpdatedAt()!, "d. m. yyyy")
       : null,
-    content: JSON.parse(page.getContent()),
+    content: await parseJson(page.getContent(), []),
     slug: page.getSlug(),
   }
 }
