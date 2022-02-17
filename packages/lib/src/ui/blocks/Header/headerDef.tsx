@@ -2,7 +2,8 @@ import * as yup from "yup"
 import { Block, BlockDef } from "../blocks"
 import { BlockFields, withBlockSchema } from "../../components/Block/Block"
 import { BlockTemplates, InputType } from "../enums"
-import { NavLink, SubLink, SubLinksData } from "../../../types/navigation"
+import { NavLink, SubLink, SubLinksData } from "../../../types/Navigation"
+import { imageDef, imageSchema } from "../../../types/Image"
 
 export interface HeaderBlock extends Block {
   template: BlockTemplates.Header
@@ -16,7 +17,7 @@ export interface HeaderProps extends BlockFields {
 const subLinkSchema: yup.SchemaOf<SubLink> = yup.object({
   name: yup.string().required(),
   address: yup.string().required(),
-  image: yup.object({ src: yup.string().required() }).required(),
+  image: imageSchema,
   comment: yup.string(),
 })
 
@@ -74,15 +75,7 @@ export const headerDef: BlockDef<HeaderProps> = {
                   label: "Odkaz",
                   inputType: InputType.Text,
                 },
-                image: {
-                  label: "Obrázek",
-                  fields: {
-                    src: {
-                      label: "Odkaz",
-                      inputType: InputType.Text,
-                    },
-                  },
-                },
+                image: imageDef,
                 comment: {
                   label: "Komentář",
                   inputType: InputType.Text,

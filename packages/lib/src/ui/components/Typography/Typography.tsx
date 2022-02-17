@@ -20,7 +20,7 @@ export const Header2 = styled.h2`
 export const Header3 = styled.h3`
   font-family: ${theme.fonts.accent};
   font-weight: bold;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   line-height: 1.2em;
   color: ${theme.color.darkest};
   padding: 0.2rem;

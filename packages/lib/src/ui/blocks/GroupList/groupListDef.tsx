@@ -3,6 +3,7 @@ import { BlockTemplates, InputType } from "../enums"
 import { Block, BlockDef } from "../blocks"
 import { BlockFields, withBlockSchema } from "../../components/Block/Block"
 import { GroupProps } from "./GroupList"
+import { imageDef, imageSchema } from "../../../types/Image"
 
 export interface GroupListBlock extends Block {
   template: BlockTemplates.GroupList
@@ -21,7 +22,7 @@ export const groupListSchema: yup.SchemaOf<GroupListProps> = withBlockSchema(
         yup.object({
           name: yup.string().required(),
           address: yup.string().required(),
-          image: yup.object({ src: yup.string().required() }).required(),
+          image: imageSchema,
           comment: yup.string().required(),
         })
       )
@@ -45,15 +46,7 @@ export const groupDef: BlockDef<GroupListProps> = {
           label: "Odkaz",
           inputType: InputType.Text,
         },
-        image: {
-          label: "Obrázek",
-          fields: {
-            src: {
-              label: "Odkaz",
-              inputType: InputType.Text,
-            },
-          },
-        },
+        image: imageDef,
         comment: {
           label: "Komentář",
           inputType: InputType.Text,

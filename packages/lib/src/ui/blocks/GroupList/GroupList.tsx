@@ -15,6 +15,7 @@ import Circle7 from "../../assets/vectors/potatoes/circle_7.svg"
 import Circle8 from "../../assets/vectors/potatoes/circle_8.svg"
 
 import { max } from "../../styles/theme"
+import { Image } from "../../../types/Image"
 
 const circles = [
   Circle1,
@@ -30,7 +31,7 @@ const circles = [
 export interface GroupProps {
   name: string
   address: string
-  image: { src: string }
+  image: Image
   comment: string
 }
 

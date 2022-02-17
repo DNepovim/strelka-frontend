@@ -4,6 +4,7 @@ export enum BlockTemplates {
   GalleryList = "galleryList",
   Heading1 = "heading1",
   Heading2 = "heading2",
+  PersonList = "personList",
 }
 
 export enum InputType {
