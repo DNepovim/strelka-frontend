@@ -20,6 +20,7 @@ export { global } from "./ui/styles/global"
 
 // utils
 export { enumToSchemaOptions } from "./utils/enumToSchemaOptions"
+export { webalize } from "./utils/webalize"
 
 // types
 export { BlockTemplates } from "./ui/blocks/enums"

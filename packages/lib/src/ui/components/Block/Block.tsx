@@ -8,13 +8,13 @@ export interface BlockFields {
   backgroundColor?: string
 }
 
+export const blockSchema = yup.object({
+  id: yup.string(),
+  backgroundColor: yup.string(),
+})
+
 export const withBlockSchema = <T extends {}>(schema: yup.ObjectSchema<T>) =>
-  yup
-    .object({
-      id: yup.string(),
-      backgroundColor: yup.string(),
-    })
-    .concat(schema)
+  blockSchema.concat(schema)
 
 export const Block: React.FC<BlockFields> = ({
   id,

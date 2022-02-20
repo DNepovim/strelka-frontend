@@ -1,75 +1,136 @@
+/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react"
 import SaveOutlined from "@ant-design/icons/lib/icons/SaveOutlined"
 import { fonts, global, RenderBlocks } from "@local/lib/src"
-import { Button, Space, Switch, Col, Form } from "antd"
+import { Button, Space, Switch, Col, Form, message, Input, Row } from "antd"
 import { Formik, FormikHelpers } from "formik"
 import React, { useState } from "react"
 import { BlockEditor } from "../components/BlockEditor/BlockEditor"
 import { FlexRow } from "../components/FlexRow/FlexRow"
-import { TextInput } from "../components/Inputs/TextInput/TextInput"
 import { PageWrapper } from "../components/PageHeader/PageWrapper"
 import { Preview } from "../components/Preview/Preview"
-import { PageWithContent, pageToCreateSchema, PageId } from "../schemas/page"
+import { pageToCreateSchema, PageFormValues } from "../schemas/page"
+import { useRouter } from "next/dist/client/router"
+import { routes } from "../routes"
+import { webalize } from "@local/lib"
+import { Fieldset } from "../components/Inputs/Fieldset/Fieldset"
 
-type Model = PageWithContent
+type Model = PageFormValues
 
 interface PageFormProps {
   initialValues: Model
-  onSave: (values: Model) => Promise<PageId>
+  onSave: (values: Model) => Promise<string | undefined>
+  autoFillSlug?: boolean
 }
 
 export const PageForm: React.FC<PageFormProps> = ({
   initialValues,
   onSave,
+  autoFillSlug,
 }) => {
   const [isPreviewVisible, setIsPreviewVisible] = useState(false)
+  const router = useRouter()
 
   return (
-    <Formik<PageWithContent>
-      onSubmit={async (
-        values: PageWithContent,
-        helpers: FormikHelpers<PageWithContent>
-      ) => {
-        await onSave(values)
-        helpers.setValues(values)
+    <Formik<Model>
+      onSubmit={async (values: Model, helpers: FormikHelpers<Model>) => {
+        try {
+          await onSave(values)
+          helpers.setValues(values)
+          await message.success("Stránka byla úspěšně uložena.")
+          const url = routes.editPage.getLink(values.slug)
+          const currentUrl = router.pathname
+          if (url !== currentUrl) {
+            await router.push(url)
+          }
+        } catch (e) {
+          await message.error("Něco se pokazilo. Zkus to znovu.")
+          // eslint-disable-next-line
+          console.error(e)
+        }
       }}
       validationSchema={pageToCreateSchema}
-      initialValues={initialValues}
+      initialValues={{ ...initialValues, siteId: "" }}
     >
       {(props) => (
         <PageWrapper
-          title={<TextInput name="name" />}
-          subTitle={<TextInput name="slug" />}
-          breadcrumb={{
-            routes: [
-              { breadcrumbName: "Stránky", path: "" },
-              { breadcrumbName: "Hlavní stránka", path: "" },
-            ],
-          }}
-          extra={[
+          breadcrumb={[
+            { breadcrumbName: "Stránky", path: routes.pagesList.getLink() },
+            {
+              breadcrumbName: props.values.name,
+              path: routes.editPage.getLink(props.values.slug),
+            },
+          ]}
+          title={
+            <Fieldset<string> name="name" label="Název">
+              {(fieldProps) => (
+                <Input
+                  css={css`
+                    margin-bottom: 0.5em;
+                    color: rgba(0, 0, 0, 0.85);
+                    font-weight: 600;
+                    font-size: 38px;
+                    line-height: 1.23;
+                  `}
+                  name="name"
+                  value={fieldProps.value}
+                  onChange={(value: { target: { value: string } }) => {
+                    const fieldValue = value?.target?.value
+                    if (!props.touched.slug && autoFillSlug) {
+                      props.setFieldValue("slug", webalize(value.target.value))
+                    }
+                    props.setFieldValue(fieldProps.name, fieldValue)
+                  }}
+                />
+              )}
+            </Fieldset>
+          }
+          actions={[
             <Button
               key="save"
               type="primary"
               icon={<SaveOutlined />}
               onClick={async () => props.submitForm()}
-              disabled={props.isSubmitting}
+              disabled={props.isSubmitting || !props.isValid}
               loading={props.isSubmitting}
             >
               Uložit
             </Button>,
           ]}
         >
-          <Space
-            css={css`
-              margin: 0 0 16px;
-            `}
-          >
-            Náhled:
-            <Switch
-              checked={isPreviewVisible}
-              onChange={() => setIsPreviewVisible(!isPreviewVisible)}
-            />
-          </Space>
+          <Row>
+            <Col>
+              <Fieldset<string> name="slug" label="URL">
+                {(fieldProps) => (
+                  <Input
+                    name={fieldProps.name}
+                    value={fieldProps.value}
+                    onChange={(value: { target: { value: string } }) => {
+                      props.setFieldValue(
+                        fieldProps.name,
+                        webalize(value.target.value)
+                      )
+                    }}
+                  />
+                )}
+              </Fieldset>
+            </Col>
+          </Row>
+          <Row>
+            <Col span="24">
+              <Space
+                css={css`
+                  margin: 0 0 16px;
+                `}
+              >
+                Náhled:
+                <Switch
+                  checked={isPreviewVisible}
+                  onChange={() => setIsPreviewVisible(!isPreviewVisible)}
+                />
+              </Space>
+            </Col>
+          </Row>
           <FlexRow>
             {isPreviewVisible && (
               <Col span={12}>

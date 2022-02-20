@@ -29,7 +29,7 @@
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@local/lib": "^0.1.0",
-    "@strelka-skaut/js-api-client": "^1.0.18",
+    "@strelka-skaut/js-api-client": "^1.0.20",
     "@types/typopo": "^2.5.1",
     "antd": "^4.17.2",
     "dateformat": "^5.0.2",
