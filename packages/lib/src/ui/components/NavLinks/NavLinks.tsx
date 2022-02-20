@@ -46,33 +46,27 @@ const LinksContainer = styled.div`
     top: 100%;
     right: 0;
     overflow: hidden;
+    padding-top: ${theme.size.small}rem;
+    pointer-events: ${(props: { isVisible: boolean }) =>
+      props.isVisible ? "all" : "none"};
   }
 
   @media ${min("l")} {
     position: relative;
   }
-
-  @media ${max("l")} {
-    padding: 0.5rem;
-    pointer-events: ${(props: { isVisible: boolean }) =>
-      props.isVisible ? "all" : "none"};
-  }
 `
 
 const Links = styled.ul`
+  display: flex;
   padding: 0;
   margin: 0;
-  height: 100%;
-  display: flex;
 
   @media ${max("l")} {
     flex-direction: column;
     flex-wrap: nowrap;
 
-    padding-top: 0.7rem;
-    padding-bottom: 0.7rem;
-
-    position: relative;
+    padding-top: ${theme.size.small}rem;
+    padding-bottom: ${theme.size.small}rem;
 
     mask-image: url("${SquareMask.src}");
     background-color: ${theme.color.lightAccent};
@@ -85,5 +79,12 @@ const Links = styled.ul`
       props.isVisible
         ? `transform: translateX(0);`
         : `transform: translateX(110%);`}
+  }
+
+  @media ${min("l")} {
+    height: 100%;
+    position: relative;
+    gap: 0 1.2rem;
+    padding: 0 1.2rem;
   }
 `

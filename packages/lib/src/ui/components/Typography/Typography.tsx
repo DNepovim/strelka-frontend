@@ -20,7 +20,7 @@ export const Header2 = styled.h2`
 export const Header3 = styled.h3`
   font-family: ${theme.fonts.accent};
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: ${theme.size.base * 1.2}rem;
   line-height: 1.2em;
   color: ${theme.color.darkest};
   padding: 0.2rem;
@@ -28,12 +28,12 @@ export const Header3 = styled.h3`
 
 export const Text = styled.p`
   font-family: ${theme.fonts.text};
-  font-size: 1.3rem;
+  font-size: ${theme.size.base}rem;
   line-height: 1.4em;
 `
 
 export const SmallText = styled.p`
   font-family: ${theme.fonts.text};
-  font-size: 1.1rem;
+  font-size: ${theme.size.small}rem;
   line-height: 1.3em;
 `
