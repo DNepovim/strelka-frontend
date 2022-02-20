@@ -2,27 +2,29 @@ import { Block } from "../../components/Block/Block"
 import { Container } from "../../components/Container/Container"
 import styled from "@emotion/styled"
 import React from "react"
-import { min } from "../../styles/theme"
+import { min, theme } from "../../styles/theme"
 import { Image } from "../../components/Image/Image"
 import { GalleryProps } from "./galleryDef"
 
 export const Gallery: React.FC<GalleryProps> = (props) => (
   <Block>
-    <Container>
+    <WideContainer>
       <GalleryContainer>
-        {props.content.map((image, index) => (
-          <GalleryImage key={index} image={image.image} />
+        {props.images.map((image, index) => (
+          <GalleryImage key={index} image={image} />
         ))}
       </GalleryContainer>
-    </Container>
+    </WideContainer>
   </Block>
 )
 
+const WideContainer = styled(Container)`
+  max-width: ${theme.layout.width * 1.5}px;
+`
 const GalleryContainer = styled.div`
   display: flex;
   flex-direction: column;
-  flex-wrap: nowrap;
-  gap: 2rem;
+  gap: 1.2rem;
 
   @media ${min("s")} {
     flex-direction: row;
@@ -36,14 +38,13 @@ const GalleryImage = styled(Image)`
   width: 100%;
 
   img {
-    border-radius: 1rem;
+    border-radius: 0.75rem;
     // override default object fit
     object-fit: cover !important;
   }
 
   @media ${min("s")} {
-    justify-self: center;
-    height: 20em;
+    height: 20rem;
     width: auto;
   }
 `
