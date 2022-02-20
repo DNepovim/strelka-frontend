@@ -1,9 +1,9 @@
 import { Pages, PagesClient } from "@strelka-skaut/js-api-client"
-import { PageWithContent } from "../schemas/page"
+import { PageFormValues } from "../schemas/page"
 
 const apiEndpoint = process.env.NEXT_PUBLIC_API_ENDPOINT
 
-export const createPage = async (values: PageWithContent) => {
+export const createPage = async (values: PageFormValues): Promise<string> => {
   if (!apiEndpoint) {
     throw new Error("NEXT_PUBLIC_API_ENDPOINT is not defined")
   }
@@ -13,8 +13,8 @@ export const createPage = async (values: PageWithContent) => {
     createPageRquest.setSlug(values.slug)
     createPageRquest.setContent(JSON.stringify(values.content))
     const client = new PagesClient.ServiceClient(apiEndpoint)
-    const response = await client.createPage(createPageRquest, {})
-    return { id: response.getId() }
+    await client.createPage(createPageRquest, {})
+    return values.slug
   } catch (e) {
     throw e
   }

@@ -11,8 +11,8 @@ import { Link } from "@local/lib"
 const PagesListPage: NextPage<Props> = ({ pages }) => (
   <PageWrapper
     title={<Typography.Title>Stránky</Typography.Title>}
-    breadcrumb={{ routes: [{ breadcrumbName: "Stránky", path: "" }] }}
-    extra={
+    breadcrumb={[{ breadcrumbName: "Stránky", path: "" }]}
+    actions={
       <ButtonLink link={routes.newPage.getLink()}>Nová stránka</ButtonLink>
     }
   >

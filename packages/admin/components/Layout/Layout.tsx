@@ -114,6 +114,7 @@ export const Layout: React.FC = ({ children }) => {
         <AntLayout
           css={css`
             margin-left: ${isSidebarCollapsed ? 80 : 200}px;
+            padding: 24px;
           `}
         >
           <Content>{children}</Content>

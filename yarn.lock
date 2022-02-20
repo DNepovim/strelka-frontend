@@ -1808,10 +1808,10 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@strelka-skaut/js-api-client@^1.0.18":
-  version "1.0.18"
-  resolved "https://npm.pkg.github.com/download/@strelka-skaut/js-api-client/1.0.18/6ecb05e236c36c56f456aa4a0c41b3fb2822aac4b1354e1b677cabcd50064f8a#ded562431f142edd78e58f6063f32a7d1e7b3f1a"
-  integrity sha512-qjFHbXGa51E+MWfdDdKaoi4tIIyjLxKjV8QB6r3GelN10Q8HplnJj1EXSK8vm/ScMtsqxM9u31W5Ur37vHHMIw==
+"@strelka-skaut/js-api-client@^1.0.20":
+  version "1.0.20"
+  resolved "https://npm.pkg.github.com/download/@strelka-skaut/js-api-client/1.0.20/49245c7188a220c3b702846d1dec5fbcd34f86135e175c206a2a5d042f7d3a59#75969a4ce8d476b7d5736b8c39aff1772b55bfa8"
+  integrity sha512-/wngYAmgex0eji8gWGNsMRzQd4mgkIlCYn1iDim+TmMBdAdZ6Bao7G1ySjHO/S/JE48ZT31ojpesuyX2Qk8SoA==
   dependencies:
     "@types/google-protobuf" "^3.15.5"
     google-protobuf "^3.19.4"
