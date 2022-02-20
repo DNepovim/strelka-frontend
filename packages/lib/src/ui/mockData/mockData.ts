@@ -57,6 +57,7 @@ export const randomRectangle = randomItem(rectangles)
 import { NavLink } from "../../types/Navigation"
 import { HeadingProps } from "../blocks/Heading1/Heading1"
 import { PersonProps } from "../blocks/PersonList/personListDef"
+import { GalleryProps } from "../blocks/GalleryList/galleryListDef"
 
 export const groupData = [
   {
@@ -152,7 +153,7 @@ export const linkData: NavLink[] = [
   },
 ]
 
-export const galleryListData = [
+export const galleryListData: GalleryProps[] = [
   {
     name: "Tábor 2023",
     address: "benjaminci",
@@ -169,6 +170,90 @@ export const galleryListData = [
     name: "Křižem krážem Českou Republikou",
     address: "vlcata",
     image: Gallery4,
+    comment: "kluci od 10 do 15 let",
+  },
+  {
+    name: "Zahajovácí výprava",
+    address: "skautky",
+    image: Gallery2,
+    comment: "kluci od 10 do 15 let",
+  },
+  {
+    name: "Jak jsem potkal ryby",
+    address: "skauti",
+    image: Gallery3,
+    comment: "kluci od 10 do 15 let",
+  },
+  {
+    name: "Výprava na Ivančenu",
+    address: "roveri",
+    image: Gallery1,
+    comment: "kluci od 10 do 15 let",
+  },
+  {
+    name: "Tábor 2080",
+    address: "oldskauti",
+    image: Gallery2,
+    comment: "kluci od 10 do 15 let",
+  },
+  {
+    name: "Tábor 2023",
+    address: "benjaminci",
+    image: Gallery1,
+    comment: "kluci a holky od 6 do 10 let",
+  },
+  {
+    name: "Silvestr na Dřevomorce",
+    address: "svetlusky",
+    image: Gallery3,
+    comment: "holky od 10 do 16 let",
+  },
+  {
+    name: "Křižem krážem Českou Republikou",
+    address: "vlcata",
+    image: Gallery4,
+    comment: "kluci od 10 do 15 let",
+  },
+  {
+    name: "Tábor 2023",
+    address: "benjaminci",
+    image: Gallery1,
+    comment: "kluci a holky od 6 do 10 let",
+  },
+  {
+    name: "Silvestr na Dřevomorce",
+    address: "svetlusky",
+    image: Gallery3,
+    comment: "holky od 10 do 16 let",
+  },
+  {
+    name: "Křižem krážem Českou Republikou",
+    address: "vlcata",
+    image: Gallery4,
+    comment: "kluci od 10 do 15 let",
+  },
+  {
+    name: "Zahajovácí výprava",
+    address: "skautky",
+    image: Gallery2,
+    comment: "kluci od 10 do 15 let",
+  },
+  {
+    name: "Jak jsem potkal ryby",
+    address: "skauti",
+    image: Gallery3,
+    comment: "kluci od 10 do 15 let",
+  },
+  {
+    name: "Výprava na Ivančenu",
+    address: "roveri",
+    image: Gallery1,
+    comment: "kluci od 10 do 15 let",
+  },
+  {
+    name: "Tábor 2080",
+    address: "oldskauti",
+    image: Gallery2,
     comment: "kluci od 10 do 15 let",
   },
   {
