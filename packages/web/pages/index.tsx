@@ -49,7 +49,7 @@ export const getServerSideProps: () => { props: Props } = () => ({
           id: "",
           template: BlockTemplates.Gallery,
           fields: {
-            content: galleryListData,
+            images: galleryListData.map((singleGallery) => singleGallery.image),
           },
         },
       ],
