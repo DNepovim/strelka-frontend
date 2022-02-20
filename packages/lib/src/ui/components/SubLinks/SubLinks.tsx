@@ -28,8 +28,8 @@ export const SubLinks: React.FC<SublinksProps> = (props) => (
       {props.link.name}
     </SubLinksToggle>
     <SubLinkWrapper isVisible={props.openSubLinks === props.link.name}>
-      {props.subLinks.data.map((subLink) => (
-        <LinkItem key={subLink.name}>
+      {props.subLinks.data.map((subLink, index) => (
+        <LinkItem key={index}>
           <SubLink href={subLink.address}>
             <SubLinkPicture backgroundImg={subLink.image.src} />
             <SubLinkInfo>
