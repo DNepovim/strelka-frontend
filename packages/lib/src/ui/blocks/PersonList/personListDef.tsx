@@ -2,7 +2,7 @@ import * as yup from "yup"
 import { BlockTemplates, InputType } from "../enums"
 import { Block, BlockDef } from "../blocks"
 import { BlockFields, withBlockSchema } from "../../components/Block/Block"
-import {Image as ImageType, imageDef, imageSchema} from "../../../types/Image"
+import { Image as ImageType, imageDef, imageSchema } from "../../../types/Image"
 
 export interface PersonProps {
   name: string
@@ -32,7 +32,7 @@ export const personListSchema: yup.SchemaOf<PersonListProps> = withBlockSchema(
         yup.object({
           name: yup.string().required(),
           nickname: yup.string(),
-          image: imageSchema,
+          image: imageSchema.required(),
           subtitle: yup.string(),
           contact: yup.object({
             email: yup.string(),

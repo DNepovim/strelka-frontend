@@ -15,7 +15,7 @@ export interface GalleryProps extends BlockFields {
 
 export const gallerySchema: yup.SchemaOf<GalleryProps> = withBlockSchema(
   yup.object({
-    images: yup.array().of(imageSchema).required(),
+    images: yup.array().of(imageSchema.required()).required(),
   })
 )
 

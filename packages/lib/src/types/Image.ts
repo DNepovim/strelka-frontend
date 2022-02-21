@@ -7,13 +7,11 @@ export interface Image {
   height: number
 }
 
-export const imageSchema = yup
-  .object({
-    src: yup.string().required(),
-    width: yup.number().required(),
-    height: yup.number().required(),
-  })
-  .required()
+export const imageSchema = yup.object({
+  src: yup.string().required(),
+  width: yup.number().required(),
+  height: yup.number().required(),
+})
 
 export const imageDef = {
   label: "Obrázek",
