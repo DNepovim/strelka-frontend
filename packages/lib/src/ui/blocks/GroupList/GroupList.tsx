@@ -14,8 +14,9 @@ import Circle6 from "../../assets/vectors/potatoes/circle_6.svg"
 import Circle7 from "../../assets/vectors/potatoes/circle_7.svg"
 import Circle8 from "../../assets/vectors/potatoes/circle_8.svg"
 
-import { max } from "../../styles/theme"
+import { max, theme } from "../../styles/theme"
 import { Image } from "../../../types/Image"
+import { BlockTitle } from "../../components/BlockTitle/BlockTitle"
 
 const circles = [
   Circle1,
@@ -39,7 +40,10 @@ export const GroupList: React.FC<GroupListProps> = (props) => (
   <Block>
     <Container>
       <GroupListContainer>
-        {props.content.map((group, index) => (
+        <TitleContainer>
+          <PositionedTitle props={props} />
+        </TitleContainer>
+        {props.groups.map((group, index) => (
           <Group
             key={index}
             href={group.address}
@@ -55,11 +59,19 @@ export const GroupList: React.FC<GroupListProps> = (props) => (
   </Block>
 )
 
+const TitleContainer = styled.div`
+  grid-area: 1 / 1 / 2 / 3;
+`
+
+const PositionedTitle = styled(BlockTitle)`
+  margin: 0;
+`
+
 const GroupListContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
-  gap: 0px 0px;
+  gap: ${theme.size.small}rem 0;
   grid-template-areas:
     ". . skautky ."
     ". svetlusky skautky oldskauti"
@@ -67,7 +79,6 @@ const GroupListContainer = styled.div`
     "benjaminci vlcata skauti ."
     ". vlcata roveri ."
     ". . roveri .";
-  padding: 6rem;
 
   @media ${max("l")} {
     grid-template-columns: 1fr 1fr;
@@ -94,11 +105,6 @@ const GroupListContainer = styled.div`
       "skauti"
       "roveri"
       "oldskauti";
-    padding: 4rem;
-  }
-
-  @media ${max("s")} {
-    padding: 1.5rem;
   }
 `
 
@@ -133,7 +139,6 @@ const Group = styled.a`
   mask-size: 100% 100%;
   mask-position: center;
   background-size: cover;
-  margin: 0.2rem;
 
   ${createGroupList()};
 
@@ -143,18 +148,16 @@ const Group = styled.a`
 `
 
 const Name = styled(Header3)`
-  color: white;
+  color: ${theme.color.lightest};
   font-size: 1.7rem;
   text-align: center;
   margin-bottom: 0;
 `
 
 const Comment = styled(Text)`
-  color: white;
+  color: ${theme.color.lightest};
   font-size: 1rem;
   text-align: center;
-  padding: 25%;
-  padding-bottom: 1.7rem;
-  padding-top: 0.2rem;
+  padding: 0.2rem 25% 1.7rem;
   margin-top: 0;
 `

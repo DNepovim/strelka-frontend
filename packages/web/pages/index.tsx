@@ -61,7 +61,7 @@ export const getServerSideProps: () => { props: Props } = () => ({
           id: "",
           template: BlockTemplates.Heading1,
           fields: {
-            content: { content: "Skauti Stopaři" },
+            content: "Skauti Stopaři",
           },
         },
         {
@@ -71,31 +71,18 @@ export const getServerSideProps: () => { props: Props } = () => ({
         },
         {
           id: "",
-          template: BlockTemplates.Heading2,
-          fields: {
-            content: { content: "Vedení" },
-          },
-        },
-        {
-          id: "",
           template: BlockTemplates.GroupList,
           fields: {
-            content: groupData,
-          },
-        },
-
-        {
-          id: "",
-          template: BlockTemplates.Heading2,
-          fields: {
-            content: { content: "Fotogalerie" },
+            title: "Hello",
+            groups: groupData,
           },
         },
         {
           id: "",
           template: BlockTemplates.GalleryList,
           fields: {
-            content: galleryListData,
+            title: "Galerie",
+            galleries: galleryListData,
           },
         },
       ],

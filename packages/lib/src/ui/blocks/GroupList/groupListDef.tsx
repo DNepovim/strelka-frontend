@@ -4,19 +4,25 @@ import { Block, BlockDef } from "../blocks"
 import { BlockFields, withBlockSchema } from "../../components/Block/Block"
 import { GroupProps } from "./GroupList"
 import { imageDef, imageSchema } from "../../../types/Image"
+import {
+  blockTitleDef,
+  BlockTitleFields,
+  blockTitleSchema,
+} from "../../../types/BlockTitle"
 
 export interface GroupListBlock extends Block {
   template: BlockTemplates.GroupList
   fields: GroupListProps
 }
 
-export interface GroupListProps extends BlockFields {
-  content: GroupProps[]
+export interface GroupListProps extends BlockFields, BlockTitleFields {
+  groups: GroupProps[]
 }
 
 export const groupListSchema: yup.SchemaOf<GroupListProps> = withBlockSchema(
   yup.object({
-    content: yup
+    ...blockTitleSchema,
+    groups: yup
       .array()
       .of(
         yup.object({
@@ -35,7 +41,8 @@ export const groupDef: BlockDef<GroupListProps> = {
   template: BlockTemplates.GroupList,
   schema: groupListSchema,
   adminFields: {
-    content: {
+    ...blockTitleDef,
+    groups: {
       clonable: true,
       fields: {
         name: {
