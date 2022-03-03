@@ -12,12 +12,14 @@ import { PersonListProps } from "./personListDef"
 import { Image } from "../../components/Image/Image"
 import { max, theme } from "../../styles/theme"
 import { randomCircle } from "../../mockData/mockData"
+import { BlockTitle } from "../../components/BlockTitle/BlockTitle"
 
 export const PersonList: React.FC<PersonListProps> = (props) => (
   <Block>
     <Container>
+      <BlockTitle props={props} />
       <PersonListContainer>
-        {props.content.map((person, index) => (
+        {props.people.map((person, index) => (
           <Person key={index}>
             <PersonImage mask={randomCircle(index).src} image={person.image} />
             <Name>

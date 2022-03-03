@@ -5,10 +5,12 @@ import React from "react"
 import { min, theme } from "../../styles/theme"
 import { Image } from "../../components/Image/Image"
 import { GalleryProps } from "./galleryDef"
+import { BlockTitle } from "../../components/BlockTitle/BlockTitle"
 
 export const Gallery: React.FC<GalleryProps> = (props) => (
   <Block>
     <WideContainer>
+      <BlockTitle props={props} />
       <GalleryContainer>
         {props.images.map((image, index) => (
           <GalleryImage key={index} image={image} />
