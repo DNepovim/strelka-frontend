@@ -19,7 +19,7 @@ export const Gallery: React.FC<GalleryProps> = (props) => (
 )
 
 const WideContainer = styled(Container)`
-  max-width: ${theme.layout.width * 1.5}px;
+  max-width: ${theme.layout.width * 1.5}rem;
 `
 const GalleryContainer = styled.div`
   display: flex;

@@ -10,7 +10,11 @@ import {
   theme,
 } from "@local/lib"
 
-import { galleryListData } from "@local/lib/src/ui/mockData/mockData"
+import {
+  galleryListData,
+  linkData,
+  personData,
+} from "@local/lib/src/ui/mockData/mockData"
 
 const Home: NextPage<Props> = ({ page }) => (
   <div>
@@ -47,9 +51,38 @@ export const getServerSideProps: () => { props: Props } = () => ({
       blocks: [
         {
           id: "",
-          template: BlockTemplates.Gallery,
+          template: BlockTemplates.Header,
           fields: {
-            images: galleryListData.map((singleGallery) => singleGallery.image),
+            content: linkData,
+          },
+        },
+        {
+          id: "",
+          template: BlockTemplates.Heading2,
+          fields: {
+            content: { content: "Vedení" },
+          },
+        },
+        {
+          id: "",
+          template: BlockTemplates.PersonList,
+          fields: {
+            content: personData,
+          },
+        },
+
+        {
+          id: "",
+          template: BlockTemplates.Heading2,
+          fields: {
+            content: { content: "Fotogalerie" },
+          },
+        },
+        {
+          id: "",
+          template: BlockTemplates.GalleryList,
+          fields: {
+            content: galleryListData,
           },
         },
       ],

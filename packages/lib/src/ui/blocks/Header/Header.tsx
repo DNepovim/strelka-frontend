@@ -8,7 +8,7 @@ import { Container } from "../../components/Container/Container"
 import { NavLinks } from "../../components/NavLinks/NavLinks"
 
 import { Button } from "../../components/Button/Button"
-import { max, min, theme } from "../../styles/theme"
+import { min } from "../../styles/theme"
 
 export const Header: React.FC<HeaderProps> = (props) => {
   const [isVisible, setIsVisible] = useState(false)
@@ -29,22 +29,17 @@ const Navigation = styled.nav`
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
-  height: ${theme.navSize.vertical.height};
+  height: 4.6rem;
 
   @media ${min("l")} {
-    height: ${theme.navSize.horizontal.height};
+    height: 4rem;
   }
-  padding: ${theme.navSize.horizontal.padding};
 `
 
 const NavButton = styled(Button)`
   align-self: center;
-  padding: 0.4em 0.6em;
-  font-size: ${theme.navSize.vertical.buttonSize};
-
-  @media ${max("l")} {
-    display: unset;
-  }
+  padding: 0.5em 1em;
+  font-size: 1.5rem;
 
   @media ${min("l")} {
     display: none;

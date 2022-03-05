@@ -43,66 +43,27 @@ export const SubLinks: React.FC<SublinksProps> = (props) => (
   </>
 )
 
-const SubLinksToggle = styled(MenuItemContent.withComponent("button"))`
-  border: none;
-  background: none;
-  &:after {
-    content: "▼";
-    color: ${theme.color.darkest};
-    font-family: ${theme.fonts.headings};
-    font-size: 0.65em;
-    padding-left: 0.15em;
-    transform-origin: center;
-    transition: transform ${theme.timing.fast};
-    ${(props: { isActive: boolean }) =>
-      props.isActive ?? "transform: rotate(180deg);"}
-  }
-`
-
 const SubLinkWrapper = styled.ul`
   padding: 0;
   box-sizing: border-box;
-  padding: ${theme.navSize.horizontal.subLinkPadding}
-    ${theme.navSize.horizontal.linkSidePadding};
-
-  @media ${min("l")} {
-    position: absolute;
-    transition: opacity ${theme.timing.fast};
-    max-width: ${theme.navSize.horizontal.subLinksMaxWidth};
-    mask-image: url("${SquareMask.src}");
-    mask-size: 100% 100%;
-    mask-repeat: no-repeat;
-    mask-position: center;
-    background-color: ${theme.color.lightAccent};
-    pointer-events: none;
-    top: 100%;
-    opacity: 0;
-  }
 
   @media ${max("l")} {
-    padding-top: 0;
-    padding-bottom: 0;
     transition: padding ${theme.timing.fast};
-
     min-width: 30vw;
     max-width: 40vw;
 
     ${(props: { isVisible: boolean }) =>
       props.isVisible
         ? `
-          pointer-events: all;
-          padding-top: 0em;
-          padding-bottom: 1em;
+          padding-bottom: 0.9rem;
           li a {
-            max-height: 10em;
+            height: 2.4rem;
           }`
         : `
           pointer-events: none;
-          padding-top: 0;
           padding-bottom: 0;
           li a {
-            max-height: 0;
-            padding: 0;
+            height: 0;
           }
       `}
   }
@@ -116,6 +77,21 @@ const SubLinkWrapper = styled.ul`
     min-width: 65vw;
     max-width: 75vw;
   }
+
+  @media ${min("l")} {
+    position: absolute;
+    transition: opacity ${theme.timing.fast};
+    max-width: 17rem;
+    mask-image: url("${SquareMask.src}");
+    mask-size: 100% 100%;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    background-color: ${theme.color.lightAccent};
+    pointer-events: none;
+    top: 100%;
+    opacity: 0;
+    padding: 1rem 0;
+  }
 `
 
 const SubLink = styled.a`
@@ -123,22 +99,46 @@ const SubLink = styled.a`
   display: flex;
   align-items: stretch;
   color: ${theme.color.darkest};
-  padding: ${theme.navSize.horizontal.subLinkPadding} 0;
+  padding: 0;
 
   @media ${max("l")} {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
     overflow: hidden;
-    transition: max-height ${theme.timing.fast}, padding ${theme.timing.fast};
+    transition: height ${theme.timing.fast}, padding ${theme.timing.fast};
+  }
+
+  @media ${min("l")} {
+    padding: 0.5rem 1.2rem;
+  }
+`
+
+const SubLinksToggle = styled(MenuItemContent.withComponent("button"))`
+  border: none;
+  background: none;
+
+  &:after {
+    content: "▼";
+    color: ${theme.color.darkest};
+    font-family: ${theme.fonts.headings};
+    font-size: 0.65em;
+    padding-left: 0.2em;
+    padding-right: 0.2em;
+    transform-origin: center center;
+    transition: transform ${theme.timing.fast};
+    ${(props: { isActive: boolean }) =>
+      props.isActive && "transform: rotate(-180deg);"}
   }
 `
 
 const SubLinkPicture = styled.div`
-  width: ${theme.navSize.horizontal.subLinkImageSize};
-  min-width: ${theme.navSize.horizontal.subLinkImageSize};
-  height: ${theme.navSize.horizontal.subLinkImageSize};
+  width: 3.6rem;
+  min-width: 3.6rem;
+  height: 3.6rem;
   background-size: cover;
-  mask-image: url("${CircleMask.src}");
   background-image: url("${(props: { backgroundImg: string }) =>
     props.backgroundImg}");
+  mask-image: url("${CircleMask.src}");
   mask-size: 100% 100%;
   mask-repeat: no-repeat;
   mask-position: center;
@@ -155,17 +155,21 @@ const SubLinkInfo = styled.div`
   justify-items: stretch;
   flex-direction: column;
   flex-wrap: nowrap;
-  padding-left: ${theme.navSize.horizontal.subLinkHPadding};
+  padding-left: 0.75rem;
 `
 
 const Name = styled.p`
   font-family: ${theme.fonts.accent};
+  font-size: 1.32rem;
   font-weight: bold;
-  font-size: ${theme.navSize.horizontal.subLinkSize};
   margin: 0;
   flex-basis: 100%;
   display: flex;
   align-items: center;
+
+  @media ${min("l")} {
+    font-size: 1.2rem;
+  }
 `
 
 const Comment = styled(SmallText)`
