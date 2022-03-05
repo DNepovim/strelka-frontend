@@ -1,18 +1,17 @@
 import styled from "@emotion/styled"
-import { theme } from "../../styles/theme"
-import { max } from "../../styles/theme"
+import { min, theme } from "../../styles/theme"
 
 export const MenuItemContent = styled.a`
   font-family: ${theme.fonts.accent};
   color: ${theme.color.darkest};
   font-weight: bold;
-  font-size: ${theme.navSize.horizontal.linkSize};
+  font-size: 1.38rem;
   display: flex;
   align-items: center;
-  padding-left: ${theme.navSize.horizontal.linkPadding};
-  padding-right: ${theme.navSize.horizontal.linkPadding};
+  padding: 0.5rem 1.2rem;
 
-  @media ${max("l")} {
-    padding: 0.5rem 1em;
+  @media ${min("l")} {
+    padding: 0;
+    font-size: 1.44rem;
   }
 `
