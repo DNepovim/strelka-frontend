@@ -1,9 +1,12 @@
-import { BlockTemplates, InputType } from "../enums"
+import { BlockTemplates } from "../enums"
 import { Block, BlockDef } from "../blocks"
 import { BlockFields, withBlockSchema } from "../../components/Block/Block"
 import * as yup from "yup"
-import { imageDef } from "../../../types/Image"
-import { Paragraph, paragraphSchema } from "../../../types/RichText"
+import {
+  Paragraph,
+  paragraphDefFields,
+  paragraphSchema,
+} from "../../../types/RichText"
 
 export interface RichTextBlock extends Block {
   template: BlockTemplates.RichText
@@ -26,26 +29,7 @@ export const richTextDef: BlockDef<RichTextProps> = {
     paragraphs: {
       clonable: true,
       label: "Odstavec",
-      fields: {
-        image: imageDef,
-        textNodes: {
-          clonable: true,
-          fields: {
-            content: {
-              label: "Obsah",
-              inputType: InputType.Text,
-            },
-            style: {
-              label: "Styl",
-              inputType: InputType.Select,
-            },
-            href: {
-              label: "Odkaz",
-              inputType: InputType.Text,
-            },
-          },
-        },
-      },
+      fields: paragraphDefFields,
     },
   },
 }

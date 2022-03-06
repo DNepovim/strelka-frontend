@@ -7,6 +7,7 @@ export enum BlockTemplates {
   Heading2 = "heading2",
   PersonList = "personList",
   RichText = "richText",
+  EventList = "eventList",
 }
 
 export enum InputType {

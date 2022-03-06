@@ -38,6 +38,7 @@ import { PersonProps } from "../blocks/PersonList/personListDef"
 import { GalleryProps } from "../blocks/GalleryList/galleryListDef"
 import { RichTextProps } from "../blocks/RichText/richTextDef"
 import { Style } from "../../types/RichText"
+import { EventListProps } from "../blocks/EventList/eventListDef"
 
 const circles = [
   Circle1,
@@ -377,3 +378,127 @@ export const contentData: RichTextProps = {
     },
   ],
 }
+
+function encodeDate(date: string) {
+  return new Date(date).toISOString()
+}
+
+export const eventListData: EventListProps = {
+  title: "Výpravy",
+  events: [
+    {
+      name: "Silvestr na Dřevomorce",
+
+      date: {
+        from: encodeDate("12-01-2021"),
+        to: encodeDate("12-03-2021"),
+      },
+      description: [
+        {
+          textNodes: [
+            {
+              content: "Silvestr na  dřevomorce ",
+            },
+            {
+              content: "(skautská chata v horách)",
+              style: Style.Italic,
+            },
+            {
+              content: ".",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: "Movie night",
+
+      date: {
+        from: encodeDate("1-31-2022"),
+        to: encodeDate("2-1-2022"),
+      },
+    },
+    {
+      name: "Velikonoce na Slovensko",
+
+      date: {
+        from: encodeDate("5-4-2021"),
+        to: encodeDate("12-4-2021"),
+      },
+    },
+    {
+      name: "Tábor 2031",
+
+      date: {
+        from: encodeDate("7-3-2031"),
+        to: encodeDate("7-23-2031"),
+      },
+      description: [
+        {
+          textNodes: [
+            {
+              content: "Sraz: ",
+              style: Style.Bold,
+            },
+            {
+              content: "3. 7. na Báře v 8:00\n",
+            },
+            {
+              content: "Návrat: ",
+              style: Style.Bold,
+            },
+            {
+              content:
+                "23. 7. na Kralupském nádraží (tedy mezi expedici a vodou se do Kralup nevracíme). Čas upřesníme.\n",
+            },
+            {
+              content: "Cena: ",
+              style: Style.Bold,
+            },
+            {
+              content: "240 €",
+            },
+          ],
+        },
+        {
+          textNodes: [
+            {
+              content:
+                "Zcela nevhodné jsou sandále a kroksy. S takovým obutím nebude umožněno vodu absolvovat. Nejsou to jen boty do lodi, jsou to hlavně boty, ve kterých bude možná třeba jít v proudu po kamenitém dně s lodí v jedné a bagáží v druhé ruce.",
+            },
+          ],
+        },
+        {
+          textNodes: [
+            {
+              content:
+                "Láhev na vodu, alespoň 2 litry. Oblečení na loď (volné kraťasy či sukni a slabé tričko, aby se v tom dalo dobře plavat). Plavky. Opalovací krém. Dva ručníky. Voděodolný obal na osobní věci. Igelitové pytle. Sudy se občas nepodaří správně uzavřít a trochu do nich nateče, proto je dobré mít věci ještě v igelitových pytlech. Pokud si chcete vzít vlastní lodní pytel, tak můžete. Jinak dostanete půjčený 50l lodní sud. Prázdný batoh se do sudu vejít nemusí. Ten pojede autem.",
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
+
+// Sraz: 3. 7. na Báře v 8:00
+// Návrat:
+//
+// Na Báře se bude odevzdávat obálka, ve které bude:
+// - přihláška
+// - bezinfekčnost (podepsaný s datem 3. 7., ne dřív)
+// - posudek o zdravotní způsobilosti dítěte
+// - případně léky s popisem
+// Cena: 3 600 Kč (za obě části tábora)
+// Termín platby: 14. 6. 2021
+// Bankovní účet: 2801050859/2010.
+// Variabilní symbol: uveďte rodné číslo dítěte bez čísla za lomítkem
+// Specifický symbol: 5555.
+// Vypadá to, že před táborem bude potřeba mít negativní PCR test. Stát nyní hradí 2 PCR testy měsíčně, a proto doporučujeme si jeden šetřit před tábor.
+//
+// S sebou (specificky na vodu, ale je třeba zabalit od začátku):
+// Boty do vody. Pevné s plnou špičkou. Ideálně staré tenisky.
+//
+// Zcela nevhodné jsou sandále a kroksy. S takovým obutím nebude umožněno vodu absolvovat. Nejsou to jen boty do lodi, jsou to hlavně boty, ve kterých bude možná třeba jít v proudu po kamenitém dně s lodí v jedné a bagáží v druhé ruce.
+// Sandály s plnou špičkou a pevnou podrážkou (např. Keeny) jsou možné.
+// Pokrývka hlavy. Láhev na vodu, alespoň 2 litry. Oblečení na loď (volné kraťasy či sukni a slabé tričko, aby se v tom dalo dobře plavat). Plavky. Opalovací krém. Dva ručníky. Voděodolný obal na osobní věci. Igelitové pytle. Sudy se občas nepodaří správně uzavřít a trochu do nich nateče, proto je dobré mít věci ještě v igelitových pytlech. Pokud si chcete vzít vlastní lodní pytel, tak můžete. Jinak dostanete půjčený 50l lodní sud. Prázdný batoh se do sudu vejít nemusí. Ten pojede autem.

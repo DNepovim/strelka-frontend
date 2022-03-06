@@ -16,6 +16,17 @@ const StyledText: React.FC<{ style?: Style }> = ({ style, children }) => {
   }
 }
 
+function escapeNewlineToLineBreak(str: string) {
+  const lines = str.split("\n")
+  if (lines.length == 1) return <>{str}</>
+  return str.split("\n").map((line, index) => (
+    <React.Fragment key={index}>
+      {line}
+      {index != lines.length - 1 && <br />}
+    </React.Fragment>
+  ))
+}
+
 export const Paragraph: React.FC<ParagraphProps> = (props) => (
   <>
     {props.textNodes.length != 0 ? (
@@ -24,11 +35,13 @@ export const Paragraph: React.FC<ParagraphProps> = (props) => (
         {props.textNodes.map((node, index) =>
           node.href ? (
             <ContentLink href={node.href} key={index}>
-              <StyledText style={node.style}>{node.content}</StyledText>
+              <StyledText style={node.style}>
+                {escapeNewlineToLineBreak(node.content)}
+              </StyledText>
             </ContentLink>
           ) : (
             <StyledText key={index} style={node.style}>
-              {node.content}
+              {escapeNewlineToLineBreak(node.content)}
             </StyledText>
           )
         )}
@@ -48,18 +61,18 @@ const FloatedImage = styled(Image)`
   img {
     border-radius: 0.4rem;
   }
-  
-  @media ${min("m")}{
+
+  @media ${min("m")} {
     width: 50%;
     height: auto;
     margin: ${theme.size.base}rem;
     margin-right: 0;
-    margin-bottom; ${theme.size.base * 0.5}rem;
+    margin-bottom: ${theme.size.base * 0.5}rem;
     margin-top: ${theme.size.base * 0.5}rem;
     float: right;
-  } 
-  
-  @media ${min("l")}{   
+  }
+
+  @media ${min("l")} {
     width: 40%;
     height: auto;
   }

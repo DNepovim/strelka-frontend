@@ -17,6 +17,8 @@ import { GalleryBlock, galleryDef } from "./Gallery/galleryDef"
 import { Gallery } from "./Gallery/Gallery"
 import { RichTextBlock, richTextDef } from "./RichText/richTextDef"
 import { RichText } from "./RichText/RichText"
+import { EventList } from "./EventList/EventList"
+import { EventListBlock, eventListDef } from "./EventList/eventListDef"
 
 export type Unarray<T> = T extends Array<infer U> ? U : T
 
@@ -33,6 +35,7 @@ export type BlocksDefs =
   | GalleryBlock
   | PersonListBlock
   | RichTextBlock
+  | EventListBlock
 
 // TODO dynamic import
 export const blocksComponentList: Record<BlockTemplates, React.FC<any>> = {
@@ -44,6 +47,7 @@ export const blocksComponentList: Record<BlockTemplates, React.FC<any>> = {
   heading2: Heading2,
   personList: PersonList,
   richText: RichText,
+  eventList: EventList,
 }
 
 export const blocksDefsList: { [key in BlockTemplates]?: BlockDef<any> } = {
@@ -55,6 +59,7 @@ export const blocksDefsList: { [key in BlockTemplates]?: BlockDef<any> } = {
   heading2: heading2Def,
   personList: personListDef,
   richText: richTextDef,
+  eventList: eventListDef,
 }
 
 export const getBlockDef = (template: BlockTemplates): BlockDef<any> | false =>
