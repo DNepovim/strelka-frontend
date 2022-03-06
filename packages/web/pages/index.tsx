@@ -12,6 +12,7 @@ import {
 
 import {
   contentData,
+  eventListData,
   galleryListData,
   groupData,
   linkData,
@@ -63,6 +64,11 @@ export const getServerSideProps: () => { props: Props } = () => ({
           fields: {
             content: "Skauti Stopaři",
           },
+        },
+        {
+          id: "",
+          template: BlockTemplates.EventList,
+          fields: eventListData,
         },
         {
           id: "",
