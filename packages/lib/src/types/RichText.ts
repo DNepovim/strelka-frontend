@@ -1,6 +1,7 @@
-import { Image, imageSchema } from "./Image"
+import { Image, imageDef, imageSchema } from "./Image"
 import * as yup from "yup"
 import { withBlockSchema } from "../ui/components/Block/Block"
+import { InputType } from "../ui/blocks/enums"
 
 export enum Style {
   Bold,
@@ -32,3 +33,23 @@ export const paragraphSchema: yup.SchemaOf<Paragraph> = withBlockSchema(
     image: imageSchema.default(undefined).optional(),
   })
 )
+
+export const paragraphDefFields = {
+  image: imageDef,
+  textNodes: {
+    fields: {
+      content: {
+        label: "Obsah",
+        inputType: InputType.Text,
+      },
+      style: {
+        label: "Styl",
+        inputType: InputType.Select,
+      },
+      href: {
+        label: "Odkaz",
+        inputType: InputType.Text,
+      },
+    },
+  },
+}
