@@ -6,6 +6,7 @@ import * as yup from "yup"
 export interface BlockFields {
   id?: string
   backgroundColor?: string
+  className?: string
 }
 
 export const blockSchema = yup.object({
@@ -19,6 +20,7 @@ export const withBlockSchema = <T extends {}>(schema: yup.ObjectSchema<T>) =>
 export const Block: React.FC<BlockFields> = ({
   id,
   backgroundColor,
+  className,
   children,
 }) => (
   <section
@@ -27,6 +29,7 @@ export const Block: React.FC<BlockFields> = ({
       position: relative;
       ${backgroundColor ? `background-color: ${backgroundColor};` : ""}
     `}
+    className={className}
   >
     {children}
   </section>
