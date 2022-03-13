@@ -19,7 +19,7 @@ export const NavLinks: React.FC<NavLinksProps> = (props) => {
   return (
     <LinksContainer isVisible={props.visible} id={props.id}>
       <Links isVisible={props.visible}>
-        {props.data.map((navLink , index) => (
+        {props.data.map((navLink, index) => (
           <LinkItem key={index}>
             {navLink.subLinks ? (
               <SubLinks
