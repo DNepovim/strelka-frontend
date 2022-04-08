@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { v4 as uuid } from "uuid"
 import {
   useSensors,
@@ -14,10 +15,10 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable"
 import { blocksDefsList, BlocksDefs, BlockTemplates } from "@local/lib"
-import { Button } from "antd"
-import React from "react"
-import AppstoreAddOutlined from "@ant-design/icons/lib/icons/AppstoreAddOutlined"
+import React, { useState } from "react"
 import { BlockEditorBlock } from "../BlockEditorBlock/BlockEditorBlock"
+import { css } from "@emotion/react"
+import { insertToArray } from "../../utils/insertToArray"
 
 export interface BlockEditorProps {
   blocks: BlocksDefs[]
@@ -30,6 +31,7 @@ export const BlockEditor: React.FC<BlockEditorProps> = ({
   setValue,
   name,
 }) => {
+  const [_, setFocusOn] = useState<number | null>(null)
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -37,7 +39,12 @@ export const BlockEditor: React.FC<BlockEditorProps> = ({
     })
   )
   return (
-    <>
+    <div
+      css={css`
+        background: white;
+        padding: 32px 16px;
+      `}
+    >
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
@@ -51,7 +58,7 @@ export const BlockEditor: React.FC<BlockEditorProps> = ({
 
           const overIndex = items.indexOf(over.id)
           const activeIndex = items.indexOf(active.id)
-          const newOrder = arrayMove(items, activeIndex, overIndex)
+          const newOrder = arrayMove(blocks, activeIndex, overIndex)
 
           setValue(name, newOrder)
         }}
@@ -62,32 +69,45 @@ export const BlockEditor: React.FC<BlockEditorProps> = ({
         >
           {blocks.map((block, index) => (
             <BlockEditorBlock
-              name={name}
+              name={`${name}[${index}]`}
               key={block.id}
-              index={index}
               id={block.id}
               {...(block.template
                 ? blocksDefsList[block.template as BlockTemplates]
                 : {})}
-              onRemove={() =>
+              onFocus={() => setFocusOn(index)}
+              onBlockRemove={() =>
                 setValue(
                   name,
                   blocks.filter((_, i) => i !== index)
                 )
               }
+              onGoUp={() => {
+                setFocusOn(index - 1)
+              }}
+              onGoDown={() => {
+                setFocusOn(index + 1)
+              }}
+              onBlockDuplicate={() => {
+                setValue(
+                  name,
+                  insertToArray(blocks, { ...block, id: uuid() }, index)
+                )
+              }}
               onTemplateChange={(template) =>
                 setValue(`${name}[${index}].template`, template)
               }
+              onBlockAdd={(template) => {
+                setValue(
+                  name,
+                  insertToArray(blocks, { id: uuid(), template }, index)
+                )
+                setFocusOn(index + 1)
+              }}
             />
           ))}
         </SortableContext>
       </DndContext>
-      <Button
-        icon={<AppstoreAddOutlined />}
-        onClick={() => setValue(name, [...(blocks ?? []), { id: uuid() }])}
-      >
-        Přidat blok
-      </Button>
-    </>
+    </div>
   )
 }

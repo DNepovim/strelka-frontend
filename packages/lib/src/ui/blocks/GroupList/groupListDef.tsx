@@ -1,5 +1,5 @@
 import * as yup from "yup"
-import { BlockTemplates, InputType } from "../enums"
+import { BlockTemplates, AdditonalFieldInputType } from "../enums"
 import { Block, BlockDef } from "../blocks"
 import { BlockFields, withBlockSchema } from "../../components/Block/Block"
 import { GroupProps } from "./GroupList"
@@ -11,12 +11,12 @@ export interface GroupListBlock extends Block {
 }
 
 export interface GroupListProps extends BlockFields {
-  content: GroupProps[]
+  groups: GroupProps[]
 }
 
 export const groupListSchema: yup.SchemaOf<GroupListProps> = withBlockSchema(
   yup.object({
-    content: yup
+    groups: yup
       .array()
       .of(
         yup.object({
@@ -34,22 +34,22 @@ export const groupDef: BlockDef<GroupListProps> = {
   title: "Skupina",
   template: BlockTemplates.GroupList,
   schema: groupListSchema,
-  adminFields: {
-    content: {
+  additionalFields: {
+    groups: {
       clonable: true,
       fields: {
         name: {
           label: "Název",
-          inputType: InputType.Text,
+          inputType: AdditonalFieldInputType.Text,
         },
         address: {
           label: "Odkaz",
-          inputType: InputType.Text,
+          inputType: AdditonalFieldInputType.Text,
         },
         image: imageDef,
         comment: {
           label: "Komentář",
-          inputType: InputType.Text,
+          inputType: AdditonalFieldInputType.Text,
         },
       },
     },

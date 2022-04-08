@@ -1,4 +1,4 @@
-import { BlockTemplates, InputType } from "../enums"
+import { BlockTemplates, AdditonalFieldInputType } from "../enums"
 import { Block, BlockDef } from "../blocks"
 import { BlockFields, withBlockSchema } from "../../components/Block/Block"
 import * as yup from "yup"
@@ -17,13 +17,13 @@ export interface GalleryListBlock extends Block {
 }
 
 export interface GalleryListProps extends BlockFields {
-  content: GalleryProps[]
+  galleryList: GalleryProps[]
 }
 
 export const galleryListSchema: yup.SchemaOf<GalleryListProps> =
   withBlockSchema(
     yup.object({
-      content: yup
+      galleryList: yup
         .array()
         .of(
           yup.object({
@@ -41,22 +41,22 @@ export const galleryListDef: BlockDef<GalleryListProps> = {
   title: "Galerie",
   template: BlockTemplates.GalleryList,
   schema: galleryListSchema,
-  adminFields: {
-    content: {
+  additionalFields: {
+    galleryList: {
       clonable: true,
       fields: {
         name: {
           label: "Název",
-          inputType: InputType.Text,
+          inputType: AdditonalFieldInputType.Text,
         },
         address: {
           label: "Odkaz",
-          inputType: InputType.Text,
+          inputType: AdditonalFieldInputType.Text,
         },
         image: imageDef,
         comment: {
           label: "Komentář",
-          inputType: InputType.Text,
+          inputType: AdditonalFieldInputType.Text,
         },
       },
     },

@@ -29,4 +29,4 @@ export type { AdminFields, BlockDef, BlocksDefs } from "./ui/blocks/blocks"
 export type { NavLink } from "./types/Navigation"
 
 // enums
-export { InputType } from "./ui/blocks/enums"
+export { AdditonalFieldInputType, InputType } from "./ui/blocks/enums"

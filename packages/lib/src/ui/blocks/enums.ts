@@ -1,17 +1,24 @@
 export enum BlockTemplates {
+  Heading = "heading",
+  RichText = "richText",
   Header = "header",
   GroupList = "groupList",
   GalleryList = "galleryList",
   Gallery = "gallery",
-  Heading1 = "heading1",
-  Heading2 = "heading2",
   PersonList = "personList",
 }
 
-export enum InputType {
+export const defaultBlockTemplate = BlockTemplates.RichText
+
+export enum AdditonalFieldInputType {
   Text = "text",
   TextArea = "textArea",
   Number = "number",
   Checkbox = "checkbox",
   Select = "select",
+}
+
+export enum InputType {
+  Heading = "heading",
+  RichText = "richText",
 }

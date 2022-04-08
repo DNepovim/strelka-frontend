@@ -55,9 +55,9 @@ export const randomCircle = randomItem(circles)
 export const randomRectangle = randomItem(rectangles)
 
 import { NavLink } from "../../types/Navigation"
-import { HeadingProps } from "../blocks/Heading1/Heading1"
 import { PersonProps } from "../blocks/PersonList/personListDef"
 import { GalleryProps } from "../blocks/GalleryList/galleryListDef"
+import { HeadingProps } from "../blocks/Heading/headingDef"
 
 export const groupData = [
   {
