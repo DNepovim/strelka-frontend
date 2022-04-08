@@ -1,14 +1,15 @@
+/** @jsxImportSource @emotion/react */
 import React from "react"
-import { css } from "@emotion/react"
-import styled from "@emotion/styled"
 import { AdminFields } from "@local/lib"
-import { Button, Card } from "antd"
+import { Button, Collapse } from "antd"
 import { useField, FieldArray } from "formik"
 import PlusSquareOutlined from "@ant-design/icons/lib/icons/PlusSquareOutlined"
 import HolderOutlined from "@ant-design/icons/lib/icons/HolderOutlined"
 import DeleteOutlined from "@ant-design/icons/lib/icons/DeleteOutlined"
 import { AdminFieldset } from "../AdminFieldset/AdminFieldset"
 import { FieldProps } from "../Inputs/Fieldset/Fieldset"
+import styled from "@emotion/styled"
+import { css } from "@emotion/react"
 
 export const ClonableFields: React.FC<{
   name: string
@@ -20,15 +21,12 @@ export const ClonableFields: React.FC<{
     <FieldArray
       name={name}
       render={(helpers) => (
-        <>
-          <ClonableContainer>
+        <Wrapper>
+          <Collapse>
             {(Array.isArray(field.value) ? field.value : []).map((_, index) => (
-              <ClonableItem
+              <Collapse.Panel
                 key={index}
-                css={css`
-                  margin-bottom: 16px;
-                `}
-                title={
+                header={
                   <div>
                     <HolderOutlined />
                   </div>
@@ -54,30 +52,29 @@ export const ClonableFields: React.FC<{
                     path={`${name}[${index}]`}
                   />
                 )}
-              </ClonableItem>
+              </Collapse.Panel>
             ))}
-          </ClonableContainer>
+          </Collapse>
           <Button
             onClick={() => helpers.push(undefined)}
             icon={<PlusSquareOutlined />}
             type="primary"
             ghost
+            css={css`
+              margin-top: 16px;
+            `}
           >
             Přidat
           </Button>
-        </>
+        </Wrapper>
       )}
     />
   )
 }
 
-const ClonableContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 -8px;
-`
-
-const ClonableItem = styled(Card)`
-  width: 300px;
-  margin: 8px;
+const Wrapper = styled.div`
+  .ant-collapse-header {
+    align-items: center !important;
+    padding: 4px 16px !important;
+  }
 `

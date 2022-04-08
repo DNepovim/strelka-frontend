@@ -1,5 +1,5 @@
 import * as yup from "yup"
-import { InputType } from "../ui/blocks/enums"
+import { AdditonalFieldInputType } from "../ui/blocks/enums"
 
 export interface Image {
   src: string
@@ -20,15 +20,15 @@ export const imageDef = {
   fields: {
     src: {
       label: "Odkaz",
-      inputType: InputType.Text,
+      inputType: AdditonalFieldInputType.Text,
     },
     width: {
       label: "Šířka",
-      inputType: InputType.Number,
+      inputType: AdditonalFieldInputType.Number,
     },
     height: {
       label: "Výška",
-      inputType: InputType.Number,
+      inputType: AdditonalFieldInputType.Number,
     },
   },
 }

@@ -39,7 +39,7 @@ export const GroupList: React.FC<GroupListProps> = (props) => (
   <Block>
     <Container>
       <GroupListContainer>
-        {props.content.map((group, index) => (
+        {props.groups.map((group, index) => (
           <Group
             key={index}
             href={group.address}

@@ -1,20 +1,20 @@
 import * as yup from "yup"
 import React from "react"
-import { BlockTemplates, InputType } from "./enums"
+import { BlockTemplates, AdditonalFieldInputType, InputType } from "./enums"
 import { Header } from "./Header/Header"
 import { groupDef, GroupListBlock } from "./GroupList/groupListDef"
 import { GroupList } from "./GroupList/GroupList"
 import { HeaderBlock, headerDef } from "./Header/headerDef"
 import { GalleryListBlock, galleryListDef } from "./GalleryList/galleryListDef"
 import { GalleryList } from "./GalleryList/GalleryList"
-import { Heading1 } from "./Heading1/Heading1"
-import { Heading1Block, heading1Def } from "./Heading1/heading1Def"
-import { Heading2Block, heading2Def } from "./Heading2/heading2Def"
-import { Heading2 } from "./Heading2/Heading2"
+import { HeadingBlock, headingDef } from "./Heading/headingDef"
+import { RichTextBlock, richTextDef } from "./RichText/richTextDef"
+import { RichText } from "./RichText/RichText"
 import { PersonListBlock, personListDef } from "./PersonList/personListDef"
 import { PersonList } from "./PersonList/PersonList"
 import { GalleryBlock, galleryDef } from "./Gallery/galleryDef"
 import { Gallery } from "./Gallery/Gallery"
+import { Heading } from "./Heading/Heading"
 
 export type Unarray<T> = T extends Array<infer U> ? U : T
 
@@ -23,32 +23,32 @@ export interface Block {
 }
 
 export type BlocksDefs =
+  | HeadingBlock
+  | RichTextBlock
+  | GalleryBlock
   | HeaderBlock
   | GroupListBlock
-  | Heading1Block
-  | Heading2Block
   | GalleryListBlock
-  | GalleryBlock
   | PersonListBlock
 
 // TODO dynamic import
 export const blocksComponentList: Record<BlockTemplates, React.FC<any>> = {
+  heading: Heading,
+  richText: RichText,
+  gallery: Gallery,
   header: Header,
   groupList: GroupList,
   galleryList: GalleryList,
-  gallery: Gallery,
-  heading1: Heading1,
-  heading2: Heading2,
   personList: PersonList,
 }
 
 export const blocksDefsList: { [key in BlockTemplates]?: BlockDef<any> } = {
+  heading: headingDef,
+  richText: richTextDef,
+  gallery: galleryDef,
   header: headerDef,
   groupList: groupDef,
   galleryList: galleryListDef,
-  gallery: galleryDef,
-  heading1: heading1Def,
-  heading2: heading2Def,
   personList: personListDef,
 }
 
@@ -58,8 +58,10 @@ export const getBlockDef = (template: BlockTemplates): BlockDef<any> | false =>
 export interface BlockDef<T> {
   title: string
   template: BlockTemplates
-  schema: yup.SchemaOf<T>
-  adminFields: AdminFields<T>
+  schema?: yup.SchemaOf<T> // TODO required
+  inputType?: InputType
+  icon?: React.FC
+  additionalFields?: AdminFields<T>
 }
 
 export type AdminFields<T> = {
@@ -74,7 +76,7 @@ interface GeneralDef {
 }
 
 interface FieldDef extends GeneralDef {
-  inputType: InputType
+  inputType: AdditonalFieldInputType
   options?: {
     // TODO only for select
     value: string | number
