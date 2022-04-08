@@ -3,29 +3,28 @@ import { css } from "@emotion/react"
 import React from "react"
 import * as yup from "yup"
 
-export interface BlockFields {
+interface GenricBlockFields<T> {
   id?: string
-  backgroundColor?: string
+  content?: T
 }
+
+export type BlockFields<T = undefined> = T extends undefined
+  ? Omit<GenricBlockFields<T>, "content">
+  : GenricBlockFields<T>
 
 export const blockSchema = yup.object({
   id: yup.string(),
-  backgroundColor: yup.string(),
+  content: yup.string(),
 })
 
 export const withBlockSchema = <T extends {}>(schema: yup.ObjectSchema<T>) =>
   blockSchema.concat(schema)
 
-export const Block: React.FC<BlockFields> = ({
-  id,
-  backgroundColor,
-  children,
-}) => (
+export const Block: React.FC<BlockFields> = ({ id, children }) => (
   <section
     id={id}
     css={css`
       position: relative;
-      ${backgroundColor ? `background-color: ${backgroundColor};` : ""}
     `}
   >
     {children}

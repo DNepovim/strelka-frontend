@@ -53,36 +53,22 @@ export const getServerSideProps: () => { props: Props } = () => ({
           id: "",
           template: BlockTemplates.Header,
           fields: {
-            content: linkData,
-          },
-        },
-        {
-          id: "",
-          template: BlockTemplates.Heading2,
-          fields: {
-            content: { content: "Vedení" },
+            links: linkData,
           },
         },
         {
           id: "",
           template: BlockTemplates.PersonList,
           fields: {
-            content: personData,
+            persons: personData,
           },
         },
 
         {
           id: "",
-          template: BlockTemplates.Heading2,
-          fields: {
-            content: { content: "Fotogalerie" },
-          },
-        },
-        {
-          id: "",
           template: BlockTemplates.GalleryList,
           fields: {
-            content: galleryListData,
+            galleryList: galleryListData,
           },
         },
       ],

@@ -17,7 +17,7 @@ export const PersonList: React.FC<PersonListProps> = (props) => (
   <Block>
     <Container>
       <PersonListContainer>
-        {props.content.map((person, index) => (
+        {props.persons.map((person, index) => (
           <Person key={index}>
             <PersonImage mask={randomCircle(index).src} image={person.image} />
             <Name>

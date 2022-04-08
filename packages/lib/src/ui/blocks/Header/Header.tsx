@@ -18,7 +18,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
         <Navigation>
           <Logo />
           <NavButton onClick={() => setIsVisible(!isVisible)}>Menu</NavButton>
-          <NavLinks data={props.content} visible={isVisible} />
+          <NavLinks data={props.links} visible={isVisible} />
         </Navigation>
       </Container>
     </Block>

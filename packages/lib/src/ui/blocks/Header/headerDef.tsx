@@ -1,7 +1,7 @@
 import * as yup from "yup"
 import { Block, BlockDef } from "../blocks"
 import { BlockFields, withBlockSchema } from "../../components/Block/Block"
-import { BlockTemplates, InputType } from "../enums"
+import { BlockTemplates, AdditonalFieldInputType } from "../enums"
 import { NavLink, SubLink, SubLinksData } from "../../../types/Navigation"
 import { imageDef, imageSchema } from "../../../types/Image"
 
@@ -11,7 +11,7 @@ export interface HeaderBlock extends Block {
 }
 
 export interface HeaderProps extends BlockFields {
-  content: NavLink[]
+  links: NavLink[]
 }
 
 const subLinkSchema: yup.SchemaOf<SubLink> = yup.object({
@@ -34,7 +34,7 @@ const navLinksSchema: yup.SchemaOf<NavLink> = yup.object({
 
 export const headerSchema: yup.SchemaOf<HeaderProps> = withBlockSchema(
   yup.object({
-    content: yup.array().of(navLinksSchema),
+    links: yup.array().of(navLinksSchema),
   })
 )
 
@@ -42,18 +42,18 @@ export const headerDef: BlockDef<HeaderProps> = {
   title: "Hlavička",
   template: BlockTemplates.Header,
   schema: headerSchema,
-  adminFields: {
-    content: {
+  additionalFields: {
+    links: {
       label: "Navigace",
       clonable: true,
       fields: {
         name: {
           label: "Popis",
-          inputType: InputType.Text,
+          inputType: AdditonalFieldInputType.Text,
         },
         address: {
           label: "Odkaz",
-          inputType: InputType.Text,
+          inputType: AdditonalFieldInputType.Text,
         },
         subLinks: {
           label: "Podmenu",
@@ -61,7 +61,7 @@ export const headerDef: BlockDef<HeaderProps> = {
           fields: {
             linkPrefix: {
               label: "Prefix",
-              inputType: InputType.Text,
+              inputType: AdditonalFieldInputType.Text,
             },
             data: {
               label: "Data",
@@ -69,16 +69,16 @@ export const headerDef: BlockDef<HeaderProps> = {
               fields: {
                 name: {
                   label: "Popis",
-                  inputType: InputType.Text,
+                  inputType: AdditonalFieldInputType.Text,
                 },
                 address: {
                   label: "Odkaz",
-                  inputType: InputType.Text,
+                  inputType: AdditonalFieldInputType.Text,
                 },
                 image: imageDef,
                 comment: {
                   label: "Komentář",
-                  inputType: InputType.Text,
+                  inputType: AdditonalFieldInputType.Text,
                 },
               },
             },
