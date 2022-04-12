@@ -1,19 +1,32 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState } from "react"
 import { Avatar, Button, Layout as AntLayout, Space } from "antd"
-import { LogoutOutlined } from "@ant-design/icons"
+import { LoginOutlined, LogoutOutlined } from "@ant-design/icons"
 import { Content } from "antd/lib/layout/layout"
 import { css } from "@emotion/react"
 import { routes } from "../../routes"
 import { Navigation } from "../Navigation/Navigation"
 import { Logo } from "@local/lib/src/ui/components/Logo/Logo"
+import { useKeycloak } from "@react-keycloak/ssr"
+import type { KeycloakInstance, KeycloakTokenParsed } from "keycloak-js"
+
+type ParsedToken = KeycloakTokenParsed & {
+  email?: string
+  name?: string
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  preferred_username?: string
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  given_name?: string
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  family_name?: string
+}
 
 export const Layout: React.FC = ({ children }) => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false)
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const parsedToken: ParsedToken | undefined = keycloak?.tokenParsed
 
-  const user = undefined
-
-  return (
+  return keycloak?.authenticated ? (
     <AntLayout
       css={css`
         min-height: 100vh;
@@ -52,7 +65,7 @@ export const Layout: React.FC = ({ children }) => {
             <Logo width="100%" height="90px" />
           </div>
           <Navigation routes={routes} />
-          {user && (
+          {keycloak?.authenticated && (
             <div
               css={css`
                 display: flex;
@@ -69,9 +82,26 @@ export const Layout: React.FC = ({ children }) => {
                     margin: 0 auto;
                   `}
                 >
-                  <Avatar alt="" src="" />
                   <Button
-                    onClick={() => {}}
+                    type="text"
+                    css={css`
+                      padding: 0;
+                    `}
+                    onClick={() => {
+                      if (keycloak) {
+                        window.location.href = keycloak.createAccountUrl()
+                      }
+                    }}
+                  >
+                    <Avatar alt="" src={""} />
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      if (keycloak) {
+                        window.location.href = keycloak.createLogoutUrl()
+                      }
+                    }}
+                    title="Odhlásit"
                     type="link"
                     css={css`
                       height: 24px;
@@ -93,7 +123,26 @@ export const Layout: React.FC = ({ children }) => {
                     `}
                   >
                     <Button
-                      onClick={() => {}}
+                      type="link"
+                      onClick={() => {
+                        if (keycloak) {
+                          window.location.href = keycloak.createAccountUrl()
+                        }
+                      }}
+                      css={css`
+                        height: 24px;
+                        padding: 0;
+                        text-align: right;
+                      `}
+                    >
+                      {parsedToken?.preferred_username}
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        if (keycloak) {
+                          window.location.href = keycloak.createLogoutUrl()
+                        }
+                      }}
                       type="link"
                       css={css`
                         height: 24px;
@@ -121,5 +170,25 @@ export const Layout: React.FC = ({ children }) => {
         </AntLayout>
       </AntLayout>
     </AntLayout>
+  ) : (
+    <div
+      css={css`
+        display: flex;
+        height: 100vh;
+        align-items: center;
+        justify-content: center;
+      `}
+    >
+      <Button
+        onClick={() => {
+          if (keycloak) {
+            window.location.href = keycloak?.createLoginUrl()
+          }
+        }}
+        icon={<LoginOutlined />}
+      >
+        Přihlásit
+      </Button>
+    </div>
   )
 }
