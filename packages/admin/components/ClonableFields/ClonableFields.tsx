@@ -2,19 +2,18 @@
 import React from "react"
 import { AdminFields } from "@local/lib"
 import { Button, Collapse } from "antd"
-import { useField, FieldArray } from "formik"
+import { useField, FieldArray, FieldInputProps } from "formik"
 import PlusSquareOutlined from "@ant-design/icons/lib/icons/PlusSquareOutlined"
 import HolderOutlined from "@ant-design/icons/lib/icons/HolderOutlined"
 import DeleteOutlined from "@ant-design/icons/lib/icons/DeleteOutlined"
 import { AdminFieldset } from "../AdminFieldset/AdminFieldset"
-import { FieldProps } from "../Inputs/Fieldset/Fieldset"
 import styled from "@emotion/styled"
 import { css } from "@emotion/react"
 
 export const ClonableFields: React.FC<{
   name: string
   fields?: AdminFields<any>
-  component?: React.FC<Omit<FieldProps<any>, "children">>
+  component?: React.FC<Omit<FieldInputProps<any>, "children">>
 }> = ({ name, fields, component }) => {
   const [field] = useField(name)
   return (
@@ -42,6 +41,7 @@ export const ClonableFields: React.FC<{
               >
                 {component &&
                   React.createElement(component, {
+                    ...field,
                     name: `${name}[${index}]`,
                     key: `${name}[${index}]`,
                   })}

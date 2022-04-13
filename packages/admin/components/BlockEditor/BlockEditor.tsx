@@ -43,6 +43,7 @@ export const BlockEditor: React.FC<BlockEditorProps> = ({
       css={css`
         background: white;
         padding: 32px 16px;
+        min-height: 60vh;
       `}
     >
       <DndContext
