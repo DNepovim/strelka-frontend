@@ -10,6 +10,12 @@ import * as yup from "yup"
 
 export type PageContent = BlocksDefs[]
 
+export enum PageRole {
+  Page = "page",
+  FrontPage = "frontPage",
+  EventDetail = "eventDetail",
+}
+
 export interface PageWithContent {
   id: string
   name: string
@@ -18,6 +24,8 @@ export interface PageWithContent {
   content?: PageContent
   siteId?: string | null
   slug: string
+  parentPageId: string
+  role: PageRole
 }
 
 export type PageFormValues = Optional<

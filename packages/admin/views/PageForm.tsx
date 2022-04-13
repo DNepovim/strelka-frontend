@@ -2,18 +2,19 @@
 import { css } from "@emotion/react"
 import SaveOutlined from "@ant-design/icons/lib/icons/SaveOutlined"
 import { fonts, global, RenderBlocks } from "@local/lib/src"
-import { Button, Space, Switch, Col, Form, message, Input, Row } from "antd"
+import { Button, Col, Form, message, Row, Tabs } from "antd"
 import { Formik, FormikHelpers } from "formik"
-import React, { useState } from "react"
+import React from "react"
 import { BlockEditor } from "../components/BlockEditor/BlockEditor"
 import { FlexRow } from "../components/FlexRow/FlexRow"
 import { PageWrapper } from "../components/PageHeader/PageWrapper"
 import { Preview } from "../components/Preview/Preview"
-import { pageToCreateSchema, PageFormValues } from "../schemas/page"
+import { pageToCreateSchema, PageFormValues, PageRole } from "../schemas/page"
 import { useRouter } from "next/dist/client/router"
 import { routes } from "../routes"
 import { webalize } from "@local/lib"
-import { Fieldset } from "../components/Inputs/Fieldset/Fieldset"
+import { PagesSelectInput } from "../components/Inputs/PagesSelectInput/PagesSelectInput"
+import { Input, Select } from "formik-antd"
 
 type Model = PageFormValues
 
@@ -28,7 +29,8 @@ export const PageForm: React.FC<PageFormProps> = ({
   onSave,
   autoFillSlug,
 }) => {
-  const [isPreviewVisible, setIsPreviewVisible] = useState(false)
+  // const [isPreviewVisible, setIsPreviewVisible] = useState(false)
+  const isPreviewVisible = false
   const router = useRouter()
 
   return (
@@ -53,70 +55,49 @@ export const PageForm: React.FC<PageFormProps> = ({
       initialValues={{ ...initialValues, siteId: "" }}
     >
       {(props) => (
-        <PageWrapper
-          breadcrumb={[
-            { breadcrumbName: "Stránky", path: routes.pagesList.getLink() },
-            {
-              breadcrumbName: props.values.name,
-              path: routes.editPage.getLink(props.values.slug),
-            },
-          ]}
-          title={
-            <Fieldset<string> name="name" label="Název">
-              {(fieldProps) => (
-                <Input
-                  css={css`
-                    margin-bottom: 0.5em;
-                    color: rgba(0, 0, 0, 0.85);
-                    font-weight: 600;
-                    font-size: 38px;
-                    line-height: 1.23;
-                  `}
-                  name="name"
-                  value={fieldProps.value}
-                  onChange={(value: { target: { value: string } }) => {
-                    const fieldValue = value?.target?.value
-                    if (!props.touched.slug && autoFillSlug) {
-                      props.setFieldValue("slug", webalize(value.target.value))
-                    }
-                    props.setFieldValue(fieldProps.name, fieldValue)
-                  }}
-                />
-              )}
-            </Fieldset>
-          }
-          actions={[
-            <Button
-              key="save"
-              type="primary"
-              icon={<SaveOutlined />}
-              onClick={async () => props.submitForm()}
-              disabled={props.isSubmitting || !props.isValid}
-              loading={props.isSubmitting}
-            >
-              Uložit
-            </Button>,
-          ]}
-        >
-          <Row>
-            <Col>
-              <Fieldset<string> name="slug" label="URL">
-                {(fieldProps) => (
-                  <Input
-                    name={fieldProps.name}
-                    value={fieldProps.value}
-                    onChange={(value: { target: { value: string } }) => {
-                      props.setFieldValue(
-                        fieldProps.name,
-                        webalize(value.target.value)
-                      )
-                    }}
-                  />
-                )}
-              </Fieldset>
-            </Col>
-          </Row>
-          <Row>
+        <Form layout="vertical">
+          <PageWrapper
+            breadcrumb={[
+              { breadcrumbName: "Stránky", path: routes.pagesList.getLink() },
+              {
+                breadcrumbName: props.values.name,
+                path: routes.editPage.getLink(props.values.slug),
+              },
+            ]}
+            title={
+              <Input
+                css={css`
+                  color: rgba(0, 0, 0, 0.85);
+                  font-weight: 600;
+                  font-size: 38px;
+                  line-height: 1.23;
+                `}
+                name="name"
+                onChange={(value: { target: { value: string } }) => {
+                  const fieldValue = value?.target?.value
+                  if (!props.touched.slug && autoFillSlug) {
+                    props.setFieldValue("slug", webalize(value.target.value))
+                  }
+                  props.setFieldValue("name", fieldValue)
+                }}
+              />
+            }
+            actions={[
+              <Button
+                key="save"
+                type="primary"
+                icon={<SaveOutlined />}
+                onClick={async () => props.submitForm()}
+                disabled={props.isSubmitting || !props.isValid}
+                loading={props.isSubmitting}
+              >
+                Uložit
+              </Button>,
+            ]}
+          >
+            <Tabs defaultActiveKey="content">
+              <Tabs.TabPane tab="Obsah" key="content">
+                {/* <Row>
             <Col span="24">
               <Space
                 css={css`
@@ -130,28 +111,75 @@ export const PageForm: React.FC<PageFormProps> = ({
                 />
               </Space>
             </Col>
-          </Row>
-          <FlexRow>
-            {isPreviewVisible && (
-              <Col span={12}>
-                <Preview zoom={0.4}>
-                  <div css={[fonts, global]}>
-                    <RenderBlocks blocks={props.values.content} />
-                  </div>
-                </Preview>
-              </Col>
-            )}
-            <Col span={isPreviewVisible ? 12 : 24}>
-              <Form>
-                <BlockEditor
-                  name="content"
-                  blocks={props.values.content ?? []}
-                  setValue={props.setFieldValue}
-                />
-              </Form>
-            </Col>
-          </FlexRow>
-        </PageWrapper>
+          </Row> */}
+                <FlexRow>
+                  {isPreviewVisible && (
+                    <Col span={12}>
+                      <Preview zoom={0.4}>
+                        <div css={[fonts, global]}>
+                          <RenderBlocks blocks={props.values.content} />
+                        </div>
+                      </Preview>
+                    </Col>
+                  )}
+                  <Col span={isPreviewVisible ? 12 : 24}>
+                    <BlockEditor
+                      name="content"
+                      blocks={props.values.content ?? []}
+                      setValue={props.setFieldValue}
+                    />
+                  </Col>
+                </FlexRow>
+              </Tabs.TabPane>
+              <Tabs.TabPane tab="Nastavení" key="settings">
+                <Row>
+                  <Col span="12">
+                    <Form.Item label="Role">
+                      <Select
+                        name="role"
+                        options={[
+                          { label: "Stránka", value: PageRole.Page },
+                          {
+                            label: "Úvodní stránka",
+                            value: PageRole.FrontPage,
+                          },
+                          {
+                            label: "Detail události",
+                            value: PageRole.EventDetail,
+                          },
+                        ]}
+                        onChange={(value) => {
+                          props.setFieldValue("role", value)
+                          if (value !== PageRole.Page)
+                            props.setFieldValue("slug", "")
+                        }}
+                      />
+                    </Form.Item>
+                    <Form.Item label="Odkaz">
+                      <Input
+                        name="slug"
+                        disabled={props.values.role !== PageRole.Page}
+                        onChange={(value) => {
+                          props.setFieldValue(
+                            "slug",
+                            webalize(value.target.value)
+                          )
+                        }}
+                      />
+                    </Form.Item>
+                    {/* TODO filter out pages with role eventDetail */}
+                    <Form.Item label="Nadřazená stránka">
+                      <PagesSelectInput
+                        disabled={props.values.role === PageRole.FrontPage}
+                        name="parentPageId"
+                      />
+                    </Form.Item>
+                  </Col>
+                </Row>
+              </Tabs.TabPane>
+            </Tabs>
+          </PageWrapper>
+        </Form>
       )}
     </Formik>
   )

@@ -2,23 +2,39 @@
 import { css } from "@emotion/react"
 import { AdditonalFieldInputType, InputType } from "@local/lib"
 import { useField } from "formik"
+import { Checkbox, Form, Input, InputNumber, Select } from "formik-antd"
 import React, { FocusEventHandler, KeyboardEventHandler } from "react"
-import { CheckInput } from "./CheckInput/CheckInput"
-import { NumberInput } from "./NumberInput/NumberInput"
 import { RichTextEditor } from "./RichTextInput/RichTextInput"
-import { SelectInput } from "./SelectInput/SelectInput"
-import { TextAreaInput } from "./TextAreaInput/TextAreaInput"
-import { TextInput } from "./TextInput/TextInput"
 
 export const additionalFieldsInputsComponents: Record<
   AdditonalFieldInputType,
   React.FC<any>
 > = {
-  [AdditonalFieldInputType.Text]: (props) => <TextInput {...props} />,
-  [AdditonalFieldInputType.TextArea]: (props) => <TextAreaInput {...props} />,
-  [AdditonalFieldInputType.Number]: (props) => <NumberInput {...props} />,
-  [AdditonalFieldInputType.Select]: (props) => <SelectInput {...props} />,
-  [AdditonalFieldInputType.Checkbox]: (props) => <CheckInput {...props} />,
+  [AdditonalFieldInputType.Text]: (props) => (
+    <Form.Item {...props}>
+      <Input {...props} />
+    </Form.Item>
+  ),
+  [AdditonalFieldInputType.TextArea]: (props) => (
+    <Form.Item {...props}>
+      <Input.TextArea {...props} />
+    </Form.Item>
+  ),
+  [AdditonalFieldInputType.Number]: (props) => (
+    <Form.Item {...props}>
+      <InputNumber {...props} />
+    </Form.Item>
+  ),
+  [AdditonalFieldInputType.Select]: (props) => (
+    <Form.Item {...props}>
+      <Select {...props} />
+    </Form.Item>
+  ),
+  [AdditonalFieldInputType.Checkbox]: (props) => (
+    <Form.Item {...props}>
+      <Checkbox {...props} />
+    </Form.Item>
+  ),
 }
 
 interface InputProps {
