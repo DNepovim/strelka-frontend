@@ -15,6 +15,8 @@ import { PersonList } from "./PersonList/PersonList"
 import { GalleryBlock, galleryDef } from "./Gallery/galleryDef"
 import { Gallery } from "./Gallery/Gallery"
 import { Heading } from "./Heading/Heading"
+import { Image } from "./Image/Image"
+import { imageDef } from "./Image/imageDef"
 
 export type Unarray<T> = T extends Array<infer U> ? U : T
 
@@ -35,6 +37,7 @@ export type BlocksDefs =
 export const blocksComponentList: Record<BlockTemplates, React.FC<any>> = {
   heading: Heading,
   richText: RichText,
+  image: Image,
   gallery: Gallery,
   header: Header,
   groupList: GroupList,
@@ -45,6 +48,7 @@ export const blocksComponentList: Record<BlockTemplates, React.FC<any>> = {
 export const blocksDefsList: { [key in BlockTemplates]?: BlockDef<any> } = {
   heading: headingDef,
   richText: richTextDef,
+  image: imageDef,
   gallery: galleryDef,
   header: headerDef,
   groupList: groupDef,

@@ -1,6 +1,7 @@
 export enum BlockTemplates {
   Heading = "heading",
   RichText = "richText",
+  Image = "image",
   Header = "header",
   GroupList = "groupList",
   GalleryList = "galleryList",
@@ -20,5 +21,7 @@ export enum AdditonalFieldInputType {
 
 export enum InputType {
   Heading = "heading",
+  SubHeading = "subHeading",
   RichText = "richText",
+  Image = "image",
 }
