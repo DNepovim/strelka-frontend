@@ -65,8 +65,29 @@ const HeadlineInput: React.FC<InputProps> = ({ name, ...inputProps }) => {
   )
 }
 
+const SubHeadlineInput: React.FC<InputProps> = ({ name, ...inputProps }) => {
+  const [field] = useField(name)
+
+  return (
+    <input
+      {...field}
+      {...inputProps}
+      css={css`
+        font-size: 1.4em;
+        font-weight: bold;
+        border: none;
+        width: 100%;
+        &:focus {
+          outline: none;
+        }
+      `}
+    />
+  )
+}
+
 export const inputTypeComponents: Record<InputType, React.FC<any>> = {
   [InputType.Heading]: HeadlineInput,
+  [InputType.SubHeading]: SubHeadlineInput,
   [InputType.RichText]: RichTextEditor,
   [InputType.Image]: ImagePickerInput,
 }
