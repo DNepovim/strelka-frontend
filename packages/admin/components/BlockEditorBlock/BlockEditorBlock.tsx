@@ -79,13 +79,22 @@ export const BlockEditorBlock: React.FC<BlockEditorBlockProps> = ({
             trigger={["click"]}
             overlay={
               <Menu>
-                <Menu.SubMenu title="Změnit blok" icon={<SwapOutlined />}>
+                <Menu.SubMenu
+                  key="changeBlock"
+                  title="Změnit blok"
+                  icon={<SwapOutlined />}
+                >
                   <BlocksMenuItems onClick={onTemplateChange} />
                 </Menu.SubMenu>
-                <Menu.Item onClick={onBlockDuplicate} icon={<CopyOutlined />}>
+                <Menu.Item
+                  key="duplicateBlock"
+                  onClick={onBlockDuplicate}
+                  icon={<CopyOutlined />}
+                >
                   Zduplikovat
                 </Menu.Item>
                 <Menu.Item
+                  key="removeBlock"
                   onClick={onBlockRemove}
                   icon={<DeleteOutlined />}
                   danger
@@ -154,6 +163,7 @@ export const BlockEditorBlock: React.FC<BlockEditorBlockProps> = ({
 
 const BlockControl = styled(Space)`
   visibility: hidden;
+  padding-right: 4px;
 `
 
 const BlocksMenuItems: React.FC<{ onClick: (template: string) => void }> = ({
