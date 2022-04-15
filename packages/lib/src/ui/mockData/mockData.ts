@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import LogoBenja from "../assets/images/groups/benjaminci.jpg"
 import LogoSvetlusky from "../assets/images/groups/svetlusky.jpg"
 import LogoVlcata from "../assets/images/groups/vlcata.jpg"

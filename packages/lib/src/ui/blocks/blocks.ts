@@ -34,6 +34,7 @@ export type BlocksDefs =
   | PersonListBlock
 
 // TODO dynamic import
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const blocksComponentList: Record<BlockTemplates, React.FC<any>> = {
   heading: Heading,
   richText: RichText,
@@ -45,7 +46,7 @@ export const blocksComponentList: Record<BlockTemplates, React.FC<any>> = {
   personList: PersonList,
 }
 
-export const blocksDefsList: { [key in BlockTemplates]?: BlockDef<any> } = {
+export const blocksDefsList: { [key in BlockTemplates]?: BlockDef<unknown> } = {
   heading: headingDef,
   richText: richTextDef,
   image: imageDef,
@@ -56,7 +57,9 @@ export const blocksDefsList: { [key in BlockTemplates]?: BlockDef<any> } = {
   personList: personListDef,
 }
 
-export const getBlockDef = (template: BlockTemplates): BlockDef<any> | false =>
+export const getBlockDef = (
+  template: BlockTemplates
+): BlockDef<unknown> | false =>
   template && blocksDefsList[template] ? blocksDefsList[template]! : false
 
 export interface BlockDef<T> {

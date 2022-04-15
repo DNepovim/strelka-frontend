@@ -1,4 +1,4 @@
-export const parseJson = async (string: string, defaultValue: any) => {
+export const parseJson = async (string: string, defaultValue: unknown) => {
   try {
     const parsed = await JSON.parse(string)
     return parsed

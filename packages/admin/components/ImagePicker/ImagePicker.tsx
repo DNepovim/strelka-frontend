@@ -2,7 +2,7 @@ import React from "react"
 import GooglePicker from "react-google-picker"
 
 export interface ImagePickerProps {
-  onChange: (v: any) => void
+  onChange: (v: unknown) => void
 }
 
 export const ImagePicker: React.FC<ImagePickerProps> = ({

@@ -9,6 +9,7 @@ import { RichTextEditor } from "./RichTextInput/RichTextInput"
 
 export const additionalFieldsInputsComponents: Record<
   AdditonalFieldInputType,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   React.FC<any>
 > = {
   [AdditonalFieldInputType.Text]: (props) => (
@@ -85,6 +86,7 @@ const SubHeadlineInput: React.FC<InputProps> = ({ name, ...inputProps }) => {
   )
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const inputTypeComponents: Record<InputType, React.FC<any>> = {
   [InputType.Heading]: HeadlineInput,
   [InputType.SubHeading]: SubHeadlineInput,

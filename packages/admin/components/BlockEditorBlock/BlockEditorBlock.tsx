@@ -16,7 +16,7 @@ import styled from "@emotion/styled"
 import { defaultBlockTemplate } from "@local/lib/src/ui/blocks/enums"
 import { inputTypeComponents } from "../Inputs"
 
-export type BlockEditorBlockProps = Partial<BlockDef<any>> & {
+export type BlockEditorBlockProps = Partial<BlockDef<unknown>> & {
   id: string
   name: string
   onFocus: () => void

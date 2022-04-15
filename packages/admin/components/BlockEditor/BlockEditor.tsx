@@ -22,7 +22,7 @@ import { insertToArray } from "../../utils/insertToArray"
 
 export interface BlockEditorProps {
   blocks: BlocksDefs[]
-  setValue: (field: string, value: any) => void
+  setValue: (field: string, value: unknown) => void
   name: string
 }
 
