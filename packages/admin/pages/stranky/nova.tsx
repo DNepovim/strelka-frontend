@@ -3,6 +3,7 @@ import { NextPage } from "next"
 import { createPage } from "../../api/createPage"
 import { PageForm } from "../../views/PageForm"
 import { BlockTemplates } from "@local/lib/src"
+import { PageRole } from "../../schemas/page"
 
 export const PageCreatePage: NextPage = () => (
   <PageForm
@@ -17,6 +18,8 @@ export const PageCreatePage: NextPage = () => (
       ],
       siteId: "",
       slug: "",
+      role: PageRole.Page,
+      parentPageId: "",
     }}
     onSave={createPage}
     autoFillSlug

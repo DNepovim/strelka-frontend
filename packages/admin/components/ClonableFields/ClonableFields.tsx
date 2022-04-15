@@ -12,8 +12,8 @@ import { css } from "@emotion/react"
 
 export const ClonableFields: React.FC<{
   name: string
-  fields?: AdminFields<any>
-  component?: React.FC<Omit<FieldInputProps<any>, "children">>
+  fields?: AdminFields<unknown>
+  component?: React.FC<Omit<FieldInputProps<unknown>, "children">>
 }> = ({ name, fields, component }) => {
   const [field] = useField(name)
   return (

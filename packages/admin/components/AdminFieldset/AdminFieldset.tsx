@@ -13,7 +13,7 @@ interface AdminFieldsetProps<T> {
 }
 
 export const AdminFieldset: React.FC<
-  AdminFieldsetProps<Record<string, any>>
+  AdminFieldsetProps<Record<string, unknown>>
 > = ({ legend, fields, path }) => (
   <fieldset>
     {legend && <legend>{legend}</legend>}
