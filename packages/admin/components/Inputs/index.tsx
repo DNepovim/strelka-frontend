@@ -5,6 +5,7 @@ import { useField } from "formik"
 import { Checkbox, Form, Input, InputNumber, Select } from "formik-antd"
 import React, { FocusEventHandler, KeyboardEventHandler } from "react"
 import { ImagePickerInput } from "../ImagePickerInput/ImagePickerInput"
+import { ContainerInput } from "./ContainerInput/ContainerInput"
 import { RichTextEditor } from "./RichTextInput/RichTextInput"
 
 export const additionalFieldsInputsComponents: Record<
@@ -92,4 +93,5 @@ export const inputTypeComponents: Record<InputType, React.FC<any>> = {
   [InputType.SubHeading]: SubHeadlineInput,
   [InputType.RichText]: RichTextEditor,
   [InputType.Image]: ImagePickerInput,
+  [InputType.Container]: ContainerInput,
 }

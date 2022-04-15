@@ -2,6 +2,7 @@ export enum BlockTemplates {
   Heading = "heading",
   RichText = "richText",
   Image = "image",
+  Container = "container",
   Header = "header",
   GroupList = "groupList",
   GalleryList = "galleryList",
@@ -24,4 +25,5 @@ export enum InputType {
   SubHeading = "subHeading",
   RichText = "richText",
   Image = "image",
+  Container = "container",
 }

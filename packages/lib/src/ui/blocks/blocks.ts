@@ -16,7 +16,9 @@ import { GalleryBlock, galleryDef } from "./Gallery/galleryDef"
 import { Gallery } from "./Gallery/Gallery"
 import { Heading } from "./Heading/Heading"
 import { Image } from "./Image/Image"
-import { imageDef } from "./Image/imageDef"
+import { ImageBlock, imageDef } from "./Image/imageDef"
+import { Container } from "./Container/Container"
+import { ContainerBlock, containerDef } from "./Container/containerDef"
 
 export type Unarray<T> = T extends Array<infer U> ? U : T
 
@@ -27,6 +29,8 @@ export interface Block {
 export type BlocksDefs =
   | HeadingBlock
   | RichTextBlock
+  | ImageBlock
+  | ContainerBlock
   | GalleryBlock
   | HeaderBlock
   | GroupListBlock
@@ -39,6 +43,7 @@ export const blocksComponentList: Record<BlockTemplates, React.FC<any>> = {
   heading: Heading,
   richText: RichText,
   image: Image,
+  container: Container,
   gallery: Gallery,
   header: Header,
   groupList: GroupList,
@@ -50,6 +55,7 @@ export const blocksDefsList: { [key in BlockTemplates]?: BlockDef<unknown> } = {
   heading: headingDef,
   richText: richTextDef,
   image: imageDef,
+  container: containerDef,
   gallery: galleryDef,
   header: headerDef,
   groupList: groupDef,
@@ -67,6 +73,7 @@ export interface BlockDef<T> {
   template: BlockTemplates
   schema?: yup.SchemaOf<T> // TODO required
   inputType?: InputType
+  getDefautlValues?: () => T
   icon?: React.FC
   additionalFields?: AdminFields<T>
 }

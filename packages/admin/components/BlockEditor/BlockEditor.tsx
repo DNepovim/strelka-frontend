@@ -51,20 +51,23 @@ export const BlockEditor: React.FC<BlockEditorProps> = ({
         collisionDetection={closestCenter}
         onDragEnd={(event) => {
           const { active, over } = event
-          const items = blocks.map((v) => v.id)
+          const activeName = active.data.current?.sortable.containerId
+          const currentBlocks = get({ content: blocks }, activeName)
+          const ids = currentBlocks.map(({ id }: { id: string }) => id)
 
-          if (!over || active.id === over.id || !items) {
+          if (!over || active.id === over.id || !ids) {
             return
           }
 
-          const overIndex = items.indexOf(over.id)
-          const activeIndex = items.indexOf(active.id)
-          const newOrder = arrayMove(blocks, activeIndex, overIndex)
+          const overIndex = ids.indexOf(over.id)
+          const activeIndex = ids.indexOf(active.id)
+          const newOrder = arrayMove(currentBlocks, activeIndex, overIndex)
 
-          setValue(name, newOrder)
+          setValue(activeName, newOrder)
         }}
       >
         <SortableContext
+          id={name}
           items={blocks.map((v) => v.id) ?? []}
           strategy={verticalListSortingStrategy}
         >
@@ -98,10 +101,18 @@ export const BlockEditor: React.FC<BlockEditorProps> = ({
               onTemplateChange={(template) =>
                 setValue(`${name}[${index}].template`, template)
               }
-              onBlockAdd={(template) => {
+              onBlockAdd={(template: BlockTemplates) => {
                 setValue(
                   name,
-                  insertToArray(blocks, { id: uuid(), template }, index)
+                  insertToArray(
+                    blocks,
+                    {
+                      id: uuid(),
+                      template,
+                      fields: blocksDefsList[template]?.getDefautlValues?.(),
+                    },
+                    index
+                  )
                 )
                 setFocusOn(index + 1)
               }}
