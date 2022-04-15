@@ -8,7 +8,6 @@ import React, { forwardRef, PropsWithChildren } from "react"
 import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined"
 import HolderOutlined from "@ant-design/icons/lib/icons/HolderOutlined"
 import SwapOutlined from "@ant-design/icons/lib/icons/SwapOutlined"
-import EllipsisOutlined from "@ant-design/icons/lib/icons/EllipsisOutlined"
 import CopyOutlined from "@ant-design/icons/lib/icons/CopyOutlined"
 import { AdminFieldset } from "../AdminFieldset/AdminFieldset"
 import DeleteOutlined from "@ant-design/icons/lib/icons/DeleteOutlined"
@@ -141,6 +140,7 @@ const BlockHolder: React.FC<{
   const { attributes, listeners } = useSortable({ id })
   return (
     <Dropdown
+      trigger={["contextMenu"]}
       overlay={
         <Menu>
           <Menu.SubMenu

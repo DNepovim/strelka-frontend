@@ -8,18 +8,12 @@ import {
   closestCenter,
   DragEndEvent,
 } from "@dnd-kit/core"
-import {
-  sortableKeyboardCoordinates,
-  arrayMove,
-  SortableContext,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable"
-import { blocksDefsList, BlocksDefs, BlockTemplates } from "@local/lib"
+import { sortableKeyboardCoordinates, arrayMove } from "@dnd-kit/sortable"
+import { BlocksDefs } from "@local/lib"
 import React from "react"
-import { BlockEditorBlock } from "../BlockEditorBlock/BlockEditorBlock"
 import { get } from "lodash"
-import { FieldArray } from "formik"
 import styled from "@emotion/styled"
+import { SortableContainer } from "../SortableContainer/SortableContainer"
 
 export interface BlockEditorProps {
   blocks: BlocksDefs[]
@@ -63,28 +57,7 @@ export const BlockEditor: React.FC<BlockEditorProps> = ({
         collisionDetection={closestCenter}
         onDragEnd={onDragHandler}
       >
-        <SortableContext
-          id={name}
-          items={blocks.map((v) => v.id) ?? []}
-          strategy={verticalListSortingStrategy}
-        >
-          <FieldArray name={name}>
-            {(arrayHelepers) =>
-              blocks.map((block, index) => (
-                <BlockEditorBlock
-                  name={name}
-                  index={index}
-                  arrayHelpers={arrayHelepers}
-                  key={block.id}
-                  id={block.id}
-                  {...(block.template
-                    ? blocksDefsList[block.template as BlockTemplates]
-                    : {})}
-                />
-              ))
-            }
-          </FieldArray>
-        </SortableContext>
+        <SortableContainer name={name} />
       </DndContext>
     </EditorContainer>
   )
