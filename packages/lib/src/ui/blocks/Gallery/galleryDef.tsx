@@ -3,7 +3,7 @@ import { Block, BlockDef } from "../blocks"
 import { BlockFields, withBlockSchema } from "../../components/Block/Block"
 import * as yup from "yup"
 import { Image, imageDef, imageSchema } from "../../../types/Image"
-import PictureOutlined from "@ant-design/icons/lib/icons/PictureOutlined"
+import AppstoreOutlined from "@ant-design/icons/lib/icons/AppstoreOutlined"
 
 export interface GalleryBlock extends Block {
   template: BlockTemplates.Gallery
@@ -24,7 +24,7 @@ export const galleryDef: BlockDef<GalleryProps> = {
   title: "Galerie",
   template: BlockTemplates.Gallery,
   schema: gallerySchema,
-  icon: PictureOutlined,
+  icon: AppstoreOutlined,
   inputType: InputType.SubHeading,
   additionalFields: {
     images: {
