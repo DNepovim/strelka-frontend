@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { v4 as uuid } from "uuid"
 import {
   useSensors,
   useSensor,
@@ -7,6 +6,7 @@ import {
   KeyboardSensor,
   DndContext,
   closestCenter,
+  DragEndEvent,
 } from "@dnd-kit/core"
 import {
   sortableKeyboardCoordinates,
@@ -15,10 +15,11 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable"
 import { blocksDefsList, BlocksDefs, BlockTemplates } from "@local/lib"
-import React, { useState } from "react"
+import React from "react"
 import { BlockEditorBlock } from "../BlockEditorBlock/BlockEditorBlock"
-import { css } from "@emotion/react"
-import { insertToArray } from "../../utils/insertToArray"
+import { get } from "lodash"
+import { FieldArray } from "formik"
+import styled from "@emotion/styled"
 
 export interface BlockEditorProps {
   blocks: BlocksDefs[]
@@ -31,95 +32,66 @@ export const BlockEditor: React.FC<BlockEditorProps> = ({
   setValue,
   name,
 }) => {
-  const [_, setFocusOn] = useState<number | null>(null)
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     })
   )
+
+  const onDragHandler = (event: DragEndEvent) => {
+    const { active, over } = event
+    const activeName = active.data.current?.sortable.containerId
+    const currentBlocks = get({ content: blocks }, activeName)
+    const ids = currentBlocks.map(({ id }: { id: string }) => id)
+
+    if (!over || active.id === over.id || !ids) {
+      return
+    }
+
+    const overIndex = ids.indexOf(over.id)
+    const activeIndex = ids.indexOf(active.id)
+    const newOrder = arrayMove(currentBlocks, activeIndex, overIndex)
+
+    setValue(activeName, newOrder)
+  }
+
   return (
-    <div
-      css={css`
-        background: white;
-        padding: 32px 16px;
-        min-height: 60vh;
-      `}
-    >
+    <EditorContainer>
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
-        onDragEnd={(event) => {
-          const { active, over } = event
-          const activeName = active.data.current?.sortable.containerId
-          const currentBlocks = get({ content: blocks }, activeName)
-          const ids = currentBlocks.map(({ id }: { id: string }) => id)
-
-          if (!over || active.id === over.id || !ids) {
-            return
-          }
-
-          const overIndex = ids.indexOf(over.id)
-          const activeIndex = ids.indexOf(active.id)
-          const newOrder = arrayMove(currentBlocks, activeIndex, overIndex)
-
-          setValue(activeName, newOrder)
-        }}
+        onDragEnd={onDragHandler}
       >
         <SortableContext
           id={name}
           items={blocks.map((v) => v.id) ?? []}
           strategy={verticalListSortingStrategy}
         >
-          {blocks.map((block, index) => (
-            <BlockEditorBlock
-              name={`${name}[${index}]`}
-              key={block.id}
-              id={block.id}
-              {...(block.template
-                ? blocksDefsList[block.template as BlockTemplates]
-                : {})}
-              onFocus={() => setFocusOn(index)}
-              onBlockRemove={() =>
-                setValue(
-                  name,
-                  blocks.filter((_, i) => i !== index)
-                )
-              }
-              onGoUp={() => {
-                setFocusOn(index - 1)
-              }}
-              onGoDown={() => {
-                setFocusOn(index + 1)
-              }}
-              onBlockDuplicate={() => {
-                setValue(
-                  name,
-                  insertToArray(blocks, { ...block, id: uuid() }, index)
-                )
-              }}
-              onTemplateChange={(template) =>
-                setValue(`${name}[${index}].template`, template)
-              }
-              onBlockAdd={(template: BlockTemplates) => {
-                setValue(
-                  name,
-                  insertToArray(
-                    blocks,
-                    {
-                      id: uuid(),
-                      template,
-                      fields: blocksDefsList[template]?.getDefautlValues?.(),
-                    },
-                    index
-                  )
-                )
-                setFocusOn(index + 1)
-              }}
-            />
-          ))}
+          <FieldArray name={name}>
+            {(arrayHelepers) =>
+              blocks.map((block, index) => (
+                <BlockEditorBlock
+                  name={name}
+                  index={index}
+                  arrayHelpers={arrayHelepers}
+                  key={block.id}
+                  id={block.id}
+                  {...(block.template
+                    ? blocksDefsList[block.template as BlockTemplates]
+                    : {})}
+                />
+              ))
+            }
+          </FieldArray>
         </SortableContext>
       </DndContext>
-    </div>
+    </EditorContainer>
   )
 }
+
+const EditorContainer = styled.div`
+  background: white;
+  padding: 32px 16px;
+  min-height: 60vh;
+`
