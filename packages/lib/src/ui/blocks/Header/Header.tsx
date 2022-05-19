@@ -9,7 +9,6 @@ import { NavLinks } from "../../components/NavLinks/NavLinks"
 
 import { Button } from "../../components/Button/Button"
 import { min, theme } from "../../styles/theme"
-import { css } from "@emotion/react"
 
 export const Header: React.FC<HeaderProps> = (props) => {
   const [isVisible, setIsVisible] = useState(false)
@@ -27,11 +26,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
 
   return (
     <Block>
-      <Container
-        css={css`
-          z-index: 1000;
-        `}
-      >
+      <TopContainer>
         <Navigation>
           <Logo />
           <NavButton
@@ -42,10 +37,14 @@ export const Header: React.FC<HeaderProps> = (props) => {
           </NavButton>
           <NavLinks data={props.content} visible={isVisible} />
         </Navigation>
-      </Container>
+      </TopContainer>
     </Block>
   )
 }
+
+const TopContainer = styled(Container)`
+  z-index: 1000;
+`
 
 const Navigation = styled.nav`
   padding: ${theme.layout.pagePadding}rem;
