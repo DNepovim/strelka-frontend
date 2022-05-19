@@ -32,6 +32,12 @@ import Circle5 from "../assets/vectors/potatoes/circle_5.svg"
 import Circle6 from "../assets/vectors/potatoes/circle_6.svg"
 import Circle7 from "../assets/vectors/potatoes/circle_7.svg"
 import Circle8 from "../assets/vectors/potatoes/circle_8.svg"
+import { NavLink } from "../../types/Navigation"
+import { HeadingProps } from "../blocks/Heading1/Heading1"
+import { PersonProps } from "../blocks/PersonList/personListDef"
+import { GalleryProps } from "../blocks/GalleryList/galleryListDef"
+import { RichTextProps } from "../blocks/RichText/richTextDef"
+import { Style } from "../../types/RichText"
 
 const circles = [
   Circle1,
@@ -53,11 +59,6 @@ const randomItem =
 
 export const randomCircle = randomItem(circles)
 export const randomRectangle = randomItem(rectangles)
-
-import { NavLink } from "../../types/Navigation"
-import { HeadingProps } from "../blocks/Heading1/Heading1"
-import { PersonProps } from "../blocks/PersonList/personListDef"
-import { GalleryProps } from "../blocks/GalleryList/galleryListDef"
 
 export const groupData = [
   {
@@ -343,3 +344,36 @@ export const personData: PersonProps[] = [
     },
   },
 ]
+
+export const contentData: RichTextProps = {
+  paragraphs: [
+    {
+      textNodes: [
+        { content: "Právě jste zavítali na stránky " },
+        { content: "Kvítek", href: "strelka.cz/kvitek" },
+        {
+          content:
+            ",  5. oddílu skautek z Kralup nad Vltavou. Můžete zde nalézt vše o našem oddíle od informací k výpravám, seznámení s družinami až po fotky z akcí. Pokud chcete zjistit více o skautingu samotném, tak Vám doporučujeme ",
+        },
+        { content: "tyto stránky", href: "strelka.cz/kvitek/stranka" },
+        { content: "." },
+      ],
+    },
+    {
+      textNodes: [
+        {
+          content: "Na oddílové schůzky a výpravy (pokud není určeno jinak), ",
+        },
+        {
+          style: Style.Bold,
+          content: "chodíme ve skautských krojích",
+        },
+        {
+          content:
+            ". Ke kroji patří hnědé nebo zelené (černé) kalhoty, kraťasy nebo sukně.",
+        },
+      ],
+      image: Gallery3,
+    },
+  ],
+}

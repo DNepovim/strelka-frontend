@@ -11,9 +11,10 @@ import {
 } from "@local/lib"
 
 import {
+  contentData,
   galleryListData,
+  groupData,
   linkData,
-  personData,
 } from "@local/lib/src/ui/mockData/mockData"
 
 const Home: NextPage<Props> = ({ page }) => (
@@ -58,6 +59,18 @@ export const getServerSideProps: () => { props: Props } = () => ({
         },
         {
           id: "",
+          template: BlockTemplates.Heading1,
+          fields: {
+            content: { content: "Skauti Stopaři" },
+          },
+        },
+        {
+          id: "",
+          template: BlockTemplates.RichText,
+          fields: contentData,
+        },
+        {
+          id: "",
           template: BlockTemplates.Heading2,
           fields: {
             content: { content: "Vedení" },
@@ -65,9 +78,9 @@ export const getServerSideProps: () => { props: Props } = () => ({
         },
         {
           id: "",
-          template: BlockTemplates.PersonList,
+          template: BlockTemplates.GroupList,
           fields: {
-            content: personData,
+            content: groupData,
           },
         },
 

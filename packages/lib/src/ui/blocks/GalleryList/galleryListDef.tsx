@@ -29,7 +29,7 @@ export const galleryListSchema: yup.SchemaOf<GalleryListProps> =
           yup.object({
             name: yup.string().required(),
             address: yup.string().required(),
-            image: imageSchema,
+            image: imageSchema.required(),
             comment: yup.string().required(),
           })
         )

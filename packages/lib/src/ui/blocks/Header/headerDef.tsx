@@ -17,7 +17,7 @@ export interface HeaderProps extends BlockFields {
 const subLinkSchema: yup.SchemaOf<SubLink> = yup.object({
   name: yup.string().required(),
   address: yup.string().required(),
-  image: imageSchema,
+  image: imageSchema.required(),
   comment: yup.string(),
 })
 
