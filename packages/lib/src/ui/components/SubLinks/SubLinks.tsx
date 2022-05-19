@@ -165,10 +165,6 @@ const Name = styled.p`
   flex-basis: 100%;
   display: flex;
   align-items: center;
-
-  @media ${min("l")} {
-    font-size: 1.2rem;
-  }
 `
 
 const Comment = styled(SmallText)`

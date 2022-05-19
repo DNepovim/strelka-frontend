@@ -12,6 +12,6 @@ export const MenuItemContent = styled.a`
 
   @media ${min("l")} {
     padding: 0;
-    font-size: 1.44rem;
+    font-size: 1.1rem;
   }
 `

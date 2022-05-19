@@ -55,7 +55,7 @@ const Navigation = styled.nav`
   height: 3rem;
 
   @media ${min("l")} {
-    height: 2.75rem;
+    height: 2.8rem;
   }
 `
 

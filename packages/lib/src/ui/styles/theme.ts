@@ -18,8 +18,8 @@ export const theme = {
     darkest: "var(--darkest)",
   },
   size: {
-    small: 1,
-    base: 1.2,
+    small: 0.85,
+    base: 1.1,
   },
   fonts: {
     text: "'Open Sans', verdana, sans-serif",
