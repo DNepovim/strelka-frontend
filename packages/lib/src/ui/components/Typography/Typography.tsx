@@ -6,7 +6,10 @@ export const Header1 = styled.h1`
   font-weight: bold;
   font-size: 4rem;
   color: ${theme.color.darkest};
-  padding: 0.5rem 0;
+  margin: 0;
+  margin-top: ${theme.size.base * 2.5}rem;
+  margin-bottom: ${theme.size.base}rem;
+  padding: 0;
 `
 
 export const Header2 = styled.h2`
@@ -14,7 +17,10 @@ export const Header2 = styled.h2`
   font-weight: bold;
   font-size: 2.5rem;
   color: ${theme.color.darkest};
-  padding: 0.5rem 0;
+  margin: 0;
+  margin-top: ${theme.size.base * 1.5}rem;
+  margin-bottom: ${theme.size.base}rem;
+  padding: 0;
 `
 
 export const Header3 = styled.h3`
@@ -23,7 +29,10 @@ export const Header3 = styled.h3`
   font-size: ${theme.size.base * 1.5}rem;
   line-height: 1.2em;
   color: ${theme.color.darkest};
-  padding: 0.2rem 0;
+  margin: 0;
+  margin-top: ${theme.size.base * 1.5}rem;
+  margin-bottom: ${theme.size.base}rem;
+  padding: 0;
 `
 
 export const Text = styled.p`
