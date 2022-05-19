@@ -10,7 +10,7 @@ import React from "react"
 import { PersonListProps } from "./personListDef"
 
 import { Image } from "../../components/Image/Image"
-import { max, theme } from "../../styles/theme"
+import { min, theme } from "../../styles/theme"
 import { randomCircle } from "../../mockData/mockData"
 
 export const PersonList: React.FC<PersonListProps> = (props) => (
@@ -22,7 +22,11 @@ export const PersonList: React.FC<PersonListProps> = (props) => (
             <PersonImage mask={randomCircle(index).src} image={person.image} />
             <Name>
               {person.name}
-              {person.nickname && `—${person.nickname}`}
+              {person.nickname && (
+                <>
+                  &#8288;, <Nickname>{person.nickname}</Nickname>
+                </>
+              )}
             </Name>
             {person.subtitle && <SubTitle>{person.subtitle}</SubTitle>}
             {person.contact && (
@@ -48,19 +52,20 @@ export const PersonList: React.FC<PersonListProps> = (props) => (
 
 const PersonListContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 3em 2em;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem 0.75rem;
+  padding: 0 0.5rem;
+  text-align: center;
 
-  @media ${max("l")} {
+  @media ${min("m")} {
+    padding: 0 2rem;
     grid-template-columns: 1fr 1fr 1fr;
   }
 
-  @media ${max("m")} {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  @media ${max("s")} {
-    grid-template-columns: 1fr;
+  @media ${min("l")} {
+    gap: 2.5rem 2.5rem;
+    padding: 0 2.5rem;
+    grid-template-columns: repeat(4, 1fr);
   }
 `
 
@@ -72,21 +77,35 @@ const Person = styled.div`
 
 const PersonImage = styled(Image)`
   height: auto;
-  width: 100%;
+  width: 70%;
   background-color: ${theme.color.lightAccent};
   mask-image: url("${(props: { mask: string }) => props.mask}");
   mask-size: 100% 100%;
   mask-position: center;
   mask-repeat: no-repeat;
   align-self: center;
+
+  @media ${min("s")} {
+    width: 60%;
+  }
+
+  @media ${min("l")} {
+    width: 70%;
+  }
 `
 
 const Name = styled(Header3)`
-  margin: 0.8rem 0 0;
+  font-size: ${theme.size.base * 1.2}rem;
+  margin: 0.125rem 0 0;
   padding: 0;
 `
 
+const Nickname = styled(Name.withComponent("span"))`
+  font-style: italic;
+`
+
 const SubTitle = styled(Text)`
+  font-size: ${theme.size.base * 0.9}rem;
   margin: 0;
   line-height: 1.2em;
 `
