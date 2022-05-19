@@ -6,30 +6,30 @@ export const Header1 = styled.h1`
   font-weight: bold;
   font-size: 4rem;
   color: ${theme.color.darkest};
-  padding: 0.5rem;
+  padding: 0.5rem 0;
 `
 
 export const Header2 = styled.h2`
   font-family: ${theme.fonts.accent};
   font-weight: bold;
-  font-size: 2.8rem;
+  font-size: 2.5rem;
   color: ${theme.color.darkest};
-  padding: 0.5rem;
+  padding: 0.5rem 0;
 `
 
 export const Header3 = styled.h3`
   font-family: ${theme.fonts.accent};
   font-weight: bold;
-  font-size: ${theme.size.base * 1.2}rem;
+  font-size: ${theme.size.base * 1.5}rem;
   line-height: 1.2em;
   color: ${theme.color.darkest};
-  padding: 0.2rem;
+  padding: 0.2rem 0;
 `
 
 export const Text = styled.p`
   font-family: ${theme.fonts.text};
   font-size: ${theme.size.base}rem;
-  line-height: 1.4em;
+  line-height: 1.65em;
 `
 
 export const SmallText = styled.p`
