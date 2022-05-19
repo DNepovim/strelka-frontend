@@ -2,7 +2,12 @@ import * as yup from "yup"
 import { BlockTemplates, InputType } from "../enums"
 import { Block, BlockDef } from "../blocks"
 import { BlockFields, withBlockSchema } from "../../components/Block/Block"
-import {Image as ImageType, imageDef, imageSchema} from "../../../types/Image"
+import { Image as ImageType, imageDef, imageSchema } from "../../../types/Image"
+import {
+  blockTitleDef,
+  BlockTitleFields,
+  blockTitleSchema,
+} from "../../../types/BlockTitle"
 
 export interface PersonProps {
   name: string
@@ -20,19 +25,20 @@ export interface PersonListBlock extends Block {
   fields: PersonListProps
 }
 
-export interface PersonListProps extends BlockFields {
-  content: PersonProps[]
+export interface PersonListProps extends BlockFields, BlockTitleFields {
+  people: PersonProps[]
 }
 
 export const personListSchema: yup.SchemaOf<PersonListProps> = withBlockSchema(
   yup.object({
-    content: yup
+    ...blockTitleSchema,
+    people: yup
       .array()
       .of(
         yup.object({
           name: yup.string().required(),
           nickname: yup.string(),
-          image: imageSchema,
+          image: imageSchema.required(),
           subtitle: yup.string(),
           contact: yup.object({
             email: yup.string(),
@@ -49,7 +55,8 @@ export const personListDef: BlockDef<PersonListProps> = {
   template: BlockTemplates.GroupList,
   schema: personListSchema,
   adminFields: {
-    content: {
+    ...blockTitleDef,
+    people: {
       clonable: true,
       fields: {
         name: {

@@ -4,26 +4,23 @@ import { theme } from "../../styles/theme"
 export const Header1 = styled.h1`
   font-family: ${theme.fonts.headings};
   font-weight: bold;
-  font-size: 4rem;
+  font-size: 4.5rem;
   color: ${theme.color.darkest};
-  padding: 0.5rem;
 `
 
 export const Header2 = styled.h2`
   font-family: ${theme.fonts.accent};
   font-weight: bold;
-  font-size: 2.8rem;
+  font-size: 3.1rem;
   color: ${theme.color.darkest};
-  padding: 0.5rem;
 `
 
 export const Header3 = styled.h3`
   font-family: ${theme.fonts.accent};
   font-weight: bold;
-  font-size: ${theme.size.base * 1.2}rem;
+  font-size: 2.15rem;
   line-height: 1.2em;
   color: ${theme.color.darkest};
-  padding: 0.2rem;
 `
 
 export const Text = styled.p`

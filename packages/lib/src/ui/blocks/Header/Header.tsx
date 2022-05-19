@@ -13,7 +13,7 @@ import { min } from "../../styles/theme"
 export const Header: React.FC<HeaderProps> = (props) => {
   const [isVisible, setIsVisible] = useState(false)
   return (
-    <Block>
+    <TopBlock>
       <Container>
         <Navigation>
           <Logo />
@@ -21,9 +21,13 @@ export const Header: React.FC<HeaderProps> = (props) => {
           <NavLinks data={props.content} visible={isVisible} />
         </Navigation>
       </Container>
-    </Block>
+    </TopBlock>
   )
 }
+
+const TopBlock = styled(Block)`
+  z-index: 1000;
+`
 
 const Navigation = styled.nav`
   box-sizing: border-box;

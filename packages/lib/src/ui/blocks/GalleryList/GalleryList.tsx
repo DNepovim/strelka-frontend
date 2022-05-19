@@ -6,12 +6,14 @@ import React from "react"
 import { GalleryListProps } from "./galleryListDef"
 import { max, theme } from "../../styles/theme"
 import { Image } from "../../components/Image/Image"
+import { BlockTitle } from "../../components/BlockTitle/BlockTitle"
 
 export const GalleryList: React.FC<GalleryListProps> = (props) => (
   <Block>
     <Container>
+      <BlockTitle props={props} />
       <GalleryViewContainer>
-        {props.content.map((galleryView, index) => (
+        {props.galleries.map((galleryView, index) => (
           <GalleryView key={index} href={galleryView.address}>
             <GalleryImage image={galleryView.image} />
             <Title>{galleryView.name}</Title>

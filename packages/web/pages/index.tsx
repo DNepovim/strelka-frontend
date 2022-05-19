@@ -11,9 +11,11 @@ import {
 } from "@local/lib"
 
 import {
+  contentData,
+  eventListData,
   galleryListData,
+  groupData,
   linkData,
-  personData,
 } from "@local/lib/src/ui/mockData/mockData"
 
 const Home: NextPage<Props> = ({ page }) => (
@@ -58,31 +60,35 @@ export const getServerSideProps: () => { props: Props } = () => ({
         },
         {
           id: "",
-          template: BlockTemplates.Heading2,
+          template: BlockTemplates.Heading1,
           fields: {
-            content: { content: "Vedení" },
+            content: "Skauti Stopaři",
           },
         },
         {
           id: "",
-          template: BlockTemplates.PersonList,
-          fields: {
-            content: personData,
-          },
+          template: BlockTemplates.EventList,
+          fields: eventListData,
         },
-
         {
           id: "",
-          template: BlockTemplates.Heading2,
+          template: BlockTemplates.RichText,
+          fields: contentData,
+        },
+        {
+          id: "",
+          template: BlockTemplates.GroupList,
           fields: {
-            content: { content: "Fotogalerie" },
+            title: "Hello",
+            groups: groupData,
           },
         },
         {
           id: "",
           template: BlockTemplates.GalleryList,
           fields: {
-            content: galleryListData,
+            title: "Galerie",
+            galleries: galleryListData,
           },
         },
       ],
