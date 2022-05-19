@@ -4,7 +4,6 @@ import { theme } from "../../styles/theme"
 
 export const Container: React.FC = styled("div")`
   position: relative;
-  z-index: 10;
   box-sizing: border-box;
   max-width: ${theme.layout.width}rem;
   margin: 0 auto;

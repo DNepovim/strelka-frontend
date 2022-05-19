@@ -1,6 +1,7 @@
 export const theme = {
   layout: {
     width: 62.5,
+    pagePadding: 0.2,
   },
   breakpoints: {
     s: 31.25,
@@ -17,8 +18,8 @@ export const theme = {
     darkest: "var(--darkest)",
   },
   size: {
-    small: 1,
-    base: 1.2,
+    small: 0.85,
+    base: 1.1,
   },
   fonts: {
     text: "'Open Sans', verdana, sans-serif",
