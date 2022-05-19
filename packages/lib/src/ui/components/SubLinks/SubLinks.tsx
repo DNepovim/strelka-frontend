@@ -155,12 +155,11 @@ const SubLinkInfo = styled.div`
   justify-items: stretch;
   flex-direction: column;
   flex-wrap: nowrap;
-  padding-left: 0.75rem;
+  padding-left: 1.5rem;
 `
 
 const Name = styled.p`
   font-family: ${theme.fonts.accent};
-  font-size: 1.32rem;
   font-weight: bold;
   margin: 0;
   flex-basis: 100%;

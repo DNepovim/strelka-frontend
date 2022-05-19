@@ -1,6 +1,7 @@
 export const theme = {
   layout: {
     width: 62.5,
+    pagePadding: 0.2,
   },
   breakpoints: {
     s: 31.25,

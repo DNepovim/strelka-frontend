@@ -46,7 +46,8 @@ const LinksContainer = styled.div`
     top: 100%;
     right: 0;
     overflow: hidden;
-    padding-top: 0.9rem;
+    padding-top: ${theme.layout.pagePadding}rem;
+    padding-right: ${theme.layout.pagePadding}rem;
     pointer-events: ${(props: { isVisible: boolean }) =>
       props.isVisible ? "all" : "none"};
   }
@@ -65,8 +66,8 @@ const Links = styled.ul`
     flex-direction: column;
     flex-wrap: nowrap;
 
-    padding-top: 0.9rem;
-    padding-bottom: 0.9rem;
+    padding-top: 0.75em;
+    padding-bottom: 0.75em;
 
     mask-image: url("${SquareMask.src}");
     background-color: ${theme.color.lightAccent};

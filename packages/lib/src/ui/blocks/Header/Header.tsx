@@ -48,20 +48,20 @@ export const Header: React.FC<HeaderProps> = (props) => {
 }
 
 const Navigation = styled.nav`
+  padding: ${theme.layout.pagePadding}rem;
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
-  height: 4.6rem;
+  height: 3rem;
 
   @media ${min("l")} {
-    height: 4rem;
+    height: 2.75rem;
   }
 `
 
 const menuTransitionDurationMS = 200
 
 const NavButton = styled(Button)`
-  align-self: center;
   padding-left: 1rem;
   padding-right: 1rem;
   align-self: stretch;
