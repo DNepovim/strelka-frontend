@@ -13,6 +13,18 @@ import { css } from "@emotion/react"
 
 export const Header: React.FC<HeaderProps> = (props) => {
   const [isVisible, setIsVisible] = useState(false)
+  const [menuName, setMenuName] = useState("Menu")
+  const [menuNameIsHidden, setMenuNameIsHidden] = useState(false)
+
+  const toggleMenuVisibility = () => {
+    setIsVisible(!isVisible)
+    setMenuNameIsHidden(true)
+    setTimeout(() => {
+      setMenuName(isVisible ? "Menu" : "Zavřít")
+      setMenuNameIsHidden(false)
+    }, menuTransitionDurationMS)
+  }
+
   return (
     <Block>
       <Container
@@ -22,7 +34,12 @@ export const Header: React.FC<HeaderProps> = (props) => {
       >
         <Navigation>
           <Logo />
-          <NavButton onClick={() => setIsVisible(!isVisible)}>Menu</NavButton>
+          <NavButton
+            onClick={toggleMenuVisibility}
+            nameIsHidden={menuNameIsHidden}
+          >
+            {menuName}
+          </NavButton>
           <NavLinks data={props.content} visible={isVisible} />
         </Navigation>
       </Container>
@@ -41,10 +58,17 @@ const Navigation = styled.nav`
   }
 `
 
+const menuTransitionDurationMS = 200
+
 const NavButton = styled(Button)`
   align-self: center;
-  padding: 0.5em 1em;
-  font-size: 1.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  align-self: stretch;
+  font-size: 1.2rem;
+  color: ${(props: { nameIsHidden: boolean }) =>
+    props.nameIsHidden ? theme.color.darkAccent : theme.color.lightest};
+  transition: color ${menuTransitionDurationMS / (2 * 1000)}s ease-in-out;
 
   @media ${min("l")} {
     display: none;
