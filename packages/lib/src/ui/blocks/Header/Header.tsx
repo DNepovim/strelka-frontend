@@ -8,13 +8,18 @@ import { Container } from "../../components/Container/Container"
 import { NavLinks } from "../../components/NavLinks/NavLinks"
 
 import { Button } from "../../components/Button/Button"
-import { min } from "../../styles/theme"
+import { min, theme } from "../../styles/theme"
+import { css } from "@emotion/react"
 
 export const Header: React.FC<HeaderProps> = (props) => {
   const [isVisible, setIsVisible] = useState(false)
   return (
     <Block>
-      <Container>
+      <Container
+        css={css`
+          z-index: 1000;
+        `}
+      >
         <Navigation>
           <Logo />
           <NavButton onClick={() => setIsVisible(!isVisible)}>Menu</NavButton>
