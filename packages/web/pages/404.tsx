@@ -10,6 +10,8 @@ import { Button, Input } from "antd"
 import { Block } from "@local/lib/src/ui/components/Block/Block"
 import { Container } from "@local/lib/src/ui/components/Container/Container"
 import { useState } from "react"
+import { defaultAnimateLayoutChanges } from "@dnd-kit/sortable"
+import { css } from "@emotion/react"
 
 function coords(X: number, Y: number, Z: number) {
   return { X: X, Y: Y, Z: Z }
@@ -189,133 +191,116 @@ export default function ErrorPage() {
       </Head>
 
       <GlobalStyles />
-
-      <main
-        onKeyDown={(event) => {
-          event.preventDefault()
-          switch (event.key) {
-            case "ArrowUp":
-              // process by individual columns, in order. Detect loose if moving not available
-              // working on Y axis (going towards positive Y)
-
-              processMovement("Y", false)
-
-              // add random block randomly placed in empty location (or detect loose if no space is available)
-
-              console.log("Up move")
-              break
-            case "ArrowDown":
-              processMovement("Y", true)
-              console.log("Down move")
-
-              break
-
-            case "ArrowLeft":
-              processMovement("X", false)
-              console.log("Left move")
-              break
-
-            case "ArrowRight":
-              processMovement("X", true)
-              console.log("Right move")
-              break
-
-            case "PageUp":
-              processMovement("Z", true)
-              console.log("Front move")
-              break
-
-            case "PageDown":
-              processMovement("Z", false)
-              console.log("Back move")
-              break
-
-            default:
-              console.warn("No arrow key pressed")
-          }
-        }}
-      >
-        <Header content={linkData} />
-        <Heading1 content={"Jejda!"} />
-        <RichText paragraphs={errorMessage} />
-        <Block id="">
-          <Container>
-            <p>
-              X axis rotation:
-              <Input
-                type="range"
-                min="0"
-                max="360"
-                defaultValue="0"
-                className="slider"
-                id="X"
-                onChange={(event) => setRotationX(parseInt(event.target.value))}
-              />
-            </p>
-            <p>
-              Y axis rotation:
-              <Input
-                type="range"
-                min="0"
-                max="360"
-                defaultValue="0"
-                className="slider"
-                id="Y"
-                onChange={(event) => setRotationY(parseInt(event.target.value))}
-              />
-            </p>
-            <p>
-              Z axis rotation:
-              <Input
-                type="range"
-                min="0"
-                max="360"
-                defaultValue="0"
-                className="slider"
-                id="Z"
-                onChange={(event) => setRotationZ(parseInt(event.target.value))}
-              />
-            </p>
-            <Button onClick={() => setSubCubes([])}>Clear cubes</Button>
-            <Button
-              onClick={() => {
-                setRotationX(0)
-                setRotationY(0)
-                setRotationZ(0)
-              }}
-            >
-              Face X axis
-            </Button>
-            <Button
-              onClick={() => {
-                setRotationX(90)
-                setRotationZ(0)
-              }}
-            >
-              Face Y axis
-            </Button>
-            <Button
-              onClick={() => {
-                setRotationY(90)
-                setRotationX(0)
-              }}
-            >
-              Face Z axis
-            </Button>
-          </Container>
-        </Block>
-        <Bug>
-          <ParentCube
-            id="parent-cube"
-            size={16}
-            rotation={{ X: rotationX, Y: rotationY, Z: rotationZ }}
-            childCount={2}
-            subCubes={subCubes}
-          />
-        </Bug>
-      </main>
+      <div>
+        <Universe onClick={createRandomRays} id="universe">
+          <ErrMessage>
+            <Header content={linkData} />
+            <Heading1 content={"Jejda!"} />
+            <RichText paragraphs={errorMessage} />
+          </ErrMessage>
+        </Universe>
+      </div>
     </div>
   )
+}
+
+const ErrMessage = styled.div`
+  & a,
+  h2,
+  h3,
+  p,
+  .text,
+  button,
+  button::after,
+  .arrow,
+  h1,
+  ul,
+  li {
+    color: ${theme.color.lightest} !important;
+    fill: ${theme.color.lightest} !important;
+  }
+`
+
+const Universe = styled.div`
+  width: 100%;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  background-color: black;
+  overflow: hidden;
+
+  .star {
+    position: absolute;
+    border-radius: 50%;
+  }
+`
+
+function randomInt(start: number, till: number) {
+  return Math.round(Math.random() * (till - start)) + start
+}
+
+function randomDestination(width: number, height: number, size: number) {
+  const isVertical = randomInt(0, 1) == 0
+  const onFarSide = randomInt(0, 1) == 0
+  return isVertical
+    ? [onFarSide ? height : -size, randomInt(-size, width)]
+    : [randomInt(-size, height), onFarSide ? width : -size]
+}
+
+function createRandomRays() {
+  const space = document.getElementById("universe")
+
+  const width = space.offsetWidth
+  const height = space.offsetHeight
+
+  createRandomRaysHelper(width, height, space)
+}
+
+function createRandomRaysHelper(
+  width: number,
+  height: number,
+  space: HTMLElement
+) {
+  createRandomRay(width, height, space)
+  setTimeout(() => createRandomRaysHelper(width, height, space), 1)
+}
+
+function createRandomRay(width: number, height: number, space: HTMLElement) {
+  const ray = document.createElement("div")
+  ray.style.backgroundColor =
+    "rgb(" +
+    randomInt(30, 200) +
+    ", " +
+    randomInt(30, 90) +
+    ", " +
+    randomInt(100, 200) +
+    ")"
+  const delay = (Math.random() + 0.0575) * 4800
+  // max delay = 4800 ms ( 2 px )
+  // min delay = 300 ms  ( 10 px)
+  const size = 10000 / delay + 2
+  ray.style.width = "1px"
+  ray.style.height = "1px"
+  ray.style.top = height / 2 + "px"
+  ray.style.left = width / 2 + "px"
+  // ray.style.top = rayCenter.y + "px"
+  // ray.style.left = rayCenter.x + "px"
+  ray.style.transition = "all " + delay + "ms ease-out"
+  ray.className = "star"
+  const targetSize = size * Math.ceil(Math.log(size) * Math.log(size)) + 1
+  setTimeout(() => {
+    const [dstTop, dstLeft] = randomDestination(width, height, targetSize)
+    ray.style.top = dstTop + "px"
+    ray.style.left = dstLeft + "px"
+    ray.style.width = targetSize + "px"
+    ray.style.height = targetSize + "px"
+  }, 100)
+
+  space.appendChild(ray)
+  setTimeout(() => {
+    space.removeChild(ray)
+  }, delay + 100)
+  return ray
 }
 
 interface CubeProps {
@@ -429,11 +414,11 @@ const CubeWrapper = styled.div`
     position: absolute;
     transform-style: preserve-3d;
     transition: transform 0.2s ease-in-out;
+
     ${(props: CubeProps) =>
       props.value !== undefined
         ? `background-color: ${colors[props.value % colors.length]};`
         : ""}
-
     &:nth-of-type(1) {
       transform: translateZ(${(props: CubeProps) => props.size / 2}rem);
     }
