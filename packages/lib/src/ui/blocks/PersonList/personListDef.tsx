@@ -1,8 +1,8 @@
 import * as yup from "yup"
-import { BlockTemplates, InputType } from "../enums"
+import { BlockTemplates, AdditonalFieldInputType } from "../enums"
 import { Block, BlockDef } from "../blocks"
 import { BlockFields, withBlockSchema } from "../../components/Block/Block"
-import {Image as ImageType, imageDef, imageSchema} from "../../../types/Image"
+import { Image as ImageType, imageDef, imageSchema } from "../../../types/Image"
 
 export interface PersonProps {
   name: string
@@ -21,12 +21,12 @@ export interface PersonListBlock extends Block {
 }
 
 export interface PersonListProps extends BlockFields {
-  content: PersonProps[]
+  persons: PersonProps[]
 }
 
 export const personListSchema: yup.SchemaOf<PersonListProps> = withBlockSchema(
   yup.object({
-    content: yup
+    persons: yup
       .array()
       .of(
         yup.object({
@@ -48,33 +48,33 @@ export const personListDef: BlockDef<PersonListProps> = {
   title: "Skupina",
   template: BlockTemplates.GroupList,
   schema: personListSchema,
-  adminFields: {
-    content: {
+  additionalFields: {
+    persons: {
       clonable: true,
       fields: {
         name: {
           label: "Jméno",
-          inputType: InputType.Text,
+          inputType: AdditonalFieldInputType.Text,
         },
         nickname: {
           label: "Přezdívka",
-          inputType: InputType.Text,
+          inputType: AdditonalFieldInputType.Text,
         },
         image: imageDef,
         subtitle: {
           label: "Funkce",
-          inputType: InputType.Text,
+          inputType: AdditonalFieldInputType.Text,
         },
         contact: {
           label: "Kontaktní informace",
           fields: {
             email: {
               label: "Email",
-              inputType: InputType.Text,
+              inputType: AdditonalFieldInputType.Text,
             },
             phone: {
               label: "Telefonní číslo",
-              inputType: InputType.Text,
+              inputType: AdditonalFieldInputType.Text,
             },
           },
         },

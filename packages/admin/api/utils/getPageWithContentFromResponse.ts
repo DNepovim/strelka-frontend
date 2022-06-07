@@ -1,5 +1,5 @@
 import { Pages } from "@strelka-skaut/js-api-client"
-import { PageWithContent } from "../../schemas/page"
+import { PageRole, PageWithContent } from "../../schemas/page"
 import { gptbTimestampToString } from "./gptbTimestampTostring"
 import { parseJson } from "./parseJson"
 
@@ -11,6 +11,7 @@ export const getPageWithContentFromResponse = async (
     throw new Error("Missing page id on response.")
   }
 
+  // TODO remove mock data
   return {
     id: pageId,
     name: page.getName(),
@@ -21,5 +22,7 @@ export const getPageWithContentFromResponse = async (
       : null,
     content: await parseJson(page.getContent(), []),
     slug: page.getSlug(),
+    role: PageRole.Page,
+    parentPageId: "",
   }
 }

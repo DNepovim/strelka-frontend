@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import LogoBenja from "../assets/images/groups/benjaminci.jpg"
 import LogoSvetlusky from "../assets/images/groups/svetlusky.jpg"
 import LogoVlcata from "../assets/images/groups/vlcata.jpg"
@@ -55,9 +56,9 @@ export const randomCircle = randomItem(circles)
 export const randomRectangle = randomItem(rectangles)
 
 import { NavLink } from "../../types/Navigation"
-import { HeadingProps } from "../blocks/Heading1/Heading1"
 import { PersonProps } from "../blocks/PersonList/personListDef"
 import { GalleryProps } from "../blocks/GalleryList/galleryListDef"
+import { HeadingProps } from "../blocks/Heading/headingDef"
 
 export const groupData = [
   {

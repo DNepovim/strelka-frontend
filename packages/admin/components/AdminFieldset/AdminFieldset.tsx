@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from "react"
 import { AdminFields, isGroupField } from "@local/lib"
-import { adminInputsComponents } from "../Inputs"
+import { additionalFieldsInputsComponents } from "../Inputs"
 import { getFieldNamePath } from "../../utils/getFieldNamePath"
 import { ClonableFields } from "../ClonableFields/ClonableFields"
 
@@ -13,7 +13,7 @@ interface AdminFieldsetProps<T> {
 }
 
 export const AdminFieldset: React.FC<
-  AdminFieldsetProps<Record<string, any>>
+  AdminFieldsetProps<Record<string, unknown>>
 > = ({ legend, fields, path }) => (
   <fieldset>
     {legend && <legend>{legend}</legend>}
@@ -32,7 +32,7 @@ export const AdminFieldset: React.FC<
           <ClonableFields
             key={getFieldNamePath(name, path)}
             name={getFieldNamePath(name, path)}
-            component={adminInputsComponents[field.inputType]}
+            component={additionalFieldsInputsComponents[field.inputType]}
           />
         ) // TODO resolve typescript
       }
@@ -46,11 +46,14 @@ export const AdminFieldset: React.FC<
           />
         )
       }
-      return React.createElement(adminInputsComponents[field.inputType], {
-        key: getFieldNamePath(name, path),
-        name: getFieldNamePath(name, path),
-        label: field.label,
-      }) // TODO resolve typescript
+      return React.createElement(
+        additionalFieldsInputsComponents[field.inputType],
+        {
+          key: getFieldNamePath(name, path),
+          name: getFieldNamePath(name, path),
+          label: field.label,
+        }
+      ) // TODO resolve typescript
     })}
   </fieldset>
 )

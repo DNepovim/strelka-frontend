@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import { theme } from "../../styles/theme"
 
-export const Header1 = styled.h1`
+export const Header = styled.h1`
   font-family: ${theme.fonts.headings};
   font-weight: bold;
   font-size: 4rem;

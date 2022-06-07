@@ -11,7 +11,7 @@ export const GalleryList: React.FC<GalleryListProps> = (props) => (
   <Block>
     <Container>
       <GalleryViewContainer>
-        {props.content.map((galleryView, index) => (
+        {props.galleryList.map((galleryView, index) => (
           <GalleryView key={index} href={galleryView.address}>
             <GalleryImage image={galleryView.image} />
             <Title>{galleryView.name}</Title>

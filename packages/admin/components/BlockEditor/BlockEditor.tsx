@@ -1,4 +1,4 @@
-import { v4 as uuid } from "uuid"
+/** @jsxImportSource @emotion/react */
 import {
   useSensors,
   useSensor,
@@ -6,6 +6,7 @@ import {
   KeyboardSensor,
   DndContext,
   closestCenter,
+  DragEndEvent,
 } from "@dnd-kit/core"
 import {
   sortableKeyboardCoordinates,
@@ -13,22 +14,48 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable"
-import { blocksDefsList, BlocksDefs, BlockTemplates } from "@local/lib"
-import { Button } from "antd"
-import React from "react"
-import AppstoreAddOutlined from "@ant-design/icons/lib/icons/AppstoreAddOutlined"
+import { BlocksDefs, InputType } from "@local/lib"
+import React, { useCallback, useMemo } from "react"
+import { get } from "lodash"
+import styled from "@emotion/styled"
+import { createEditor, BaseEditor, Descendant, Transforms } from "slate"
+import {
+  withReact,
+  Slate,
+  ReactEditor,
+  Editable,
+  RenderElementProps,
+  useSlate,
+} from "slate-react"
 import { BlockEditorBlock } from "../BlockEditorBlock/BlockEditorBlock"
 
 export interface BlockEditorProps {
   blocks: BlocksDefs[]
-  setValue: (field: string, value: any) => void
+  setValue: (field: string, value: unknown) => void
   name: string
 }
+
+const initialValue = [
+  {
+    id: "one",
+    type: InputType.RichText,
+    children: [{ id: "one-one", text: "First" }],
+  },
+  {
+    id: "two",
+    type: InputType.Heading,
+    children: [{ id: "two-one", text: "Second" }],
+  },
+  {
+    id: "three",
+    type: InputType.Heading,
+    children: [{ id: "three-one", text: "Third" }],
+  },
+]
 
 export const BlockEditor: React.FC<BlockEditorProps> = ({
   blocks,
   setValue,
-  name,
 }) => {
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -36,58 +63,84 @@ export const BlockEditor: React.FC<BlockEditorProps> = ({
       coordinateGetter: sortableKeyboardCoordinates,
     })
   )
+
+  const editor = useMemo(() => withReact(createEditor()), [])
+
+  const renderElement = useCallback(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (props: RenderElementProps) => <BlockEditorBlock {...props} />,
+    []
+  )
+
+  // const renderLeaf = useCallback((props) => <Leaf {...props} />, [])
+
+  const onDragHandler = (event: DragEndEvent) => {
+    const { active, over } = event
+
+    if (!over) {
+      return
+    }
+
+    if (active.id !== over.id) {
+      const ids = editor.children.map(({ id }) => id)
+      const oldIndex = ids.indexOf(active.id)
+      const newIndex = ids.indexOf(over.id)
+
+      Transforms.moveNodes(editor, {
+        at: [oldIndex],
+        to: [newIndex],
+      })
+    }
+  }
+
   return (
-    <>
+    <EditorContainer>
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
-        onDragEnd={(event) => {
-          const { active, over } = event
-          const items = blocks.map((v) => v.id)
-
-          if (!over || active.id === over.id || !items) {
-            return
-          }
-
-          const overIndex = items.indexOf(over.id)
-          const activeIndex = items.indexOf(active.id)
-          const newOrder = arrayMove(items, activeIndex, overIndex)
-
-          setValue(name, newOrder)
-        }}
+        onDragEnd={onDragHandler}
       >
-        <SortableContext
-          items={blocks.map((v) => v.id) ?? []}
-          strategy={verticalListSortingStrategy}
-        >
-          {blocks.map((block, index) => (
-            <BlockEditorBlock
-              name={name}
-              key={block.id}
-              index={index}
-              id={block.id}
-              {...(block.template
-                ? blocksDefsList[block.template as BlockTemplates]
-                : {})}
-              onRemove={() =>
-                setValue(
-                  name,
-                  blocks.filter((_, i) => i !== index)
-                )
-              }
-              onTemplateChange={(template) =>
-                setValue(`${name}[${index}].template`, template)
-              }
-            />
-          ))}
-        </SortableContext>
+        <Slate editor={editor} value={initialValue}>
+          <SortableContainer>
+            <Editable renderElement={renderElement} />
+            {/* <SortableContainer name={name} /> */}
+          </SortableContainer>
+        </Slate>
       </DndContext>
-      <Button
-        icon={<AppstoreAddOutlined />}
-        onClick={() => setValue(name, [...(blocks ?? []), { id: uuid() }])}
-      >
-        Přidat blok
-      </Button>
-    </>
+    </EditorContainer>
   )
+}
+
+const SortableContainer: React.FC = ({ children }) => {
+  const editor = useSlate()
+  return (
+    <SortableContext
+      items={editor.children.map(({ id }) => id) ?? []}
+      strategy={verticalListSortingStrategy}
+    >
+      {children}
+    </SortableContext>
+  )
+}
+
+const EditorContainer = styled.div`
+  background: white;
+  padding: 32px 16px;
+  min-height: 60vh;
+`
+
+type Text = { id: string; text: string; bold?: true }
+
+interface Block {
+  id: string
+  type: InputType
+  children: (Block | Text)[]
+}
+
+declare module "slate" {
+  interface CustomTypes {
+    Editor: BaseEditor & ReactEditor
+    Element: Block
+    Text: Text
+  }
 }

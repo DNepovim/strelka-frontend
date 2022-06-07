@@ -1,8 +1,11 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
+  images: {
+    domains: ["drive.google.com", "localhost"],
+  },
   reactStrictMode: true,
 }
-module.exports = nextConfig
 
 const withTM = require("next-transpile-modules")(["@local/lib"])
-module.exports = withTM()
+module.exports = withTM(nextConfig)
