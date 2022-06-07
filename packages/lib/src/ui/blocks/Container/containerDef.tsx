@@ -14,7 +14,7 @@ export interface ContainerProps extends BlockFields<{ id: string }[]> {}
 export const containerDef: BlockDef<ContainerProps> = {
   title: "Blok",
   template: BlockTemplates.Container,
-  inputType: InputType.Container,
+  inputs: InputType.Container,
   getDefautlValues: () => ({
     content: [
       {

@@ -8,12 +8,26 @@ import {
   closestCenter,
   DragEndEvent,
 } from "@dnd-kit/core"
-import { sortableKeyboardCoordinates, arrayMove } from "@dnd-kit/sortable"
-import { BlocksDefs } from "@local/lib"
-import React from "react"
+import {
+  sortableKeyboardCoordinates,
+  arrayMove,
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable"
+import { BlocksDefs, InputType } from "@local/lib"
+import React, { useCallback, useMemo } from "react"
 import { get } from "lodash"
 import styled from "@emotion/styled"
-import { SortableContainer } from "../SortableContainer/SortableContainer"
+import { createEditor, BaseEditor, Descendant, Transforms } from "slate"
+import {
+  withReact,
+  Slate,
+  ReactEditor,
+  Editable,
+  RenderElementProps,
+  useSlate,
+} from "slate-react"
+import { BlockEditorBlock } from "../BlockEditorBlock/BlockEditorBlock"
 
 export interface BlockEditorProps {
   blocks: BlocksDefs[]
@@ -21,10 +35,27 @@ export interface BlockEditorProps {
   name: string
 }
 
+const initialValue = [
+  {
+    id: "one",
+    type: InputType.RichText,
+    children: [{ id: "one-one", text: "First" }],
+  },
+  {
+    id: "two",
+    type: InputType.Heading,
+    children: [{ id: "two-one", text: "Second" }],
+  },
+  {
+    id: "three",
+    type: InputType.Heading,
+    children: [{ id: "three-one", text: "Third" }],
+  },
+]
+
 export const BlockEditor: React.FC<BlockEditorProps> = ({
   blocks,
   setValue,
-  name,
 }) => {
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -33,21 +64,33 @@ export const BlockEditor: React.FC<BlockEditorProps> = ({
     })
   )
 
+  const editor = useMemo(() => withReact(createEditor()), [])
+
+  const renderElement = useCallback(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (props: RenderElementProps) => <BlockEditorBlock {...props} />,
+    []
+  )
+
+  // const renderLeaf = useCallback((props) => <Leaf {...props} />, [])
+
   const onDragHandler = (event: DragEndEvent) => {
     const { active, over } = event
-    const activeName = active.data.current?.sortable.containerId
-    const currentBlocks = get({ content: blocks }, activeName)
-    const ids = currentBlocks.map(({ id }: { id: string }) => id)
 
-    if (!over || active.id === over.id || !ids) {
+    if (!over) {
       return
     }
 
-    const overIndex = ids.indexOf(over.id)
-    const activeIndex = ids.indexOf(active.id)
-    const newOrder = arrayMove(currentBlocks, activeIndex, overIndex)
+    if (active.id !== over.id) {
+      const ids = editor.children.map(({ id }) => id)
+      const oldIndex = ids.indexOf(active.id)
+      const newIndex = ids.indexOf(over.id)
 
-    setValue(activeName, newOrder)
+      Transforms.moveNodes(editor, {
+        at: [oldIndex],
+        to: [newIndex],
+      })
+    }
   }
 
   return (
@@ -57,9 +100,26 @@ export const BlockEditor: React.FC<BlockEditorProps> = ({
         collisionDetection={closestCenter}
         onDragEnd={onDragHandler}
       >
-        <SortableContainer name={name} />
+        <Slate editor={editor} value={initialValue}>
+          <SortableContainer>
+            <Editable renderElement={renderElement} />
+            {/* <SortableContainer name={name} /> */}
+          </SortableContainer>
+        </Slate>
       </DndContext>
     </EditorContainer>
+  )
+}
+
+const SortableContainer: React.FC = ({ children }) => {
+  const editor = useSlate()
+  return (
+    <SortableContext
+      items={editor.children.map(({ id }) => id) ?? []}
+      strategy={verticalListSortingStrategy}
+    >
+      {children}
+    </SortableContext>
   )
 }
 
@@ -68,3 +128,19 @@ const EditorContainer = styled.div`
   padding: 32px 16px;
   min-height: 60vh;
 `
+
+type Text = { id: string; text: string; bold?: true }
+
+interface Block {
+  id: string
+  type: InputType
+  children: (Block | Text)[]
+}
+
+declare module "slate" {
+  interface CustomTypes {
+    Editor: BaseEditor & ReactEditor
+    Element: Block
+    Text: Text
+  }
+}

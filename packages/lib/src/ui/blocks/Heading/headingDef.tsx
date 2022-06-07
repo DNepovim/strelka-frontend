@@ -13,6 +13,6 @@ export interface HeadingProps extends BlockFields<string> {}
 export const headingDef: BlockDef<HeadingProps> = {
   title: "Nadpis",
   template: BlockTemplates.Heading,
-  inputType: InputType.Heading,
+  inputs: InputType.Heading,
   icon: FontSizeOutlined,
 }

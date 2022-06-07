@@ -16,6 +16,13 @@ import styled from "@emotion/styled"
 import { BlockTemplates, InputType } from "@local/lib"
 import { inputTypeComponents } from "../Inputs"
 import { ArrayHelpers, useField } from "formik"
+import {
+  RenderElementProps,
+  useFocused,
+  useSelected,
+  useSlate,
+} from "slate-react"
+import { Node, Transforms } from "slate"
 
 // TODO divide this file
 
@@ -26,36 +33,52 @@ export type BlockEditorBlockProps = Partial<BlockDef<unknown>> & {
   arrayHelpers: ArrayHelpers
 }
 
-export const BlockEditorBlock: React.FC<BlockEditorBlockProps> = ({
-  id,
-  name,
-  index,
-  arrayHelpers,
-  additionalFields,
-  inputType,
-  title,
-}) => {
-  const nameWithIndex = `${name}[${index}]`
-  const [field] = useField(nameWithIndex)
-  const { setNodeRef } = useSortable({ id })
+export const BlockEditorBlock: React.FC<RenderElementProps> = (props) => {
+  // const nameWithIndex = `${name}[${index}]`
+  // const [field] = useField(nameWithIndex)
+  const { id } = props.element
+  const { setNodeRef, attributes, listeners } = useSortable({ id })
+  const editor = useSlate()
 
   return (
     <DndWrapper ref={setNodeRef} id={id}>
       <FlexContainer>
         <BlockControl>
-          <AddNewBlock index={index} arrayHelpers={arrayHelpers} />
+          <AddNewBlock
+            onBlockAddHandler={(template) => {
+              Transforms.insertNodes(
+                editor,
+                {
+                  id: uuid(),
+                  type: blocksDefsList[template]?.inputs!, // TODO remove ex mark
+                  children: [{ id: uuid(), text: "First" }],
+                },
+                { at: [editor.selection?.focus.path[0]! + 1] }
+              )
+            }}
+          />
           <BlockHolder
-            index={index}
+            {...attributes}
+            {...listeners}
             id={id}
-            arrayHelpers={arrayHelpers}
-            value={field.value}
+            onBlockTypeChangeHandler={(template) => {
+              Transforms.setNodes(editor, {
+                type: blocksDefsList[template]?.inputs!,
+              })
+            }}
+            onBlockDuplicateHandler={() => {
+              Transforms.insertNodes(
+                editor,
+                Node.get(editor, [editor.selection?.focus.path?.[0]!]),
+                { at: [editor.selection?.focus.path[0]! + 1] }
+              )
+            }}
+            onBlockRemoveHandler={() => Transforms.removeNodes(editor)}
           />
         </BlockControl>
         <FullWidthContainer>
-          {inputType && (
-            <InputTypeElement inputType={inputType} name={nameWithIndex} />
-          )}
-          {additionalFields && (
+          {props.element?.type && <InputTypeElement {...props} />}
+          {/* {additionalFields && (
             <Collapse>
               <AntCollapse.Panel key="neco" header={title}>
                 <AdminFieldset
@@ -64,7 +87,7 @@ export const BlockEditorBlock: React.FC<BlockEditorBlockProps> = ({
                 />
               </AntCollapse.Panel>
             </Collapse>
-          )}
+          )} */}
         </FullWidthContainer>
       </FlexContainer>
     </DndWrapper>
@@ -106,23 +129,14 @@ const DndWrapper = forwardRef<
   )
 })
 
-const AddNewBlock: React.FC<{ index: number; arrayHelpers: ArrayHelpers }> = ({
-  index,
-  arrayHelpers,
-}) => (
+const AddNewBlock: React.FC<{
+  onBlockAddHandler: (template: BlockTemplates) => void
+}> = ({ onBlockAddHandler }) => (
   <Dropdown
     trigger={["click"]}
     overlay={
       <Menu>
-        <BlocksMenuItems
-          onClick={(template) =>
-            arrayHelpers.insert(index + 1, {
-              id: uuid(),
-              template,
-              fields: blocksDefsList[template]?.getDefautlValues?.(),
-            })
-          }
-        />
+        <BlocksMenuItems onClick={(template) => onBlockAddHandler(template)} />
       </Menu>
     }
   >
@@ -131,12 +145,16 @@ const AddNewBlock: React.FC<{ index: number; arrayHelpers: ArrayHelpers }> = ({
 )
 
 const BlockHolder: React.FC<{
-  index: number
-  arrayHelpers: ArrayHelpers
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  value: any
   id: string
-}> = ({ index, arrayHelpers, value, id }) => {
+  onBlockTypeChangeHandler: (tempalte: BlockTemplates) => void
+  onBlockDuplicateHandler: () => void
+  onBlockRemoveHandler: () => void
+}> = ({
+  id,
+  onBlockTypeChangeHandler,
+  onBlockDuplicateHandler,
+  onBlockRemoveHandler,
+}) => {
   const { attributes, listeners } = useSortable({ id })
   return (
     <Dropdown
@@ -149,27 +167,20 @@ const BlockHolder: React.FC<{
             icon={<SwapOutlined />}
           >
             <BlocksMenuItems
-              onClick={(template) =>
-                arrayHelpers.replace(index, { ...value, template })
-              }
+              onClick={(template) => onBlockTypeChangeHandler(template)}
             />
           </Menu.SubMenu>
           <Menu.Item
             key="duplicateBlock"
             icon={<CopyOutlined />}
-            onClick={() =>
-              arrayHelpers.insert(index + 1, {
-                ...value,
-                id: uuid(),
-              })
-            }
+            onClick={onBlockDuplicateHandler}
           >
             Duplikovat
           </Menu.Item>
           <Menu.Item
             key="removeBlock"
             icon={<DeleteOutlined />}
-            onClick={() => arrayHelpers.remove(index)}
+            onClick={onBlockRemoveHandler}
             danger
           >
             Odebrat
@@ -182,13 +193,8 @@ const BlockHolder: React.FC<{
   )
 }
 
-const InputTypeElement: React.FC<{ inputType: InputType; name: string }> = ({
-  inputType,
-  name,
-}) =>
-  React.createElement(inputTypeComponents[inputType], {
-    name: `${name}.fields.content`,
-  })
+const InputTypeElement: React.FC<RenderElementProps> = (props) =>
+  React.createElement(inputTypeComponents[props.element.type], props)
 
 const Collapse = styled(AntCollapse)`
   margin: 8px;
