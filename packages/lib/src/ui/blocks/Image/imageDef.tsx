@@ -14,6 +14,7 @@ export interface ImageProps extends BlockFields<RawDraftContentState> {}
 export const imageDef: BlockDef<ImageProps> = {
   title: "Obrázek",
   template: BlockTemplates.Image,
-  inputType: InputType.Image,
+  inputs: InputType.Image,
+  isVoid: true,
   icon: PictureOutlined,
 }

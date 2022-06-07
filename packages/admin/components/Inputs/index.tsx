@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react"
 import { AdditonalFieldInputType, InputType } from "@local/lib"
-import { useField } from "formik"
 import { Checkbox, Form, Input, InputNumber, Select } from "formik-antd"
 import React, { FocusEventHandler, KeyboardEventHandler } from "react"
-import { ImagePickerInput } from "../ImagePickerInput/ImagePickerInput"
+import { Transforms } from "slate"
+import { RenderElementProps, useSlate } from "slate-react"
+import { ImagePickerInput } from "./ImagePicker/ImagePickerInput"
 import { ContainerInput } from "./ContainerInput/ContainerInput"
 import { RichTextEditor } from "./RichTextInput/RichTextInput"
 
@@ -47,43 +48,52 @@ interface InputProps {
   onFocus: FocusEventHandler
 }
 
-const HeadlineInput: React.FC<InputProps> = ({ name, ...inputProps }) => {
-  const [field] = useField(name)
+const HeadlineInput: React.FC<RenderElementProps> = (props) => (
+  <h1
+    {...props.attributes}
+    css={css`
+      font-size: 2em;
+      font-weight: bold;
+      border: none;
+      width: 100%;
+      &:focus {
+        outline: none;
+      }
+    `}
+  >
+    {props.children}
+  </h1>
+)
 
+const SubHeadlineInput: React.FC<RenderElementProps> = (props) => (
+  <h2
+    {...props.attributes}
+    css={css`
+      font-size: 1.4em;
+      font-weight: bold;
+      border: none;
+      width: 100%;
+      &:focus {
+        outline: none;
+      }
+    `}
+  >
+    {props.children}
+  </h2>
+)
+
+const ImageInput: React.FC<RenderElementProps> = (props) => {
+  const editor = useSlate()
   return (
-    <input
-      {...field}
-      {...inputProps}
-      css={css`
-        font-size: 2em;
-        font-weight: bold;
-        border: none;
-        width: 100%;
-        &:focus {
-          outline: none;
+    <div {...props.attributes} contentEditable={false}>
+      {props.children}
+      <ImagePickerInput
+        value=""
+        onPickHandler={(value) =>
+          Transforms.setNodes(editor, { imageId: value })
         }
-      `}
-    />
-  )
-}
-
-const SubHeadlineInput: React.FC<InputProps> = ({ name, ...inputProps }) => {
-  const [field] = useField(name)
-
-  return (
-    <input
-      {...field}
-      {...inputProps}
-      css={css`
-        font-size: 1.4em;
-        font-weight: bold;
-        border: none;
-        width: 100%;
-        &:focus {
-          outline: none;
-        }
-      `}
-    />
+      />
+    </div>
   )
 }
 

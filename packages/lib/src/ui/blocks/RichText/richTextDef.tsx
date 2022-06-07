@@ -14,6 +14,6 @@ export interface RichTextProps extends BlockFields<RawDraftContentState> {}
 export const richTextDef: BlockDef<RichTextProps> = {
   title: "Text",
   template: BlockTemplates.RichText,
-  inputType: InputType.RichText,
+  inputs: InputType.RichText,
   icon: AlignLeftOutlined,
 }

@@ -37,6 +37,10 @@ export type BlocksDefs =
   | GalleryListBlock
   | PersonListBlock
 
+export interface TextNode {
+  text: string
+}
+
 // TODO dynamic import
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const blocksComponentList: Record<BlockTemplates, React.FC<any>> = {
@@ -54,8 +58,8 @@ export const blocksComponentList: Record<BlockTemplates, React.FC<any>> = {
 export const blocksDefsList: { [key in BlockTemplates]?: BlockDef<unknown> } = {
   heading: headingDef,
   richText: richTextDef,
-  image: imageDef,
   container: containerDef,
+  image: imageDef,
   gallery: galleryDef,
   header: headerDef,
   groupList: groupDef,
@@ -72,7 +76,9 @@ export interface BlockDef<T> {
   title: string
   template: BlockTemplates
   schema?: yup.SchemaOf<T> // TODO required
-  inputType?: InputType
+  inputs?: InputType
+  isVoid?: boolean
+  children?: TextNode | BlockDef<T>
   getDefautlValues?: () => T
   icon?: React.FC
   additionalFields?: AdminFields<T>

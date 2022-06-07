@@ -6,7 +6,7 @@ import { useField, FieldArray, FieldInputProps } from "formik"
 import PlusSquareOutlined from "@ant-design/icons/lib/icons/PlusSquareOutlined"
 import HolderOutlined from "@ant-design/icons/lib/icons/HolderOutlined"
 import DeleteOutlined from "@ant-design/icons/lib/icons/DeleteOutlined"
-import { AdminFieldset } from "../AdminFieldset/AdminFieldset"
+import { AdminFieldset } from "./AdminFieldset"
 import styled from "@emotion/styled"
 import { css } from "@emotion/react"
 

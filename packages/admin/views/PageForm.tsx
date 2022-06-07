@@ -6,9 +6,9 @@ import { Button, Col, Form, message, Row, Tabs } from "antd"
 import { Formik, FormikHelpers } from "formik"
 import React from "react"
 import { BlockEditor } from "../components/BlockEditor/BlockEditor"
-import { FlexRow } from "../components/FlexRow/FlexRow"
-import { PageWrapper } from "../components/PageWrapper/PageWrapper"
-import { Preview } from "../components/Preview/Preview"
+import { FlexRow } from "../components/FlexRow"
+import { PageWrapper } from "../components/PageWrapper"
+import { Preview } from "../components/BlockEditor/Preview"
 import { pageToCreateSchema, PageFormValues, PageRole } from "../schemas/page"
 import { useRouter } from "next/dist/client/router"
 import { routes } from "../routes"
@@ -124,9 +124,10 @@ export const PageForm: React.FC<PageFormProps> = ({
                   )}
                   <Col span={isPreviewVisible ? 12 : 24}>
                     <BlockEditor
-                      name="content"
-                      blocks={props.values.content ?? []}
-                      setValue={props.setFieldValue}
+                      value={props.values.content}
+                      onChange={(value) =>
+                        props.setFieldValue("content", value)
+                      }
                     />
                   </Col>
                 </FlexRow>

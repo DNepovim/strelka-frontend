@@ -3,7 +3,7 @@ import React from "react"
 import { AdminFields, isGroupField } from "@local/lib"
 import { additionalFieldsInputsComponents } from "../Inputs"
 import { getFieldNamePath } from "../../utils/getFieldNamePath"
-import { ClonableFields } from "../ClonableFields/ClonableFields"
+import { ClonableFields } from "./ClonableFields"
 
 interface AdminFieldsetProps<T> {
   fields: AdminFields<T>

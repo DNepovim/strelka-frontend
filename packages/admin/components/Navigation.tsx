@@ -1,7 +1,7 @@
 import { Menu } from "antd"
 import Link from "next/link"
 import React from "react"
-import { Routes } from "../../routes"
+import { Routes } from "../routes"
 
 interface NavigationProps {
   routes: Routes

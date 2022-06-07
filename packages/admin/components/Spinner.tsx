@@ -1,6 +1,6 @@
 import React from "react"
 import Loader from "react-loader-spinner"
-import { Centered } from "../Centered/Centered"
+import { Centered } from "./Centered"
 
 export const Spinner: React.FC = () => (
   <Centered>

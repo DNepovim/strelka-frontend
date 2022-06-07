@@ -25,7 +25,7 @@ export const galleryDef: BlockDef<GalleryProps> = {
   template: BlockTemplates.Gallery,
   schema: gallerySchema,
   icon: AppstoreOutlined,
-  inputType: InputType.SubHeading,
+  inputs: InputType.SubHeading,
   additionalFields: {
     images: {
       clonable: true,

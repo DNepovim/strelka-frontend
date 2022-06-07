@@ -2,7 +2,7 @@ import React from "react"
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
 import { BlocksDefs, blocksDefsList, BlockTemplates } from "@local/lib/src"
 import { FieldArray, useField } from "formik"
-import { BlockEditorBlock } from "../BlockEditorBlock/BlockEditorBlock"
+import { BlockEditorBlock } from "./BlockEditorBlock"
 
 export const SortableContainer: React.FC<{
   name: string

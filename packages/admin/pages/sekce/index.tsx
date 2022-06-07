@@ -3,11 +3,11 @@ import { Button, Table, Typography } from "antd"
 import EditOutlined from "@ant-design/icons/lib/icons/EditOutlined"
 import { Site } from "../../schemas/site"
 import { getSites } from "../../api/getSites"
-import { ButtonLink } from "../../components/ButtonLink/ButtonLink"
-import { PageWrapper } from "../../components/PageWrapper/PageWrapper"
+import { ButtonLink } from "../../components/ButtonLink"
+import { PageWrapper } from "../../components/PageWrapper"
 import { routes } from "../../routes"
 import { PageWithContent } from "../../schemas/page"
-import { Link } from "../../components/Link/Link"
+import { Link } from "../../components/Link"
 
 const SitesListPage: NextPage<Props> = ({ sites }) => (
   <PageWrapper

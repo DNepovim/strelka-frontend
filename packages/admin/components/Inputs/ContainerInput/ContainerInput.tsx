@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from "react"
-import { SortableContainer } from "../../SortableContainer/SortableContainer"
+import { SortableContainer } from "../../BlockEditor/SortableContainer"
 
 export const ContainerInput: React.FC<{ name: string }> = ({ name }) => (
   <SortableContainer name={name} />

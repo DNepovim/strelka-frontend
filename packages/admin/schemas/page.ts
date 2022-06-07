@@ -60,6 +60,6 @@ export const pageToCreateSchema = yup.lazy(() =>
     slug: yup.string().required(),
     name: yup.string().required(),
     siteId: yup.string(),
-    content: pageContentSchema,
+    // content: pageContentSchema,
   })
 )

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { ReactNode } from "react"
 import { Breadcrumb, Col, Row, Space } from "antd"
-import { FlexRow } from "../FlexRow/FlexRow"
+import { FlexRow } from "./FlexRow"
 import { Route } from "antd/lib/breadcrumb/Breadcrumb"
 import { css } from "@emotion/react"
 
