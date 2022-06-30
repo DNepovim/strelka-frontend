@@ -4,10 +4,13 @@ import { getPageWithContentFromResponse } from "./utils/getPageWithContentFromRe
 
 const apiEndpoint = process.env.NEXT_PUBLIC_API_ENDPOINT
 
-export const getPages = async (config?: {
-  limit?: number
-  offset?: number
-}): Promise<PageWithContent[]> => {
+export const getPages = async (
+  siteSlug: string,
+  config?: {
+    limit?: number
+    offset?: number
+  }
+): Promise<PageWithContent[]> => {
   const limit = config?.limit ?? 10
   const offset = config?.offset ?? 0
 

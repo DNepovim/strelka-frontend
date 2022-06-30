@@ -9,6 +9,7 @@ import { Navigation } from "../Navigation/Navigation"
 import { Logo } from "@local/lib/src/ui/components/Logo/Logo"
 import { useKeycloak } from "@react-keycloak/ssr"
 import type { KeycloakInstance, KeycloakTokenParsed } from "keycloak-js"
+import { SitesSelect } from "../Inputs/SitesSelect/SitesSelect"
 
 type ParsedToken = KeycloakTokenParsed & {
   email?: string
@@ -65,6 +66,7 @@ export const Layout: React.FC = ({ children }) => {
             <Logo width="100%" height="90px" />
           </div>
           <Navigation routes={routes} />
+          <SitesSelect />
           {keycloak?.authenticated && (
             <div
               css={css`
