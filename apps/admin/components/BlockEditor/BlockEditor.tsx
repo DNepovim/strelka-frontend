@@ -15,16 +15,9 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable"
 import { BlockTemplates } from "@local/lib"
-import React, { useCallback, useEffect, useMemo, useRef } from "react"
+import React, { useCallback, useMemo } from "react"
 import styled from "@emotion/styled"
-import {
-  createEditor,
-  BaseEditor,
-  Text,
-  Transforms,
-  Editor,
-  Range,
-} from "slate"
+import { createEditor, BaseEditor, Transforms } from "slate"
 import {
   withReact,
   Slate,
@@ -32,15 +25,9 @@ import {
   Editable,
   RenderElementProps,
   useSlate,
-  useFocused,
 } from "slate-react"
 import { BlockEditorBlock } from "./BlockEditorBlock"
-import { css } from "@emotion/react"
-import { Button } from "antd"
-import ButtonGroup from "antd/lib/button/button-group"
-import { Portal } from "../Portal"
-import BoldOutlined from "@ant-design/icons/lib/icons/BoldOutlined"
-import ItalicOutlined from "@ant-design/icons/lib/icons/ItalicOutlined"
+import { Format, HoveringToolbar } from "./HoveringToolbar"
 
 export interface BlockEditorProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -121,6 +108,7 @@ export const BlockEditor: React.FC<BlockEditorProps> = ({
                       type: BlockTemplates.RichText,
                       children: [{ id: uuid(), text: "" }],
                     },
+                    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
                     { at: [editor.selection?.focus.path[0]! + 1], select: true }
                   )
                 }
@@ -145,108 +133,23 @@ const SortableContainer: React.FC = ({ children }) => {
   )
 }
 
-export enum Format {
-  Bold = "bold",
-  Italic = "italic",
-}
-
-const toggleFormat = (editor: Editor, format: Format) => {
-  const isActive = isFormatActive(editor, format)
-  Transforms.setNodes(
-    editor,
-    { [format]: isActive ? null : true },
-    { match: Text.isText, split: true }
-  )
-}
-
-const isFormatActive = (editor: Editor, format: Format) => {
-  const [match] = Editor.nodes(editor, {
-    match: (n) => n[format] === true,
-    mode: "all",
-  })
-  return !!match
-}
-
-const HoveringToolbar = () => {
-  const ref = useRef<HTMLDivElement | null>()
-  const editor = useSlate()
-  const inFocus = useFocused()
-
-  useEffect(() => {
-    const el = ref.current
-    const { selection } = editor
-
-    if (!el) {
-      return
-    }
-
-    if (
-      !selection ||
-      !inFocus ||
-      Range.isCollapsed(selection) ||
-      Editor.string(editor, selection) === ""
-    ) {
-      el.removeAttribute("style")
-      return
-    }
-
-    const domSelection = window.getSelection()
-    const domRange = domSelection.getRangeAt(0)
-    const rect = domRange.getBoundingClientRect()
-    el.style.opacity = "1"
-    el.style.top = `${rect.top + window.pageYOffset - el.offsetHeight}px`
-    el.style.left = `${
-      rect.left + window.pageXOffset - el.offsetWidth / 2 + rect.width / 2
-    }px`
-  })
-
-  return (
-    <Portal>
-      <div
-        ref={ref}
-        css={css`
-          position: absolute;
-          z-index: 1;
-          top: -10000px;
-          left: -10000px;
-          margin-top: -6px;
-          opacity: 0;
-          transition: opacity 0.75s;
-        `}
-        onMouseDown={(e) => {
-          // prevent toolbar from taking focus away from editor
-          e.preventDefault()
-        }}
-      >
-        <ButtonGroup>
-          <Button
-            icon={<BoldOutlined />}
-            disabled={isFormatActive(editor, Format.Bold)}
-            onClick={() => toggleFormat(editor, Format.Bold)}
-          />
-          <Button
-            icon={<ItalicOutlined />}
-            disabled={isFormatActive(editor, Format.Italic)}
-            onClick={() => toggleFormat(editor, Format.Italic)}
-          />
-        </ButtonGroup>
-      </div>
-    </Portal>
-  )
-}
-
 const EditorContainer = styled.div`
   background: white;
   padding: 32px 16px;
   min-height: 60vh;
 `
 
-type Text = { id: string; text: string; bold?: true }
+export type TextType = {
+  id: string
+  text: string
+  [Format.Bold]?: true
+  [Format.Italic]?: true
+}
 
-export interface Block {
+interface Block {
   id: string
   type: BlockTemplates
-  children: (Block | Text)[]
+  children: (Block | TextType)[]
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data?: any
 }
@@ -255,6 +158,6 @@ declare module "slate" {
   interface CustomTypes {
     Editor: BaseEditor & ReactEditor
     Element: Block
-    Text: Text
+    Text: TextType
   }
 }

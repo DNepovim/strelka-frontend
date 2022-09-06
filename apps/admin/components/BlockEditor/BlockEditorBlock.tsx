@@ -18,6 +18,7 @@ import { ArrayHelpers, Formik, useFormikContext } from "formik"
 import { RenderElementProps, useSlate } from "slate-react"
 import { Node, Transforms } from "slate"
 import { AdminFieldset } from "./AdminFieldset"
+import { ItemType } from "antd/lib/menu/hooks/useItems"
 
 export type BlockEditorBlockProps = Partial<BlockDef<unknown>> & {
   id: string
@@ -72,6 +73,7 @@ export const BlockEditorBlock: React.FC<RenderElementProps> = (props) => {
               Transforms.insertNodes(
                 editor,
                 Node.get(editor, [editor.selection?.focus.path?.[0]!]),
+                // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
                 { at: [editor.selection?.focus.path[0]! + 1] }
               )
             }}
@@ -131,19 +133,15 @@ const FormObserver: React.FC<{ onChange: (values: unknown) => void }> = ({
   return <></>
 }
 
-const BlocksMenuItems: React.FC<{
+const getMenuItems = (
   onClick: (template: BlockTemplates) => void
-}> = ({ onClick }) => (
-  <>
-    {Object.values(blocksDefsList).map((block, index) => (
-      <Menu.Item key={index} onClick={() => onClick(block.template)}>
-        {block.icon ? React.createElement(block.icon) : <PlusOutlined />}
-        &nbsp;
-        {block.title}
-      </Menu.Item>
-    ))}
-  </>
-)
+): ItemType[] =>
+  Object.values(blocksDefsList).map((block, index) => ({
+    key: index,
+    icon: block.icon ?? <PlusOutlined />,
+    label: block.title,
+    onClick: () => onClick(block.template),
+  }))
 
 const DndWrapper = forwardRef<
   HTMLDivElement,
@@ -171,11 +169,7 @@ const AddNewBlock: React.FC<{
 }> = ({ onBlockAddHandler }) => (
   <Dropdown
     trigger={["click"]}
-    overlay={
-      <Menu>
-        <BlocksMenuItems onClick={(template) => onBlockAddHandler(template)} />
-      </Menu>
-    }
+    overlay={<Menu items={getMenuItems(onBlockAddHandler)} />}
   >
     <PlusOutlined />
   </Dropdown>
@@ -197,32 +191,29 @@ const BlockHolder: React.FC<{
     <Dropdown
       trigger={["contextMenu"]}
       overlay={
-        <Menu>
-          <Menu.SubMenu
-            key="changeBlock"
-            title="Změnit blok"
-            icon={<SwapOutlined />}
-          >
-            <BlocksMenuItems
-              onClick={(template) => onBlockTypeChangeHandler(template)}
-            />
-          </Menu.SubMenu>
-          <Menu.Item
-            key="duplicateBlock"
-            icon={<CopyOutlined />}
-            onClick={onBlockDuplicateHandler}
-          >
-            Duplikovat
-          </Menu.Item>
-          <Menu.Item
-            key="removeBlock"
-            icon={<DeleteOutlined />}
-            onClick={onBlockRemoveHandler}
-            danger
-          >
-            Odebrat
-          </Menu.Item>
-        </Menu>
+        <Menu
+          items={[
+            {
+              key: "changeBlock",
+              label: "Změnit blok",
+              icon: <SwapOutlined />,
+              children: getMenuItems(onBlockTypeChangeHandler),
+            },
+            {
+              key: "duplicateBlock",
+              label: "Duplikovat",
+              icon: <CopyOutlined />,
+              onClick: onBlockDuplicateHandler,
+            },
+            {
+              key: "removeBlock",
+              icon: <DeleteOutlined />,
+              onClick: onBlockRemoveHandler,
+              danger: true,
+              label: "Odebrat",
+            },
+          ]}
+        />
       }
     >
       <HolderOutlined {...attributes} {...listeners} />
