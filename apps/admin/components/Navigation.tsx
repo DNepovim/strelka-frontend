@@ -8,13 +8,13 @@ interface NavigationProps {
 }
 
 export const Navigation: React.FC<NavigationProps> = ({ routes }) => (
-  <Menu>
-    {Object.entries(routes)
+  <Menu
+    items={Object.entries(routes)
       .filter(([_, item]) => item.showInMenu)
-      .map(([key, { title, menuIcon, getLink }]) => (
-        <Menu.Item icon={menuIcon} key={key}>
-          <Link href={getLink()}>{title()}</Link>
-        </Menu.Item>
-      ))}
-  </Menu>
+      .map(([key, { title, menuIcon, getLink }]) => ({
+        icon: menuIcon,
+        key,
+        label: <Link href={getLink()}>{title()}</Link>,
+      }))}
+  />
 )
