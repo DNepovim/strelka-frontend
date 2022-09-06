@@ -2,6 +2,7 @@
   "name": "local",
   "private": true,
   "workspaces": [
+    "apps/*",
     "packages/*"
   ],
   "scripts": {
