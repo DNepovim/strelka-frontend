@@ -14,7 +14,7 @@ import Circle6 from "../../assets/vectors/potatoes/circle_6.svg"
 import Circle7 from "../../assets/vectors/potatoes/circle_7.svg"
 import Circle8 from "../../assets/vectors/potatoes/circle_8.svg"
 
-import { theme } from "../../styles/theme"
+import { min, theme } from "../../styles/theme"
 import { Link } from "../../components/Link/Link"
 import { FreeformImage } from "../../components/FreeformImage/FreeformImage"
 import { Image } from "../../../types/Image"
@@ -64,6 +64,15 @@ export const GroupList: React.FC<GroupListProps> = (props) => (
 const GroupListContainer = styled.div`
   display: flex;
   flex-direction: column;
+
+  @media ${min("s")} {
+    display: grid;
+    padding: 0 1rem 1rem;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media ${min("l")} {
+    grid-template-columns: repeat(4, 1fr);
+  }
 `
 
 const Group = styled(Link)`
@@ -75,12 +84,23 @@ const Group = styled(Link)`
   :first-child {
     padding-top: 0;
   }
+
+  @media ${min("s")} {
+    flex-direction: column;
+    justify-content: top;
+    align-items: center;
+    :first-child {
+      padding-top: 1.25rem;
+    }
+    padding: 1.25rem 2rem;
+  }
 `
 
 const GroupInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-align: center;
 `
 
 const Picture = styled(FreeformImage)`
@@ -89,6 +109,15 @@ const Picture = styled(FreeformImage)`
   mask-position: center;
   width: 5rem;
   height: 5rem;
+
+  @media ${min("s")} {
+    width: 20vw;
+    height: 20vw;
+  }
+  @media ${min("l")} {
+    width: ${(theme.layout.width / 4) * 0.65}rem;
+    height: ${(theme.layout.width / 4) * 0.65}rem;
+  }
 `
 
 const Name = styled(Header3)`
