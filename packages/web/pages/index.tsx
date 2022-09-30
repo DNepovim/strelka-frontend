@@ -10,11 +10,7 @@ import {
   theme,
 } from "@local/lib"
 
-import {
-  galleryListData,
-  linkData,
-  personData,
-} from "@local/lib/src/ui/mockData/mockData"
+import { groupData, linkData } from "@local/lib/src/ui/mockData/mockData"
 
 const Home: NextPage<Props> = ({ page }) => (
   <div>
@@ -60,29 +56,14 @@ export const getServerSideProps: () => { props: Props } = () => ({
           id: "",
           template: BlockTemplates.Heading2,
           fields: {
-            content: { content: "Vedení" },
+            content: { content: "Naše oddíly" },
           },
         },
         {
           id: "",
-          template: BlockTemplates.PersonList,
+          template: BlockTemplates.GroupList,
           fields: {
-            content: personData,
-          },
-        },
-
-        {
-          id: "",
-          template: BlockTemplates.Heading2,
-          fields: {
-            content: { content: "Fotogalerie" },
-          },
-        },
-        {
-          id: "",
-          template: BlockTemplates.GalleryList,
-          fields: {
-            content: galleryListData,
+            content: groupData,
           },
         },
       ],

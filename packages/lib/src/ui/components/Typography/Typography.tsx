@@ -26,7 +26,7 @@ export const Header2 = styled.h2`
 export const Header3 = styled.h3`
   font-family: ${theme.fonts.accent};
   font-weight: bold;
-  font-size: ${theme.size.base * 1.5}rem;
+  font-size: ${theme.size.base * 1.25}rem;
   line-height: 1.2em;
   color: ${theme.color.darkest};
   margin: 0;
