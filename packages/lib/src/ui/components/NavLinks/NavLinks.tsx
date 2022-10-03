@@ -85,7 +85,5 @@ const Links = styled.ul`
   @media ${min("l")} {
     height: 100%;
     position: relative;
-    gap: 0 1.8rem;
-    padding: 0 0.9rem;
   }
 `
