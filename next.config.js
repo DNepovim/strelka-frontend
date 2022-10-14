@@ -10,6 +10,9 @@ module.exports = {
     locales: ["cs"],
     defaultLocale: "cs",
   },
+  images: {
+    domains: ["picsum.photos"],
+  },
 }
 
 // module.exports = withTM()

@@ -4,8 +4,8 @@ import { max, min, theme } from "../../styles/theme"
 import SquareMask from "../../assets/vectors/potatoes/rectangle_5.svg"
 import { MenuItemContent } from "../MenuItemContent/MenuItemContent"
 import { LinkItem } from "../LinkItem/LinkItem"
-import { NavLink } from "../../types/Navigation"
 import { SubLinks } from "../SubLinks/SubLinks"
+import { NavLink } from "../../types/Navigation"
 
 interface NavLinksProps {
   className?: string

@@ -1,6 +1,7 @@
 export const theme = {
   layout: {
     width: 62.5,
+    gutter: 1,
   },
   breakpoints: {
     s: 31.25,
@@ -34,4 +35,4 @@ export const theme = {
 export const min = (breakpoint: "s" | "m" | "l") =>
   `(min-width: ${theme.breakpoints[breakpoint]}rem)`
 export const max = (breakpoint: "s" | "m" | "l") =>
-  `(max-width: ${theme.breakpoints[breakpoint] * 0.99}rem)`
+  `(max-width: calc(${theme.breakpoints[breakpoint]}rem - 1px))`
