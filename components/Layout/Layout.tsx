@@ -9,7 +9,6 @@ export const Layout = styled.main`
 
 export const Container: React.FC = styled.div`
   position: relative;
-  z-index: 10;
   box-sizing: border-box;
   max-width: ${theme.layout.width}rem;
   margin: 0 auto;
@@ -22,6 +21,7 @@ export const Row = styled.div`
 `
 
 type Columns = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
+
 export interface ColumnProps {
   col: Columns
   s?: Columns
