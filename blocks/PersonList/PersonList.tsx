@@ -115,11 +115,12 @@ const SubTitle = styled(Text)`
 const ContactPoints = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.4em;
+  gap: 0.4rem;
 `
 
 const ContactPoint = styled(SmallText.withComponent("a"))`
   display: block;
   color: ${theme.color.darkAccent};
   text-decoration: underline;
+  margin: 0;
 `
