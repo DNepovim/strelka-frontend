@@ -9,9 +9,10 @@ import {
 import React from "react"
 
 import { Image } from "../../components/Image/Image"
-import { max, min, theme } from "../../styles/theme"
+import { theme } from "../../styles/theme"
 import { randomCircle } from "../../mockData/mockData"
 import { Image as ImageType } from "../../types/Image"
+import { GridContainer } from "../../components/GridLayout/GridLayout"
 
 export interface PersonProps {
   name: string
@@ -30,55 +31,39 @@ export interface PersonListProps extends BlockFields {
 
 export const PersonList: React.FC<PersonListProps> = (props) => (
   <Block>
-    <Container>
-      <PersonListContainer>
-        {props.content.map(
-          ({ name, nickname, image, comment, contact }, index) => {
-            const firstName = name.split(" ").slice(0, 1).join(" ")
-            return (
-              <Person key={index}>
-                <PersonImage mask={randomCircle(index).src} image={image} />
-                <div>
-                  <Name>{nickname ?? firstName}</Name>
-                  <Alias>{name}</Alias>
-                </div>
-                {comment && <SubTitle>{comment}</SubTitle>}
-                {contact && (
-                  <ContactPoints>
-                    {contact.email && (
-                      <ContactPoint href={`mailto:${contact.email}`}>
-                        {contact.email}
-                      </ContactPoint>
-                    )}
-                    {contact.phone && (
-                      <ContactPoint href={`tel:${contact.phone}`}>
-                        {contact.phone}
-                      </ContactPoint>
-                    )}
-                  </ContactPoints>
-                )}
-              </Person>
-            )
-          }
-        )}
-      </PersonListContainer>
-    </Container>
+    <GridContainer columnCount={2} m={3} l={4} rowGap={0.5} colGap={2.5}>
+      {props.content.map(
+        ({ name, nickname, image, comment, contact }, index) => {
+          const firstName = name.split(" ").slice(0, 1).join(" ")
+          return (
+            <Person key={index}>
+              <PersonImage mask={randomCircle(index).src} image={image} />
+              <div>
+                <Name>{nickname ?? firstName}</Name>
+                <Alias>{name}</Alias>
+              </div>
+              {comment && <SubTitle>{comment}</SubTitle>}
+              {contact && (
+                <ContactPoints>
+                  {contact.email && (
+                    <ContactPoint href={`mailto:${contact.email}`}>
+                      {contact.email}
+                    </ContactPoint>
+                  )}
+                  {contact.phone && (
+                    <ContactPoint href={`tel:${contact.phone}`}>
+                      {contact.phone}
+                    </ContactPoint>
+                  )}
+                </ContactPoints>
+              )}
+            </Person>
+          )
+        }
+      )}
+    </GridContainer>
   </Block>
 )
-
-const PersonListContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2.5em 0.5em;
-
-  @media ${min("s")} {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  @media ${min("m")} {
-    grid-template-columns: repeat(4, 1fr);
-  }
-`
 
 const Person = styled.div`
   display: flex;
