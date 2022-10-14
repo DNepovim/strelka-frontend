@@ -18,6 +18,11 @@ export const Row = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin: 0 -${theme.layout.gutter / 2}em;
+  ${(props: { rowGap?: number }) =>
+    props.rowGap &&
+    css`
+      row-gap: ${props.rowGap}rem;
+    `}
 `
 
 type Columns = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
