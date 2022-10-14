@@ -156,28 +156,32 @@ export const linkData: NavLink[] = [
 
 export const personData: PersonProps[] = [
   {
-    name: "David Heralecký",
+    name: "David",
+    surname: "Heralecky",
     nickname: "Dave",
     image: Robot,
-    subtitle: "Vůdce střediska, vůdce roverského kmene",
+    comment: "Vůdce střediska, vůdce roverského kmene",
     contact: {
       email: "karel.1@gmail.com",
       phone: "111222111",
     },
   },
   {
-    name: "Blanka Dymáčková ",
+    name: "Blanka",
+    surname: "Dymáčková",
     image: Nik,
-    subtitle: "Vůdkýně 6. oddílu benjamínku",
+    comment: "Vůdkýně 6. oddílu benjamínku",
     contact: {
       email: "karel.1@gmail.com",
       phone: "111222111",
     },
   },
   {
-    name: "Ing. Olga Měkotová",
+    name: "Ing. Olga",
+    nickname: "S fakt dlouhou prezdivku",
+    surname: "Měkotová Dlouha Dlouhatanska",
     image: Spina,
-    subtitle: "Vůdkýně 3. roje světlušek Waliča Teča",
+    comment: "Vůdkýně 3. roje světlušek Waliča Teča",
     contact: {
       email: "karel.1@gmail.com",
       phone: "111222111",
@@ -186,6 +190,7 @@ export const personData: PersonProps[] = [
   {
     name: "Karel",
     nickname: "Franta I",
+    surname: "Josimir",
     image: Me,
     contact: {
       email: "karel.1@gmail.com",
@@ -195,6 +200,7 @@ export const personData: PersonProps[] = [
   {
     name: "Karel",
     nickname: "Franta I",
+    surname: "Ondra",
     image: Ondra,
     contact: {
       email: "karel.1@gmail.com",
@@ -204,6 +210,7 @@ export const personData: PersonProps[] = [
   {
     name: "Karel",
     nickname: "Franta I",
+    surname: "Ondra",
     image: Vitek,
     contact: {
       email: "karel.1@gmail.com",
