@@ -18,8 +18,8 @@ export const theme = {
     darkest: "var(--darkest)",
   },
   size: {
-    small: 1,
-    base: 1.2,
+    small: 0.85,
+    base: 1.1,
   },
   fonts: {
     text: "'Open Sans', verdana, sans-serif",
@@ -28,7 +28,8 @@ export const theme = {
   },
   timing: {
     fast: ".2s ease-in-out",
-    slow: ".35s ease-in-out",
+    medium: ".3s ease-in-out",
+    slow: ".4s ease-in-out",
   },
 }
 

@@ -44,9 +44,10 @@ const LinksContainer = styled.div`
   @media ${max("l")} {
     position: absolute;
     top: 100%;
-    right: 0;
+    right: -${theme.layout.gutter}rem;
     overflow: hidden;
-    padding-top: 0.9rem;
+    padding-top: ${theme.layout.gutter}rem;
+    padding-right: ${theme.layout.gutter}rem;
     pointer-events: ${(props: { isVisible: boolean }) =>
       props.isVisible ? "all" : "none"};
   }
@@ -65,8 +66,8 @@ const Links = styled.ul`
     flex-direction: column;
     flex-wrap: nowrap;
 
-    padding-top: 0.9rem;
-    padding-bottom: 0.9rem;
+    padding-top: 0.75em;
+    padding-bottom: 0.75em;
 
     mask-image: url("${SquareMask.src}");
     background-color: ${theme.color.lightAccent};
@@ -85,6 +86,5 @@ const Links = styled.ul`
     height: 100%;
     position: relative;
     gap: 0 1.2rem;
-    padding: 0 1.2rem;
   }
 `

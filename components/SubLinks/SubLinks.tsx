@@ -105,7 +105,7 @@ const SubLink = styled.a`
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     overflow: hidden;
-    transition: height ${theme.timing.fast}, padding ${theme.timing.fast};
+    transition: height ${theme.timing.medium}, padding ${theme.timing.medium};
   }
 
   @media ${min("l")} {
@@ -125,7 +125,7 @@ const SubLinksToggle = styled(MenuItemContent.withComponent("button"))`
     padding-left: 0.2em;
     padding-right: 0.2em;
     transform-origin: center center;
-    transition: transform ${theme.timing.fast};
+    transition: transform ${theme.timing.medium};
     ${(props: { isActive: boolean }) =>
       props.isActive && "transform: rotate(-180deg);"}
   }
@@ -155,21 +155,16 @@ const SubLinkInfo = styled.div`
   justify-items: stretch;
   flex-direction: column;
   flex-wrap: nowrap;
-  padding-left: 0.75rem;
+  padding-left: 1.5rem;
 `
 
 const Name = styled.p`
   font-family: ${theme.fonts.accent};
-  font-size: 1.32rem;
   font-weight: bold;
   margin: 0;
   flex-basis: 100%;
   display: flex;
   align-items: center;
-
-  @media ${min("l")} {
-    font-size: 1.2rem;
-  }
 `
 
 const Comment = styled(SmallText)`

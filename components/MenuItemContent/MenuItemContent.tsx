@@ -5,10 +5,10 @@ export const MenuItemContent = styled.a`
   font-family: ${theme.fonts.accent};
   color: ${theme.color.darkest};
   font-weight: bold;
-  font-size: 1.38rem;
+  font-size: 1.22rem;
   display: flex;
   align-items: center;
-  padding: 0.5rem 1.2rem;
+  padding: 0.65rem 1.75rem;
 
   @media ${min("l")} {
     padding: 0;
