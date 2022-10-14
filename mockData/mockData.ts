@@ -182,7 +182,7 @@ export const personData: PersonProps[] = [
     },
   },
   {
-    name: "Karel",
+    name: "Karel Josimir",
     nickname: "Franta I",
     image: Me,
     contact: {
