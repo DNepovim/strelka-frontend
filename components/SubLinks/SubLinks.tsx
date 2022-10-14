@@ -6,7 +6,7 @@ import CircleMask from "../../assets/vectors/potatoes/circle_2.svg"
 import { SmallText } from "../Typography/Typography"
 import { MenuItemContent } from "../MenuItemContent/MenuItemContent"
 import { LinkItem } from "../LinkItem/LinkItem"
-import { NavLink, SubLinksData } from "../../../types/Navigation"
+import { NavLink, SubLinksData } from "../../types/Navigation"
 
 interface SublinksProps {
   link: NavLink
