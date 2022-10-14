@@ -1,7 +1,7 @@
-import { css } from "@emotion/react"
+import { css, Theme } from "@emotion/react"
 import styled from "@emotion/styled"
 import React from "react"
-import { theme } from "../../styles/theme"
+import { Breakpoints, min, theme } from "../../styles/theme"
 
 export const Layout = styled.main`
   padding: ${theme.layout.gutter * 2}rem ${theme.layout.gutter}rem;
@@ -34,11 +34,11 @@ export const Column = styled.div`
     flex: 1 1 calc((100 / 12) * ${col}% - ${theme.layout.gutter * 2}em);
   `}
   ${(props: ColumnProps) =>
-    Object.entries(theme.breakpoints).map(
-      ([key, breakpoint]) =>
+    Object.keys(theme.breakpoints).map(
+      (key: Breakpoints) =>
         props[key] &&
         css`
-          @media (min-width: ${breakpoint}rem) {
+          @media ${min(key)} {
             flex: 1 1
               calc((100 / 12) * ${props[key]}% - ${theme.layout.gutter * 2}em);
           }

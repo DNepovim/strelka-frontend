@@ -32,7 +32,9 @@ export const theme = {
   },
 }
 
-export const min = (breakpoint: "s" | "m" | "l") =>
+export type Breakpoints = keyof typeof theme.breakpoints
+
+export const min = (breakpoint: Breakpoints) =>
   `(min-width: ${theme.breakpoints[breakpoint]}rem)`
-export const max = (breakpoint: "s" | "m" | "l") =>
+export const max = (breakpoint: Breakpoints) =>
   `(max-width: calc(${theme.breakpoints[breakpoint]}rem - 1px))`
