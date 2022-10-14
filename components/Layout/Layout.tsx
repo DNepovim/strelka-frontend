@@ -2,6 +2,7 @@ import { css, Theme } from "@emotion/react"
 import styled from "@emotion/styled"
 import React from "react"
 import { Breakpoints, min, theme } from "../../styles/theme"
+import { Columns } from "../../types/Layout"
 
 export const Layout = styled.main`
   padding: ${theme.layout.gutter * 2}rem ${theme.layout.gutter}rem;
@@ -21,7 +22,6 @@ export const Row = styled.div`
   margin: 0 -${theme.layout.gutter}em;
 `
 
-type Columns = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
 export interface ColumnProps {
   col: Columns
   s?: Columns
