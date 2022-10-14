@@ -34,7 +34,6 @@ const Home: NextPage<Props> = ({ page }) => (
 
     <GlobalStyles />
     <Layout>
-      <Header {...page.blocks[0].fields} />
       <Block>
         <Container>
           <Row>

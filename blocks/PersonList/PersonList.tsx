@@ -33,38 +33,37 @@ export interface PersonListProps extends BlockFields {
 export const PersonList: React.FC<PersonListProps> = (props) => (
   <Block>
     <Container>
-      <Row rowGap={2.5}>
+      <PersonListContainer>
         {props.content.map(
-          ({ name, surname, nickname, image, comment, contact }, index) => (
-            <Person col={6} m={4} l={3} key={index}>
-              <ImageContainer>
-                <ImageWithMask mask={randomCircle(index)} src={image} />
-              </ImageContainer>
-              <div>
-                <Name>{nickname ?? name}</Name>
-                <Alias>
-                  {name} {surname}
-                </Alias>
-              </div>
-              {comment && <SubTitle>{comment}</SubTitle>}
-              {contact && (
-                <>
-                  {contact.email && (
-                    <ContactPoint href={`mailto:${contact.email}`}>
-                      {contact.email}
-                    </ContactPoint>
-                  )}
-                  {contact.phone && (
-                    <ContactPoint href={`tel:${contact.phone}`}>
-                      {contact.phone}
-                    </ContactPoint>
-                  )}
-                </>
-              )}
-            </Person>
-          )
+          ({ name, nickname, image, comment, contact }, index) => {
+            const firstName = name.split(" ").slice(0, 1).join(" ")
+            return (
+              <Person key={index}>
+                <PersonImage mask={randomCircle(index).src} image={image} />
+                <div>
+                  <Name>{nickname ?? firstName}</Name>
+                  <Alias>{name}</Alias>
+                </div>
+                {comment && <SubTitle>{comment}</SubTitle>}
+                {contact && (
+                  <ContactPoints>
+                    {contact.email && (
+                      <ContactPoint href={`mailto:${contact.email}`}>
+                        {contact.email}
+                      </ContactPoint>
+                    )}
+                    {contact.phone && (
+                      <ContactPoint href={`tel:${contact.phone}`}>
+                        {contact.phone}
+                      </ContactPoint>
+                    )}
+                  </ContactPoints>
+                )}
+              </Person>
+            )
+          }
         )}
-      </Row>
+      </PersonListContainer>
     </Container>
   </Block>
 )
