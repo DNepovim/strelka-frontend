@@ -56,6 +56,7 @@ export const randomRectangle = randomItem(rectangles)
 
 import { PersonProps } from "../blocks/PersonList/PersonList"
 import { NavLink } from "../types/Navigation"
+import { ImageTextProps, Icons } from "../blocks/ImageText/ImageText"
 
 export const groupData = [
   {
@@ -208,3 +209,54 @@ export const personData: PersonProps[] = [
     },
   },
 ]
+
+export const contacts: ImageTextProps = {
+  title: "Fakturační údaje",
+  text: [
+    {
+      text: [
+        "Junák – český skaut,",
+        "středisko Střelka Kralupy nad Vltavo u , z. s.",
+        "Šafaříkova 358, 278 01, Kralupy n. Vlt.",
+        "vedená u Městského soudu v Praze",
+        "",
+        "2107489044/2700 (hlavní účet)",
+        "2801050859/2010 (pro platby akcí)",
+      ],
+    },
+  ],
+  imageUrl: "https://picsum.photos/520/350",
+}
+
+export const building: ImageTextProps = {
+  title: "Podrobnosti",
+  imageUrl: "https://picsum.photos/520/350",
+  text: [
+    {
+      icon: Icons.Marker,
+      text: ["Šafaříkova 358,", "Kralupy nad Vltavou, 278 01"],
+    },
+    {
+      icon: Icons.Bed,
+      text: ["25 lidí na vlastních karimatkách"],
+    },
+    {
+      icon: Icons.Pig,
+      text: [
+        "skauti: 20 Kč/osoba/noc",
+        "veřejnost: 40 Kč/osoba/noc",
+        "+ energie",
+      ],
+    },
+    {
+      icon: Icons.Person,
+      text: ["Eva Klementová", "evitka@strelka.cz", "737 688 203"],
+    },
+    {
+      icon: Icons.Case,
+      text: [
+        "kuchyňka se základním vybavením, wc, koupelna, elektřina, pitná voda, teplá voda, ústřední topení, internet (wi-fi)",
+      ],
+    },
+  ],
+}
