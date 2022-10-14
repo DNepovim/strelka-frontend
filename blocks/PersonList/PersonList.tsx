@@ -32,30 +32,35 @@ export const PersonList: React.FC<PersonListProps> = (props) => (
   <Block>
     <Container>
       <PersonListContainer>
-        {props.content.map((person, index) => (
-          <Person key={index}>
-            <PersonImage mask={randomCircle(index).src} image={person.image} />
-            <div>
-              <Name>{person.nickname || person.name}</Name>
-              {person.nickname && <Alias>{person.name}</Alias>}
-            </div>
-            {person.comment && <SubTitle>{person.comment}</SubTitle>}
-            {person.contact && (
-              <ContactPoints>
-                {person.contact.email && (
-                  <ContactPoint href={`mailto:${person.contact.email}`}>
-                    {person.contact.email}
-                  </ContactPoint>
+        {props.content.map(
+          ({ name, nickname, image, comment, contact }, index) => {
+            const firstName = name.split(" ").slice(0, 1).join(" ")
+            return (
+              <Person key={index}>
+                <PersonImage mask={randomCircle(index).src} image={image} />
+                <div>
+                  <Name>{nickname ?? firstName}</Name>
+                  <Alias>{name}</Alias>
+                </div>
+                {comment && <SubTitle>{comment}</SubTitle>}
+                {contact && (
+                  <ContactPoints>
+                    {contact.email && (
+                      <ContactPoint href={`mailto:${contact.email}`}>
+                        {contact.email}
+                      </ContactPoint>
+                    )}
+                    {contact.phone && (
+                      <ContactPoint href={`tel:${contact.phone}`}>
+                        {contact.phone}
+                      </ContactPoint>
+                    )}
+                  </ContactPoints>
                 )}
-                {person.contact.phone && (
-                  <ContactPoint href={`tel:${person.contact.phone}`}>
-                    {person.contact.phone}
-                  </ContactPoint>
-                )}
-              </ContactPoints>
-            )}
-          </Person>
-        ))}
+              </Person>
+            )
+          }
+        )}
       </PersonListContainer>
     </Container>
   </Block>
