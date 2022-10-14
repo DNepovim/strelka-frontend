@@ -6,17 +6,11 @@ import { Column, Container, Layout, Row } from "../components/Layout/Layout"
 import { GlobalStyles } from "../components/GlobaStyles/GlobalStyles"
 import { MetaTags } from "../components/MetaTags/MetaTags"
 import { Header1 } from "../components/Typography/Typography"
-import {
-  building,
-  contacts,
-  eventListData,
-  gallery as galleryList,
-  linkData,
-} from "../mockData/mockData"
+import { building, contacts, personData, linkData } from "../mockData/mockData"
 import { theme } from "../styles/theme"
 import { Page } from "../types/Page"
-import { EventList } from "../blocks/EventList/EventList"
 import { Block } from "../components/Block/Block"
+import { PersonList } from "../blocks/PersonList/PersonList"
 
 const Home: NextPage<Props> = ({ page }) => (
   <div>
@@ -50,7 +44,7 @@ const Home: NextPage<Props> = ({ page }) => (
           </Row>
         </Container>
       </Block>
-      <EventList content={eventListData} />
+      <PersonList content={personData} />
     </Layout>
   </div>
 )
@@ -70,11 +64,6 @@ export const getServerSideProps: () => { props: Props } = () => ({
         },
         {
           fields: building,
-        },
-        {
-          fields: {
-            content: galleryList,
-          },
         },
       ],
     },
