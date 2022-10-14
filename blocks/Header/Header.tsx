@@ -3,7 +3,7 @@ import React, { useState } from "react"
 import styled from "@emotion/styled"
 import { Logo } from "../../components/Logo/Logo"
 import { Block, BlockFields } from "../../components/Block/Block"
-import { Container } from "../../components/Container/Container"
+import { Container } from "../../components/Layout/Layout"
 import { NavLinks } from "../../components/NavLinks/NavLinks"
 
 import { Button } from "../../components/Button/Button"

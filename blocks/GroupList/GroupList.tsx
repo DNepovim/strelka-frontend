@@ -1,5 +1,5 @@
 import { Block, BlockFields } from "../../components/Block/Block"
-import { Container } from "../../components/Container/Container"
+import { Container } from "../../components/Layout/Layout"
 import styled from "@emotion/styled"
 import { Header3, Text } from "../../components/Typography/Typography"
 import React from "react"
