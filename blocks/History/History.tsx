@@ -89,10 +89,6 @@ const ImageColumn = styled(Column)`
   width: 80%;
   margin: 0 auto;
   margin-bottom: ${theme.layout.gutter * 2}rem;
-
-  img {
-    border-radius: 0.4em;
-  }
   
   @media ${min("m")} {
     padding: 0 ${theme.layout.gutter}rem;
