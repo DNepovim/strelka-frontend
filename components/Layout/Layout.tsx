@@ -18,7 +18,7 @@ export const Container: React.FC = styled.div`
 export const Row = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin: 0 -${theme.layout.gutter}em;
+  margin: 0 -${theme.layout.gutter / 2}em;
 `
 
 type Columns = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
@@ -27,23 +27,26 @@ export interface ColumnProps {
   s?: Columns
   m?: Columns
   l?: Columns
+  xl?: Columns
 }
 
+const getFlexWidth = (col: Columns) =>
+  css`
+    flex: 0 0 calc(${(100 / 12) * col}% - ${theme.layout.gutter}em);
+  `
+
 export const Column = styled.div`
-  ${({ col }: ColumnProps) => css`
-    flex: 1 1 calc((100 / 12) * ${col}% - ${theme.layout.gutter * 2}em);
-  `}
+  ${({ col }: ColumnProps) => getFlexWidth(col)}
   ${(props: ColumnProps) =>
     Object.keys(theme.breakpoints).map(
       (key: Breakpoints) =>
         props[key] &&
         css`
           @media ${min(key)} {
-            flex: 1 1
-              calc((100 / 12) * ${props[key]}% - ${theme.layout.gutter * 2}em);
+            ${getFlexWidth(props[key])}
           }
         `
     )}
-  padding: 0 ${theme.layout.gutter}em;
+  padding: 0 ${theme.layout.gutter / 2}em;
   min-height: 1px;
 `
