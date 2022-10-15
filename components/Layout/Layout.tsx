@@ -1,4 +1,4 @@
-import { css } from "@emotion/react"
+import { css, Theme } from "@emotion/react"
 import styled from "@emotion/styled"
 import React from "react"
 import { Breakpoints, min, theme } from "../../styles/theme"
@@ -37,7 +37,7 @@ export interface ColumnProps {
 
 const getFlexWidth = (col: Columns) =>
   css`
-    flex: 0 0 calc(${(100 / 12) * col}% - ${theme.layout.gutter}em);
+    flex: 0 0 calc(${(100 / 12) * col}% - ${theme.layout.gutter}rem);
   `
 
 export const Column = styled.div`
@@ -52,6 +52,6 @@ export const Column = styled.div`
           }
         `
     )}
-  padding: 0 ${theme.layout.gutter / 2}em;
+  padding: 0 ${theme.layout.gutter / 2}rem;
   min-height: 1px;
 `

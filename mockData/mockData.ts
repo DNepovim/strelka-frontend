@@ -57,6 +57,7 @@ export const randomRectangle = randomItem(rectangles)
 import { PersonProps } from "../blocks/PersonList/PersonList"
 import { NavLink } from "../types/Navigation"
 import { ImageTextProps, Icons } from "../blocks/ImageText/ImageText"
+import { HistoryProps } from "../blocks/History/History"
 import { GalleryProps } from "../blocks/GalleryList/GalleryList"
 import { EventProps } from "../blocks/EventList/EventList"
 
@@ -265,6 +266,60 @@ export const building: ImageTextProps = {
       icon: Icons.Case,
       text: [
         "kuchyňka se základním vybavením, wc, koupelna, elektřina, pitná voda, teplá voda, ústřední topení, internet (wi-fi)",
+      ],
+    },
+  ],
+}
+
+export const historyData: HistoryProps = {
+  introduction: {
+    text: [
+      "Pokud chceme otevřít dveře do časů minulých, bude lépe začít od pramenů. Pojďme tedy tam, kde se objevil první pramínek kralupského skautského hnutí, do čtyřicátých let 20. století.",
+    ],
+  },
+  chapters: [
+    {
+      year: 2022,
+      text: [
+        "První skautský oddíl v Kralupech nad Vltavou založili v roce 1935 bratři Jožka Švarc ze Slaného a Zdeněk Čadek z Kralup. Oddíl měl 14 členů. Jeho vedením byl pověřen br. Fr. Šanda a br. V. Kintera. Po dvou letech činnosti byli vychováni noví vedoucí a oddíl měl v té době asi 30 členů. Jejich první klubovna byla v tehdejší mateřské škole v Přemyslově ulici (nynější skautský dům Bára).  Na fotografii vlevo je Přemyslova ulice v roce 1928.",
+      ],
+      image: {
+        src: "https://picsum.photos/300/200",
+        width: 300,
+        height: 200,
+      },
+    },
+    {
+      year: 2033,
+      text: [
+        "Příznivcem a mecenášem 1.oddílu oddílu byl Sláva Golbergr z Prahy, Syn z bohaté rodiny, který za druhé světové války  zemřel v koncentračním táboře. Oddíl zanikl současně s rozpuštěním skautské organizace gestapem v r. 1940. Tolik ze vzpomínek br. Koláčného.",
+      ],
+    },
+    {
+      text: [
+        "V roce 1946 byl skauting v Kralupech obnoven a vedení střediska se ujali br. Miloslav Puhlovský   a   br. Sláva Červenka. V Kralupech bylo neuvěřitelných 12 oddílů (z toho 5 dívčích. 5 chlapeckých, 1 vlčácký a 1 vodních skautů).",
+        "Z těchto poválečných let se dochovala i kronika. Skautingu nebylo dopřáno působit déle a opět přišel zákaz, tentokrát vydaný komunistickou stranou. K obnově došlo až v uvolněném roce 1968. Vůdcem střediska se stal br.Bohumil Hála.  Povoláním byl  voják a po obsazení Varšavskou smlouvou 21.8.1968 musel odejít.  Připomeňme si, proč naše středisko přijalo název Střelka. Jméno se totiž úzce váže, právě k roku 1968. Zeptáme se pamětníků těch dob, sestra ˇXanda vypráví: „…A to nastaly ve středisku větší změny. Tou nejdůležitější bylo, že středisko převzal br. MUDr Miloš Prauz. Ten nás zavedl na řeku Střelu pod Rabštejnem a my si tam vybrali tábořiště. A v r. 69 tam byly 3 tábory:  chlapecký na Terasách, všechny smečky na Vlčácké louce a všechny dívky – skautky i světlušky na Dívčí louce.",
+        "Po těchto táborech jsme schválili návrh br. Prauze na název střediska Střelka a na střediskový znak.“  V roce 1968 byly va středisku 2 chlapecké oddíly, 3 vlčácké smečky (1.2..3.), 2 dívčí oddíly a 2 roje světlušek, a klub oldskautů. Po revoluci v roce 1989 došlo opět k obnově Junáka, středisko Střelka v Kralupech vedl br. Antonín Vejrosta jeho zástupkyní byla s. Irena Zápotocká. Oddílů bylo 11 a navíc kmen dospělých.",
+      ],
+      image: {
+        src: "https://picsum.photos/300/200",
+        width: 300,
+        height: 200,
+      },
+    },
+    {
+      text: [
+        "V tomto roce byl založen 3. roj světlušek „Světlušky“ pod vedením s. J.Neumannové a 3.smečka vlčat pod vedením br. A.Vejrosty (Tory).. 23.5.1990 došlo k prvnímu setkání vůdců obou oddílů. Přišlo 6 děvčat a 6 chlapců. Br. Tory začal stonat a tak na vedení byla Jana sama. V září 1990 se do vedení smečky vlčat  postavil br.V.Šatava (Šaman). Turisté z Lobečku zapůjčili světluškám a vlčatům klubovnu. V průběhu roku se díky příchozím nováčkům vytvořily v roji 3 šestky a ve smečce také 3.  Černobílá fotografie je z prvního tábora „Vrát“, v červenci 1991.",
+      ],
+      image: {
+        src: "https://picsum.photos/300/200",
+        width: 300,
+        height: 200,
+      },
+    },
+    {
+      text: [
+        "Den sesterství. 4. dívčí oddíl připravil hru „Boj se špatnými vlastnostmi“. Mezi účastníky byl i 3. roj světlušek a 3. smečka vlčat. Pořádala se Kuličkyáda. 21. března skládalo několik světlušek slib. Vlčata postupují na Závodu světlušek a vlčat do oblastního kola. V květnu Šaman předává smečku vlčat Ježkovi (J.Šatava). Ježek chce, aby byla smečka vedena jako samostatný oddíl. V roce 1992 pořádají světlušky a vlčata poslední společný tábor. Vůdcem tábora je Šaman.",
       ],
     },
   ],

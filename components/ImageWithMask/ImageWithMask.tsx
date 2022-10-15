@@ -10,7 +10,7 @@ export const ImageWithMask: React.FC<ImageWithMask> = (props) => (
   <MaskedImage {...props} />
 )
 
-const MaskedImage = styled(Image)`
+export const MaskedImage = styled(Image)`
   mask-image: url("${({ mask: maskUrl }: ImageWithMask) => maskUrl.src}");
   mask-size: 100% 100%;
   mask-repeat: no-repeat;
