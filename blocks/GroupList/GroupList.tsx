@@ -1,163 +1,98 @@
-import { Block, BlockFields } from "../../components/Block/Block"
-import { Container } from "../../components/Layout/Layout"
+import { Block } from "../../components/Block/Block"
+import { Container, Row, Column } from "../../components/Layout/Layout"
 import styled from "@emotion/styled"
-import { Header3, Text } from "../../components/Typography/Typography"
-import React from "react"
+import { randomCircle } from "../../utils/Masks"
+import { MaskedImage } from "../../components/ImageWithMask/ImageWithMask"
+import { min, theme } from "../../styles/theme"
+import { Link } from "../../components/Link/Link"
+import { Header2, Header3, Text } from "../../components/Typography/Typography"
+import { ImageProps } from "next/image"
 
-import Circle1 from "../../assets/vectors/potatoes/circle_1.svg"
-import Circle2 from "../../assets/vectors/potatoes/circle_2.svg"
-import Circle3 from "../../assets/vectors/potatoes/circle_3.svg"
-import Circle4 from "../../assets/vectors/potatoes/circle_4.svg"
-import Circle5 from "../../assets/vectors/potatoes/circle_5.svg"
-import Circle6 from "../../assets/vectors/potatoes/circle_6.svg"
-import Circle7 from "../../assets/vectors/potatoes/circle_7.svg"
-import Circle8 from "../../assets/vectors/potatoes/circle_8.svg"
-
-import { max } from "../../styles/theme"
-import { Image } from "../../types/Image"
-
-const circles = [
-  Circle1,
-  Circle2,
-  Circle3,
-  Circle4,
-  Circle5,
-  Circle6,
-  Circle7,
-  Circle8,
-]
+export interface GroupListProps {
+  content: GroupProps[]
+  title: string
+}
 
 export interface GroupProps {
   name: string
   address: string
-  image: Image
+  image: ImageProps
   comment: string
-}
-
-export interface GroupListProps extends BlockFields {
-  content: GroupProps[]
 }
 
 export const GroupList: React.FC<GroupListProps> = (props) => (
   <Block>
     <Container>
-      <GroupListContainer>
-        {props.content.map((group, index) => (
-          <Group
-            key={index}
-            href={group.address}
-            backgroundImg={group.image.src}
-            mask={circles[index % 8].src}
-          >
-            <Name>{group.name}</Name>
-            <Comment>{group.comment}</Comment>
+      <Row>
+        <Column col={12}>
+          <Header2>{props.title}</Header2>
+        </Column>
+      </Row>
+      <GroupRow rowGap={theme.layout.gutter * 2.5}>
+        {props.content.map(({ comment, address, name, image }, index) => (
+          <Group col={6} m={4} l={3} key={index}>
+            <GroupLink to={address}>
+              <ImageContainer>
+                <MaskedImage
+                  layout={"responsive"}
+                  width={1}
+                  height={1}
+                  mask={randomCircle(index)}
+                  src={image.src}
+                />
+              </ImageContainer>
+              <GroupInfo>
+                <Name>{name}</Name>
+                <Comment>{comment}</Comment>
+              </GroupInfo>
+            </GroupLink>
           </Group>
         ))}
-      </GroupListContainer>
+      </GroupRow>
     </Container>
   </Block>
 )
 
-const GroupListContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
-  gap: 0px 0px;
-  grid-template-areas:
-    ". . skautky ."
-    ". svetlusky skautky oldskauti"
-    "benjaminci svetlusky skauti oldskauti"
-    "benjaminci vlcata skauti ."
-    ". vlcata roveri ."
-    ". . roveri .";
-  padding: 6rem;
+const GroupRow = styled(Row)``
 
-  @media ${max("l")} {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-areas:
-      "benjaminci ."
-      "benjaminci svetlusky"
-      "vlcata svetlusky"
-      "vlcata skautky"
-      "skauti skautky"
-      "skauti roveri"
-      "oldskauti roveri"
-      "oldskauti .";
-  }
+const Group = styled(Column)``
 
-  @media ${max("m")} {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-areas:
-      "benjaminci"
-      "svetlusky"
-      "vlcata"
-      "skautky"
-      "skauti"
-      "roveri"
-      "oldskauti";
-    padding: 4rem;
-  }
+const GroupLink = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+`
 
-  @media ${max("s")} {
-    padding: 1.5rem;
+const GroupInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  @media ${min("s")} {
+    text-align: center;
   }
 `
 
-const groupList = [
-  "benjaminci",
-  "svetlusky",
-  "vlcata",
-  "skautky",
-  "skauti",
-  "roveri",
-  "oldskauti",
-]
+const ImageContainer = styled.div`
+  align-self: center;
+  width: 75%;
+  margin-bottom: ${theme.layout.gutter * 0.5}rem;
 
-const createGroupList = () =>
-  groupList.map(
-    (groupItem, index) => `
-    &:nth-of-type(${index + 1}) {
-      grid-area: ${groupItem};
-    }`
-  )
-
-const Group = styled.a`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  height: 13em;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("${(props: { backgroundImg: string; mask: string }) =>
-      props.backgroundImg}");
-  mask-image: url("${(props: { backgroundImg: string; mask: string }) =>
-    props.mask}");
-  mask-size: 100% 100%;
-  mask-position: center;
-  background-size: cover;
-  margin: 0.2rem;
-
-  ${createGroupList()};
-
-  @media ${max("l")} {
-    height: 15em;
+  @media ${min("m")} {
+    width: 60%;
   }
 `
 
 const Name = styled(Header3)`
-  color: white;
-  font-size: 1.7rem;
-  text-align: center;
-  margin-bottom: 0;
+  margin: 0;
+  margin-bottom: 0.25em;
+  ::after {
+    content: " >"; // nb space
+  }
 `
 
 const Comment = styled(Text)`
-  color: white;
-  font-size: 1rem;
-  text-align: center;
-  padding: 25%;
-  padding-bottom: 1.7rem;
-  padding-top: 0.2rem;
-  margin-top: 0;
+  margin: 0;
+  line-height: 1.2em;
+  padding: 0 ${theme.layout.gutter}rem;
+  color: ${theme.color.darkest};
 `
