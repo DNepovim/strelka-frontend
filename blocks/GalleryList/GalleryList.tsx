@@ -1,67 +1,60 @@
 import { Block, BlockFields } from "../../components/Block/Block"
-import { Container } from "../../components/Layout/Layout"
+import { Column, Container, Row } from "../../components/Layout/Layout"
 import styled from "@emotion/styled"
 import { Header3, SmallText } from "../../components/Typography/Typography"
 import React from "react"
 import { max, theme } from "../../styles/theme"
 import { Image } from "../../components/Image/Image"
-import { Image as ImageType } from "../../types/Image"
+import { ImageWithMask } from "../../components/ImageWithMask/ImageWithMask"
+import Rectangle from "../../assets/vectors/potatoes/rectangle_5.svg"
 
 export interface GalleryProps {
   name: string
-  address: string
-  image: ImageType
-  comment: string
+  date: string
+  link: string
+  imageUrl: string
 }
 
 export interface GalleryListProps extends BlockFields {
   content: GalleryProps[]
 }
 
-export const GalleryList: React.FC<GalleryListProps> = (props) => (
+export const GalleryList: React.FC<GalleryListProps> = ({ content }) => (
   <Block>
     <Container>
-      <GalleryViewContainer>
-        {props.content.map((galleryView, index) => (
-          <GalleryView key={index} href={galleryView.address}>
-            <GalleryImage image={galleryView.image} />
-            <Title>{galleryView.name}</Title>
-            <Date>{galleryView.comment}</Date>
-          </GalleryView>
+      <Row>
+        {content.map(({ name, date, link, imageUrl }, index) => (
+          <Column col={6} m={4} l={3}>
+            <GalleryItem key={index} href={link}>
+              <ImageWrapper>
+                <ImageWithMask
+                  src={imageUrl}
+                  width={220}
+                  height={150}
+                  layout="responsive"
+                  mask={Rectangle}
+                />
+              </ImageWrapper>
+              <Title>{name}</Title>
+              <Date>{date}</Date>
+            </GalleryItem>
+          </Column>
         ))}
-      </GalleryViewContainer>
+      </Row>
     </Container>
   </Block>
 )
 
-const GalleryViewContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
-
-  @media ${max("m")} {
-    flex-direction: column;
-    flex-wrap: nowrap;
-  }
+const ImageWrapper = styled.div`
+  position: relative;
+  width: 100%;
 `
 
-const GalleryView = styled.a`
+const GalleryItem = styled.a`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
-
-const GalleryImage = styled(Image)`
-  height: 20em;
-  img {
-    border-radius: 1rem;
-  }
-
-  @media ${max("m")} {
-    height: auto;
-    width: 90%;
-  }
+  margin-bottom: ${theme.layout.gutter}rem;
 `
 
 const Title = styled(Header3)`
