@@ -47,14 +47,12 @@ export const History: React.FC<HistoryProps> = ({ introduction, chapters }) => (
           </Column>
           {image && (
             <ImageColumn col={12} m={4}>
-              {image && (
-                <MaskedImage
-                  mask={randomRectangle(index)}
-                  objectFit={"cover"}
-                  layout={"responsive"}
-                  {...image}
-                />
-              )}
+              <MaskedImage
+                mask={randomRectangle(index)}
+                objectFit={"cover"}
+                layout={"responsive"}
+                {...image}
+              />
             </ImageColumn>
           )}
         </Row>
