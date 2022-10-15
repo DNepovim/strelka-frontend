@@ -1,12 +1,13 @@
 export const theme = {
   layout: {
-    width: 62.5,
+    width: 70,
     gutter: 1,
   },
   breakpoints: {
-    s: 31.25,
-    m: 46.75,
-    l: 62.5,
+    s: 20,
+    m: 30,
+    l: 50,
+    xl: 70,
   },
   palettes: {
     default: ["#fff7e0", "#d7c8a9", "#544827", "#483b1f"],
@@ -30,6 +31,7 @@ export const theme = {
     fast: ".2s ease-in-out",
     slow: ".35s ease-in-out",
   },
+  debug: true,
 }
 
 export type Breakpoints = keyof typeof theme.breakpoints

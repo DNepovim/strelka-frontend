@@ -48,7 +48,7 @@ export const ImageText: React.FC<ImageTextProps> = ({
         <Column col={12}>{title && <Header2>{title}</Header2>}</Column>
       </Row>
       <Row>
-        <Column col={12} m={6}>
+        <Column col={12} l={6}>
           {text?.map(({ icon, text }) => (
             <TextRow>
               {icon && (
@@ -67,7 +67,7 @@ export const ImageText: React.FC<ImageTextProps> = ({
             </TextRow>
           ))}
         </Column>
-        <Column col={12} m={6}>
+        <Column col={12} l={6}>
           {imageUrl && (
             <CenteredImage>
               <ImageWithMask
@@ -98,6 +98,6 @@ const Icon = styled.div`
 `
 
 const CenteredImage = styled.div`
-  max-width: 30rem;
+  max-width: min(100%, 30rem);
   margin: 0 auto;
 `

@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react"
-import { theme } from "./theme"
+import { Breakpoints, min, theme } from "./theme"
 
 export const global = css`
   html {
@@ -18,6 +18,26 @@ export const global = css`
     --light-accent: ${theme.palettes.default[1]};
     --dark-accent: ${theme.palettes.default[2]};
     --darkest: ${theme.palettes.default[3]};
+
+    ${process.env.NODE_ENV === "development" && theme.debug
+      ? Object.keys(theme.breakpoints).map(
+          (key: Breakpoints) =>
+            css`
+              @media ${min(key)} {
+                &:after {
+                  position: fixed;
+                  top: 0;
+                  rigth: 0;
+                  padding: 0.4em;
+                  background-color: red;
+                  color: white;
+                  content: "${key.toUpperCase()}";
+                  font-weight: bold;
+                }
+              }
+            `
+        )
+      : ""}
   }
 
   a {
