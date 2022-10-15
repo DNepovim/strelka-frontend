@@ -15,7 +15,7 @@ module.exports = {
       jsx: true,
     },
   },
-  plugins: ["react-hooks", "emotion"],
+  plugins: ["react-hooks", "@emotion/eslint-plugin"],
   rules: {
     indent: "off",
     "@typescript-eslint/indent": "off", // indentation is handled by prettier
@@ -95,11 +95,11 @@ module.exports = {
       },
     ],
     "@typescript-eslint/prefer-optional-chain": "error",
-    "emotion/jsx-import": "off",
-    "emotion/no-vanilla": "error",
-    "emotion/import-from-emotion": "error",
-    "emotion/styled-import": "error",
-    "emotion/syntax-preference": [2, "string"],
+    "@emotion/jsx-import": "off",
+    "@emotion/no-vanilla": "error",
+    "@emotion/import-from-emotion": "error",
+    "@emotion/styled-import": "error",
+    "@emotion/syntax-preference": [2, "string"],
     "arrow-body-style": ["error", "as-needed"],
     "padding-line-between-statements": [
       "error",
