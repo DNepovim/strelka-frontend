@@ -8,6 +8,7 @@ import { Header1 } from "../components/Typography/Typography"
 import {
   building,
   contacts,
+  groupListData,
   linkData,
   heroData,
   postListData,
@@ -19,6 +20,7 @@ import { theme } from "../styles/theme"
 import { Block } from "../components/Block/Block"
 import { Page } from "../types/Page"
 import { TextHighlight } from "../blocks/TextHighlight/TextHighlight"
+import { GroupList } from "../blocks/GroupList/GroupList"
 
 const Home: NextPage<Props> = ({ page }) => (
   <div>
@@ -57,6 +59,7 @@ const Home: NextPage<Props> = ({ page }) => (
         </Container>
       </Block>
       <TextHighlight {...textHighlightData} />
+      <GroupList {...groupListData} />
     </Layout>
   </div>
 )
