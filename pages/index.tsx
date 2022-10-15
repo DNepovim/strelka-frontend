@@ -1,9 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import type { NextPage } from "next"
 import Head from "next/head"
-import { BlockTemplates } from "../blocks/BlockTemplates"
 import { Header } from "../blocks/Header/Header"
-import { Icons, ImageText, ImageTextProps } from "../blocks/ImageText/ImageText"
 import { Column, Container, Layout, Row } from "../components/Layout/Layout"
 import { GlobalStyles } from "../components/GlobaStyles/GlobalStyles"
 import { MetaTags } from "../components/MetaTags/MetaTags"
@@ -11,14 +9,14 @@ import { Header1 } from "../components/Typography/Typography"
 import {
   building,
   contacts,
+  eventListData,
   gallery as galleryList,
   linkData,
-  personData,
 } from "../mockData/mockData"
 import { theme } from "../styles/theme"
 import { Page } from "../types/Page"
+import { EventList } from "../blocks/EventList/EventList"
 import { Block } from "../components/Block/Block"
-import { GalleryList } from "../blocks/GalleryList/GalleryList"
 
 const Home: NextPage<Props> = ({ page }) => (
   <div>
@@ -52,9 +50,7 @@ const Home: NextPage<Props> = ({ page }) => (
           </Row>
         </Container>
       </Block>
-      <ImageText {...page.blocks[1].fields} />
-      <ImageText {...page.blocks[2].fields} />
-      <GalleryList {...page.blocks[3].fields} />
+      <EventList content={eventListData} />
     </Layout>
   </div>
 )
