@@ -8,13 +8,6 @@
 # testing
 /coverage
 
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
 # misc
 .DS_Store
 *.pem
@@ -30,10 +23,6 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
-# vercel
-.vercel
-
-.env.local
-
 # webstorm ide
 .idea
+.vscode

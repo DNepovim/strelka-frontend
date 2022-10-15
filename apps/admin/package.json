@@ -1,0 +1,47 @@
+{
+  "name": "@strelka/admin",
+  "version": "0.1.0",
+  "private": true,
+  "sideEffects": false,
+  "scripts": {
+    "build": "remix build",
+    "dev": "remix dev"
+  },
+  "dependencies": {
+    "@emotion/is-prop-valid": "^1.2.0",
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@remix-run/node": "^1.7.0",
+    "@remix-run/react": "^1.7.0",
+    "@remix-run/vercel": "^1.7.0",
+    "@strelka/admin-ui": "^0.1.0",
+    "@strelka/ui": "^0.1.0",
+    "@tanstack/react-table": "^8.5.13",
+    "@types/lodash": "^4.14.186",
+    "@vercel/node": "^2.4.4",
+    "firebase": "^9.12.1",
+    "lodash": "^4.17.21",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icon": "^1.0.0",
+    "remix-auth": "^3.3.0",
+    "remix-auth-google": "^1.1.0",
+    "slate": "^0.82.1",
+    "slate-history": "^0.66.0",
+    "slate-react": "^0.83.0",
+    "yarn": "^1.22.19"
+  },
+  "devDependencies": {
+    "@remix-run/dev": "^1.7.0",
+    "@remix-run/eslint-config": "^1.7.0",
+    "@remix-run/serve": "^1.7.0",
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "@types/react-icons": "^3.0.0",
+    "eslint": "^8.20.0",
+    "typescript": "^4.8.2"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}

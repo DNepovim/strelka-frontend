@@ -1,0 +1,5 @@
+export * from "./vectors/potatoes/circle_1.svg"
+export * from "./vectors/potatoes/circle_2.svg"
+export * from "./vectors/potatoes/circle_3.svg"
+export * from "./vectors/potatoes/circle_4.svg"
+export * from "./vectors/potatoes/circle_5.svg"
