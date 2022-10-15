@@ -10,7 +10,7 @@ import {
 } from "../../components/Typography/Typography"
 import { ImageProps } from "next/image"
 import { MaskedImage } from "../../components/ImageWithMask/ImageWithMask"
-import { randomRectangle } from "../../mockData/mockData"
+import { randomRectangle } from "../../utils/Masks"
 
 interface ChapterProps {
   year?: number

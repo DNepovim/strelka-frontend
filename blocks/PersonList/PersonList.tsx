@@ -10,7 +10,7 @@ import React from "react"
 
 import { Image } from "../../components/Image/Image"
 import { theme } from "../../styles/theme"
-import { randomCircle } from "../../mockData/mockData"
+import { randomCircle } from "../../utils/Masks"
 import { Image as ImageType } from "../../types/Image"
 import { ImageWithMask } from "../../components/ImageWithMask/ImageWithMask"
 
