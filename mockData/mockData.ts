@@ -439,3 +439,10 @@ export const heroData: HeroProps = {
     "LRRSKKAKPPS",
   ],
 }
+
+export const textHighlightData = {
+  text: [
+    "Jsme skauti z Kralup nad Vltavou. Společně bojujeme za práva mexičanů a snažíme se prozasovat národní zájmy Mexické republiky.",
+    "Uznáváme a ctíme naše koření, a proto doporočujeme všem aby si naplánovali vlastní výlet na Mexiko, za účelem zpestření jinak neobyčejně obyčejného života.",
+  ],
+}
