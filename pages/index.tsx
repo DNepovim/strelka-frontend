@@ -11,12 +11,14 @@ import {
   linkData,
   heroData,
   postListData,
+  textHighlightData,
 } from "../mockData/mockData"
 import { PostList } from "../blocks/PostList/PostList"
 import { Hero } from "../components/Hero/Hero"
 import { theme } from "../styles/theme"
 import { Block } from "../components/Block/Block"
 import { Page } from "../types/Page"
+import { TextHighlight } from "../blocks/TextHighlight/TextHighlight"
 
 const Home: NextPage<Props> = ({ page }) => (
   <div>
@@ -54,6 +56,7 @@ const Home: NextPage<Props> = ({ page }) => (
           </Row>
         </Container>
       </Block>
+      <TextHighlight {...textHighlightData} />
     </Layout>
   </div>
 )
