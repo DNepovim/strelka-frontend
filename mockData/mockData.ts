@@ -24,6 +24,7 @@ import { ImageTextProps, Icons } from "../blocks/ImageText/ImageText"
 import { HistoryProps } from "../blocks/History/History"
 import { GalleryProps } from "../blocks/GalleryList/GalleryList"
 import { EventProps } from "../blocks/EventList/EventList"
+import { PostProps } from "../blocks/PostList/PostList"
 
 export const groupData = [
   {
@@ -371,5 +372,52 @@ export const eventListData: EventProps[] = [
       "\n" +
       "Těšíme se :) \n" +
       "Můry ",
+  },
+]
+
+export const postListData: PostProps[] = [
+  {
+    title: "Zimni prechod Brd",
+    link: "/",
+    date: {
+      from: "1. 2.",
+      to: "2. 3. 2028",
+    },
+    place: "Brdy",
+    textPreview:
+      "I pres covidove nesvary jsme se dnes sesli s dalsimi skoro 3000 skauti",
+    imageSrc: "http://picsum.photos/300/200",
+  },
+  {
+    title: "Zimni prechod Brd",
+    link: "/",
+    date: {
+      from: "1. 22.",
+      to: "2. 3. 2028",
+    },
+    place: "Brdy",
+    textPreview:
+      "I pres covidove nesvary jsme se dnes sesli s dalsimi skoro 3000 skauti",
+    imageSrc: "http://picsum.photos/300/200",
+  },
+  {
+    title: "Podzimky 2043",
+    link: "/",
+    date: {
+      from: "4. 4. 1998",
+    },
+    place: "Brdy",
+    textPreview:
+      "I pres covidove nesvary jsme se dnes sesli s dalsimi skoro 3000 skauti",
+    imageSrc: "http://picsum.photos/300/200",
+  },
+  {
+    title: "Zimni prechod Brd",
+    link: "/",
+    date: {
+      from: "32. 13. 2033",
+    },
+    textPreview: "Letosni podzimky probehli poklidnym zplsobem a spoustou dob",
+    imageSrc: "http://picsum.photos/300/200",
   },
 ]

@@ -6,11 +6,18 @@ import { Column, Container, Layout, Row } from "../components/Layout/Layout"
 import { GlobalStyles } from "../components/GlobaStyles/GlobalStyles"
 import { MetaTags } from "../components/MetaTags/MetaTags"
 import { Header1 } from "../components/Typography/Typography"
-import { building, contacts, historyData, linkData } from "../mockData/mockData"
+import {
+  building,
+  contacts,
+  historyData,
+  linkData,
+  postListData,
+} from "../mockData/mockData"
 import { theme } from "../styles/theme"
 import { Page } from "../types/Page"
 import { Block } from "../components/Block/Block"
 import { History } from "../blocks/History/History"
+import { PostList } from "../blocks/PostList/PostList"
 
 const Home: NextPage<Props> = ({ page }) => (
   <div>
@@ -39,7 +46,10 @@ const Home: NextPage<Props> = ({ page }) => (
         <Container>
           <Row>
             <Column col={12}>
-              <Header1>Historie</Header1>
+              <Header1>Poslední akce</Header1>
+            </Column>
+            <Column col={12}>
+              <PostList posts={postListData} />
             </Column>
           </Row>
         </Container>
