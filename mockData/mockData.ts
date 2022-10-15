@@ -58,6 +58,7 @@ import { PersonProps } from "../blocks/PersonList/PersonList"
 import { NavLink } from "../types/Navigation"
 import { ImageTextProps, Icons } from "../blocks/ImageText/ImageText"
 import { GalleryProps } from "../blocks/GalleryList/GalleryList"
+import { EventProps } from "../blocks/EventList/EventList"
 
 export const groupData = [
   {
@@ -292,5 +293,57 @@ export const gallery: GalleryProps[] = [
     link: "/",
     imageUrl: "http://picsum.photos/300/200",
     date: "1.–31. 7. 2023",
+  },
+]
+
+export const eventListData: EventProps[] = [
+  {
+    name: "Velikonoce na Slovensko",
+    date: {
+      from: "22. 3.",
+      to: "23. 4.",
+    },
+    description:
+      "Čeká nás výprava do Litoměřic. Výprava má 2 části.\n" +
+      "Pro obě části platí sraz v sobotu v 9:00 na nádraží.\n" +
+      "1. část-výprava do Litoměřic (konec v sobotu v Kralupech v 18:45)\n" +
+      "2. část-přespání na Rusavkách ve stanech či v lesní školce (konec v 10:00 na Rusavkách)\n" +
+      "\n" +
+      "Druhá část není povinná, ale budeme moc rádi, pokud se zúčastníte. Nemáte se čeho bát. Pokud si ještě na přespání ve stanu netroufnete, můžeme zařídit přespání v maringotkách.\n" +
+      "\n" +
+      "S sebou: věci na jednodenní/dvoudenní výpravu (pokud jedete na obě části), jídlo na celý den+snídani na neděli, peníze na vlak+kartičku s vekěm, něco na opečení (moučné těsto na hady, sýr, buřt, jablko... prostě to, co máte rádi), pytel na odpadky (stačí jeden do dvojice, je to pouze pro případ, že bychom v přírodě našli nějaký nepořádek) \n" +
+      "Stan vám předají vedoucí\n" +
+      "\n" +
+      "Těšíme se :) \n" +
+      "Můry ",
+  },
+  {
+    name: "Velikonoce na Slovensko",
+    date: {
+      from: "22. 3.",
+      to: "23. 4.",
+    },
+    description:
+      "Čeká nás výprava do Litoměřic. Výprava má 2 části.\n" +
+      "Pro obě části platí sraz v sobotu v 9:00 na nádraží.\n" +
+      "1. část-výprava do Litoměřic (konec v sobotu v Kralupech v 18:45)\n" +
+      "2. část-přespání na Rusavkách ve stanech či v lesní školce (konec v 10:00 na Rusavkách)\n" +
+      "\n" +
+      "Druhá část není povinná, ale budeme moc rádi, pokud se zúčastníte. Nemáte se čeho bát. Pokud si ještě na přespání ve stanu netroufnete, můžeme zařídit přespání v maringotkách.\n",
+  },
+  {
+    name: "Velikonoce na Slovensko",
+    date: {
+      from: "22. 3.",
+      to: "23. 4.",
+    },
+    description:
+      "Druhá část není povinná, ale budeme moc rádi, pokud se zúčastníte. Nemáte se čeho bát. Pokud si ještě na přespání ve stanu netroufnete, můžeme zařídit přespání v maringotkách.\n" +
+      "\n" +
+      "S sebou: věci na jednodenní/dvoudenní výpravu (pokud jedete na obě části), jídlo na celý den+snídani na neděli, peníze na vlak+kartičku s vekěm, něco na opečení (moučné těsto na hady, sýr, buřt, jablko... prostě to, co máte rádi), pytel na odpadky (stačí jeden do dvojice, je to pouze pro případ, že bychom v přírodě našli nějaký nepořádek) \n" +
+      "Stan vám předají vedoucí\n" +
+      "\n" +
+      "Těšíme se :) \n" +
+      "Můry ",
   },
 ]
