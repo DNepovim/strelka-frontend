@@ -28,25 +28,25 @@ export interface HistoryProps {
 export const History: React.FC<HistoryProps> = ({ introduction, chapters }) => (
   <Block>
     <Container>
-      <Introduction>
+      <IntroductionRow>
         <Column col={12} m={6}>
           {introduction.text.map((paragraph, index) => (
             <IntroductionText key={index}>{paragraph}</IntroductionText>
           ))}
         </Column>
-      </Introduction>
+      </IntroductionRow>
       {chapters?.map(({ year, text, image }, index) => (
         <Row key={index}>
-          <Year col={12} m={2} key={index}>
+          <YearColumn col={12} m={2} key={index}>
             {year}
-          </Year>
+          </YearColumn>
           <Column col={12} m={6} key={index + chapters.length}>
             {text.map((paragraph, index) => (
               <Text key={index}>{paragraph}</Text>
             ))}
           </Column>
           {image && (
-            <ImageWrapper
+            <ImageColumn
               col={12}
               m={4}
               key={index + chapters.length * chapters.length}
@@ -59,7 +59,7 @@ export const History: React.FC<HistoryProps> = ({ introduction, chapters }) => (
                   {...image}
                 />
               )}
-            </ImageWrapper>
+            </ImageColumn>
           )}
         </Row>
       ))}
@@ -67,7 +67,7 @@ export const History: React.FC<HistoryProps> = ({ introduction, chapters }) => (
   </Block>
 )
 
-const Introduction = styled(Row)`
+const IntroductionRow = styled(Row)`
   margin-bottom: ${theme.layout.gutter * 2}rem;
 `
 const Text = styled(Paragraph)`
@@ -79,7 +79,7 @@ const IntroductionText = styled(Header3.withComponent(Text))`
   font-family: ${theme.fonts.accent};
 `
 
-const Year = styled(Header2.withComponent(Column))`
+const YearColumn = styled(Header2.withComponent(Column))`
   margin-bottom: 0;
   @media ${min("m")} {
     text-align: right;
@@ -90,7 +90,7 @@ const Year = styled(Header2.withComponent(Column))`
   }
 `
 
-const ImageWrapper = styled(Column)`
+const ImageColumn = styled(Column)`
   position: relative;
   width: 80%;
   margin: 0 auto;
