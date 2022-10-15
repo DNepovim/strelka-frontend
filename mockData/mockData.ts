@@ -57,6 +57,7 @@ export const randomRectangle = randomItem(rectangles)
 import { PersonProps } from "../blocks/PersonList/PersonList"
 import { NavLink } from "../types/Navigation"
 import { ImageTextProps, Icons } from "../blocks/ImageText/ImageText"
+import { GalleryProps } from "../blocks/GalleryList/GalleryList"
 
 export const groupData = [
   {
@@ -260,3 +261,36 @@ export const building: ImageTextProps = {
     },
   ],
 }
+
+export const gallery: GalleryProps[] = [
+  {
+    name: "Podzimky",
+    link: "/",
+    imageUrl: "http://picsum.photos/300/200",
+    date: "12.–17. 11. 2022",
+  },
+  {
+    name: "Vánoční výprava",
+    link: "/",
+    imageUrl: "http://picsum.photos/300/200",
+    date: "24. 12. 2022",
+  },
+  {
+    name: "Zimní výprava",
+    link: "/",
+    imageUrl: "http://picsum.photos/300/200",
+    date: "28. 2. – 3. 3. 2023",
+  },
+  {
+    name: "Georgiáda a Ekobrigáda",
+    link: "/",
+    imageUrl: "http://picsum.photos/300/200",
+    date: "24. 4. 2023",
+  },
+  {
+    name: "Tábor",
+    link: "/",
+    imageUrl: "http://picsum.photos/300/200",
+    date: "1.–31. 7. 2023",
+  },
+]
