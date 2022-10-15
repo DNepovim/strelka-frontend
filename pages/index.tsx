@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import type { NextPage } from "next"
 import Head from "next/head"
 import { Header } from "../blocks/Header/Header"
@@ -9,15 +8,15 @@ import { Header1 } from "../components/Typography/Typography"
 import {
   building,
   contacts,
-  historyData,
   linkData,
+  heroData,
   postListData,
 } from "../mockData/mockData"
-import { theme } from "../styles/theme"
-import { Page } from "../types/Page"
-import { Block } from "../components/Block/Block"
-import { History } from "../blocks/History/History"
 import { PostList } from "../blocks/PostList/PostList"
+import { Hero } from "../components/Hero/Hero"
+import { theme } from "../styles/theme"
+import { Block } from "../components/Block/Block"
+import { Page } from "../types/Page"
 
 const Home: NextPage<Props> = ({ page }) => (
   <div>
@@ -50,11 +49,11 @@ const Home: NextPage<Props> = ({ page }) => (
             </Column>
             <Column col={12}>
               <PostList posts={postListData} />
+              <Hero {...heroData} />
             </Column>
           </Row>
         </Container>
       </Block>
-      <History {...historyData} />
     </Layout>
   </div>
 )

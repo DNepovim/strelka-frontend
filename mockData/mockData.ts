@@ -25,6 +25,7 @@ import { HistoryProps } from "../blocks/History/History"
 import { GalleryProps } from "../blocks/GalleryList/GalleryList"
 import { EventProps } from "../blocks/EventList/EventList"
 import { PostProps } from "../blocks/PostList/PostList"
+import { HeroProps } from "../components/Hero/Hero"
 
 export const groupData = [
   {
@@ -70,6 +71,11 @@ export const groupData = [
     comment: "kluci od 10 do 15 let",
   },
 ]
+
+export const groupListData = {
+  content: groupData,
+  title: "Naše oddíly",
+}
 
 export const linkData: NavLink[] = [
   { name: "Úvod", address: "/" },
@@ -421,3 +427,15 @@ export const postListData: PostProps[] = [
     imageSrc: "http://picsum.photos/300/200",
   },
 ]
+
+export const heroData: HeroProps = {
+  imageUrl: Gallery4.src,
+  words: [
+    "Dobrodružství",
+    "Kamarádi",
+    "Příroda",
+    "Výzva",
+    "Odvaha",
+    "LRRSKKAKPPS",
+  ],
+}
