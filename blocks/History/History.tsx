@@ -37,20 +37,16 @@ export const History: React.FC<HistoryProps> = ({ introduction, chapters }) => (
       </IntroductionRow>
       {chapters?.map(({ year, text, image }, index) => (
         <Row key={index}>
-          <YearColumn col={12} m={2} key={index}>
+          <YearColumn col={12} m={2}>
             {year}
           </YearColumn>
-          <Column col={12} m={6} key={index + chapters.length}>
+          <Column col={12} m={6}>
             {text.map((paragraph, index) => (
               <Text key={index}>{paragraph}</Text>
             ))}
           </Column>
           {image && (
-            <ImageColumn
-              col={12}
-              m={4}
-              key={index + chapters.length * chapters.length}
-            >
+            <ImageColumn col={12} m={4}>
               {image && (
                 <MaskedImage
                   mask={randomRectangle(index)}
