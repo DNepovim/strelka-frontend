@@ -52,10 +52,6 @@ const Home: NextPage<Props> = ({ page }) => (
         <Container>
           <Row>
             <Column col={12}>
-              <Header1>Poslední akce</Header1>
-            </Column>
-            <Column col={12}>
-              <PostList posts={postListData} />
               <Hero {...heroData} />
             </Column>
           </Row>
@@ -67,6 +63,18 @@ const Home: NextPage<Props> = ({ page }) => (
       <TextHighlight {...textHighlightData} />
       <VerticalSpace height={4} />
       <Statistics {...statisticsData} />
+      <Block>
+        <Container>
+          <Row>
+            <Column col={12}>
+              <Header1>Poslední akce</Header1>
+            </Column>
+            <Column col={12}>
+              <PostList posts={postListData} />
+            </Column>
+          </Row>
+        </Container>
+      </Block>{" "}
     </Layout>
   </div>
 )
