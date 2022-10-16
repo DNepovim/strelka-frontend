@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="100"
+   height="100"
+   data-name="Layer 1"
+   version="1.1"
+   viewBox="0 -8 123 123"
+   id="svg3378"
+   sodipodi:docname="heart.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <sodipodi:namedview
+     id="namedview3380"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="10.27"
+     inkscape:cx="49.951315"
+     inkscape:cy="49.951315"
+     inkscape:window-width="2560"
+     inkscape:window-height="1440"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3378" />
+  <defs
+     id="defs3372">
+    <style
+       id="style3370">.cls-1{fill:#ed1b24;fill-rule:evenodd;}</style>
+  </defs>
+  <title
+     id="title3374">red-heart</title>
+  <path
+     class="cls-1"
+     d="M 60.778717,20.248226 C 68.083296,12.624072 73.214762,6.0316891 84.518598,4.7259961 105.67448,2.3154851 125.09553,23.973561 114.41258,45.2938 111.37205,51.365731 105.18142,58.588134 98.333382,65.673575 90.818797,73.452951 82.500708,81.077105 76.675307,86.856853 L 60.787848,102.61648 47.657867,89.979561 C 31.861716,74.767776 6.1495988,55.620648 5.2365258,31.899029 4.6612908,15.281112 17.77301,4.6346888 32.856965,4.826434 46.333913,5.0090485 52.031484,11.710999 60.778717,20.248226 Z"
+     id="path3376"
+     style="fill:#000000;fill-opacity:1;stroke-width:0.913072" />
+  <metadata
+     id="metadata4622">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>red-heart</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

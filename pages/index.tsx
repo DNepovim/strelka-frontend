@@ -12,6 +12,7 @@ import {
   linkData,
   heroData,
   postListData,
+  statisticsData,
   textHighlightData,
 } from "../mockData/mockData"
 import { PostList } from "../blocks/PostList/PostList"
@@ -21,6 +22,7 @@ import { Block } from "../components/Block/Block"
 import { Page } from "../types/Page"
 import { TextHighlight } from "../blocks/TextHighlight/TextHighlight"
 import { GroupList } from "../blocks/GroupList/GroupList"
+import { Statistics } from "../blocks/Statistics/Statistics"
 
 const Home: NextPage<Props> = ({ page }) => (
   <div>
@@ -60,6 +62,8 @@ const Home: NextPage<Props> = ({ page }) => (
       </Block>
       <TextHighlight {...textHighlightData} />
       <GroupList {...groupListData} />
+      <TextHighlight {...textHighlightData} />
+      <Statistics {...statisticsData} />
     </Layout>
   </div>
 )
