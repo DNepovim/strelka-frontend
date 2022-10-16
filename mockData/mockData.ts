@@ -26,6 +26,7 @@ import { GalleryProps } from "../blocks/GalleryList/GalleryList"
 import { EventProps } from "../blocks/EventList/EventList"
 import { PostProps } from "../blocks/PostList/PostList"
 import { HeroProps } from "../components/Hero/Hero"
+import { StatisticsProps } from "../blocks/Statistics/Statistics"
 
 export const groupData = [
   {
@@ -444,5 +445,35 @@ export const textHighlightData = {
   text: [
     "Jsme skauti z Kralup nad Vltavou. Společně bojujeme za práva mexičanů a snažíme se prozasovat národní zájmy Mexické republiky.",
     "Uznáváme a ctíme naše koření, a proto doporočujeme všem aby si naplánovali vlastní výlet na Mexiko, za účelem zpestření jinak neobyčejně obyčejného života.",
+  ],
+}
+
+export const statisticsData: StatisticsProps = {
+  title: "Středisko v číslech",
+  content: [
+    {
+      icon: Icons.Lily,
+      value: 1000,
+      description:
+        "Za dva roky se nam podarilo ziskat dostatecne uspory na dalsich 4 roky cinnosti.",
+    },
+    {
+      icon: Icons.Heart,
+      value: 10,
+      description:
+        "Za dva roky se nam podarilo ziskat dostatecne uspory na dalsich 4 roky cinnosti.",
+    },
+    {
+      icon: Icons.People,
+      value: 10000,
+      description:
+        "Za dva roky se nam podarilo ziskat dostatecne uspory na dalsich 4 roky cinnosti.",
+    },
+    {
+      icon: Icons.Teepee,
+      value: 1000,
+      description:
+        "Za dva roky se nam podarilo ziskat dostatecne uspory na dalsich 4 roky cinnosti.",
+    },
   ],
 }

@@ -10,6 +10,10 @@ import Pig from "../../assets/vectors/icons/pig.svg"
 import Marker from "../../assets/vectors/icons/marker.svg"
 import Person from "../../assets/vectors/icons/person.svg"
 import Case from "../../assets/vectors/icons/case.svg"
+import Teepee from "../../assets/vectors/icons/teepee.svg"
+import Lily from "../../assets/vectors/icons/lily.svg"
+import Heart from "../../assets/vectors/icons/heart.svg"
+import People from "../../assets/vectors/icons/people.svg"
 import Image from "next/image"
 
 export enum Icons {
@@ -18,6 +22,10 @@ export enum Icons {
   Marker = "marker",
   Person = "person",
   Case = "case",
+  Teepee = "teepee",
+  Lily = "lily",
+  People = "people",
+  Heart = "heart",
 }
 
 export const icons = {
@@ -26,6 +34,10 @@ export const icons = {
   [Icons.Marker]: Marker,
   [Icons.Person]: Person,
   [Icons.Case]: Case,
+  [Icons.Teepee]: Teepee,
+  [Icons.Lily]: Lily,
+  [Icons.People]: People,
+  [Icons.Heart]: Heart,
 }
 
 export interface ImageTextProps extends BlockFields {
