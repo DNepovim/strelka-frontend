@@ -1,7 +1,6 @@
 export * from "./blocks"
 
-export * from "./components/MetaTags/MetaTags"
-export * from "./components/Layout/Layout"
-export * from "./components/GlobaStyles/GlobalStyles"
-export * from "./types"
+export * from "./components"
+export type { Page, NavLink, SubLink, SubLinksData, Image } from "./types"
+export * from "./utils"
 export * from "./styles/theme"

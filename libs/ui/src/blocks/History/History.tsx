@@ -9,8 +9,7 @@ import {
   Text as Paragraph,
 } from "../../components/Typography/Typography"
 import { ImageProps } from "next/image"
-import { MaskedImage } from "../../components/ImageWithMask/ImageWithMask"
-import { randomRectangle } from "../../utils/Masks"
+import { randomRectangle, MaskedImage } from "@strelka/ui"
 
 interface ChapterProps {
   year?: number
@@ -89,7 +88,7 @@ const ImageColumn = styled(Column)`
   width: 80%;
   margin: 0 auto;
   margin-bottom: ${theme.layout.gutter * 2}rem;
-  
+
   @media ${min("m")} {
     padding: 0 ${theme.layout.gutter}rem;
     box-sizing: border-box;
@@ -98,5 +97,4 @@ const ImageColumn = styled(Column)`
     position: sticky;
     top: ${theme.layout.gutter}rem;
   }
-}
 `

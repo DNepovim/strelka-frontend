@@ -1,65 +1,54 @@
-import LogoBenja from "../assets/images/groups/benjaminci.jpg"
-import LogoSvetlusky from "../assets/images/groups/svetlusky.jpg"
-import LogoVlcata from "../assets/images/groups/vlcata.jpg"
-import LogoSkautky from "../assets/images/groups/skautky.jpg"
-import LogoSkauti from "../assets/images/groups/skauti.jpg"
-import LogoRoveri from "../assets/images/groups/roveri.jpg"
-import LogoOldskauti from "../assets/images/groups/oldskauti.jpg"
-
-import Gallery1 from "../assets/images/gallery/eVPQDxHt.webp"
-import Gallery2 from "../assets/images/gallery/eVPQDxHt.webp"
-import Gallery3 from "../assets/images/gallery/gWxHWOCt.webp"
-import Gallery4 from "../assets/images/gallery/zmrWAoUt.webp"
-
 import Nik from "../assets/images/people/nik.webp"
 import Me from "../assets/images/people/ja.webp"
 import Vitek from "../assets/images/people/vitek.webp"
 import Robot from "../assets/images/people/robot.webp"
 import Ondra from "../assets/images/people/ondra.webp"
 import Spina from "../assets/images/people/spina.webp"
-
-import { PersonProps } from "../blocks/PersonList/PersonList"
-import { NavLink } from "../types/Navigation"
-import { ImageTextProps, Icons } from "../blocks/ImageText/ImageText"
-import { HistoryProps } from "../blocks/History/History"
-import { GalleryProps } from "../blocks/GalleryList/GalleryList"
-import { EventProps } from "../blocks/EventList/EventList"
+import {
+  NavLink,
+  PersonProps,
+  ImageTextProps,
+  Icons,
+  GalleryProps,
+  HistoryProps,
+  EventProps,
+} from "@strelka/ui"
 
 export const groupData = [
   {
     name: "Benjamínci",
     address: "benjaminci",
-    comment: "kluci a holky od 6 do 10 let",
+    subtitle: "kluci a holky od 6 do 10 let",
   },
   {
     name: "Světlušky",
     address: "svetlusky",
-    comment: "holky od 10 do 16 let",
+    subtitle: "holky od 10 do 16 let",
   },
   {
     name: "Vlčata",
     address: "vlcata",
-    comment: "kluci od 10 do 15 let",
+    subtitle: "kluci od 10 do 15 let",
   },
   {
     name: "Skautky",
     address: "skautky",
-    comment: "kluci od 10 do 15 let",
+    subtitle: "kluci od 10 do 15 let",
   },
   {
     name: "Skauti",
     address: "skauti",
-    comment: "kluci od 10 do 15 let",
+    subtitle: "kluci od 10 do 15 let",
   },
   {
     name: "Roveři",
     address: "roveri",
-    comment: "kluci od 10 do 15 let",
+    subtitle: "kluci od 10 do 15 let",
   },
   {
     name: "Oldskauti",
     address: "oldskauti",
-    comment: "kluci od 10 do 15 let",
+    subtitle: "kluci od 10 do 15 let",
   },
 ]
 
@@ -80,17 +69,17 @@ export const linkData: NavLink[] = [
         {
           name: "Dřevomorka",
           address: "drevomorka",
-          comment: "Chata na úpatí Lužických hor",
+          subtitle: "Chata na úpatí Lužických hor",
         },
         {
           name: "Puchverk",
           address: "puchverk",
-          comment: "Tábořiště daleko kterého nevíme jestli chceme",
+          subtitle: "Tábořiště daleko kterého nevíme jestli chceme",
         },
         {
           name: "Bára",
           address: "bara",
-          comment: "Skautský dům v Kralupech nad Vltavou",
+          subtitle: "Skautský dům v Kralupech nad Vltavou",
         },
       ],
     },
@@ -115,7 +104,7 @@ export const personData: PersonProps[] = [
     surname: "Heralecky",
     nickname: "Dave",
     image: Robot,
-    comment: "Vůdce střediska, vůdce roverského kmene",
+    subtitle: "Vůdce střediska, vůdce roverského kmene",
     contact: {
       email: "karel.1@gmail.com",
       phone: "111222111",
@@ -125,7 +114,7 @@ export const personData: PersonProps[] = [
     name: "Blanka",
     surname: "Dymáčková",
     image: Nik,
-    comment: "Vůdkýně 6. oddílu benjamínku",
+    subtitle: "Vůdkýně 6. oddílu benjamínku",
     contact: {
       email: "karel.1@gmail.com",
       phone: "111222111",
@@ -136,7 +125,7 @@ export const personData: PersonProps[] = [
     nickname: "S fakt dlouhou prezdivku",
     surname: "Měkotová Dlouha Dlouhatanska",
     image: Spina,
-    comment: "Vůdkýně 3. roje světlušek Waliča Teča",
+    subtitle: "Vůdkýně 3. roje světlušek Waliča Teča",
     contact: {
       email: "karel.1@gmail.com",
       phone: "111222111",
