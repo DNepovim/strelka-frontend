@@ -11,6 +11,11 @@ import Gallery2 from "../assets/images/gallery/eVPQDxHt.webp"
 import Gallery3 from "../assets/images/gallery/gWxHWOCt.webp"
 import Gallery4 from "../assets/images/gallery/zmrWAoUt.webp"
 
+import Hero1 from "../assets/images/hero/holky.webp"
+import Hero2 from "../assets/images/hero/jan_jakub.webp"
+import Hero3 from "../assets/images/hero/ondra.webp"
+import Hero4 from "../assets/images/hero/mimon.webp"
+
 import Nik from "../assets/images/people/nik.webp"
 import Me from "../assets/images/people/ja.webp"
 import Vitek from "../assets/images/people/vitek.webp"
@@ -430,7 +435,7 @@ export const postListData: PostProps[] = [
 ]
 
 export const heroData: HeroProps = {
-  imageUrl: Gallery4.src,
+  imageUrls: [Hero1.src, Hero2.src, Hero3.src, Hero4.src],
   words: [
     "Dobrodružství",
     "Kamarádi",
