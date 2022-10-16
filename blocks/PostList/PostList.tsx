@@ -32,32 +32,30 @@ export const PostList: React.FC<PostListProps> = ({ posts }) => (
   <Block>
     <Container>
       {posts.map((post, index) => (
-        <>
-          <PostRow key={index} to={""}>
-            <PostImage col={10} m={4} l={3}>
-              <MaskedImage
-                mask={randomRectangle(index)}
-                src={post.imageSrc}
-                width={300}
-                height={200}
-                layout={"responsive"}
-              />
-            </PostImage>
-            <PostInfoColumn col={12} m={7} l={4}>
-              <Title>{post.title}</Title>
-              <Context>
-                {post.date.from}
-                {post.date.to && `​–​${post.date.to}`}
-                {post.place && `, ${post.place}`}
-              </Context>
-              <Preview>
-                {post.textPreview}
-                {`… `}
-                <LinkToPost to={post.link}>číst&nbsp;více&nbsp;&gt;</LinkToPost>
-              </Preview>
-            </PostInfoColumn>
-          </PostRow>
-        </>
+        <PostRowLink key={index} to={post.link}>
+          <PostImage col={10} m={4} l={3}>
+            <MaskedImage
+              mask={randomRectangle(index)}
+              src={post.imageSrc}
+              width={300}
+              height={200}
+              layout={"responsive"}
+            />
+          </PostImage>
+          <PostInfoColumn col={12} m={7} l={4}>
+            <Title>{post.title}</Title>
+            <Context>
+              {post.date.from}
+              {post.date.to && `​–​${post.date.to}`}
+              {post.place && `, ${post.place}`}
+            </Context>
+            <Preview>
+              {post.textPreview}
+              {`… `}
+              <LinkToPost>číst&nbsp;více&nbsp;&gt;</LinkToPost>
+            </Preview>
+          </PostInfoColumn>
+        </PostRowLink>
       ))}
     </Container>
   </Block>
@@ -74,7 +72,7 @@ const PostImage = styled(Column)`
   margin-bottom: ${theme.layout.gutter}rem;
 `
 
-const PostRow = styled(Row.withComponent(Link))`
+const PostRowLink = styled(Row.withComponent(Link))`
   margin-bottom: ${theme.layout.gutter * 2}rem;
   justify-content: center;
 
@@ -91,7 +89,8 @@ const Preview = styled(Text)`
   color: ${theme.color.darkest};
 `
 
-const LinkToPost = styled(Link)`
+const LinkToPost = styled(Text.withComponent('span'))`
+  display: inline-block;
   font-family: ${theme.fonts.accent};
   color: ${theme.color.darkest};
   font-weight: bold;
