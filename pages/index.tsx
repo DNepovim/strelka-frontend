@@ -4,7 +4,7 @@ import { Header } from "../blocks/Header/Header"
 import { Column, Container, Layout, Row } from "../components/Layout/Layout"
 import { GlobalStyles } from "../components/GlobaStyles/GlobalStyles"
 import { MetaTags } from "../components/MetaTags/MetaTags"
-import { Header1, Header2 } from "../components/Typography/Typography"
+import { Header2 } from "../components/Typography/Typography"
 import {
   building,
   contacts,

@@ -4,7 +4,6 @@ import { ImageWithMask } from "../ImageWithMask/ImageWithMask"
 import { TypeAnimation } from "react-type-animation"
 import { max, min, theme } from "../../styles/theme"
 import styled from "@emotion/styled"
-import { randomInt } from "crypto"
 
 export interface HeroProps {
   words: string[]
