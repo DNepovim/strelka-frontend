@@ -1,18 +1,16 @@
-import styled from "@emotion/styled"
-import { LoaderFunction } from "@remix-run/node"
-import { useLoaderData } from "@remix-run/react"
+import { ActionFunction, LoaderFunction } from "@remix-run/node"
+import { useFetcher, useLoaderData } from "@remix-run/react"
 import { createColumnHelper, ColumnDef } from "@tanstack/react-table"
 import { PagesTableItem } from "data"
-import { getPagesList } from "firebase/db"
+import { getPagesList, removePage } from "firebase/db"
 import { IoPencilOutline, IoTrashBinOutline } from "react-icons/io5"
 import {
-  Action,
   ActionCell,
-  ActionFooter,
-  ActionHeader,
   BodyCell,
-  Button,
+  ButtonGroup,
+  ButtonLink,
   HeadCell,
+  SiteHeader,
   Table,
   Title,
 } from "@strelka/admin-ui"
@@ -21,9 +19,17 @@ export const loader: LoaderFunction = async () => {
   return await getPagesList()
 }
 
+export const action: ActionFunction = async ({ request, params }) => {
+  const formData = await request.formData()
+  const slug = formData.get("slug") as string
+  await removePage(slug)
+  return null
+}
+
 export default function Index() {
   const columnHelper = createColumnHelper<PagesTableItem>()
   const data = useLoaderData()
+  const fetcher = useFetcher()
 
   const columns: ColumnDef<PagesTableItem, string>[] = [
     columnHelper.accessor("title", {
@@ -42,17 +48,31 @@ export default function Index() {
       footer: () => <td />,
       cell: (info) => <BodyCell>{info.getValue()}</BodyCell>,
     }),
-    columnHelper.accessor("id", {
-      header: () => <ActionHeader />,
-      footer: () => <ActionFooter as="td" />,
-      cell: () => (
+    columnHelper.accessor("slug", {
+      header: () => <HeadCell />,
+      cell: (info) => (
         <ActionCell>
-          <Action title="Smazat stránku" danger>
-            <IoTrashBinOutline color="red" size="1rem" />
-          </Action>
-          <Action title="Upravit stránku">
-            <IoPencilOutline size="1rem" />
-          </Action>
+          <ButtonGroup
+            items={[
+              {
+                type: "button",
+                key: "remove",
+                label: <IoTrashBinOutline color="red" size="1rem" />,
+                title: "Smazat stránku",
+                danger: true,
+                onClick: async () => {
+                  fetcher.submit({ slug: info.getValue() }, { method: "post" })
+                },
+              },
+              {
+                type: "link",
+                key: "detail",
+                label: <IoPencilOutline size="1rem" />,
+                title: "Upravit stránku",
+                to: `/stranky/${info.getValue()}`,
+              },
+            ]}
+          />
         </ActionCell>
       ),
     }),
@@ -61,15 +81,13 @@ export default function Index() {
   return (
     <>
       <SiteHeader>
-        <Button>Nová stránka</Button>
+        <ButtonLink to="/stranky/vytvorit">Nová stránka</ButtonLink>
       </SiteHeader>
-      <Table data={data} columns={columns} />
+      <Table
+        data={data}
+        columns={columns}
+        emptyMessage="Žádné stránky tu nejsou..."
+      />
     </>
   )
 }
-
-const SiteHeader = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  padding: 0 1rem;
-`

@@ -1,3 +1,4 @@
+import { Page } from "@strelka/ui"
 import { PagesTableItem } from "data"
 import { initializeApp } from "firebase/app"
 import {
@@ -8,6 +9,7 @@ import {
   getDocs,
   setDoc,
   Timestamp,
+  deleteDoc,
 } from "firebase/firestore"
 import { User } from "~/services/auth.server"
 
@@ -49,7 +51,13 @@ export const getUsersList = async (): Promise<User[]> => {
   })
 }
 
-export const getPage = async (slug: string) => getData("page", slug)
+export const getPage = async (slug: string): Promise<Page> => {
+  const page = await getData("page", slug)
+  return {
+    slug,
+    ...page,
+  }
+}
 
 export const getData = async (collection: string, page: string) => {
   const docRef = await doc(db, collection, page)
@@ -74,4 +82,12 @@ export const setUser = async (user: User) => {
     },
     { merge: true }
   )
+}
+
+export const removePage = async (slug: string) => {
+  await deleteDoc(doc(db, "page", slug))
+}
+
+export const udpatePage = async (slug: string, data: Partial<Page>) => {
+  await setDoc(doc(db, "page", slug), data, { merge: true })
 }

@@ -1,20 +1,23 @@
 import styled from "@emotion/styled"
-import React, { ReactNode } from "react"
-import { theme } from "../theme"
+import { buttonHover, theme } from "../theme"
+import { Link } from "@remix-run/react"
 
-export const Button: React.FC<{ children: ReactNode }> = ({ children }) => (
-  <StyledBudton>{children}</StyledBudton>
-)
+export interface ButtonProps {
+  danger?: boolean
+}
 
-const StyledBudton = styled.button`
+export const Button = styled.button`
   cursor: pointer;
   font-size: 1rem;
   padding: 0.4em 1em;
   border: ${theme.styles.border};
   background-color: transparent;
   transition: background-color 200ms;
+  text-decoration: none;
+  color: ${({ danger }: ButtonProps) =>
+    danger ? theme.colors.danger : theme.colors.text};
 
-  &:hover {
-    background-color: ${theme.colors.brand};
-  }
+  ${buttonHover}
 `
+
+export const ButtonLink = Button.withComponent(Link)

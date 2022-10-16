@@ -10,13 +10,17 @@ import {
 import { ReactElement } from "react"
 import { theme } from "../theme"
 
+export interface TableProps<T> {
+  columns: ColumnDef<T, any>[]
+  data: T[]
+  emptyMessage?: string
+}
+
 export const Table = <T extends any>({
   columns,
   data,
-}: {
-  columns: ColumnDef<T, any>[]
-  data: T[]
-}): ReactElement => {
+  emptyMessage,
+}: TableProps<T>): ReactElement => {
   const table = useReactTable<T>({
     columns,
     data,
@@ -38,16 +42,26 @@ export const Table = <T extends any>({
         ))}
       </thead>
       <tbody>
-        {table.getRowModel().rows.map((row) => (
-          <tr key={row.id}>
-            {row.getVisibleCells().map((cell) =>
-              flexRender(cell.column.columnDef.cell, {
-                ...cell.getContext(),
-                key: cell.id,
-              })
-            )}
-          </tr>
-        ))}
+        {data.length ? (
+          table.getRowModel().rows.map((row) => (
+            <tr key={row.id}>
+              {row.getVisibleCells().map((cell) =>
+                flexRender(cell.column.columnDef.cell, {
+                  ...cell.getContext(),
+                  key: cell.id,
+                })
+              )}
+            </tr>
+          ))
+        ) : (
+          <>
+            <tr>
+              <EmptyCell colSpan={columns.length}>
+                {emptyMessage ?? "Nejsou zde žádná data..."}
+              </EmptyCell>
+            </tr>
+          </>
+        )}
       </tbody>
       <tfoot>
         {table.getFooterGroups().map((group) => (
@@ -165,4 +179,12 @@ export const Action = styled.button`
             }
           `};
   }
+`
+
+export const ActionLink = Action.withComponent(Link)
+
+export const EmptyCell = styled.td`
+  background-color: ${theme.colors.backgroundGray};
+  padding: 1em;
+  text-align: center;
 `

@@ -5,7 +5,7 @@ import { css } from "@emotion/react"
 import isPropValid from "@emotion/is-prop-valid"
 import { IoArrowBackOutline } from "react-icons/io5"
 import { User, UserBox } from "./UserBox"
-import { theme } from "../theme"
+import { buttonHover, theme } from "../theme"
 
 export type Navigation = NavigationItem[]
 
@@ -105,11 +105,8 @@ const GeneralLink = styled(NavLink)`
   color: black;
   text-decoration: none;
   background-color: white;
-  transition: background-color 200ms ${theme.styles.animationFunction};
 
-  &:hover {
-    background-color: ${theme.colors.brand};
-  }
+  ${buttonHover}
 `
 
 interface LinkProps {
