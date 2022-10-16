@@ -61,6 +61,10 @@ const GroupLink = styled(Link)`
   display: flex;
   flex-direction: column;
   align-content: center;
+
+  @media ${min("m")} {
+    row-gap: 0.25rem;
+  }
 `
 
 const GroupInfo = styled.div`
@@ -78,7 +82,11 @@ const ImageContainer = styled.div`
   margin-bottom: ${theme.layout.gutter * 0.5}rem;
 
   @media ${min("m")} {
-    width: 60%;
+    width: 80%;
+  }
+
+  @media ${min("l")} {
+    width: 85%;
   }
 `
 

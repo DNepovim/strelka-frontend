@@ -59,6 +59,7 @@ const Home: NextPage<Props> = ({ page }) => (
       </Block>
       <VerticalSpace height={4} />
       <TextHighlight {...textHighlightData} />
+      <VerticalSpace height={4} />
       <GroupList {...groupListData} />
       <VerticalSpace height={4} />
       <TextHighlight {...textHighlightData} />
