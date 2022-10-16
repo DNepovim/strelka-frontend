@@ -96,41 +96,13 @@ const Cell = styled.td`
   height: 2rem;
 `
 
+interface BodyCellProps {
+  align?: "left" | "center" | "right"
+}
 export const BodyCell = styled(Cell)`
   padding: 0.4em 1em;
-`
-
-export const ActionCell = styled(Cell)`
-  padding-right: 1rem;
-  text-align: right;
-`
-
-const ActionOverlay = styled.th`
-  text-align: right;
-  padding: 0 1rem 0 0;
-  line-height: 0;
-
-  &::before,
-  &::after {
-    content: "";
-    display: inline-block;
-    width: 3rem;
-    height: 0.4rem;
-    border-right: ${theme.styles.border};
-  }
-
-  &::before {
-    border-left: ${theme.styles.border};
-  }
-`
-
-export const ActionHeader = styled(ActionOverlay)`
-  vertical-align: bottom;
-  border-bottom: ${theme.styles.border};
-`
-
-export const ActionFooter = styled(ActionOverlay)`
-  vertical-align: top;
+  background-color: white;
+  text-align: ${({ align }: BodyCellProps) => align ?? "left"};
 `
 
 export const Title = styled(Link)`
@@ -143,45 +115,6 @@ export const Title = styled(Link)`
 export const Date = styled.span`
   font-size: 0.8rem;
 `
-
-export const Action = styled.button`
-  box-sizing: content-box;
-  height: calc(100% + 2px);
-  margin: -1px 0;
-  border: ${theme.styles.border};
-  background-color: transparent;
-  width: 3rem;
-  cursor: pointer;
-  padding: 0;
-  box-shadow: inset 0 0 5px #ddd;
-  transition: background-color 200ms;
-
-  &:first-of-type {
-    border-right: none;
-  }
-
-  &:hover {
-    box-shadow: none;
-    ${({ danger }: { danger?: boolean }) =>
-      danger
-        ? css`
-            background-color: red;
-            path,
-            rect {
-              stroke: white;
-            }
-          `
-        : css`
-            background-color: ${theme.colors.brand};
-            path,
-            rect {
-              fill: white;
-            }
-          `};
-  }
-`
-
-export const ActionLink = Action.withComponent(Link)
 
 export const EmptyCell = styled.td`
   background-color: ${theme.colors.backgroundGray};

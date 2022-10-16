@@ -51,7 +51,7 @@ export default function Index() {
     columnHelper.accessor("slug", {
       header: () => <HeadCell />,
       cell: (info) => (
-        <ActionCell>
+        <BodyCell align="right">
           <ButtonGroup
             items={[
               {
@@ -73,7 +73,7 @@ export default function Index() {
               },
             ]}
           />
-        </ActionCell>
+        </BodyCell>
       ),
     }),
   ]

@@ -35,8 +35,9 @@ const Wrapper = styled.div`
   margin-bottom: 1em;
   width: calc(100% - 0.6em);
   overflow: hidden;
-  transition: width 200ms ${theme.styles.animationFunction};
-  background-color: #fff;
+  transition: width 200ms ${theme.styles.animationFunction},
+    background-color 300ms ${theme.styles.animationFunction};
+  background-color: ${theme.colors.bodyBackground};
   border: 1px solid transparent;
 
   ${({ isCollapsed }: { isCollapsed?: boolean }) =>
@@ -46,6 +47,7 @@ const Wrapper = styled.div`
           &:hover {
             width: 10em;
             border: ${theme.styles.border};
+            background-color: white;
           }
         `
       : ""}

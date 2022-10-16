@@ -11,6 +11,7 @@ import {
   ActionFooter,
   ActionHeader,
   BodyCell,
+  ButtonGroup,
   HeadCell,
   Table,
   timestampToDisplay,
@@ -61,18 +62,30 @@ export default function Index() {
         </BodyCell>
       ),
     }),
-    columnHelper.accessor("actions", {
-      header: () => <ActionHeader />,
-      footer: () => <ActionFooter as="td" />,
-      cell: () => (
-        <ActionCell>
-          <Action title="Smazat uživatele" danger>
-            <IoTrashBinOutline color="red" size="1rem" />
-          </Action>
-          <Action title="Upravit uživatele">
-            <IoPencilOutline size="1rem" />
-          </Action>
-        </ActionCell>
+    columnHelper.accessor("id", {
+      header: () => <HeadCell />,
+      cell: (info) => (
+        <BodyCell align="right">
+          <ButtonGroup
+            items={[
+              {
+                type: "button",
+                key: "remove",
+                label: <IoTrashBinOutline color="red" size="1rem" />,
+                title: "Smazat uživatele",
+                danger: true,
+                onClick: async () => {},
+              },
+              {
+                type: "link",
+                key: "detail",
+                label: <IoPencilOutline size="1rem" />,
+                title: "Upravit uživatele",
+                to: `/stranky/${info.getValue()}`,
+              },
+            ]}
+          />
+        </BodyCell>
       ),
     }),
   ]

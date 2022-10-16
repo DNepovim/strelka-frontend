@@ -199,7 +199,5 @@ const Collapser = styled.button`
     transition: transform 300ms ${theme.styles.animationFunction};
   }
 
-  &:hover {
-    background-color: ${theme.colors.brand};
-  }
+  ${buttonHover}
 `
