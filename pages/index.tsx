@@ -23,6 +23,7 @@ import { Page } from "../types/Page"
 import { TextHighlight } from "../blocks/TextHighlight/TextHighlight"
 import { GroupList } from "../blocks/GroupList/GroupList"
 import { Statistics } from "../blocks/Statistics/Statistics"
+import { VerticalSpace } from "../blocks/VerticalSpace/VerticalSpace"
 
 const Home: NextPage<Props> = ({ page }) => (
   <div>
@@ -62,7 +63,9 @@ const Home: NextPage<Props> = ({ page }) => (
       </Block>
       <TextHighlight {...textHighlightData} />
       <GroupList {...groupListData} />
+      <VerticalSpace height={4} />
       <TextHighlight {...textHighlightData} />
+      <VerticalSpace height={4} />
       <Statistics {...statisticsData} />
     </Layout>
   </div>
