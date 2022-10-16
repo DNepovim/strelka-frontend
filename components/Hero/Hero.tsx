@@ -4,13 +4,14 @@ import { ImageWithMask } from "../ImageWithMask/ImageWithMask"
 import { TypeAnimation } from "react-type-animation"
 import { max, min, theme } from "../../styles/theme"
 import styled from "@emotion/styled"
+import { randomInt } from "crypto"
 
 export interface HeroProps {
   words: string[]
-  imageUrl: string
+  imageUrls: string[]
 }
 
-export const Hero: React.FC<HeroProps> = ({ words, imageUrl }) => {
+export const Hero: React.FC<HeroProps> = ({ words, imageUrls }) => {
   const delayMS = 3000
   // Words need a common first character so that the headline doesn't become empty (and with height 0), which leads to content jump
   const wordSequence = words.map((word) => [`​${word}`, delayMS]).flat()
@@ -36,7 +37,7 @@ export const Hero: React.FC<HeroProps> = ({ words, imageUrl }) => {
             height={2}
             objectFit={"cover"}
             mask={randomRectangle(6)}
-            src={imageUrl}
+            src={imageUrls[Math.floor(Math.random() * imageUrls.length)]}
           />
         </ImageContainer>
       </ImageOverflowContainer>
