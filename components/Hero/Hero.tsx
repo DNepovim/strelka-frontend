@@ -1,9 +1,9 @@
+import styled from "@emotion/styled"
 import { Header1, Header3 } from "../Typography/Typography"
 import { randomRectangle } from "../../utils/Masks"
 import { ImageWithMask } from "../ImageWithMask/ImageWithMask"
 import { TypeAnimation } from "react-type-animation"
 import { max, min, theme } from "../../styles/theme"
-import styled from "@emotion/styled"
 
 export interface HeroProps {
   words: string[]
@@ -23,6 +23,7 @@ export const Hero: React.FC<HeroProps> = ({ words, imageUrls }) => {
             sequence={wordSequence}
             cursor={false}
             speed={30}
+            wrapper={"span"}
             repeat={Infinity}
           ></TypeAnimation>
         </Title>
@@ -86,6 +87,10 @@ const Title = styled(Header1.withComponent("p"))`
 
   @media ${min("l")} {
     font-size: 3rem;
+  }
+
+  @media ${min("xl")} {
+    font-size: 4rem;
   }
 `
 
