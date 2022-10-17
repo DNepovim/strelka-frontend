@@ -65,7 +65,10 @@ const Wrapper = styled.ul`
   position: relative;
   z-index: 1;
   list-style: none;
-  display: inline-flex;
+  display: ${({ layout }: ItemProps) =>
+    layout === "vertical" ? "flex" : "inline-flex"};
+  ${({ layout }: ItemProps) =>
+    layout === "vertical" ? "flex-direction: column;" : ""}
   padding: 0;
   margin: 0;
   ${({ layout }: ItemProps) =>
