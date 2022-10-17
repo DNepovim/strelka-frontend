@@ -17,7 +17,7 @@ export interface NavigationItem {
 }
 
 interface MainNavigationProps {
-  navigation: Navigation
+  navigations: Navigation[]
   isCollapsed: boolean
   setIsCollapsed: (isCollpased: boolean) => void
   collapsedWidth: string
@@ -26,7 +26,7 @@ interface MainNavigationProps {
 }
 
 export const MainNavigation: React.FC<MainNavigationProps> = ({
-  navigation,
+  navigations,
   isCollapsed,
   setIsCollapsed,
   collapsedWidth,
@@ -35,27 +35,37 @@ export const MainNavigation: React.FC<MainNavigationProps> = ({
 }) => {
   return (
     <Container width={isCollapsed ? collapsedWidth : notCollapsedWidth}>
-      <nav>
-        <List>
-          {navigation.map(({ title, slug, icon, action }, index) => (
-            <Item key={slug}>
-              <Link
-                to={`/${slug}`}
-                withAction={!!action}
-                isCollapsed={isCollapsed}
-              >
-                <IconWrapper>{icon}</IconWrapper>
-                {title}
-              </Link>
-              {action && (
-                <ActionLink to={`/${action.slug}`} isCollapsed={isCollapsed}>
-                  {action.icon}
-                </ActionLink>
-              )}
-            </Item>
+      <div>
+        <ResponsiveImage>
+          <img src="/images/logo.svg" alt="logo" />
+        </ResponsiveImage>
+        <nav>
+          {navigations.map((navigation, index) => (
+            <List key={index}>
+              {navigation.map(({ title, slug, icon, action }, index) => (
+                <Item key={slug}>
+                  <Link
+                    to={`/${slug}`}
+                    withAction={!!action}
+                    isCollapsed={isCollapsed}
+                  >
+                    <IconWrapper>{icon}</IconWrapper>
+                    {title}
+                  </Link>
+                  {action && (
+                    <ActionLink
+                      to={`/${action.slug}`}
+                      isCollapsed={isCollapsed}
+                    >
+                      {action.icon}
+                    </ActionLink>
+                  )}
+                </Item>
+              ))}
+            </List>
           ))}
-        </List>
-      </nav>
+        </nav>
+      </div>
       <Bottom>
         <UserBox {...user} isCollapsed={isCollapsed} />
         <Collapser
@@ -200,4 +210,13 @@ const Collapser = styled.button`
   }
 
   ${buttonHover}
+`
+
+const ResponsiveImage = styled.figure`
+  padding: 0;
+  margin: 0 0 1rem;
+  img {
+    max-width: 100%;
+    height: auto;
+  }
 `

@@ -1,10 +1,36 @@
+import { Navigation } from "@strelka/admin-ui"
 import {
   IoPeopleOutline,
   IoSettingsOutline,
   IoAddOutline,
   IoDocumentTextOutline,
+  IoBrowsersOutline,
+  IoCalendarOutline,
 } from "react-icons/io5"
-import { Navigation } from "~/components/MainNavigation"
+
+
+export const adminNavigation: Navigation = [
+  {
+    title: "Sekce",
+    slug: "sekce",
+    icon: <IoBrowsersOutline />,
+    action: {
+      title: "Vytvořit novou",
+      slug: "sekce/vytvorit",
+      icon: <IoAddOutline />,
+    },
+  },
+  {
+    title: "Uživatelé",
+    slug: "uzivatele",
+    icon: <IoPeopleOutline />,
+  },
+  {
+    title: "Nastavení",
+    slug: "nastaveni",
+    icon: <IoSettingsOutline />,
+  },
+]
 
 export const navigation: Navigation = [
   {
@@ -14,6 +40,16 @@ export const navigation: Navigation = [
     action: {
       title: "Vytvořit novou",
       slug: "stranky/vytvorit",
+      icon: <IoAddOutline />,
+    },
+  },
+  {
+    title: "Události",
+    slug: "udalosti",
+    icon: <IoCalendarOutline />,
+    action: {
+      title: "Vytvořit novou",
+      slug: "udalosti/vytvorit",
       icon: <IoAddOutline />,
     },
   },
