@@ -1,7 +1,7 @@
 import React, { ChangeEvent, ChangeEventHandler } from "react"
 import { v4 as uuid } from "uuid"
 import { Formik, Form, Field as FormikField } from "formik"
-import { blockDefs, Page } from "@strelka/ui"
+import { blockDefs, getBlockDef, Page } from "@strelka/ui"
 import {
   TitleInput,
   Field,
@@ -17,6 +17,21 @@ import {
 import { IoAddOutline, IoSaveOutline } from "react-icons/io5"
 import styled from "@emotion/styled"
 import { BlockTemplates } from "@strelka/ui/src/blocks/BlockTemplates"
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core"
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable"
+import { findIndex } from "lodash"
 
 interface PageForm {
   onSubmit: (values: Page) => void
@@ -24,8 +39,18 @@ interface PageForm {
 }
 
 export const PageForm: React.FC<PageForm> = ({ onSubmit, initialData }) => {
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  )
+
   return (
-    <Formik<Partial<Page>> initialValues={initialData} onSubmit={onSubmit}>
+    <Formik<Page>
+      initialValues={{ ...initialData, blocks: initialData.blocks ?? [] }}
+      onSubmit={onSubmit}
+    >
       {(renderProps) => (
         <Form>
           <PageSection>
@@ -43,15 +68,56 @@ export const PageForm: React.FC<PageForm> = ({ onSubmit, initialData }) => {
           </PageSection>
 
           <PageSection>
-            {(renderProps.values?.blocks ?? []).map((block, index) => (
-              <Disclosure header={block.template} key={block.id}>
-                <BlockFields<BlockTemplates>
-                  name={`blocks[${index}]`}
-                  template={block.template}
-                  blockDefs={blockDefs}
-                />
-              </Disclosure>
-            ))}
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={(event) => {
+                const { active, over } = event
+
+                if (!over || active.id === over.id) {
+                  return
+                }
+
+                const blocks = renderProps.values.blocks
+
+                const overIndex = findIndex(
+                  blocks,
+                  (item) => item.id === over.id
+                )
+                const activeIndex = findIndex(
+                  blocks,
+                  (item) => item.id === active.id
+                )
+                const newOrder = arrayMove(
+                  renderProps.values.blocks,
+                  activeIndex,
+                  overIndex
+                )
+
+                renderProps.setFieldValue("blocks", newOrder)
+              }}
+            >
+              <SortableContext
+                items={renderProps.values.blocks.map((v) => v.id)}
+                strategy={verticalListSortingStrategy}
+              >
+                {(renderProps.values?.blocks ?? []).map((block, index) => (
+                  <Disclosure
+                    header={
+                      getBlockDef(block.template)?.title ?? block.template
+                    }
+                    key={block.id}
+                    id={block.id}
+                  >
+                    <BlockFields<BlockTemplates>
+                      name={`blocks[${index}]`}
+                      template={block.template}
+                      blockDefs={blockDefs}
+                    />
+                  </Disclosure>
+                ))}
+              </SortableContext>
+            </DndContext>
             <Popover
               content={
                 <ButtonGroup

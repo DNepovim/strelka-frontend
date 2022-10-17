@@ -3,19 +3,34 @@ import React, { ReactNode, useEffect, useRef, useState } from "react"
 import { theme } from "../theme"
 import { IoChevronForwardOutline } from "react-icons/io5"
 import { AiOutlineHolder } from "react-icons/ai"
+import { CSS } from "@dnd-kit/utilities"
+import { useSortable } from "@dnd-kit/sortable"
 
 export interface DisclosureProps {
   header?: ReactNode
+  id: string
   children: ReactNode
 }
 
-export const Disclosure: React.FC<DisclosureProps> = ({ header, children }) => {
+export const Disclosure: React.FC<DisclosureProps> = ({
+  header,
+  children,
+  id,
+}) => {
   const [isOpened, setIsOpened] = useState<boolean>(false)
 
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id })
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  }
+
   return (
-    <Wrapper isOpened={isOpened}>
+    <Wrapper isOpened={isOpened} ref={setNodeRef} style={style}>
       <Header>
-        <Holder>
+        <Holder {...attributes} {...listeners}>
           <AiOutlineHolder />
         </Holder>
         <Opener isOpened={isOpened} onClick={() => setIsOpened(!isOpened)}>
