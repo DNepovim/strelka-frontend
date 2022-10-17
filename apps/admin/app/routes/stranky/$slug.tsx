@@ -29,7 +29,6 @@ export default function UpdatePage() {
     <PageForm
       initialData={page}
       onSubmit={async (values) => {
-        console.log(values)
         submit(
           { ...values, blocks: JSON.stringify(values.blocks) },
           { method: "post" }
