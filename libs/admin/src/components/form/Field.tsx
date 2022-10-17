@@ -1,12 +1,13 @@
 import styled from "@emotion/styled"
 import { Field as FormikField, useField } from "formik"
-import { ReactNode } from "react"
+import { ChangeEvent, ReactNode } from "react"
 import { theme } from "../../theme"
 
 export interface FieldProps {
   label: ReactNode
   name: string
   as?: string
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 export const Field: React.FC<FieldProps> = ({ label, ...fieldProps }) => {

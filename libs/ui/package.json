@@ -15,8 +15,7 @@
     "react-dom": "^18",
     "ts-node": "^10.5.0",
     "use-onclickoutside": "^0.4.0",
-    "utility-types": "^3.10.0",
-    "webalize": "^0.1.0"
+    "utility-types": "^3.10.0"
   },
   "devDependencies": {
     "@emotion/babel-preset-css-prop": "^11.2.0",

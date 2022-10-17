@@ -1,11 +1,10 @@
-import React from "react"
+import React, { ChangeEvent, ChangeEventHandler } from "react"
 import { v4 as uuid } from "uuid"
 import { Formik, Form } from "formik"
 import { blockDefs, Page } from "@strelka/ui"
 import {
   TitleInput,
   Field,
-  StyledButton,
   Disclosure,
   PageSection,
   Popover,
@@ -13,6 +12,7 @@ import {
   theme,
   BlockFields,
   Button,
+  webalize,
 } from "@strelka/admin-ui"
 import { IoAddOutline, IoSaveOutline } from "react-icons/io5"
 import styled from "@emotion/styled"
@@ -29,8 +29,24 @@ export const PageForm: React.FC<PageForm> = ({ onSubmit, initialData }) => {
       {(renderProps) => (
         <Form>
           <PageSection>
-            <TitleInput id="title" name="title" placeholder="Název stránky" />
-            <Field name="slug" label="URL" />
+            <TitleInput
+              id="title"
+              name="title"
+              placeholder="Název stránky"
+              onChange={(value: ChangeEvent<HTMLInputElement>) => {
+                const currentValue = value.target.value
+                renderProps.setFieldValue("slug", webalize(currentValue ?? ""))
+                renderProps.setFieldValue("title", currentValue ?? "")
+              }}
+            />
+            <Field
+              name="slug"
+              label="URL"
+              onChange={(value) => {
+                const currentValue = value.target.value
+                renderProps.setFieldValue("slug", webalize(currentValue ?? ""))
+              }}
+            />
           </PageSection>
 
           <PageSection>
