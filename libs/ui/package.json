@@ -7,10 +7,10 @@
   "dependencies": {
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
+    "@strelka/admin-ui": "0.1.0",
     "@types/react": "17.0.26",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.2",
-    "next": "^12.3.1",
     "react": "^18",
     "react-dom": "^18",
     "ts-node": "^10.5.0",

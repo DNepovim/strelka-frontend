@@ -1,11 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import styled from "@emotion/styled"
-import React from "react"
+import React, { ReactNode } from "react"
 import * as yup from "yup"
 
 export interface BlockFields {
   id?: string
-  backgroundColor?: string
 }
 
 export const blockSchema = yup.object({
@@ -16,13 +15,11 @@ export const blockSchema = yup.object({
 export const withBlockSchema = <T extends {}>(schema: yup.ObjectSchema<T>) =>
   blockSchema.concat(schema)
 
-export const Block: React.FC<BlockFields> = ({ children, ...props }) => (
-  <StyledSection {...props}>{children}</StyledSection>
-)
+export const Block: React.FC<BlockFields & { children: ReactNode }> = ({
+  children,
+}) => <StyledSection>{children}</StyledSection>
 
 const StyledSection = styled.section`
   position: relative;
-  ${({ backgroundColor }: BlockFields) =>
-    backgroundColor ? `background-color: ${backgroundColor};` : ""};
   margin-bottom: 4rem;
 `

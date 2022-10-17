@@ -15,7 +15,7 @@ export default function CreatePage() {
   const fetcher = useFetcher()
   return (
     <PageForm
-      initialData={{ title: "", slug: "" }}
+      initialData={{ title: "", slug: "", blocks: [] }}
       onSubmit={async (values) => fetcher.submit(values, { method: "post" })}
     />
   )

@@ -1,14 +1,9 @@
 import { Block, BlockFields } from "../../components/Block/Block"
 import styled from "@emotion/styled"
-import {
-  Header3,
-  SmallText,
-  Text,
-} from "../../components/Typography/Typography"
+import { Header3, Text } from "../../components/Typography/Typography"
 import React, { useState } from "react"
 import { Container, Row, Column } from "../../components/Layout/Layout"
 import { theme } from "../../styles/theme"
-import { Button } from "../../components/Button/Button"
 import { css } from "@emotion/react"
 
 export interface EventProps {

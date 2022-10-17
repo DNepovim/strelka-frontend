@@ -1,7 +1,11 @@
-export * from "./GalleryList/GalleryList"
-export * from "./GroupList/GroupList"
-export * from "./Header/Header"
-export * from "./ImageText/ImageText"
-export * from "./PersonList/PersonList"
-export * from "./History/History"
-export * from "./EventList/EventList"
+import { BlockDef } from "@strelka/admin-ui"
+import { BlocksDefs } from "./block"
+import { BlockTemplates } from "./BlockTemplates"
+import { paragraphBlockDef } from "./Paragraph/paragraphBlockDef"
+
+export const blockDefs: BlockDef<BlocksDefs, BlockTemplates>[] = [
+  paragraphBlockDef,
+]
+
+export const getBlockDef = (template: BlockTemplates) =>
+  blockDefs.find((blockDef) => blockDef.template === template)

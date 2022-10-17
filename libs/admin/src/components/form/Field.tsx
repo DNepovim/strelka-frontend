@@ -1,22 +1,32 @@
 import styled from "@emotion/styled"
-import { Field as FormikField } from "formik"
+import { Field as FormikField, useField } from "formik"
 import { ReactNode } from "react"
+import { theme } from "../../theme"
 
 export interface FieldProps {
   label: ReactNode
   name: string
+  as?: string
 }
 
-export const Field: React.FC<FieldProps> = ({ label, name }) => (
-  <Label>
-    {label && <p>{label}</p>}
-    <Input id={name} name={name} />
-  </Label>
-)
+export const Field: React.FC<FieldProps> = ({ label, ...fieldProps }) => {
+  const [field] = useField(fieldProps.name)
+  return (
+    <Wrapper>
+      {label && <Label>{label}</Label>}
+      <Input {...fieldProps} {...field} />
+    </Wrapper>
+  )
+}
 
-export const Label = styled.label`
+export const Wrapper = styled.label`
   display: flex;
   flex-flow: column;
+  margin-bottom: ${theme.layout.gap}rem;
+`
+
+export const Label = styled.p`
+  margin: 0 0 0.4em;
 `
 
 export const Input = styled(FormikField)`

@@ -1,5 +1,6 @@
 import { LoaderFunction, ActionFunction } from "@remix-run/node"
-import { useLoaderData, useFetcher } from "@remix-run/react"
+import { useLoaderData, useFetcher, useSubmit } from "@remix-run/react"
+import { Page } from "@strelka/ui"
 import { getPage, udpatePage } from "firebase/db"
 import { PageForm } from "~/forms/PageForm"
 
@@ -14,17 +15,26 @@ export const action: ActionFunction = async ({ request, params }) => {
   const formData = await request.formData()
   const title = formData.get("title") as string
   const slug = formData.get("slug") as string
-  await udpatePage(slug, { title })
+  const blocks = formData.get("blocks") as any
+  const blocksParsed = JSON.parse(blocks)
+
+  await udpatePage(slug, { title, blocks: blocksParsed })
   return null
 }
 
 export default function UpdatePage() {
-  const fetcher = useFetcher()
+  const submit = useSubmit()
   const page = useLoaderData()
   return (
     <PageForm
       initialData={page}
-      onSubmit={async (values) => fetcher.submit(values, { method: "post" })}
+      onSubmit={async (values) => {
+        console.log(values)
+        submit(
+          { ...values, blocks: JSON.stringify(values.blocks) },
+          { method: "post" }
+        )
+      }}
     />
   )
 }

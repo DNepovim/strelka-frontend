@@ -15,7 +15,7 @@ import {
 import styled from "@emotion/styled"
 import { Global } from "@emotion/react"
 import { navigation } from "data"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { authenticator } from "./services/auth.server"
 import { globalStyles, theme, MainNavigation } from "@strelka/admin-ui"
 
@@ -94,4 +94,5 @@ const MainContainer = styled.main`
   transition: margin-left 300ms ${theme.styles.animationFunction};
   min-height: 80vh;
   padding: 2em;
+  max-width: 50rem;
 `
