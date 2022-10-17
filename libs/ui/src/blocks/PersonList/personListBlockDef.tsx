@@ -18,7 +18,7 @@ export const personListBlockDef: BlockDef<PersonProps, BlockTemplates> = {
       input: InputDefs.Text,
     },
     nickname: {
-      label: "Přesdívka",
+      label: "Přezdívka",
       input: InputDefs.Text,
     },
   },
