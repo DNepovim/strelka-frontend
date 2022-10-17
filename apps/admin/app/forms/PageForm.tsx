@@ -1,6 +1,6 @@
 import React, { ChangeEvent, ChangeEventHandler } from "react"
 import { v4 as uuid } from "uuid"
-import { Formik, Form } from "formik"
+import { Formik, Form, Field as FormikField } from "formik"
 import { blockDefs, Page } from "@strelka/ui"
 import {
   TitleInput,
@@ -39,14 +39,7 @@ export const PageForm: React.FC<PageForm> = ({ onSubmit, initialData }) => {
                 renderProps.setFieldValue("title", currentValue ?? "")
               }}
             />
-            <Field
-              name="slug"
-              label="URL"
-              onChange={(value) => {
-                const currentValue = value.target.value
-                renderProps.setFieldValue("slug", webalize(currentValue ?? ""))
-              }}
-            />
+            <Url>https://www.strelka.cz/{renderProps.values.slug}</Url>
           </PageSection>
 
           <PageSection>
@@ -109,4 +102,8 @@ const AddBlockButton = styled(Button)`
   &:hover svg {
     transform: rotate(90deg);
   }
+`
+
+const Url = styled.p`
+  font-size: 0.8rem;
 `
