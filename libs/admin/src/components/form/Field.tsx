@@ -7,7 +7,7 @@ export interface FieldProps {
   label: ReactNode
   name: string
   as?: string
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 export const Field: React.FC<FieldProps> = ({ label, ...fieldProps }) => {

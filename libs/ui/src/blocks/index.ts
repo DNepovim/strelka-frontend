@@ -8,6 +8,3 @@ export const blockDefs: BlockDef<BlocksDefs, BlockTemplates>[] = [
   paragraphBlockDef,
   personListBlockDef,
 ]
-
-export const getBlockDef = (template: BlockTemplates) =>
-  blockDefs.find((blockDef) => blockDef.template === template)

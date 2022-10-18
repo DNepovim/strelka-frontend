@@ -4,6 +4,7 @@ import { Unarray } from "./utils/utilityTypes"
 
 export interface BlockDef<T, BlockTemplates> {
   template: BlockTemplates
+  id: string
   title: string
   icon: ReactElement
   fields: AdminFields<T>

@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode } from "react"
 import { BlockDef, isGroupField } from "../../blockDefs"
-import { inputDefs } from "./inputDefs"
+import { inputDefs } from "../form/inputDefs"
 
 interface BlockFieldsProps<BlockTemplate> {
   template: BlockTemplate
