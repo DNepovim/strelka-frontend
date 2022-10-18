@@ -5,9 +5,10 @@ import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
+  HeaderContext,
   useReactTable,
 } from "@tanstack/react-table"
-import { ReactElement } from "react"
+import React, { ReactElement } from "react"
 import { theme } from "../theme"
 
 export interface TableProps<T> {
@@ -32,12 +33,13 @@ export const Table = <T extends any>({
       <thead>
         {table.getHeaderGroups().map((group) => (
           <tr key={group.id}>
-            {group.headers.map((header) =>
-              flexRender(header.column.columnDef.header, {
-                ...header.getContext(),
-                key: header.id,
-              })
-            )}
+            {group.headers.map((header) => (
+              <React.Fragment key={header.id}>
+                {flexRender(header.column.columnDef.header, {
+                  ...header.getContext(),
+                })}
+              </React.Fragment>
+            ))}
           </tr>
         ))}
       </thead>
@@ -45,12 +47,13 @@ export const Table = <T extends any>({
         {data.length ? (
           table.getRowModel().rows.map((row) => (
             <tr key={row.id}>
-              {row.getVisibleCells().map((cell) =>
-                flexRender(cell.column.columnDef.cell, {
-                  ...cell.getContext(),
-                  key: cell.id,
-                })
-              )}
+              {row.getVisibleCells().map((cell) => (
+                <React.Fragment key={cell.id}>
+                  {flexRender(cell.column.columnDef.cell, {
+                    ...cell.getContext(),
+                  })}
+                </React.Fragment>
+              ))}
             </tr>
           ))
         ) : (
@@ -66,12 +69,13 @@ export const Table = <T extends any>({
       <tfoot>
         {table.getFooterGroups().map((group) => (
           <tr key={group.id}>
-            {group.headers.map((header) =>
-              flexRender(header.column.columnDef.footer, {
-                ...header.getContext(),
-                key: header.id,
-              })
-            )}
+            {group.headers.map((header) => (
+              <React.Fragment key={header.id}>
+                {flexRender(header.column.columnDef.footer, {
+                  ...header.getContext(),
+                })}
+              </React.Fragment>
+            ))}
           </tr>
         ))}
       </tfoot>

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled"
 import { IoAddOutline } from "react-icons/io5"
-import { BlockDef } from "src/blockDefs"
+import { BlockDef } from "../../blockDefs"
 import { theme } from "../../theme"
 import { Button } from "../Button"
 import { ButtonGroup } from "../ButtonGroup"

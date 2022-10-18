@@ -14,11 +14,10 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable"
 import { findIndex } from "lodash"
-import { ReactNode } from "react"
 import { Disclosure } from "../Disclosure"
 import { BlockFields } from "./BlockFields"
 import { AddBlockButton } from "./AddBlockButton"
-import { BlockDef } from "src/blockDefs"
+import { BlockDef } from "../../blockDefs"
 
 export interface GenericBlockDef<BlockTemplates> {
   id: string
@@ -38,10 +37,7 @@ export const BlockEditor = <BlockTemplates extends string>({
   blocks,
   blockDefs,
   setFieldValue,
-}: BlockFieldProps<
-  GenericBlockDef<BlockTemplates>,
-  BlockTemplates
->) => {
+}: BlockFieldProps<GenericBlockDef<BlockTemplates>, BlockTemplates>) => {
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -74,8 +70,9 @@ export const BlockEditor = <BlockTemplates extends string>({
           {blocks.map((block, index) => (
             <Disclosure
               header={
-                blockDefs.find((blockDef) => blockDef.id === block.id)?.title ??
-                block.template
+                blockDefs.find(
+                  (blockDef) => blockDef.template === block.template
+                )?.title ?? block.template
               }
               key={block.id}
               id={block.id}

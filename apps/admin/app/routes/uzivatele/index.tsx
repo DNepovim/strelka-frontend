@@ -2,14 +2,9 @@ import { Timestamp } from "firebase/firestore"
 import { LoaderFunction } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
 import { createColumnHelper, ColumnDef } from "@tanstack/react-table"
-import { getUsersList } from "firebase/db"
 import { IoPencilOutline, IoTrashBinOutline } from "react-icons/io5"
 import { User } from "~/services/auth.server"
 import {
-  Action,
-  ActionCell,
-  ActionFooter,
-  ActionHeader,
   BodyCell,
   ButtonGroup,
   HeadCell,
@@ -18,6 +13,7 @@ import {
   Title,
   UserPicture,
 } from "@strelka/admin-ui"
+import { getUsersList } from "firebase/user"
 
 export const loader: LoaderFunction = async () => {
   return await getUsersList()

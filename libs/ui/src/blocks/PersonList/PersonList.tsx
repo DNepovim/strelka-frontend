@@ -21,10 +21,8 @@ export interface PersonProps {
   nickname?: string
   image?: ImageType
   subtitle?: string
-  contact?: {
-    email?: string
-    phone?: string
-  }
+  mail?: string
+  phone?: string
 }
 
 export interface PersonListProps extends BlockFields {
@@ -36,7 +34,10 @@ export const PersonList: React.FC<PersonListProps> = (props) => (
     <Container>
       <Row rowGap={2.5}>
         {props.content.map(
-          ({ name, surname, nickname, image, subtitle, contact }, index) => (
+          (
+            { name, surname, nickname, image, subtitle, phone, mail },
+            index
+          ) => (
             <Person col={6} m={4} l={3} key={index}>
               <ImageContainer>
                 <ImageWithMask mask={randomCircle(index)} src={image} />
@@ -48,20 +49,14 @@ export const PersonList: React.FC<PersonListProps> = (props) => (
                 </Alias>
               </div>
               {subtitle && <SubTitle>{subtitle}</SubTitle>}
-              {contact && (
-                <>
-                  {contact.email && (
-                    <ContactPoint href={`mailto:${contact.email}`}>
-                      {contact.email}
-                    </ContactPoint>
-                  )}
-                  {contact.phone && (
-                    <ContactPoint href={`tel:${contact.phone}`}>
-                      {contact.phone}
-                    </ContactPoint>
-                  )}
-                </>
-              )}
+              <>
+                {mail && (
+                  <ContactPoint href={`mailto:${mail}`}>{mail}</ContactPoint>
+                )}
+                {phone && (
+                  <ContactPoint href={`tel:${phone}`}>{phone}</ContactPoint>
+                )}
+              </>
             </Person>
           )
         )}

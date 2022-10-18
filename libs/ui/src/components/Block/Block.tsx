@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import styled from "@emotion/styled"
-import React, { ReactNode } from "react"
 import * as yup from "yup"
 
 export interface BlockFields {
@@ -15,7 +14,7 @@ export const blockSchema = yup.object({
 export const withBlockSchema = <T extends {}>(schema: yup.ObjectSchema<T>) =>
   blockSchema.concat(schema)
 
-export const Block: React.FC<BlockFields & { children: ReactNode }> = ({
+export const Block: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => <StyledSection>{children}</StyledSection>
 

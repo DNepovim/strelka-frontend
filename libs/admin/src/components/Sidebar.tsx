@@ -26,7 +26,7 @@ export const Sidebar: React.FC<MainNavigationProps> = ({
     <Container width={isCollapsed ? collapsedWidth : notCollapsedWidth}>
       <div>
         <ImageWrapper>
-          <ResponsiveImage notCollapsedWidth={notCollapsedWidth}>
+          <ResponsiveImage>
             <img src="/images/logo.svg" alt="logo" />
           </ResponsiveImage>
         </ImageWrapper>
