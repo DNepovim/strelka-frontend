@@ -17,7 +17,7 @@ import { Global } from "@emotion/react"
 import { adminNavigation, navigation } from "data"
 import { useEffect, useState } from "react"
 import { authenticator } from "./services/auth.server"
-import { globalStyles, theme, MainNavigation } from "@strelka/admin-ui"
+import { globalStyles, theme, Sidebar } from "@strelka/admin-ui"
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -64,7 +64,7 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <MainNavigation
+        <Sidebar
           navigations={[adminNavigation, navigation]}
           isCollapsed={isSidebarCollapsed}
           setIsCollapsed={setIsSidebarCollapsed}

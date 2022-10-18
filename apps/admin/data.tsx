@@ -1,4 +1,4 @@
-import { Navigation } from "@strelka/admin-ui"
+import { NavigationItem } from "@strelka/admin-ui/src/components/Navigation"
 import {
   IoPeopleOutline,
   IoSettingsOutline,
@@ -8,7 +8,7 @@ import {
   IoCalendarOutline,
 } from "react-icons/io5"
 
-export const adminNavigation: Navigation = [
+export const adminNavigation: NavigationItem[] = [
   {
     title: "Sekce",
     slug: "",
@@ -31,7 +31,7 @@ export const adminNavigation: Navigation = [
   },
 ]
 
-export const navigation: Navigation = [
+export const navigation: NavigationItem[] = [
   {
     title: "Stránky",
     slug: "",

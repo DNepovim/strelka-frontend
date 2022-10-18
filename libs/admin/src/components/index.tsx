@@ -1,5 +1,5 @@
 export * from "./Button"
-export * from "./MainNavigation"
+export * from "./Sidebar"
 export * from "./Table"
 export * from "./UserBox"
 export * from "./UserPicture"

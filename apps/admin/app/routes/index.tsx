@@ -5,7 +5,6 @@ import { PagesTableItem } from "data"
 import { getPagesList, removePage } from "firebase/db"
 import { IoPencilOutline, IoTrashBinOutline } from "react-icons/io5"
 import {
-  ActionCell,
   BodyCell,
   ButtonGroup,
   ButtonLink,
