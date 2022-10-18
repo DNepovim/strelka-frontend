@@ -25,15 +25,18 @@ export const Sidebar: React.FC<MainNavigationProps> = ({
   return (
     <Container width={isCollapsed ? collapsedWidth : notCollapsedWidth}>
       <div>
-        <ResponsiveImage>
-          <img src="/images/logo.svg" alt="logo" />
-        </ResponsiveImage>
+        <ImageWrapper>
+          <ResponsiveImage notCollapsedWidth={notCollapsedWidth}>
+            <img src="/images/logo.svg" alt="logo" />
+          </ResponsiveImage>
+        </ImageWrapper>
         <nav>
           {navigations.map((navigation, index) => (
             <Navigation
               key={index}
               items={navigation}
               isCollapsed={isCollapsed}
+              notCollapsedWidth={notCollapsedWidth}
             />
           ))}
         </nav>
@@ -63,6 +66,26 @@ const Container = styled.div`
   width: ${({ width }: { width: string }) => width};
   border-right: ${theme.styles.border};
   transition: width 300ms ${theme.styles.animationFunction};
+  background-color: ${theme.colors.bodyBackground};
+`
+
+interface WidthProps {
+  notCollapsedWidth: string
+}
+
+const ImageWrapper = styled.div`
+  max-width: 100%;
+  overflow: hidden;
+`
+
+const ResponsiveImage = styled.figure`
+  padding: 0 0.4rem;
+  margin: 1rem 0 0;
+  width: 7.6rem;
+  img {
+    max-width: 100%;
+    height: auto;
+  }
 `
 
 const Bottom = styled.div`
@@ -81,6 +104,7 @@ const Collapser = styled.button`
   border: none;
   border: ${theme.styles.border};
   padding: 0.4em;
+  background-color: white;
 
   svg {
     transform: rotate(
@@ -90,13 +114,4 @@ const Collapser = styled.button`
   }
 
   ${buttonHover}
-`
-
-const ResponsiveImage = styled.figure`
-  padding: 0;
-  margin: 0 0 1rem;
-  img {
-    max-width: 100%;
-    height: auto;
-  }
 `

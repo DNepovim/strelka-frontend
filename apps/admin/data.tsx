@@ -14,7 +14,7 @@ export const adminNavigation: NavigationItem[] = [
     slug: "sekce",
     icon: <IoBrowsersOutline />,
     action: {
-      title: "Vytvořit novou",
+      title: "Vytvořit novou sekci",
       slug: "sekce/vytvorit",
       icon: <IoAddOutline />,
     },
@@ -37,7 +37,7 @@ export const navigation: NavigationItem[] = [
     slug: "",
     icon: <IoDocumentTextOutline />,
     action: {
-      title: "Vytvořit novou",
+      title: "Vytvořit novou stránku",
       slug: "stranky/vytvorit",
       icon: <IoAddOutline />,
     },
@@ -47,7 +47,7 @@ export const navigation: NavigationItem[] = [
     slug: "",
     icon: <IoCalendarOutline />,
     action: {
-      title: "Vytvořit novou",
+      title: "Vytvořit novou událost",
       slug: "",
       icon: <IoAddOutline />,
     },

@@ -15,21 +15,34 @@ export interface NavigationItem {
 export interface NavigationProps {
   items: NavigationItem[]
   isCollapsed: boolean
+  notCollapsedWidth: string
 }
 
 export const Navigation: React.FC<NavigationProps> = ({
   items,
   isCollapsed,
+  notCollapsedWidth,
 }) => (
   <List>
     {items.map(({ title, slug, icon, action }, index) => (
-      <Item key={index}>
-        <Link to={`/${slug}`} withAction={!!action} isCollapsed={isCollapsed}>
+      <Item
+        key={index}
+        notCollapsedWidth={notCollapsedWidth}
+        isCollapsed={isCollapsed}
+        withAction={!!action}
+      >
+        <Link
+          to={`/${slug}`}
+          withAction={!!action}
+          isCollapsed={isCollapsed}
+          title={title}
+          notCollapsedWidth={notCollapsedWidth}
+        >
           <IconWrapper>{icon}</IconWrapper>
           {title}
         </Link>
         {action && (
-          <ActionLink to={`/${action.slug}`} isCollapsed={isCollapsed}>
+          <ActionLink to={`/${action.slug}`} title={title}>
             {action.icon}
           </ActionLink>
         )}
@@ -43,14 +56,40 @@ const List = styled.ul`
   padding: 0;
 `
 
+interface LinkProps {
+  withAction: boolean
+  isCollapsed: boolean
+  notCollapsedWidth: string
+}
+
 const Item = styled.li`
   position: relative;
   border-bottom: ${theme.styles.border};
   border-left: ${theme.styles.border};
   border-right: ${theme.styles.border};
+  width: 100%;
+  transition: width 300ms ${theme.styles.animationFunction};
+
   &:first-of-type {
     border-top: ${theme.styles.border};
   }
+
+  &:has(+ li:hover) {
+    border-bottom: none;
+  }
+
+  &:hover {
+    border-top: ${theme.styles.border};
+  }
+
+  ${({ isCollapsed, notCollapsedWidth }: LinkProps) =>
+    isCollapsed
+      ? css`
+          &:hover {
+            width: calc(${notCollapsedWidth} - 0.8rem);
+          }
+        `
+      : ""};
 `
 
 const GeneralLink = styled(NavLink)`
@@ -64,11 +103,6 @@ const GeneralLink = styled(NavLink)`
   ${buttonHover}
 `
 
-interface LinkProps {
-  withAction?: boolean
-  isCollapsed?: boolean
-}
-
 const Link = styled(GeneralLink, {
   shouldForwardProp: (prop) =>
     isPropValid(prop) && prop !== "withAction" && prop !== "isCollapsed",
@@ -77,11 +111,10 @@ const Link = styled(GeneralLink, {
   z-index: 1;
   padding: 0.4em 1em;
   width: 100%;
-  ${({ withAction, isCollapsed }: LinkProps) =>
-    withAction && !isCollapsed
+  transition: width 300ms ${theme.styles.animationFunction};
+  ${({ withAction }: LinkProps) =>
+    withAction
       ? css`
-          transition: width 300ms ${theme.styles.animationFunction};
-
           li:hover > & {
             width: calc(100% - 2.4rem);
           }
@@ -101,24 +134,8 @@ const ActionLink = styled(GeneralLink, {
   top: 0;
   bottom: 0;
   width: 2.4rem;
-  ${({ isCollapsed }: { isCollapsed: boolean }) =>
-    isCollapsed
-      ? css`
-          border: ${theme.styles.border};
-          margin: -1px 0;
-          transition: transform 200ms ${theme.styles.animationFunction};
-          li:hover > & {
-            transform: translateX(100%);
-          }
-        `
-      : css`
-          box-shadow: inset 0 0 5px #ddd;
-          transition: box-shadow 300ms ${theme.styles.animationFunction};
-
-          &:hover {
-            box-shadow: none;
-          }
-        `}
+  box-shadow: inset 0 0 5px #ddd;
+  transition: box-shadow 300ms ${theme.styles.animationFunction};
 `
 
 const IconWrapper = styled.div`
