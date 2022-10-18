@@ -1,17 +1,5 @@
-import { Page } from "@strelka/ui"
-import { PagesTableItem } from "data"
 import { initializeApp } from "firebase/app"
-import {
-  doc,
-  getDoc,
-  getFirestore,
-  collection,
-  getDocs,
-  setDoc,
-  Timestamp,
-  deleteDoc,
-} from "firebase/firestore"
-import { User } from "~/services/auth.server"
+import { doc, getDoc, getFirestore } from "firebase/firestore"
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -24,40 +12,7 @@ const firebaseConfig = {
 
 export const firebaseApp = initializeApp(firebaseConfig)
 
-const db = getFirestore(firebaseApp)
-
-export const getPagesList = async (): Promise<PagesTableItem[]> => {
-  const pages = await getDocs(collection(db, "page"))
-  return pages.docs.map((item) => {
-    const data = item.data()
-    return {
-      slug: item.id,
-      id: item.id,
-      title: data.title,
-      lastEditedBy: data.lastEditedBy,
-      lastEditedTime: data.lastEditedTime,
-    }
-  })
-}
-
-export const getUsersList = async (): Promise<User[]> => {
-  const users = await getDocs(collection(db, "users"))
-  return users.docs.map((item) => {
-    const data = item.data()
-    return {
-      email: item.id,
-      ...data,
-    }
-  })
-}
-
-export const getPage = async (slug: string): Promise<Page> => {
-  const page = await getData("page", slug)
-  return {
-    slug,
-    ...page,
-  }
-}
+export const db = getFirestore(firebaseApp)
 
 export const getData = async (collection: string, page: string) => {
   const docRef = await doc(db, collection, page)
@@ -67,27 +22,4 @@ export const getData = async (collection: string, page: string) => {
     return
   }
   return docSnap.data()
-}
-
-export const setUser = async (user: User) => {
-  const { email, ...restData } = user
-  if (!email) {
-    throw new Error("No user email.")
-  }
-  await setDoc(
-    doc(db, "users", email),
-    {
-      ...restData,
-      lastLoggedIn: Timestamp.now(),
-    },
-    { merge: true }
-  )
-}
-
-export const removePage = async (slug: string) => {
-  await deleteDoc(doc(db, "page", slug))
-}
-
-export const udpatePage = async (slug: string, data: Partial<Page>) => {
-  await setDoc(doc(db, "page", slug), data, { merge: true })
 }

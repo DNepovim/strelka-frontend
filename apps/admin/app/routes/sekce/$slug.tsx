@@ -1,37 +1,32 @@
 import { LoaderFunction, ActionFunction } from "@remix-run/node"
 import { useLoaderData, useSubmit } from "@remix-run/react"
-import { getPage, updatePage } from "firebase/page"
-import { PageForm } from "~/forms/PageForm"
+import { getSection, updateSection } from "firebase/section"
+import { SectionForm } from "~/forms/SectionForm"
 
 export const loader: LoaderFunction = async ({ params }) => {
   if (!params.slug) {
     throw new Error(`Stránka se slugem ${params.slug} neexistuje.`)
   }
-  return await getPage(params.slug)
+  return await getSection(params.slug)
 }
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
   const title = formData.get("title") as string
   const slug = formData.get("slug") as string
-  const blocks = formData.get("blocks") as any
-  const blocksParsed = JSON.parse(blocks)
 
-  await updatePage(slug, { title, blocks: blocksParsed })
+  await updateSection(slug, { title })
   return null
 }
 
-export default function UpdatePage() {
+export default function UpdateSection() {
   const submit = useSubmit()
-  const page = useLoaderData()
+  const section = useLoaderData()
   return (
-    <PageForm
-      initialData={page}
+    <SectionForm
+      initialData={section}
       onSubmit={async (values) => {
-        submit(
-          { ...values, blocks: JSON.stringify(values.blocks) },
-          { method: "post" }
-        )
+        submit(values, { method: "post" })
       }}
     />
   )

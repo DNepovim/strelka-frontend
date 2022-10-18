@@ -11,11 +11,11 @@ import {
 export const adminNavigation: NavigationItem[] = [
   {
     title: "Sekce",
-    slug: "",
+    slug: "sekce",
     icon: <IoBrowsersOutline />,
     action: {
       title: "Vytvořit novou",
-      slug: "",
+      slug: "sekce/vytvorit",
       icon: <IoAddOutline />,
     },
   },
@@ -63,11 +63,3 @@ export const navigation: NavigationItem[] = [
     icon: <IoSettingsOutline />,
   },
 ]
-
-export interface PagesTableItem {
-  title: string
-  slug: string
-  id: string
-  lastEditedTime: string
-  lastEditedBy: string
-}

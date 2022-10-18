@@ -11,31 +11,35 @@ import {
   Table,
   Title,
 } from "@strelka/admin-ui"
-import { getPagesList, removePage, PagesTableItem } from "firebase/page"
+import {
+  getSectionsList,
+  removeSection,
+  SectionTableItem,
+} from "firebase/section"
 
 export const loader: LoaderFunction = async () => {
-  return await getPagesList()
+  return await getSectionsList()
 }
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
   const slug = formData.get("slug") as string
-  await removePage(slug)
+  await removeSection(slug)
   return null
 }
 
 export default function Index() {
-  const columnHelper = createColumnHelper<PagesTableItem>()
+  const columnHelper = createColumnHelper<SectionTableItem>()
   const data = useLoaderData()
   const fetcher = useFetcher()
 
-  const columns: ColumnDef<PagesTableItem, string>[] = [
+  const columns: ColumnDef<SectionTableItem, string>[] = [
     columnHelper.accessor("title", {
       header: () => <HeadCell>Název</HeadCell>,
       footer: () => <td />,
       cell: (info) => (
         <BodyCell>
-          <Title to={`/stranky/${info.row.original.slug}`}>
+          <Title to={`/sekce/${info.row.original.slug}`}>
             {info.getValue()}
           </Title>
         </BodyCell>
@@ -56,7 +60,7 @@ export default function Index() {
                 type: "button",
                 key: "remove",
                 label: <IoTrashBinOutline color="red" size="1rem" />,
-                title: "Smazat stránku",
+                title: "Smazat sekci",
                 danger: true,
                 onClick: async () => {
                   fetcher.submit({ slug: info.getValue() }, { method: "post" })
@@ -66,8 +70,8 @@ export default function Index() {
                 type: "link",
                 key: "detail",
                 label: <IoPencilOutline size="1rem" />,
-                title: "Upravit stránku",
-                to: `/stranky/${info.getValue()}`,
+                title: "Upravit sekci",
+                to: `/sekce/${info.getValue()}`,
               },
             ]}
           />
@@ -79,12 +83,12 @@ export default function Index() {
   return (
     <>
       <SiteHeader>
-        <ButtonLink to="/stranky/vytvorit">Nová stránka</ButtonLink>
+        <ButtonLink to="/sekce/vytvorit">Nová sekce</ButtonLink>
       </SiteHeader>
       <Table
         data={data}
         columns={columns}
-        emptyMessage="Žádné stránky tu nejsou..."
+        emptyMessage="Žádné sekce tu nejsou..."
       />
     </>
   )
