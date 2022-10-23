@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import React, { ReactNode, useEffect, useRef, useState } from "react"
 import { theme } from "../theme"
-import { IoChevronForwardOutline } from "react-icons/io5"
+import { IoChevronForwardOutline, IoRemoveOutline } from "react-icons/io5"
 import { AiOutlineHolder } from "react-icons/ai"
 import { CSS } from "@dnd-kit/utilities"
 import { useSortable } from "@dnd-kit/sortable"
@@ -9,12 +9,14 @@ import { useSortable } from "@dnd-kit/sortable"
 export interface DisclosureProps {
   header?: ReactNode
   id: string
+  onRemove: () => void
   children: ReactNode
 }
 
 export const Disclosure: React.FC<DisclosureProps> = ({
   header,
   children,
+  onRemove,
   id,
 }) => {
   const [isOpened, setIsOpened] = useState<boolean>(false)
@@ -30,13 +32,22 @@ export const Disclosure: React.FC<DisclosureProps> = ({
   return (
     <Wrapper isOpened={isOpened} ref={setNodeRef} style={style}>
       <Header>
-        <Holder {...attributes} {...listeners}>
-          <AiOutlineHolder />
+        <HeaderLeft>
+          <Holder {...attributes} {...listeners} type="button">
+            <AiOutlineHolder />
+          </Holder>
+          <Opener
+            isOpened={isOpened}
+            onClick={() => setIsOpened(!isOpened)}
+            type="button"
+          >
+            <IoChevronForwardOutline />
+          </Opener>
+          {header}
+        </HeaderLeft>
+        <Holder onClick={onRemove} type="button">
+          <IoRemoveOutline />
         </Holder>
-        <Opener isOpened={isOpened} onClick={() => setIsOpened(!isOpened)}>
-          <IoChevronForwardOutline />
-        </Opener>
-        {header}
       </Header>
       <Content isOpened={isOpened}>{children}</Content>
     </Wrapper>
@@ -58,9 +69,15 @@ const Header = styled.div`
   z-index: 1;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 1em;
   border: ${theme.styles.border};
   background-color: #fff;
+`
+
+const HeaderLeft = styled.div`
+  display: flex;
+  align-items: center;
 `
 
 const Content = styled.div`

@@ -2,6 +2,12 @@ import { ReactElement } from "react"
 import { FieldProps, InputDefs } from "./components"
 import { Unarray } from "./utils/utilityTypes"
 
+export interface Block<T, F extends {}> {
+  id: string
+  template: T
+  fields: F
+}
+
 export interface BlockDef<T, BlockTemplates> {
   template: BlockTemplates
   title: string

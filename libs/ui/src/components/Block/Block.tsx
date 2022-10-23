@@ -1,10 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import styled from "@emotion/styled"
+import { AdminFields } from "@strelka/admin-ui"
 import * as yup from "yup"
-
-export interface BlockFields {
-  id?: string
-}
 
 export const blockSchema = yup.object({
   id: yup.string(),

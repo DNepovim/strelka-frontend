@@ -16,7 +16,7 @@ describe("Block component", () => {
   it("should renders correctly with id and background", () => {
     const tree = renderer
       .create(
-        <Block id="main" backgroundColor="#ffffff">
+        <Block>
           <h1>Title</h1>
         </Block>
       )

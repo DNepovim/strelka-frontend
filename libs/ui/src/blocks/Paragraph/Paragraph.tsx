@@ -1,16 +1,9 @@
 import React from "react"
-import { BlockProps } from ".."
-import { Block, BlockFields } from "../../components/Block/Block"
+import { Block } from "../../components/Block/Block"
 import { Column, Container, Row } from "../../components/Layout/Layout"
 import { Header2 } from "../../components/Typography/Typography"
-import { BlockTemplates } from "../BlockTemplates"
 
-export interface ParagraphBlock extends BlockProps {
-  template: BlockTemplates.Paragraph
-  fields: ParagraphProps
-}
-
-export interface ParagraphProps extends BlockFields {
+export interface ParagraphProps {
   title?: string
   text?: string
 }

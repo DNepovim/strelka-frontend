@@ -1,4 +1,6 @@
-import { Field, FieldProps } from "./Field"
+import { FieldProps } from "./Field"
+import { TextAreaInput } from "./TextAreaInput"
+import { TextInput } from "./TextInput"
 
 export enum InputDefs {
   Text = "text",
@@ -6,8 +8,6 @@ export enum InputDefs {
 }
 
 export const inputDefs = {
-  [InputDefs.Text]: (props: FieldProps) => <Field {...props} />,
-  [InputDefs.TextArea]: (props: FieldProps) => (
-    <Field {...props} as="textarea" />
-  ),
+  [InputDefs.Text]: TextInput,
+  [InputDefs.TextArea]: TextAreaInput,
 }

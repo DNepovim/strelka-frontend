@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode } from "react"
+import React, { ReactElement } from "react"
 import { BlockDef, isGroupField } from "../../blockDefs"
 import { inputDefs } from "../form/inputDefs"
 
@@ -23,11 +23,12 @@ export const BlockFields = <BlockTemplate extends any>({
         isGroupField(def) ? (
           <>Group field</>
         ) : (
-          React.createElement(inputDefs[def.input], {
-            label: def.label,
-            name: `${name}.fields[${key}]`,
-            key,
-          })
+          <React.Fragment key={key}>
+            {inputDefs[def.input]({
+              label: def.label,
+              name: `${name}.fields[${key}]`,
+            })}
+          </React.Fragment>
         )
       )}
     </>
