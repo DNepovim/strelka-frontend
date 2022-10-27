@@ -4,7 +4,7 @@ import React, { ChangeEvent, ReactElement, ReactNode } from "react"
 import { theme } from "../../theme"
 
 export interface FieldProps<T = {}> {
-  label: ReactNode
+  label?: ReactNode
   name: string
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void
   children: React.FC<FieldInputProps<T>>

@@ -3,7 +3,6 @@ import { LoaderFunction } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
 import { createColumnHelper, ColumnDef } from "@tanstack/react-table"
 import { IoPencilOutline, IoTrashBinOutline } from "react-icons/io5"
-import { User } from "~/services/auth.server"
 import {
   BodyCell,
   ButtonGroup,
@@ -13,7 +12,7 @@ import {
   Title,
   UserPicture,
 } from "@strelka/admin-ui"
-import { getUsersList } from "firebase/user"
+import { getUsersList, User } from "firebase/user"
 
 export const loader: LoaderFunction = async () => {
   return await getUsersList()
@@ -58,7 +57,7 @@ export default function Index() {
         </BodyCell>
       ),
     }),
-    columnHelper.accessor("id", {
+    columnHelper.accessor("email", {
       header: () => <HeadCell />,
       cell: (info) => (
         <BodyCell align="right">
@@ -77,7 +76,7 @@ export default function Index() {
                 key: "detail",
                 label: <IoPencilOutline size="1rem" />,
                 title: "Upravit uživatele",
-                to: `/stranky/${info.getValue()}`,
+                to: `/uzivatele/${info.getValue()}`,
               },
             ]}
           />

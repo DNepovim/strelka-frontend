@@ -11,6 +11,7 @@ export const theme = {
     text: "black",
     danger: "red",
     bodyBackground: "#f8f8f8",
+    green: "#93b685",
   },
   layout: {
     gap: 1,

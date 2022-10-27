@@ -1,14 +1,7 @@
 import { Authenticator } from "remix-auth"
 import { sessionStorage } from "~/services/session.server"
 import { GoogleStrategy } from "remix-auth-google"
-import { setUser } from "firebase/user"
-
-export interface User {
-  email?: string
-  image?: string
-  name?: string
-  lastLoggedIn?: string
-}
+import { setUser, User } from "firebase/user"
 
 export const authenticator = new Authenticator<User>(sessionStorage)
 

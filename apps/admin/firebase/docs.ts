@@ -25,11 +25,11 @@ export const updateDoc =
   }
 
 export const getDoc =
-  <T extends {}>(collectionName: string) =>
+  <T extends {}>(collectionName: string, key?: string) =>
   async (slug: string): Promise<T> => {
     const document = (await getData(collectionName, slug)) as T
     return {
-      slug,
+      [key ?? "slug"]: slug,
       ...document,
     }
   }

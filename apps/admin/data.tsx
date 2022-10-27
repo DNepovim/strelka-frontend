@@ -23,6 +23,11 @@ export const adminNavigation: NavigationItem[] = [
     title: "Uživatelé",
     slug: "uzivatele",
     icon: <IoPeopleOutline />,
+    action: {
+      title: "Přidat uživatele",
+      slug: "uzivatele/pridat",
+      icon: <IoAddOutline />,
+    },
   },
   {
     title: "Nastavení",
@@ -56,6 +61,11 @@ export const navigation: NavigationItem[] = [
     title: "Uživatelé",
     slug: "uzivatele",
     icon: <IoPeopleOutline />,
+    action: {
+      title: "Přidat uživatele",
+      slug: "",
+      icon: <IoAddOutline />,
+    },
   },
   {
     title: "Nastavení",
