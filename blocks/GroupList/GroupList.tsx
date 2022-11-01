@@ -14,10 +14,10 @@ export interface GroupListProps {
 }
 
 export interface GroupProps {
-  name: string
-  address: string
+  text: string
+  to: string
   image: ImageProps
-  comment: string
+  comment?: string
 }
 
 export const GroupList: React.FC<GroupListProps> = (props) => (
@@ -29,9 +29,9 @@ export const GroupList: React.FC<GroupListProps> = (props) => (
         </Column>
       </Row>
       <GroupRow rowGap={theme.layout.gutter * 2.5}>
-        {props.content.map(({ comment, address, name, image }, index) => (
+        {props.content.map(({ comment, to, text, image }, index) => (
           <Group col={6} m={4} l={3} key={index}>
-            <GroupLink to={address}>
+            <GroupLink to={to}>
               <ImageContainer>
                 <MaskedImage
                   layout={"responsive"}
@@ -42,8 +42,8 @@ export const GroupList: React.FC<GroupListProps> = (props) => (
                 />
               </ImageContainer>
               <GroupInfo>
-                <Name>{name}</Name>
-                <Comment>{comment}</Comment>
+                <Name>{text}</Name>
+                {comment && <Comment>{comment}</Comment>}
               </GroupInfo>
             </GroupLink>
           </Group>

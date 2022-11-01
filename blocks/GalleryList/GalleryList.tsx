@@ -1,41 +1,51 @@
 import { Block, BlockFields } from "../../components/Block/Block"
 import { Column, Container, Row } from "../../components/Layout/Layout"
 import styled from "@emotion/styled"
-import { Header3, SmallText } from "../../components/Typography/Typography"
+import {
+  Header1,
+  Header3,
+  SmallText,
+} from "../../components/Typography/Typography"
 import React from "react"
 import { max, theme } from "../../styles/theme"
-import { Image } from "../../components/Image/Image"
 import { ImageWithMask } from "../../components/ImageWithMask/ImageWithMask"
-import Rectangle from "../../assets/vectors/potatoes/rectangle_5.svg"
+import { randomRectangle } from "../../utils/Masks"
+import { Link } from "../../components/Link/Link"
 
 export interface GalleryProps {
-  name: string
+  title: string
   date: string
-  link: string
+  to: string
   imageUrl: string
 }
 
 export interface GalleryListProps extends BlockFields {
+  title: string
   content: GalleryProps[]
 }
 
-export const GalleryList: React.FC<GalleryListProps> = ({ content }) => (
+export const GalleryList: React.FC<GalleryListProps> = ({ title, content }) => (
   <Block>
     <Container>
       <Row>
-        {content.map(({ name, date, link, imageUrl }, index) => (
-          <Column col={6} m={4} l={3}>
-            <GalleryItem key={index} href={link}>
+        <Column col={12}>
+          <Header1>{title}</Header1>
+        </Column>
+      </Row>
+      <Row>
+        {content.map(({ title, date, to, imageUrl }, index) => (
+          <Column key={index} col={6} m={4} l={3}>
+            <GalleryItem key={index} to={to}>
               <ImageWrapper>
                 <ImageWithMask
                   src={imageUrl}
                   width={220}
                   height={150}
                   layout="responsive"
-                  mask={Rectangle}
+                  mask={randomRectangle(index)}
                 />
               </ImageWrapper>
-              <Title>{name}</Title>
+              <Title>{title}</Title>
               <Date>{date}</Date>
             </GalleryItem>
           </Column>
@@ -50,7 +60,7 @@ const ImageWrapper = styled.div`
   width: 100%;
 `
 
-const GalleryItem = styled.a`
+const GalleryItem = styled(Link)`
   display: flex;
   flex-direction: column;
   align-items: center;

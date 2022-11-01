@@ -39,6 +39,7 @@ export const PostList: React.FC<PostListProps> = ({ posts }) => (
               src={post.imageSrc}
               width={300}
               height={200}
+              objectFit={"cover"}
               layout={"responsive"}
             />
           </PostImage>
@@ -89,7 +90,7 @@ const Preview = styled(Text)`
   color: ${theme.color.darkest};
 `
 
-const LinkToPost = styled(Text.withComponent('span'))`
+const LinkToPost = styled(Text.withComponent("span"))`
   display: inline-block;
   font-family: ${theme.fonts.accent};
   color: ${theme.color.darkest};

@@ -1,8 +1,7 @@
-import React from "react"
 import { Block, BlockFields } from "../../components/Block/Block"
 import { ImageWithMask } from "../../components/ImageWithMask/ImageWithMask"
 import { Column, Container, Row } from "../../components/Layout/Layout"
-import { Header2, Text } from "../../components/Typography/Typography"
+import { Header1, Header2, Text } from "../../components/Typography/Typography"
 import SquareMask from "../../assets/vectors/potatoes/rectangle_5.svg"
 import styled from "@emotion/styled"
 import Bed from "../../assets/vectors/icons/bed.svg"
@@ -15,6 +14,7 @@ import Lily from "../../assets/vectors/icons/lily.svg"
 import Heart from "../../assets/vectors/icons/heart.svg"
 import People from "../../assets/vectors/icons/people.svg"
 import Image from "next/image"
+import React from "react"
 
 export enum Icons {
   Bed = "bed",
@@ -42,6 +42,7 @@ export const icons = {
 
 export interface ImageTextProps extends BlockFields {
   title?: string
+  titleIsH1?: boolean
   text?: {
     icon?: Icons
     text?: string[]
@@ -51,51 +52,57 @@ export interface ImageTextProps extends BlockFields {
 
 export const ImageText: React.FC<ImageTextProps> = ({
   title,
+  titleIsH1,
   text,
   imageUrl,
-}) => (
-  <Block>
-    <Container>
-      <Row>
-        <Column col={12}>{title && <Header2>{title}</Header2>}</Column>
-      </Row>
-      <Row>
-        <Column col={12} l={6}>
-          {text?.map(({ icon, text }) => (
-            <TextRow>
-              {icon && (
-                <Icon>
-                  <Image src={icons[icon]} />
-                </Icon>
-              )}
-              <Text>
-                {text.map((t) => (
-                  <>
-                    {t}
-                    <br />
-                  </>
-                ))}
-              </Text>
-            </TextRow>
-          ))}
-        </Column>
-        <Column col={12} l={6}>
-          {imageUrl && (
-            <CenteredImage>
-              <ImageWithMask
-                src={imageUrl}
-                layout="responsive"
-                width="520"
-                height="350"
-                mask={SquareMask}
-              />
-            </CenteredImage>
-          )}
-        </Column>
-      </Row>
-    </Container>
-  </Block>
-)
+}) => {
+  const TitleWrapper = titleIsH1 ?? false ? Header1 : Header2
+  return (
+    <Block>
+      <Container>
+        <Row>
+          <Column col={12}>
+            {title && <TitleWrapper>{title}</TitleWrapper>}
+          </Column>
+        </Row>
+        <Row>
+          <Column col={12} l={6}>
+            {text?.map(({ icon, text }, index) => (
+              <TextRow key={index}>
+                {icon && (
+                  <Icon>
+                    <Image src={icons[icon]} />
+                  </Icon>
+                )}
+                <Text>
+                  {text.map((t) => (
+                    <>
+                      {t}
+                      <br />
+                    </>
+                  ))}
+                </Text>
+              </TextRow>
+            ))}
+          </Column>
+          <Column col={12} l={6}>
+            {imageUrl && (
+              <CenteredImage>
+                <ImageWithMask
+                  src={imageUrl}
+                  layout="responsive"
+                  width="520"
+                  height="350"
+                  mask={SquareMask}
+                />
+              </CenteredImage>
+            )}
+          </Column>
+        </Row>
+      </Container>
+    </Block>
+  )
+}
 
 const TextRow = styled.div`
   display: flex;

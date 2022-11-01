@@ -5,14 +5,17 @@ import React from "react"
 import { min, theme } from "../../styles/theme"
 import { Image } from "../../components/Image/Image"
 import { Image as ImageType } from "../../types/Image"
+import { Header1 } from "../../components/Typography/Typography"
 
 export interface GalleryProps extends BlockFields {
+  title: string
   images: ImageType[]
 }
 
 export const Gallery: React.FC<GalleryProps> = (props) => (
   <Block>
     <WideContainer>
+      <Header1>{props.title}</Header1>
       <GalleryContainer>
         {props.images.map((image, index) => (
           <GalleryImage key={index} image={image} />
