@@ -10,7 +10,7 @@ export const theme = {
     xl: 70,
   },
   palettes: {
-    default: ["#fff7e0", "#d7c8a9", "#544827", "#483b1f"],
+    default: ["#fff7e0", "#d7c8a9", "#706244", "#483b1f"],
   },
   color: {
     lightest: "var(--lightest)",
@@ -31,6 +31,12 @@ export const theme = {
     fast: ".2s ease-in-out",
     medium: ".3s ease-in-out",
     slow: ".4s ease-in-out",
+  },
+  easing: {
+    bounceOut: "cubic-bezier(0.37, 1.31, 0.29, 1)",
+    slightBounceOut: "cubic-bezier(.33,1.23,.27,1)",
+    easeInOut: "cubic-bezier(.49,0,.39,1)",
+    easeInBounceOut: "cubic-bezier(.58, 0, 0.27, 1.25)",
   },
   debug: true,
 }
