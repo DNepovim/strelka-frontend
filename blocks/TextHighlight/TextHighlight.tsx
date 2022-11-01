@@ -13,7 +13,7 @@ export const TextHighlight: React.FC<TextHighlightProps> = ({ text }) => (
       <CenteredRow>
         <Column col={10} m={8}>
           {text.map((paragraph, index) => (
-            <HighlightedText>{paragraph}</HighlightedText>
+            <HighlightedText key={index}>{paragraph}</HighlightedText>
           ))}
         </Column>
       </CenteredRow>

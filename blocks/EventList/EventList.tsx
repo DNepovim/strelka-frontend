@@ -1,6 +1,7 @@
 import { Block, BlockFields } from "../../components/Block/Block"
 import styled from "@emotion/styled"
 import {
+  Header2,
   Header3,
   SmallText,
   Text,
@@ -21,6 +22,7 @@ export interface EventProps {
 }
 
 export interface EventListProps extends BlockFields {
+  title: string
   content: EventProps[]
 }
 
@@ -32,8 +34,11 @@ export const EventList: React.FC<EventListProps> = (props) => {
     <Block>
       <Container>
         <Row>
+          <Column col={12}>
+            <Header2>{props.title}</Header2>
+          </Column>
           {props.content.map(({ name, date, description }, index) => (
-            <Column col={10} key={index}>
+            <Column col={12} m={9} l={7} key={index}>
               <Toggle
                 onClick={() =>
                   setExpandedEventID(
@@ -77,8 +82,10 @@ const Name = styled(Header3)`
     margin-left: 0.2em;
     content: "▼";
     transform: rotate(
-      ${(props: { expanded: boolean }) => (props.expanded ? "-180deg" : "0deg")}
-    );
+        ${(props: { expanded: boolean }) =>
+          props.expanded ? "-180deg" : "0deg"}
+      )
+      scale(0.75);
   }
 `
 

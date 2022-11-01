@@ -4,6 +4,7 @@ import { Column, Container, Row } from "../../components/Layout/Layout"
 import styled from "@emotion/styled"
 import { min, theme } from "../../styles/theme"
 import {
+  Header1,
   Header2,
   Header3,
   Text as Paragraph,
@@ -19,16 +20,25 @@ interface ChapterProps {
 }
 
 export interface HistoryProps {
+  title: string
   introduction: {
     text: string[]
   }
   chapters: ChapterProps[]
 }
 
-export const History: React.FC<HistoryProps> = ({ introduction, chapters }) => (
+export const History: React.FC<HistoryProps> = ({
+  title,
+  introduction,
+  chapters,
+}) => (
   <Block>
     <Container>
       <IntroductionRow>
+        <Column col={12}>
+          <Header1>{title}</Header1>
+        </Column>
+
         <Column col={12} m={6}>
           {introduction.text.map((paragraph, index) => (
             <IntroductionText key={index}>{paragraph}</IntroductionText>

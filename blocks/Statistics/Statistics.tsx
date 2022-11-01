@@ -7,7 +7,7 @@ import styled from "@emotion/styled"
 import { icons, Icons } from "../ImageText/ImageText"
 import React from "react"
 import { Header2, Header3, Text } from "../../components/Typography/Typography"
-import { theme } from "../../styles/theme"
+import { min, theme } from "../../styles/theme"
 
 export interface Statistic {
   icon: Icons
@@ -30,7 +30,7 @@ export const Statistics: React.FC<StatisticsProps> = ({ title, content }) => (
       </Row>
       <StatisticsRow>
         {content.map(({ icon, value, description }, index) => (
-          <StatisticColumn col={8} m={5} xl={2} key={index}>
+          <StatisticColumn col={8} l={5} key={index}>
             <CountWrapper>
               <CountUp
                 separator={" " /* nbs */}
@@ -88,4 +88,8 @@ const IconWrapper = styled.div`
 const Description = styled(Header3.withComponent(Text))`
   text-align: center;
   font-weight: normal;
+
+  @media ${min("l")} {
+    padding: 0 1em;
+  }
 `

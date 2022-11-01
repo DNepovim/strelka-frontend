@@ -2,13 +2,13 @@ import { Block, BlockFields } from "../../components/Block/Block"
 import { Column, Container, Row } from "../../components/Layout/Layout"
 import styled from "@emotion/styled"
 import {
+  Header2,
   Header3,
   SmallText,
   Text,
 } from "../../components/Typography/Typography"
 import React from "react"
 
-import { Image } from "../../components/Image/Image"
 import { theme } from "../../styles/theme"
 import { randomCircle } from "../../utils/Masks"
 import { Image as ImageType } from "../../types/Image"
@@ -28,12 +28,18 @@ export interface PersonProps {
 }
 
 export interface PersonListProps extends BlockFields {
+  title: string
   content: PersonProps[]
 }
 
 export const PersonList: React.FC<PersonListProps> = (props) => (
   <Block>
     <Container>
+      <Row>
+        <Column col={12}>
+          <Header2>{props.title}</Header2>
+        </Column>
+      </Row>
       <Row rowGap={2.5}>
         {props.content.map(
           ({ name, surname, nickname, image, comment, contact }, index) => (
