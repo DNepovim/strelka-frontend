@@ -1,19 +1,22 @@
 import { Image } from "./Image"
 
-export interface SubLinksData {
-  linkPrefix: string
-  data: SubLink[]
+export interface SubMenuProps {
+  items: SubMenuItemProps[]
 }
 
-export interface SubLink {
-  name: string
-  address: string
+export interface SubMenuItemProps {
+  text: string
+  to: string
   image: Image
   comment?: string
 }
 
-export interface NavLink {
-  name: string
-  address?: string
-  subLinks?: SubLinksData
+export interface MenuItemProps {
+  text: string
+  to?: string
+  subMenu?: SubMenuProps
+}
+
+export interface MenuProps {
+  items: MenuItemProps[]
 }

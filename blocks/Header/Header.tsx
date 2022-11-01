@@ -1,18 +1,15 @@
-/** @jsxImportSource @emotion/react */
 import React, { useState } from "react"
 import styled from "@emotion/styled"
 import { Logo } from "../../components/Logo/Logo"
 import { Block, BlockFields } from "../../components/Block/Block"
-import { Container } from "../../components/Layout/Layout"
-import { NavLinks } from "../../components/NavLinks/NavLinks"
+import { Menu } from "../../components/Menu/Menu"
+import { Column, Container, Row } from "../../components/Layout/Layout"
 
 import { Button } from "../../components/Button/Button"
 import { min, theme } from "../../styles/theme"
-import { NavLink } from "../../types/Navigation"
+import { MenuProps } from "../../types/Navigation"
 
-export interface HeaderProps extends BlockFields {
-  content: NavLink[]
-}
+export interface HeaderProps extends BlockFields, MenuProps {}
 
 export const Header: React.FC<HeaderProps> = (props) => {
   const [isVisible, setIsVisible] = useState(false)
@@ -31,16 +28,18 @@ export const Header: React.FC<HeaderProps> = (props) => {
   return (
     <Block>
       <TopContainer>
-        <Navigation>
-          <Logo />
-          <NavButton
-            onClick={toggleMenuVisibility}
-            nameIsHidden={menuNameIsHidden}
-          >
-            {menuName}
-          </NavButton>
-          <NavLinks data={props.content} visible={isVisible} />
-        </Navigation>
+        <Row>
+          <Navigation col={12}>
+            <Logo />
+            <NavButton
+              onClick={toggleMenuVisibility}
+              nameIsHidden={menuNameIsHidden}
+            >
+              {menuName}
+            </NavButton>
+            <Menu items={props.items} isVisible={isVisible} />
+          </Navigation>
+        </Row>
       </TopContainer>
     </Block>
   )
@@ -50,21 +49,19 @@ const TopContainer = styled(Container)`
   z-index: 1000;
 `
 
-const Navigation = styled.nav`
-  box-sizing: border-box;
+const Navigation = styled(Column)`
   display: flex;
   justify-content: space-between;
   height: 3rem;
-  margin-bottom: ${theme.layout.gutter * 2}rem;
 
   @media ${min("l")} {
-    height: 2.8rem;
+    height: 4rem;
   }
 `
 
 const menuTransitionDurationMS = 200
 
-const NavButton = styled(Button)`
+const NavButton = styled(Button.withComponent("button"))`
   padding-left: 1rem;
   padding-right: 1rem;
   align-self: stretch;

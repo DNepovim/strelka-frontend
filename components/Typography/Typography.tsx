@@ -29,7 +29,8 @@ export const Header3 = styled.h3`
 export const Text = styled.p`
   font-family: ${theme.fonts.text};
   font-size: ${theme.size.base}rem;
-  line-height: 1.4em;
+  color: ${theme.color.darkest};
+  line-height: 1.5em;
   margin: 0 0 0.6em;
 `
 
