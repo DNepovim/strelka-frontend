@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "@emotion/styled"
 import { theme } from "../../styles/theme"
+import { Link } from "../Link/Link"
 
 const logoColors = {
   darkestBlue: "#294884",
@@ -10,7 +11,7 @@ const logoColors = {
   lightYellow: "#f49e00",
 }
 
-const LogoWrapper = styled.a`
+const LogoWrapper = styled(Link)`
   ${(props: { width: string; height: string }) => `
     width: ${props.width};
     height: ${props.height};}
@@ -21,7 +22,6 @@ const LogoWrapper = styled.a`
 const LogoImage = styled.svg`
   width: auto;
   height: 100%;
-  width: 100%;
   .dog {
     fill: ${logoColors.darkestBlue};
   }
@@ -45,7 +45,7 @@ interface LogoProps {
 }
 
 export const Logo: React.FC<LogoProps> = ({ width, height }) => (
-  <LogoWrapper href="/" width={width ?? "auto"} height={height ?? "100%"}>
+  <LogoWrapper to="/" width={width ?? "auto"} height={height ?? "100%"}>
     <LogoImage
       width="238.09"
       height="81.921"
