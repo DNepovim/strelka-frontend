@@ -19,6 +19,7 @@ import {
   SubMenuItem as SubMenuItemBase,
 } from "../../components/SubMenu/SubMenu"
 import { css } from "@emotion/react"
+import { doIfMatches } from "../../utils/doIfMatches"
 
 export interface FooterProps extends HeaderProps {
   footerDecoration?: FooterArt
@@ -50,7 +51,11 @@ export const Footer: React.FC<FooterProps> = (props) => {
                     <>
                       <SubMenuToggle
                         to={""}
-                        onClick={() => toggleActiveSubMenuId(menuId)}
+                        onClick={doIfMatches(
+                          max("l"),
+                          toggleActiveSubMenuId,
+                          menuId
+                        )}
                         isActive={isActive(menuId)}
                       >
                         {menuItem.text}
