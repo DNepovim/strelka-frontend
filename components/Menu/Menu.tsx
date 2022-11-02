@@ -139,5 +139,9 @@ export const SubMenuToggle = styled(MenuItemContent.withComponent("button"))`
     transition: transform ${theme.timing.medium};
     ${(props: { isActive: boolean }) =>
       props.isActive && "transform: rotate(-180deg);"}
+
+    @media ${min("l")} {
+      transform: rotate(0);
+    }
   }
 `
