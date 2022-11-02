@@ -7,6 +7,7 @@ import { Header3 } from "../Typography/Typography"
 import SquareMask from "../../assets/vectors/potatoes/rectangle_4.svg"
 import { css } from "@emotion/react"
 import { SubMenu } from "../SubMenu/SubMenu"
+import { doIfMatches } from "../../utils/doIfMatches"
 
 interface StatefulMenuProps extends MenuProps {
   isVisible: boolean
@@ -24,14 +25,14 @@ export const Menu: React.FC<StatefulMenuProps> = (props) => {
       {props.items.map((menuItem, menuId) => (
         <MenuItem
           key={menuId}
-          onMouseEnter={() => setActiveSubMenuId(menuId)}
-          onMouseLeave={() => setActiveSubMenuId(voidId)}
+          onMouseEnter={doIfMatches(min("l"), setActiveSubMenuId, menuId)}
+          onMouseLeave={doIfMatches(min("l"), setActiveSubMenuId, voidId)}
         >
           {menuItem.subMenu ? (
             <>
               <SubMenuToggle
                 to={""}
-                onClick={() => toggleActiveSubMenuId(menuId)}
+                onClick={doIfMatches(max("l"), toggleActiveSubMenuId, menuId)}
                 isActive={isActive(menuId)}
               >
                 {menuItem.text}
