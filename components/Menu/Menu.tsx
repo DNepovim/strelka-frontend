@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useRef, useState } from "react"
 import styled from "@emotion/styled"
 import { max, min, theme } from "../../styles/theme"
 import { MenuProps } from "../../types/Navigation"
@@ -8,6 +8,7 @@ import SquareMask from "../../assets/vectors/potatoes/rectangle_4.svg"
 import { css } from "@emotion/react"
 import { SubMenu } from "../SubMenu/SubMenu"
 import { doIfMatches } from "../../utils/doIfMatches"
+import useOnClickOutside from "use-onclickoutside"
 
 interface StatefulMenuProps extends MenuProps {
   isVisible: boolean
@@ -20,8 +21,12 @@ export const Menu: React.FC<StatefulMenuProps> = (props) => {
   const toggleActiveSubMenuId = (id: number) =>
     setActiveSubMenuId(isActive(id) ? voidId : id)
 
+  const menuRef = useRef()
+
+  useOnClickOutside(menuRef, doIfMatches(max("l"), setActiveSubMenuId, voidId))
+
   return (
-    <MenuItemList isVisible={props.isVisible}>
+    <MenuItemList isVisible={props.isVisible} ref={menuRef}>
       {props.items.map((menuItem, menuId) => (
         <MenuItem
           key={menuId}

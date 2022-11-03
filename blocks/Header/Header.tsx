@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useRef, useState } from "react"
 import styled from "@emotion/styled"
 import { Logo } from "../../components/Logo/Logo"
 import { Block, BlockFields } from "../../components/Block/Block"
@@ -8,6 +8,7 @@ import { Column, Container, Row } from "../../components/Layout/Layout"
 import { Button } from "../../components/Button/Button"
 import { min, theme } from "../../styles/theme"
 import { MenuProps } from "../../types/Navigation"
+import useOnClickOutside from "use-onclickoutside"
 
 export interface HeaderProps extends BlockFields, MenuProps {}
 
@@ -25,11 +26,15 @@ export const Header: React.FC<HeaderProps> = (props) => {
     }, menuTransitionDurationMS)
   }
 
+  const headerRef = useRef()
+
+  useOnClickOutside(headerRef, () => isVisible && toggleMenuVisibility())
+
   return (
     <Block>
       <TopContainer>
         <Row>
-          <Navigation col={12}>
+          <Navigation col={12} ref={headerRef}>
             <Logo />
             <NavButton
               onClick={toggleMenuVisibility}

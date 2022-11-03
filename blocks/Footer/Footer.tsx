@@ -3,7 +3,7 @@ import { Column, Container, Row } from "../../components/Layout/Layout"
 import styled from "@emotion/styled"
 import { max, min, theme } from "../../styles/theme"
 import { EmptyRow } from "../VerticalSpace/VerticalSpace"
-import React, { useState } from "react"
+import React, { useRef, useState } from "react"
 import {
   FooterArt,
   FooterArtList,
@@ -20,6 +20,7 @@ import {
 } from "../../components/SubMenu/SubMenu"
 import { css } from "@emotion/react"
 import { doIfMatches } from "../../utils/doIfMatches"
+import useOnClickOutside from "use-onclickoutside"
 
 export interface FooterProps extends HeaderProps {
   footerDecoration?: FooterArt
@@ -31,6 +32,10 @@ export const Footer: React.FC<FooterProps> = (props) => {
   const isActive = (id: number): boolean => activeSubMenuId === id
   const toggleActiveSubMenuId = (id: number) =>
     setActiveSubMenuId(isActive(id) ? voidId : id)
+
+  const footerRef = useRef()
+
+  useOnClickOutside(footerRef, () => setActiveSubMenuId(voidId))
 
   return (
     <Background>
@@ -44,7 +49,7 @@ export const Footer: React.FC<FooterProps> = (props) => {
           </FooterDecoration>
           <FooterColumn col={12}>
             <EmptyRow height={5} />
-            <FooterWrapper>
+            <FooterWrapper ref={footerRef}>
               {props.items.map((menuItem, menuId) => (
                 <MenuItem key={menuId}>
                   {menuItem.subMenu ? (
