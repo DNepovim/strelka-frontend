@@ -4,7 +4,7 @@ import { Logo } from "../../components/Logo/Logo"
 import { Link as RawLink } from "../../components/Link/Link"
 import styled from "@emotion/styled"
 import { randomRectangle } from "../../utils/Masks"
-import { min, theme } from "../../styles/theme"
+import { min, max, theme } from "../../styles/theme"
 import { MenuItemContent } from "../../components/Menu/Menu"
 
 export interface GroupHeaderProps {
@@ -37,12 +37,15 @@ export const GroupHeader: React.FC<GroupHeaderProps> = (props) => (
 )
 
 const HeaderColumn = styled(Column)`
-  position: sticky;
   top: 1rem;
   display: flex;
   justify-content: space-between;
   gap: ${theme.layout.gutter * 2}rem;
   min-height: 3rem;
+
+  @media ${max("s")} {
+    flex-wrap: wrap;
+  }
 
   @media ${min("l")} {
     gap: ${theme.layout.gutter * 2}rem;
@@ -51,14 +54,18 @@ const HeaderColumn = styled(Column)`
 `
 
 const LogoWrapper = styled.div`
-  display: none;
+  height: 3.7rem;
+  align-self: center;
+
+  @media ${max("s")} {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: center;
+  }
 
   @media ${min("m")} {
     display: block;
   }
-
-  align-self: center;
-  height: 3.7rem;
 
   @media ${min("l")} {
     height: 4rem;
