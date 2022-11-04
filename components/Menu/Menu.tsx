@@ -114,12 +114,16 @@ export const MenuItem = styled.div`
 
 export const MenuItemContent = styled(Header3.withComponent(Link))`
   display: flex;
-  font-size: 1.65rem;
+  font-size: ${theme.size.medium}rem;
   align-items: center;
   height: 100%;
   margin: 0;
 
-  padding: 0.7rem 1.7rem;
+  padding: 0.55rem 1.7rem;
+
+  @media ${min("m")} {
+    font-size: ${theme.size.medium * 1.2}rem;
+  }
 
   @media ${min("l")} {
     font-size: 1.5rem;

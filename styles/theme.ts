@@ -21,6 +21,10 @@ export const theme = {
   size: {
     small: 0.85,
     base: 1.1,
+    medium: 1.3,
+    subSubHeading: 1.4,
+    subHeading: 2,
+    heading: 2.8,
   },
   fonts: {
     text: "'Open Sans', verdana, sans-serif",

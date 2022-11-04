@@ -134,9 +134,17 @@ const Content = styled.div<{ isVisible: boolean; order: number }>`
 `
 
 export const Name = styled(Header3)`
-  font-size: 1.45rem;
+  font-size: ${theme.size.medium}rem;
   margin: 0;
   line-height: inherit;
+
+  @media ${min("m")} {
+    font-size: ${theme.size.medium * 1.1}rem;
+  }
+
+  @media ${min("l")} {
+    font-size: ${theme.size.medium}rem;
+  }
 `
 
 const Comment = styled(SmallText)`

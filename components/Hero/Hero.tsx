@@ -85,12 +85,16 @@ const Title = styled(Header1.withComponent("p"))`
   }
 
   @media ${min("l")} {
-    font-size: 3rem;
+    font-size: 4rem;
   }
 `
 
 const SubTitle = styled(Header3.withComponent(Header1))`
   margin-bottom: 0;
+
+  @media ${max("m")} {
+    font-size: 1.2rem;
+  }
 `
 
 const ImageOverflowContainer = styled.div`
