@@ -6,7 +6,7 @@ import { theme } from "../../styles/theme"
 export const Button = styled.button`
   font-family: ${theme.fonts.accent};
   font-weight: bold;
-  font-size: 1.8rem;
+  font-size: ${theme.size.medium}rem;
   mask-image: url("${Wrapper.src}");
   mask-size: 100% 100%;
   mask-position: center;

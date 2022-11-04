@@ -1,33 +1,49 @@
 import styled from "@emotion/styled"
-import { theme } from "../../styles/theme"
+import { min, theme } from "../../styles/theme"
 
 export const Header1 = styled.h1`
   font-family: ${theme.fonts.headings};
   font-weight: normal;
-  font-size: 4rem;
+  font-size: ${theme.size.heading}rem;
   color: ${theme.color.darkest};
   margin: 0 0 0.6em;
+
+  @media ${min("m")} {
+    font-size: ${theme.size.heading * 2}rem;
+  }
 `
 
 export const Header2 = styled.h2`
   font-family: ${theme.fonts.accent};
   font-weight: 600;
-  font-size: 2.8rem;
+  font-size: ${theme.size.subHeading}rem;
   color: ${theme.color.darkest};
   margin: 0 0 0.6em;
+
+  @media ${min("m")} {
+    font-size: ${theme.size.subHeading * 1.4}rem;
+  }
 `
 
 export const Header3 = styled.h3`
   font-family: ${theme.fonts.accent};
   font-weight: 600;
-  font-size: ${theme.size.base * 1.7}rem;
+  font-size: ${theme.size.subSubHeading}rem;
   line-height: 1.25em;
   color: ${theme.color.darkest};
   margin: 0 0 0.6em;
+
+  @media ${min("m")} {
+    font-size: ${theme.size.subSubHeading * 1.1}rem;
+  }
+
+  @media ${min("l")} {
+    font-size: ${theme.size.subSubHeading * 1.2}rem;
+  }
 `
 
 export const Text = styled.p`
-  font-family: ${theme.fonts.text};
+  font-family: ${theme.fonts.accent};
   font-size: ${theme.size.base}rem;
   color: ${theme.color.darkest};
   line-height: 1.5em;
