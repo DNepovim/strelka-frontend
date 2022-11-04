@@ -66,11 +66,11 @@ const Navigation = styled(Column)`
 
 const menuTransitionDurationMS = 200
 
-const NavButton = styled(Button.withComponent("button"))`
+const NavButton = styled(Button)`
   padding-left: 1rem;
   padding-right: 1rem;
-  align-self: stretch;
-  font-size: 1.2rem;
+  height: 2.25em;
+  align-self: center;
   color: ${(props: { nameIsHidden: boolean }) =>
     props.nameIsHidden ? theme.color.darkAccent : theme.color.lightest};
   transition: color ${menuTransitionDurationMS / (2 * 1000)}s ease-in-out;

@@ -43,7 +43,8 @@ const HeaderColumn = styled(Column)`
   gap: ${theme.layout.gutter * 2}rem;
   min-height: 3rem;
 
-  @media ${max("s")} {
+  @media ${max("m")} {
+    justify-content: center;
     flex-wrap: wrap;
   }
 
@@ -58,7 +59,6 @@ const LogoWrapper = styled.div`
   align-self: center;
 
   @media ${max("s")} {
-    flex-basis: 100%;
     display: flex;
     justify-content: center;
   }
