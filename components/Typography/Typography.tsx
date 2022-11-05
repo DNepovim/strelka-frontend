@@ -51,7 +51,7 @@ export const Text = styled.p`
 `
 
 export const SmallText = styled.p`
-  font-family: ${theme.fonts.text};
+  font-family: ${theme.fonts.accent};
   font-size: ${theme.size.small}rem;
   line-height: 1.3em;
   margin: 0 0 0.6em;

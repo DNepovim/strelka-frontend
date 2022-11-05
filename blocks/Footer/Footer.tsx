@@ -2,7 +2,7 @@ import { HeaderProps } from "../Header/Header"
 import { Column, Container, Row } from "../../components/Layout/Layout"
 import styled from "@emotion/styled"
 import { max, min, theme } from "../../styles/theme"
-import { EmptyRow } from "../VerticalSpace/VerticalSpace"
+import { EmptyRow, VerticalSpace } from "../VerticalSpace/VerticalSpace"
 import React, { useRef, useState } from "react"
 import {
   FooterArt,
@@ -21,6 +21,8 @@ import {
 import { css } from "@emotion/react"
 import { doIfMatches } from "../../utils/doIfMatches"
 import useOnClickOutside from "use-onclickoutside"
+import { SmallText } from "../../components/Typography/Typography"
+import { Link } from "../../components/Link/Link"
 
 export interface FooterProps extends HeaderProps {
   footerDecoration?: FooterArt
@@ -78,9 +80,21 @@ export const Footer: React.FC<FooterProps> = (props) => {
                 </MenuItem>
               ))}
             </FooterWrapper>
+            <VerticalSpace height={3} />
+            <Colophon>
+              <ColophonLink to="https://github.com/dnepovim/strelka-frontend">
+                Github
+              </ColophonLink>
+              <ColophonLink to="admin.strelka.skauting.cz">
+                Administrace
+              </ColophonLink>
+              <ColophonLink to="mailto:admin@strelka.skauting.cz">
+                Podpora
+              </ColophonLink>
+            </Colophon>
           </FooterColumn>
         </FooterRow>
-        <EmptyRow height={5} />
+        <EmptyRow height={3} />
       </FooterContainer>
     </Background>
   )
@@ -193,4 +207,27 @@ const SubMenuItem = styled(Name.withComponent(SubMenuItemBase))`
 
 const SubMenuItemWrapper = styled.div`
   overflow: hidden;
+`
+
+const Colophon = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: ${theme.size.base * 0.5}rem;
+
+  @media ${min("l")} {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: ${theme.size.base}rem;
+  }
+`
+
+const ColophonItem = styled(SmallText)``
+
+const ColophonLink = styled(ColophonItem.withComponent(Link))`
+  color: ${theme.color.darkest};
+  font-weight: 500;
+  text-decoration: underline;
 `
