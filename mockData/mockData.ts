@@ -16,10 +16,9 @@ import Gallery7 from "../assets/images/gallery/gallery_1.webp"
 import MapImage from "../assets/images/map.webp"
 
 import Hero1 from "../assets/images/hero/holky.webp"
-import Hero2 from "../assets/images/hero/jan_jakub.webp"
-import Hero3 from "../assets/images/hero/ondra.webp"
-import Hero4 from "../assets/images/hero/mimon.webp"
-import Hero5 from "../assets/images/hero/rumunsko.webp"
+import Hero2 from "../assets/images/hero/ondra.webp"
+import Hero3 from "../assets/images/hero/mimon.webp"
+import Hero4 from "../assets/images/hero/rumunsko.webp"
 
 import Nik from "../assets/images/people/nik.webp"
 import Me from "../assets/images/people/ja.webp"
@@ -561,7 +560,7 @@ export const postListData: PostProps[] = [
 ]
 
 export const heroData: HeroProps = {
-  imageUrls: [Hero1.src, Hero2.src, Hero3.src, Hero4.src, Hero5.src],
+  imageUrls: [Hero1.src, Hero2.src, Hero3.src, Hero4.src],
   words: ["Dobrodružství", "Kamarádi", "Příroda", "Výzva", "Odvaha"],
 }
 
