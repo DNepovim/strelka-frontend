@@ -43,7 +43,7 @@ export const Footer: React.FC<FooterProps> = (props) => {
         <FooterRow>
           <FooterDecoration>
             {React.createElement(
-              FooterArtList[props.footerDecoration ?? FooterArt.Fungi],
+              FooterArtList[props.footerDecoration ?? FooterArt.Train],
               {}
             )}
           </FooterDecoration>
