@@ -1,8 +1,8 @@
 import styled from "@emotion/styled"
 import { buttonHover, theme } from "../theme"
-import { Link } from "@remix-run/react"
 import { css } from "@emotion/react"
 import React, { ButtonHTMLAttributes } from "react"
+import { RouteLink } from "./RouteLink"
 
 export interface ButtonProps {
   danger?: boolean
@@ -39,4 +39,4 @@ const StyledButton = styled.button`
   }
 `
 
-export const ButtonLink = StyledButton.withComponent(Link)
+export const ButtonLink = StyledButton.withComponent(RouteLink)

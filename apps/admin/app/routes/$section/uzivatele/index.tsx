@@ -1,6 +1,6 @@
 import { Timestamp } from "firebase/firestore"
 import { LoaderFunction } from "@remix-run/node"
-import { useLoaderData } from "@remix-run/react"
+import { useLoaderData, useParams } from "@remix-run/react"
 import { createColumnHelper, ColumnDef } from "@tanstack/react-table"
 import { IoPencilOutline, IoTrashBinOutline } from "react-icons/io5"
 import {
@@ -13,6 +13,7 @@ import {
   UserPicture,
 } from "@strelka/admin-ui"
 import { getUsersList, User } from "firebase/user"
+import { routes } from "routes"
 
 export const loader: LoaderFunction = async () => {
   return await getUsersList()
@@ -21,6 +22,11 @@ export const loader: LoaderFunction = async () => {
 export default function Index() {
   const columnHelper = createColumnHelper<User>()
   const data = useLoaderData()
+  const { section } = useParams()
+
+  if (!section) {
+    return <>Sekce není vybraná.</>
+  }
 
   const columns: ColumnDef<User, string>[] = [
     columnHelper.accessor("image", {
@@ -37,7 +43,7 @@ export default function Index() {
       footer: () => <td />,
       cell: (info) => (
         <BodyCell>
-          <Title to={`/uzivatele/${info.row.original.email}`}>
+          <Title to={routes.users.edit.route(info.row.original.email)(section)}>
             {info.getValue()}
           </Title>
         </BodyCell>
@@ -76,7 +82,7 @@ export default function Index() {
                 key: "detail",
                 label: <IoPencilOutline size="1rem" />,
                 title: "Upravit uživatele",
-                to: `/uzivatele/${info.getValue()}`,
+                to: routes.users.edit.route(info.getValue())(section),
               },
             ]}
           />

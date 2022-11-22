@@ -10,6 +10,7 @@ import {
 } from "@tanstack/react-table"
 import React, { ReactElement } from "react"
 import { theme } from "../theme"
+import { RouteLink } from "./RouteLink"
 
 export interface TableProps<T> {
   columns: ColumnDef<T, any>[]
@@ -109,7 +110,7 @@ export const BodyCell = styled(Cell)`
   text-align: ${({ align }: BodyCellProps) => align ?? "left"};
 `
 
-export const Title = styled(Link)`
+export const Title = styled(RouteLink)`
   text-decoration: none;
   &:hover {
     text-decoration: underline;

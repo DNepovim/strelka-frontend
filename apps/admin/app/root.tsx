@@ -11,13 +11,16 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
+  useParams,
 } from "@remix-run/react"
 import styled from "@emotion/styled"
 import { Global } from "@emotion/react"
-import { adminNavigation, navigation } from "data"
-import { useEffect, useState } from "react"
+import { adminNavigation } from "data"
+import { useState } from "react"
 import { authenticator } from "./services/auth.server"
 import { globalStyles, theme, Sidebar } from "@strelka/admin-ui"
+import { getSectionsList, Section } from "firebase/section"
+import { User } from "firebase/user"
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -43,19 +46,25 @@ export const links: LinksFunction = () => [
   },
 ]
 
-export const loader: LoaderFunction = ({ request }) => {
-  return authenticator.authenticate("google", request, {
-    failureRedirect: "/login",
-  })
+interface LoaderData {
+  user: User
+  sections: Section[]
 }
 
-// export const action: ActionFunction = ({ request }) => {
-//   return authenticator.authenticate("google", request)
-// }
+export const loader: LoaderFunction = async ({ request }) => {
+  const user = await authenticator.authenticate("google", request, {
+    failureRedirect: "/login",
+  })
+  return {
+    user,
+    sections: await getSectionsList(user.email),
+  }
+}
 
 export default function App() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false)
-  const data = useLoaderData()
+  const { user, sections } = useLoaderData<LoaderData>()
+  const { section } = useParams()
   return (
     <html lang="en">
       <Global styles={globalStyles} />
@@ -65,12 +74,17 @@ export default function App() {
       </head>
       <body>
         <Sidebar
-          navigations={[adminNavigation, navigation]}
+          navigations={[adminNavigation]}
           isCollapsed={isSidebarCollapsed}
           setIsCollapsed={setIsSidebarCollapsed}
           collapsedWidth={sidebarCollapsedWidth}
           notCollapsedWidth={sidebarNotCollapsedWIdth}
-          user={data}
+          user={user}
+          sections={sections.map(({ title, slug }) => ({
+            title,
+            slug,
+            selected: slug === section,
+          }))}
         />
         <MainContainer
           width={

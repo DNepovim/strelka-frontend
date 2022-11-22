@@ -1,5 +1,5 @@
 import { ActionFunction, LoaderFunction } from "@remix-run/node"
-import { useFetcher, useLoaderData } from "@remix-run/react"
+import { useFetcher, useLoaderData, useParams } from "@remix-run/react"
 import { createColumnHelper, ColumnDef } from "@tanstack/react-table"
 import { IoPencilOutline, IoTrashBinOutline } from "react-icons/io5"
 import {
@@ -11,35 +11,47 @@ import {
   Table,
   Title,
 } from "@strelka/admin-ui"
-import {
-  getSectionsList,
-  removeSection,
-  SectionTableItem,
-} from "firebase/section"
+import { getPagesList, removePage, PagesTableItem } from "firebase/page"
+import { routes } from "routes"
 
-export const loader: LoaderFunction = async () => {
-  return await getSectionsList()
+export const loader: LoaderFunction = async ({ params }) => {
+  const section = params.section
+  if (!section) {
+    throw new Error("Sekce musí být specifikována.")
+  }
+  return await getPagesList(section)
 }
 
-export const action: ActionFunction = async ({ request }) => {
+export const action: ActionFunction = async ({ request, params }) => {
+  const section = params.section
+  if (!section) {
+    throw new Error("Sekce musí být specifikována.")
+  }
+
   const formData = await request.formData()
   const slug = formData.get("slug") as string
-  await removeSection(slug)
+
+  await removePage(section, slug)
   return null
 }
 
 export default function Index() {
-  const columnHelper = createColumnHelper<SectionTableItem>()
+  const columnHelper = createColumnHelper<PagesTableItem>()
   const data = useLoaderData()
   const fetcher = useFetcher()
+  const { section } = useParams()
 
-  const columns: ColumnDef<SectionTableItem, string>[] = [
+  if (!section) {
+    return <>Sekce není vybraná.</>
+  }
+
+  const columns: ColumnDef<PagesTableItem, string>[] = [
     columnHelper.accessor("title", {
       header: () => <HeadCell>Název</HeadCell>,
       footer: () => <td />,
       cell: (info) => (
         <BodyCell>
-          <Title to={`/sekce/${info.row.original.slug}`}>
+          <Title route={routes.pages.edit.route(info.row.original.slug)}>
             {info.getValue()}
           </Title>
         </BodyCell>
@@ -60,7 +72,7 @@ export default function Index() {
                 type: "button",
                 key: "remove",
                 label: <IoTrashBinOutline color="red" size="1rem" />,
-                title: "Smazat sekci",
+                title: "Smazat stránku",
                 danger: true,
                 onClick: async () => {
                   fetcher.submit({ slug: info.getValue() }, { method: "post" })
@@ -70,8 +82,8 @@ export default function Index() {
                 type: "link",
                 key: "detail",
                 label: <IoPencilOutline size="1rem" />,
-                title: "Upravit sekci",
-                to: `/sekce/${info.getValue()}`,
+                title: "Upravit stránku",
+                to: routes.pages.edit.route(info.getValue())(section),
               },
             ]}
           />
@@ -83,12 +95,14 @@ export default function Index() {
   return (
     <>
       <SiteHeader>
-        <ButtonLink to="/sekce/vytvorit">Nová sekce</ButtonLink>
+        <ButtonLink route={routes.pages.create.route()}>
+          Nová stránka
+        </ButtonLink>
       </SiteHeader>
       <Table
         data={data}
         columns={columns}
-        emptyMessage="Žádné sekce tu nejsou..."
+        emptyMessage="Žádné stránky tu nejsou..."
       />
     </>
   )

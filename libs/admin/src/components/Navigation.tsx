@@ -1,13 +1,13 @@
-import isPropValid from "@emotion/is-prop-valid"
 import { css } from "@emotion/react"
 import styled from "@emotion/styled"
 import { NavLink } from "@remix-run/react"
 import React, { ReactNode } from "react"
 import { theme, buttonHover } from "../theme"
+import { RouteLink } from "./RouteLink"
 
 export interface NavigationItem {
   title: string
-  slug: string
+  route: (param?: string) => (section: string) => string
   icon?: ReactNode
   action?: Omit<NavigationItem, "action">
 }
@@ -24,7 +24,7 @@ export const Navigation: React.FC<NavigationProps> = ({
   notCollapsedWidth,
 }) => (
   <List>
-    {items.map(({ title, slug, icon, action }, index) => (
+    {items.map(({ title, route, icon, action }, index) => (
       <Item
         key={index}
         notCollapsedWidth={notCollapsedWidth}
@@ -32,7 +32,7 @@ export const Navigation: React.FC<NavigationProps> = ({
         withAction={!!action}
       >
         <Link
-          to={`/${slug}`}
+          route={route()}
           withAction={!!action}
           isCollapsed={isCollapsed}
           title={title}
@@ -42,7 +42,7 @@ export const Navigation: React.FC<NavigationProps> = ({
           {title}
         </Link>
         {action && (
-          <ActionLink to={`/${action.slug}`} title={title}>
+          <ActionLink route={action.route()} title={title}>
             {action.icon}
           </ActionLink>
         )}
@@ -62,7 +62,9 @@ interface LinkProps {
   notCollapsedWidth: string
 }
 
-const Item = styled.li`
+const Item = styled("li", {
+  shouldForwardProp: (prop) => prop !== "withAction",
+})`
   position: relative;
   border-bottom: ${theme.styles.border};
   border-left: ${theme.styles.border};
@@ -92,7 +94,7 @@ const Item = styled.li`
       : ""};
 `
 
-const GeneralLink = styled(NavLink)`
+const GeneralLink = styled(RouteLink)`
   box-sizing: border-box;
   display: flex;
   overflow: hidden;
@@ -104,8 +106,7 @@ const GeneralLink = styled(NavLink)`
 `
 
 const Link = styled(GeneralLink, {
-  shouldForwardProp: (prop) =>
-    isPropValid(prop) && prop !== "withAction" && prop !== "isCollapsed",
+  shouldForwardProp: (prop) => prop !== "withAction",
 })`
   position: relative;
   z-index: 1;
@@ -123,7 +124,7 @@ const Link = styled(GeneralLink, {
 `
 
 const ActionLink = styled(GeneralLink, {
-  shouldForwardProp: (prop) => isPropValid(prop) && prop !== "isCollapsed",
+  shouldForwardProp: (prop) => prop !== "isCollapsed",
 })`
   display: flex;
   align-items: center;

@@ -7,17 +7,27 @@ export const loader: LoaderFunction = async ({ params }) => {
   if (!params.slug) {
     throw new Error(`Stránka se slugem ${params.slug} neexistuje.`)
   }
-  return await getPage(params.slug)
+
+  const section = params.section
+  if (!section) {
+    throw new Error("Sekce musí být specifikována.")
+  }
+  return await getPage(section, params.slug)
 }
 
-export const action: ActionFunction = async ({ request }) => {
+export const action: ActionFunction = async ({ request, params }) => {
+  const section = params.section
+  if (!section) {
+    throw new Error("Sekce musí být specifikována.")
+  }
+
   const formData = await request.formData()
   const title = formData.get("title") as string
   const slug = formData.get("slug") as string
   const blocks = formData.get("blocks") as any
   const blocksParsed = JSON.parse(blocks)
 
-  await updatePage(slug, { title, blocks: blocksParsed })
+  await updatePage(slug, section, { title, blocks: blocksParsed })
   return null
 }
 

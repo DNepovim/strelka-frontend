@@ -7,69 +7,47 @@ import {
   IoBrowsersOutline,
   IoCalendarOutline,
 } from "react-icons/io5"
+import { routes } from "routes"
 
 export const adminNavigation: NavigationItem[] = [
   {
-    title: "Sekce",
-    slug: "sekce",
+    title: routes.sections.list.title(),
+    route: routes.sections.list.route,
     icon: <IoBrowsersOutline />,
     action: {
-      title: "Vytvořit novou sekci",
-      slug: "sekce/vytvorit",
+      title: routes.sections.create.title(),
+      route: routes.sections.create.route,
       icon: <IoAddOutline />,
     },
   },
   {
-    title: "Uživatelé",
-    slug: "uzivatele",
+    title: routes.users.list.title(),
+    route: routes.users.list.route,
     icon: <IoPeopleOutline />,
     action: {
-      title: "Přidat uživatele",
-      slug: "uzivatele/pridat",
+      title: routes.users.create.title(),
+      route: routes.users.create.route,
       icon: <IoAddOutline />,
     },
   },
   {
-    title: "Nastavení",
-    slug: "",
-    icon: <IoSettingsOutline />,
-  },
-]
-
-export const navigation: NavigationItem[] = [
-  {
-    title: "Stránky",
-    slug: "",
+    title: routes.pages.list.title(),
+    route: routes.pages.list.route,
     icon: <IoDocumentTextOutline />,
     action: {
-      title: "Vytvořit novou stránku",
-      slug: "stranky/vytvorit",
+      title: routes.pages.create.title(),
+      route: routes.pages.create.route,
       icon: <IoAddOutline />,
     },
   },
   {
-    title: "Události",
-    slug: "",
+    title: routes.events.list.title(),
+    route: routes.events.list.route,
     icon: <IoCalendarOutline />,
     action: {
-      title: "Vytvořit novou událost",
-      slug: "",
+      title: routes.events.create.title(),
+      route: routes.events.create.route,
       icon: <IoAddOutline />,
     },
-  },
-  {
-    title: "Uživatelé",
-    slug: "uzivatele",
-    icon: <IoPeopleOutline />,
-    action: {
-      title: "Přidat uživatele",
-      slug: "",
-      icon: <IoAddOutline />,
-    },
-  },
-  {
-    title: "Nastavení",
-    slug: "",
-    icon: <IoSettingsOutline />,
   },
 ]

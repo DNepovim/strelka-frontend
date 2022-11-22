@@ -4,6 +4,14 @@ import { IoArrowBackOutline } from "react-icons/io5"
 import { User, UserBox } from "./UserBox"
 import { buttonHover, theme } from "../theme"
 import { Navigation, NavigationItem } from "./Navigation"
+import { isRedirectResponse } from "@remix-run/react/dist/data"
+import { useNavigate, useParams } from "@remix-run/react"
+
+interface Section {
+  title: string
+  slug: string
+  selected?: boolean
+}
 
 interface MainNavigationProps {
   navigations: NavigationItem[][]
@@ -12,6 +20,7 @@ interface MainNavigationProps {
   collapsedWidth: string
   notCollapsedWidth: string
   user: User
+  sections: Section[]
 }
 
 export const Sidebar: React.FC<MainNavigationProps> = ({
@@ -21,7 +30,9 @@ export const Sidebar: React.FC<MainNavigationProps> = ({
   collapsedWidth,
   notCollapsedWidth,
   user,
+  sections,
 }) => {
+  const navigate = useNavigate()
   return (
     <Container width={isCollapsed ? collapsedWidth : notCollapsedWidth}>
       <div>
@@ -31,6 +42,16 @@ export const Sidebar: React.FC<MainNavigationProps> = ({
           </ResponsiveImage>
         </ImageWrapper>
         <nav>
+          <StyledSelect
+            onChange={(e) => navigate(`/${e.currentTarget.value}/stranky`)}
+            defaultValue={sections.find((s) => s.selected)?.slug}
+          >
+            {sections.map(({ title, slug, selected }) => (
+              <option key={slug} value={slug}>
+                {title}
+              </option>
+            ))}
+          </StyledSelect>
           {navigations.map((navigation, index) => (
             <Navigation
               key={index}
@@ -114,4 +135,13 @@ const Collapser = styled.button`
   }
 
   ${buttonHover}
+`
+
+const StyledSelect = styled.select`
+  font-family: "Noto Sans Mono", sans-serif;
+  font-size: 1rem;
+  display: block;
+  width: 100%;
+  padding: 0.4em 1em;
+  border: ${theme.styles.border};
 `

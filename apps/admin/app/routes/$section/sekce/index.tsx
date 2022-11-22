@@ -1,5 +1,5 @@
 import { ActionFunction, LoaderFunction } from "@remix-run/node"
-import { useFetcher, useLoaderData } from "@remix-run/react"
+import { useFetcher, useLoaderData, useParams } from "@remix-run/react"
 import { createColumnHelper, ColumnDef } from "@tanstack/react-table"
 import { IoPencilOutline, IoTrashBinOutline } from "react-icons/io5"
 import {
@@ -11,31 +11,39 @@ import {
   Table,
   Title,
 } from "@strelka/admin-ui"
-import { getPagesList, removePage, PagesTableItem } from "firebase/page"
+import { getSectionsList, removeSection, Section } from "firebase/section"
+import { routes } from "routes"
 
 export const loader: LoaderFunction = async () => {
-  return await getPagesList()
+  return await getSectionsList()
 }
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
   const slug = formData.get("slug") as string
-  await removePage(slug)
+  await removeSection(slug)
   return null
 }
 
 export default function Index() {
-  const columnHelper = createColumnHelper<PagesTableItem>()
+  const columnHelper = createColumnHelper<Section>()
   const data = useLoaderData()
   const fetcher = useFetcher()
+  const { section } = useParams()
 
-  const columns: ColumnDef<PagesTableItem, string>[] = [
+  if (!section) {
+    return <>Sekce není vybraná.</>
+  }
+
+  const columns: ColumnDef<Section, string>[] = [
     columnHelper.accessor("title", {
       header: () => <HeadCell>Název</HeadCell>,
       footer: () => <td />,
       cell: (info) => (
         <BodyCell>
-          <Title to={`/stranky/${info.row.original.slug}`}>
+          <Title
+            to={routes.sections.edit.route(info.row.original.slug)(section)}
+          >
             {info.getValue()}
           </Title>
         </BodyCell>
@@ -56,7 +64,7 @@ export default function Index() {
                 type: "button",
                 key: "remove",
                 label: <IoTrashBinOutline color="red" size="1rem" />,
-                title: "Smazat stránku",
+                title: "Smazat sekci",
                 danger: true,
                 onClick: async () => {
                   fetcher.submit({ slug: info.getValue() }, { method: "post" })
@@ -66,8 +74,8 @@ export default function Index() {
                 type: "link",
                 key: "detail",
                 label: <IoPencilOutline size="1rem" />,
-                title: "Upravit stránku",
-                to: `/stranky/${info.getValue()}`,
+                title: "Upravit sekci",
+                to: routes.sections.edit.route(info.getValue())(section),
               },
             ]}
           />
@@ -79,12 +87,12 @@ export default function Index() {
   return (
     <>
       <SiteHeader>
-        <ButtonLink to="/stranky/vytvorit">Nová stránka</ButtonLink>
+        <ButtonLink route={routes.sections.create.route()}>Nová sekce</ButtonLink>
       </SiteHeader>
       <Table
         data={data}
         columns={columns}
-        emptyMessage="Žádné stránky tu nejsou..."
+        emptyMessage="Žádné sekce tu nejsou..."
       />
     </>
   )
