@@ -1,6 +1,5 @@
 import { css } from "@emotion/react"
 import styled from "@emotion/styled"
-import { NavLink } from "@remix-run/react"
 import React, { ReactNode } from "react"
 import { theme, buttonHover } from "../theme"
 import { RouteLink } from "./RouteLink"
@@ -62,8 +61,11 @@ interface LinkProps {
   notCollapsedWidth: string
 }
 
+const shouldForwardProp = (prop: string) =>
+  !["withAction", "isCollapsed", "notCollapsedWidth"].includes(prop)
+
 const Item = styled("li", {
-  shouldForwardProp: (prop) => prop !== "withAction",
+  shouldForwardProp,
 })`
   position: relative;
   border-bottom: ${theme.styles.border};
@@ -94,7 +96,9 @@ const Item = styled("li", {
       : ""};
 `
 
-const GeneralLink = styled(RouteLink)`
+const GeneralLink = styled(RouteLink, {
+  shouldForwardProp,
+})`
   box-sizing: border-box;
   display: flex;
   overflow: hidden;
@@ -106,7 +110,7 @@ const GeneralLink = styled(RouteLink)`
 `
 
 const Link = styled(GeneralLink, {
-  shouldForwardProp: (prop) => prop !== "withAction",
+  shouldForwardProp,
 })`
   position: relative;
   z-index: 1;
@@ -123,9 +127,7 @@ const Link = styled(GeneralLink, {
       : ""}
 `
 
-const ActionLink = styled(GeneralLink, {
-  shouldForwardProp: (prop) => prop !== "isCollapsed",
-})`
+const ActionLink = styled(GeneralLink)`
   display: flex;
   align-items: center;
   justify-content: center;

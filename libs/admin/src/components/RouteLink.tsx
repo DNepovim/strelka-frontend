@@ -8,7 +8,10 @@ export interface RouteLinkProps extends Omit<NavLinkProps, "to"> {
 export const RouteLink: React.FC<RouteLinkProps | NavLinkProps> = (props) => {
   const { section } = useParams()
   if (isRouteNavLink(props)) {
-    return <NavLink {...props} to={section ? props.route(section) : "/"} />
+    const { route, ...navLinkProps } = props
+    return (
+      <NavLink {...navLinkProps} to={section ? props.route(section) : "/"} />
+    )
   }
   return <NavLink {...props} />
 }
