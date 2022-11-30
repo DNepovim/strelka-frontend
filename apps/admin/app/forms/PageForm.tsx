@@ -7,63 +7,60 @@ import {
   Button,
   webalize,
   BlockEditor,
+  EditableUrl,
 } from "@strelka/admin-ui"
 import { IoSaveOutline } from "react-icons/io5"
-import styled from "@emotion/styled"
 import { Page } from "firebase/page"
+import { config } from "~/config"
 
 interface PageFormProps {
   onSubmit: (values: Page) => void
   initialData: Page
+  fixedSlug?: boolean
 }
 
 export const PageForm: React.FC<PageFormProps> = ({
   onSubmit,
   initialData,
-}) => {
-  return (
-    <Formik<Page>
-      initialValues={{ ...initialData, blocks: initialData.blocks ?? [] }}
-      onSubmit={onSubmit}
-    >
-      {(renderProps) => (
-        <Form>
-          <PageSection>
-            <TitleInput
-              id="title"
-              name="title"
-              placeholder="Název stránky"
-              onChange={(value: ChangeEvent<HTMLInputElement>) => {
-                const currentValue = value.target.value
-                renderProps.setFieldValue("slug", webalize(currentValue ?? ""))
-                renderProps.setFieldValue("title", currentValue ?? "")
-              }}
-            />
-            <Url>https://www.strelka.cz/{renderProps.values.slug}</Url>
-          </PageSection>
-
-          <PageSection>
-            <BlockEditor<BlockTemplates>
-              name={"blocks"}
-              blocks={renderProps.values.blocks}
-              blockDefs={blockDefs}
-              setFieldValue={(value) =>
-                renderProps.setFieldValue("blocks", value)
+  fixedSlug,
+}) => (
+  <Formik<Page>
+    initialValues={{ ...initialData, blocks: initialData.blocks ?? [] }}
+    onSubmit={onSubmit}
+  >
+    {({ setFieldValue, values, submitForm, touched }) => (
+      <Form>
+        <PageSection>
+          <TitleInput
+            id="title"
+            name="title"
+            placeholder="Název stránky"
+            onChange={(value: ChangeEvent<HTMLInputElement>) => {
+              const currentValue = value.target.value
+              if (!touched.slug && !fixedSlug) {
+                setFieldValue("slug", webalize(currentValue ?? ""))
               }
-            />
-          </PageSection>
+              setFieldValue("title", currentValue ?? "")
+            }}
+          />
+          <EditableUrl name="slug" url={config.url} />
+        </PageSection>
 
-          <PageSection>
-            <Button type="submit" onClick={renderProps.submitForm}>
-              <IoSaveOutline /> Uložit
-            </Button>
-          </PageSection>
-        </Form>
-      )}
-    </Formik>
-  )
-}
+        <PageSection>
+          <BlockEditor<BlockTemplates>
+            name={"blocks"}
+            blocks={values.blocks}
+            blockDefs={blockDefs}
+            setFieldValue={(value) => setFieldValue("blocks", value)}
+          />
+        </PageSection>
 
-const Url = styled.p`
-  font-size: 0.8rem;
-`
+        <PageSection>
+          <Button type="submit" onClick={submitForm}>
+            <IoSaveOutline /> Uložit
+          </Button>
+        </PageSection>
+      </Form>
+    )}
+  </Formik>
+)

@@ -37,6 +37,7 @@ export default function UpdatePage() {
   return (
     <PageForm
       initialData={page}
+      fixedSlug
       onSubmit={async (values) => {
         submit(
           { ...values, blocks: JSON.stringify(values.blocks) },
