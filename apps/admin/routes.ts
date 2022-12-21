@@ -35,7 +35,7 @@ export const routes = {
     },
     create: {
       title: () => `Vytvořit stránku`,
-      route: createRoute(() => `stranky/vytvorit`),
+      route: createRoute(() => `sekce/vytvorit`),
     },
   },
   users: {

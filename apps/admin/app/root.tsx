@@ -1,7 +1,8 @@
-import type {
+import {
   LinksFunction,
   LoaderFunction,
   MetaFunction,
+  redirect,
 } from "@remix-run/node"
 import {
   Links,
@@ -20,7 +21,8 @@ import { useState } from "react"
 import { authenticator } from "./services/auth.server"
 import { globalStyles, theme, Sidebar } from "@strelka/admin-ui"
 import { getSectionsList, Section } from "firebase/section"
-import { User } from "firebase/user"
+import { getUser, User } from "firebase/user"
+import { routes } from "routes"
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -51,13 +53,17 @@ interface LoaderData {
   sections: Section[]
 }
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async ({ request, params }) => {
   const user = await authenticator.authenticate("google", request, {
     failureRedirect: "/login",
   })
+  const sections = await getSectionsList(user.email)
+  if (!params.section) {
+    return redirect(routes.pages.list.route()(sections[0].slug))
+  }
   return {
     user,
-    sections: await getSectionsList(user.email),
+    sections,
   }
 }
 
@@ -67,10 +73,10 @@ export default function App() {
   const { section } = useParams()
   return (
     <html lang="en">
-      <Global styles={globalStyles} />
       <head>
         <Meta />
         <Links />
+        <Global styles={globalStyles} />
       </head>
       <body>
         <Sidebar

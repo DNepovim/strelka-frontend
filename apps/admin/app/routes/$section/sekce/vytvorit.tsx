@@ -8,7 +8,7 @@ export const action: ActionFunction = async ({ request }) => {
   const title = formData.get("title") as string
   const slug = formData.get("slug") as string
   await updateSection(slug, { title })
-  return redirect(`/sekce/${slug}`)
+  return redirect(routes.sections.edit.route(slug)(section))
 }
 
 export default function CreateSection() {
