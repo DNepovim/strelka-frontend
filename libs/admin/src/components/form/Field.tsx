@@ -35,6 +35,7 @@ export const Label = styled.p`
 `
 
 export const Input = styled(FormikField)`
+  font-size: 1rem;
   padding: 0.4em 1em;
   border: 1px solid #ccc;
 `

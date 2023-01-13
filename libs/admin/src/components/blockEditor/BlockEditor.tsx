@@ -19,6 +19,7 @@ import { BlockFields } from "./BlockFields"
 import { AddBlockButton } from "./AddBlockButton"
 import { Block, BlockDef } from "../../blockDefs"
 import { FieldArray } from "formik"
+import { BlockSortableWrapper } from "./BlockSortableWrapper"
 
 interface BlockFieldProps<BlockTemplates> {
   blocks: Block<BlockTemplates, any>[]
@@ -33,60 +34,34 @@ export const BlockEditor = <BlockTemplates extends string>({
   setFieldValue,
   name,
 }: BlockFieldProps<BlockTemplates>) => {
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
-  )
   return (
     <FieldArray name={name}>
       {({ remove, push }) => (
         <>
-          <DndContext
-            sensors={sensors}
-            collisionDetection={closestCenter}
-            onDragEnd={(event) => {
-              const { active, over } = event
-
-              if (!over || active.id === over.id) {
-                return
-              }
-
-              const overIndex = findIndex(blocks, (item) => item.id === over.id)
-              const activeIndex = findIndex(
-                blocks,
-                (item) => item.id === active.id
-              )
-              const newOrder = arrayMove(blocks, activeIndex, overIndex)
-
-              setFieldValue(newOrder)
-            }}
+          <BlockSortableWrapper<BlockTemplates>
+            blocks={blocks}
+            blockDefs={blockDefs}
+            setFieldValue={setFieldValue}
           >
-            <SortableContext
-              items={blocks.map((v) => v.id)}
-              strategy={verticalListSortingStrategy}
-            >
-              {blocks.map((block, index) => (
-                <Disclosure
-                  header={
-                    blockDefs.find(
-                      (blockDef) => blockDef.template === block.template
-                    )?.title ?? block.template
-                  }
-                  onRemove={() => remove(index)}
-                  key={block.id}
-                  id={block.id}
-                >
-                  <BlockFields<BlockTemplates>
-                    name={`blocks[${index}]`}
-                    template={block.template}
-                    blockDefs={blockDefs}
-                  />
-                </Disclosure>
-              ))}
-            </SortableContext>
-          </DndContext>
+            {blocks.map((block, index) => (
+              <Disclosure
+                header={
+                  blockDefs.find(
+                    (blockDef) => blockDef.template === block.template
+                  )?.title ?? block.template
+                }
+                onRemove={() => remove(index)}
+                key={block.id}
+                id={block.id}
+              >
+                <BlockFields<BlockTemplates>
+                  name={`blocks[${index}]`}
+                  template={block.template}
+                  blockDefs={blockDefs}
+                />
+              </Disclosure>
+            ))}
+          </BlockSortableWrapper>
           <AddBlockButton
             blockDefs={blockDefs}
             onButtonAdd={(template) => {

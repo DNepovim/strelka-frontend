@@ -1,3 +1,4 @@
+import { entries } from "lodash"
 import React, { ReactElement } from "react"
 import { BlockDef, isGroupField } from "../../blockDefs"
 import { inputDefs } from "../form/inputDefs"
@@ -19,7 +20,7 @@ export const BlockFields = <BlockTemplate extends any>({
   }
   return (
     <>
-      {Object.entries(blockDef.fields).map(([key, def]) =>
+      {entries(blockDef.fields).map(([key, def]) =>
         isGroupField(def) ? (
           <>Group field</>
         ) : (
