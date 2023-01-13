@@ -42,16 +42,18 @@ export const Sidebar: React.FC<MainNavigationProps> = ({
           </ResponsiveImage>
         </ImageWrapper>
         <nav>
-          <StyledSelect
-            onChange={(e) => navigate(`/${e.currentTarget.value}/stranky`)}
-            defaultValue={sections.find((s) => s.selected)?.slug}
-          >
-            {sections.map(({ title, slug, selected }) => (
-              <option key={slug} value={slug}>
-                {title}
-              </option>
-            ))}
-          </StyledSelect>
+          {sections.length > 1 && (
+            <StyledSelect
+              onChange={(e) => navigate(`/${e.currentTarget.value}/stranky`)}
+              defaultValue={sections.find((s) => s.selected)?.slug}
+            >
+              {sections.map(({ title, slug }) => (
+                <option key={slug} value={slug}>
+                  {title}
+                </option>
+              ))}
+            </StyledSelect>
+          )}
           {navigations.map((navigation, index) => (
             <Navigation
               key={index}

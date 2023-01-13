@@ -145,7 +145,4 @@ const IconWrapper = styled.div`
   display: flex;
   align-items: center;
   margin-right: 1em;
-  path {
-    fill: white;
-  }
 `
