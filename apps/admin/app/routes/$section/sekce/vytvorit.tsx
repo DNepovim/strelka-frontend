@@ -2,8 +2,14 @@ import { useFetcher } from "@remix-run/react"
 import { ActionFunction, redirect } from "@remix-run/node"
 import { updateSection } from "firebase/section"
 import { SectionForm } from "~/forms/SectionForm"
+import { routes } from "routes"
 
-export const action: ActionFunction = async ({ request }) => {
+export const action: ActionFunction = async ({ request, params }) => {
+  const section = params.section
+  if (!section) {
+    throw new Error("Sekce musí být specifikována.")
+  }
+
   const formData = await request.formData()
   const title = formData.get("title") as string
   const slug = formData.get("slug") as string
