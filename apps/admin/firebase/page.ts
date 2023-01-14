@@ -38,6 +38,5 @@ export const removePage = async (section: string, slug: string) => {
   await deleteDoc(doc(db, getCollectionPath(section), slug))
 }
 
-export const getPagesList = async (
-  section: string
-): Promise<PagesTableItem[]> => []
+export const getPagesList = async (section: string) =>
+  getDocsList<PagesTableItem>(getCollectionPath(section))()
