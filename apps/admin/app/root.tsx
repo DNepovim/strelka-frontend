@@ -58,7 +58,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
     failureRedirect: "/login",
   })
   const sections = await getSectionsList(user.email)
-  if (!params.section) {
+  if (!params.section && sections.length) {
     return redirect(routes.pages.list.route()(sections[0].slug))
   }
   return {
@@ -72,7 +72,7 @@ export default function App() {
   const { user, sections } = useLoaderData<LoaderData>()
   const { section } = useParams()
   return (
-    <html lang="en">
+    <html lang="cs">
       <head>
         <Meta />
         <Links />
