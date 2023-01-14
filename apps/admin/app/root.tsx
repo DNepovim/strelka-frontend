@@ -12,17 +12,19 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
+  useNavigate,
   useParams,
 } from "@remix-run/react"
-import styled from "@emotion/styled"
 import { Global } from "@emotion/react"
+import { globalStyles, Sidebar, theme } from "@strelka/admin-ui"
+import styled from "@emotion/styled"
 import { adminNavigation } from "data"
-import { useState } from "react"
-import { authenticator } from "./services/auth.server"
-import { globalStyles, theme, Sidebar } from "@strelka/admin-ui"
-import { getSectionsList, Section } from "firebase/section"
+import { Section, getSectionsList } from "firebase/section"
 import { getUser, User } from "firebase/user"
+import { useState } from "react"
 import { routes } from "routes"
+import { authenticator } from "./services/auth.server"
+import { getUserRoleFromSection } from "./utils/getUserRoleFromSection"
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -54,9 +56,10 @@ interface LoaderData {
 }
 
 export const loader: LoaderFunction = async ({ request, params }) => {
-  const user = await authenticator.authenticate("google", request, {
+  const userEmail = await authenticator.authenticate("google", request, {
     failureRedirect: "/login",
   })
+  const user = await getUser(userEmail)
   const sections = await getSectionsList(user.email)
   if (!params.section && sections.length) {
     return redirect(routes.pages.list.route()(sections[0].slug))
@@ -67,10 +70,23 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   }
 }
 
+const getUserData = (user: User, sections: Section[], section: string) => ({
+  ...user,
+  role: getUserRoleFromSection(
+    user,
+    sections.find(({ slug }) => slug === section)!
+  ),
+})
+
 export default function App() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false)
   const { user, sections } = useLoaderData<LoaderData>()
   const { section } = useParams()
+  const navigate = useNavigate()
+  const [userData, setUserData] = useState(
+    getUserData(user, sections, section!)
+  )
+
   return (
     <html lang="cs">
       <head>
@@ -80,17 +96,25 @@ export default function App() {
       </head>
       <body>
         <Sidebar
-          navigations={[adminNavigation]}
+          navigations={[
+            adminNavigation.filter(
+              ({ show }) => !show || (show && show(userData.role))
+            ),
+          ]}
           isCollapsed={isSidebarCollapsed}
           setIsCollapsed={setIsSidebarCollapsed}
           collapsedWidth={sidebarCollapsedWidth}
           notCollapsedWidth={sidebarNotCollapsedWIdth}
-          user={user}
+          user={userData}
           sections={sections.map(({ title, slug }) => ({
             title,
             slug,
             selected: slug === section,
           }))}
+          onSectionChange={async (slug) => {
+            setUserData(getUserData(user, sections, slug))
+            navigate(`/${slug}/stranky`)
+          }}
         />
         <MainContainer
           width={

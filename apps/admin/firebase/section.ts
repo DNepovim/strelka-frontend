@@ -1,7 +1,7 @@
 import { collection, getDocs, query, where } from "firebase/firestore"
 import { db } from "./db"
 import { getDoc, getDocsList, removeDoc, updateDoc } from "./docs"
-import { getUser } from "./user"
+import { getUser, UserRole } from "./user"
 
 export const collectionName = "sections"
 
@@ -10,6 +10,10 @@ export interface Section {
   slug: string
   lastEditedBy?: string
   lastEditedTime?: string
+  roles?: {
+    [UserRole.Admin]: string[]
+    [UserRole.Editor]: string[]
+  }
 }
 
 export const getSection = getDoc<Section>(collectionName)
@@ -22,19 +26,18 @@ export const getSectionsList = async (email?: string): Promise<Section[]> => {
   }
 
   const user = await getUser(email)
-  if (user.roles?.superadmin) {
+  if (user?.role === UserRole.SuperAdmin) {
     return await getDocsList<Section>(collectionName)()
   }
-
 
   const col = collection(db, collectionName)
   const admins = await query(
     col,
-    where(`roles.admins`, "array-contains", email)
+    where(`roles.${UserRole.Admin}`, "array-contains", email)
   )
   const editors = await query(
     col,
-    where(`roles.editors`, "array-contains", email)
+    where(`roles.${UserRole.Editor}`, "array-contains", email)
   )
   const adminsDocs = await getDocs(admins)
   const editorsDocs = await getDocs(editors)

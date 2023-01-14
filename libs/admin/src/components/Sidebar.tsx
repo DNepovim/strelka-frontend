@@ -4,8 +4,6 @@ import { IoArrowBackOutline } from "react-icons/io5"
 import { User, UserBox } from "./UserBox"
 import { buttonHover, theme } from "../theme"
 import { Navigation, NavigationItem } from "./Navigation"
-import { isRedirectResponse } from "@remix-run/react/dist/data"
-import { useNavigate, useParams } from "@remix-run/react"
 
 interface Section {
   title: string
@@ -21,6 +19,7 @@ interface MainNavigationProps {
   notCollapsedWidth: string
   user: User
   sections: Section[]
+  onSectionChange: (section: Section["slug"]) => void
 }
 
 export const Sidebar: React.FC<MainNavigationProps> = ({
@@ -31,51 +30,49 @@ export const Sidebar: React.FC<MainNavigationProps> = ({
   notCollapsedWidth,
   user,
   sections,
-}) => {
-  const navigate = useNavigate()
-  return (
-    <Container width={isCollapsed ? collapsedWidth : notCollapsedWidth}>
-      <div>
-        <ImageWrapper>
-          <ResponsiveImage>
-            <img src="/images/logo.svg" alt="logo" />
-          </ResponsiveImage>
-        </ImageWrapper>
-        <nav>
-          {sections.length > 1 && (
-            <StyledSelect
-              onChange={(e) => navigate(`/${e.currentTarget.value}/stranky`)}
-              defaultValue={sections.find((s) => s.selected)?.slug}
-            >
-              {sections.map(({ title, slug }) => (
-                <option key={slug} value={slug}>
-                  {title}
-                </option>
-              ))}
-            </StyledSelect>
-          )}
-          {navigations.map((navigation, index) => (
-            <Navigation
-              key={index}
-              items={navigation}
-              isCollapsed={isCollapsed}
-              notCollapsedWidth={notCollapsedWidth}
-            />
-          ))}
-        </nav>
-      </div>
-      <Bottom>
-        <UserBox {...user} isCollapsed={isCollapsed} />
-        <Collapser
-          isCollapsed={isCollapsed}
-          onClick={() => setIsCollapsed(!isCollapsed)}
-        >
-          <IoArrowBackOutline />
-        </Collapser>
-      </Bottom>
-    </Container>
-  )
-}
+  onSectionChange,
+}) => (
+  <Container width={isCollapsed ? collapsedWidth : notCollapsedWidth}>
+    <div>
+      <ImageWrapper>
+        <ResponsiveImage>
+          <img src="/images/logo.svg" alt="logo" />
+        </ResponsiveImage>
+      </ImageWrapper>
+      <nav>
+        {sections.length > 1 && (
+          <StyledSelect
+            onChange={(e) => onSectionChange(e.currentTarget.value)}
+            defaultValue={sections.find((s) => s.selected)?.slug}
+          >
+            {sections.map(({ title, slug }) => (
+              <option key={slug} value={slug}>
+                {title}
+              </option>
+            ))}
+          </StyledSelect>
+        )}
+        {navigations.map((navigation, index) => (
+          <Navigation
+            key={index}
+            items={navigation}
+            isCollapsed={isCollapsed}
+            notCollapsedWidth={notCollapsedWidth}
+          />
+        ))}
+      </nav>
+    </div>
+    <Bottom>
+      <UserBox {...user} isCollapsed={isCollapsed} />
+      <Collapser
+        isCollapsed={isCollapsed}
+        onClick={() => setIsCollapsed(!isCollapsed)}
+      >
+        <IoArrowBackOutline />
+      </Collapser>
+    </Bottom>
+  </Container>
+)
 
 const Container = styled.div`
   position: fixed;

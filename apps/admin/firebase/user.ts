@@ -1,11 +1,13 @@
 import { getDocs, collection, setDoc, doc, Timestamp } from "firebase/firestore"
+import { Optional } from "utility-types"
 import { db } from "./db"
 import { getDoc } from "./docs"
 
-export interface Roles {
-  superadmin?: boolean
-  admin?: string[]
-  editor?: string[]
+export enum UserRole {
+  Editor = "editor",
+  Admin = "admin",
+  SuperAdmin = "superadmin",
+  None = "none",
 }
 
 export interface User {
@@ -13,7 +15,8 @@ export interface User {
   image?: string
   name?: string
   lastLoggedIn?: string
-  roles?: Roles
+  role: UserRole
+  superadmin?: boolean
 }
 
 const collectionName = "users"
@@ -31,7 +34,7 @@ export const getUsersList = async (): Promise<User[]> => {
 
 export const getUser = getDoc<User>(collectionName, "email")
 
-export const setUser = async (user: User) => {
+export const setUser = async (user: Optional<User, "role" | "superadmin">) => {
   const { email, ...restData } = user
   if (!email) {
     throw new Error("No user email.")

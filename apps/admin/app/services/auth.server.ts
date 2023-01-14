@@ -1,18 +1,13 @@
 import { Authenticator } from "remix-auth"
 import { sessionStorage } from "~/services/session.server"
 import { GoogleStrategy } from "remix-auth-google"
-import { setUser, User } from "firebase/user"
-import {
-  getAuth,
-  signInWithCredential,
-  GoogleAuthProvider,
-  connectAuthEmulator,
-} from "firebase/auth"
+import { setUser } from "firebase/user"
+import { signInWithCredential, GoogleAuthProvider } from "firebase/auth"
 import { auth } from "firebase/db"
 
-export const authenticator = new Authenticator<User>(sessionStorage)
+export const authenticator = new Authenticator<string>(sessionStorage)
 
-const googleStrategy = new GoogleStrategy<User>(
+const googleStrategy = new GoogleStrategy<string>(
   {
     clientID: process.env.GOOGLE_CLIENT_ID!,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
@@ -35,12 +30,12 @@ const googleStrategy = new GoogleStrategy<User>(
         // TODO: Better error handling
         console.log(error)
         const credential = GoogleAuthProvider.credentialFromError(error)
-        console.log(credential)
         // ...
       })
-      await setUser(user)
     }
-    return user
+    await setUser(user)
+    console.log("auth server", user.email)
+    return await user.email
   }
 )
 
