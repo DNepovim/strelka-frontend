@@ -59,7 +59,9 @@ export default function Index() {
       footer: () => <td />,
       cell: (info) => (
         <BodyCell>
-          {timestampToDisplay(info.getValue() as unknown as Timestamp)}
+          {info.getValue()
+            ? timestampToDisplay(info.getValue() as unknown as Timestamp)
+            : ""}
         </BodyCell>
       ),
     }),

@@ -13,13 +13,16 @@ import {
 } from "@strelka/admin-ui"
 import { getPagesList, removePage, PagesTableItem } from "firebase/page"
 import { routes } from "routes"
+import { getSection } from "firebase/section"
 
 export const loader: LoaderFunction = async ({ params }) => {
-  const section = params.section
+  const section = await getSection(params.section!)
   if (!section) {
-    throw new Error("Sekce musí být specifikována.")
+    throw new Response(`Stránka ${params.slug} neexistuje.`, {
+      status: 404,
+    })
   }
-  return await getPagesList(section)
+  return await getPagesList(params.section!)
 }
 
 export const action: ActionFunction = async ({ request, params }) => {

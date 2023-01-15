@@ -3,6 +3,7 @@ import {
   LoaderFunction,
   MetaFunction,
   redirect,
+  Response,
 } from "@remix-run/node"
 import {
   Links,
@@ -59,11 +60,21 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   const userEmail = await authenticator.authenticate("google", request, {
     failureRedirect: "/login",
   })
+
   const user = await getUser(userEmail)
+  if (!user) {
+    throw new Response("Nemáte dostatečné oprávnění.", { status: 403 })
+  }
+
   const sections = await getSectionsList(user.email)
-  if (!params.section && sections.length) {
+  if (!sections.length) {
+    throw new Response("Nemáte dostatečné oprávnění.", { status: 403 })
+  }
+
+  if (!params.section) {
     return redirect(routes.pages.list.route()(sections[0].slug))
   }
+
   return {
     user,
     sections,

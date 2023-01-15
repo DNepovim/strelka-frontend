@@ -26,8 +26,11 @@ export const updateDoc =
 
 export const getDoc =
   <T extends {}>(collectionName: string, key?: string) =>
-  async (slug: string): Promise<T> => {
+  async (slug: string): Promise<T | undefined> => {
     const document = (await getData(collectionName, slug)) as T
+    if (!document) {
+      return
+    }
     return {
       [key ?? "slug"]: slug,
       ...document,

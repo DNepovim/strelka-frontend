@@ -45,6 +45,11 @@ export const Sidebar: React.FC<MainNavigationProps> = ({
             onChange={(e) => onSectionChange(e.currentTarget.value)}
             defaultValue={sections.find((s) => s.selected)?.slug}
           >
+            {!sections.find((s) => s.selected) && (
+              <option disabled selected>
+                Vyberte sekci
+              </option>
+            )}
             {sections.map(({ title, slug }) => (
               <option key={slug} value={slug}>
                 {title}
