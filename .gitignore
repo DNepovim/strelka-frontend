@@ -26,3 +26,8 @@ yarn-error.log*
 # webstorm ide
 .idea
 .vscode
+
+# firebase
+firebase-debug.log
+firestore-debug.log
+ui-debug.log

@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev"
+    "dev": "turbo run dev",
+    "firebase:start": "firebase emulators:start --import=./firebase_data"
   },
   "devDependencies": {
     "turbo": "^1.4.6"
