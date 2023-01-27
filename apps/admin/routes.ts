@@ -5,9 +5,13 @@ export const createRoute =
     `/${section}/${typeof funct === "string" ? funct : funct(param)}`
 
 export interface Route {
-  title: (param?: string) => string
-  route: (param?: string) => (section: string) => string
+  title: (() => string) | ((param: string) => string)
+  route:
+    | (() => (section: string) => string)
+    | ((param?: string) => (section: string) => string)
 }
+
+export type Routes = Record<string, Record<string, Route>>
 
 export const routes = {
   pages: {
@@ -66,4 +70,4 @@ export const routes = {
       route: createRoute(() => `udalosti/pridat`),
     },
   },
-}
+} as const satisfies Routes
