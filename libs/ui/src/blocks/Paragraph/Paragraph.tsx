@@ -1,26 +1,31 @@
+import { useValue } from "@strelka/admin-ui"
 import React from "react"
 import { Block } from "../../components/Block/Block"
 import { Column, Container, Row } from "../../components/Layout/Layout"
 import { Header2 } from "../../components/Typography/Typography"
 
 export interface ParagraphProps {
-  title?: string
-  text?: string
+  title: string
+  text: string
 }
 
-export const Paragraph: React.FC<ParagraphProps> = ({ title, text }) => (
-  <Block>
-    <Container>
-      {title && (
+export const Paragraph: React.FC<{ order: number }> = ({ order }) => {
+  const titleProps = useValue("title", order)
+  const textProps = useValue("text", order)
+  return (
+    <Block>
+      <Container>
         <Row>
-          <Column col={12}>{title && <Header2>{title}</Header2>}</Column>
+          <Column col={12}>
+            <Header2 {...titleProps} />
+          </Column>
         </Row>
-      )}
-      {text && (
         <Row>
-          <Column col={12}>{text}</Column>
+          <Column col={12}>
+            <p {...textProps} />
+          </Column>
         </Row>
-      )}
-    </Container>
-  </Block>
-)
+      </Container>
+    </Block>
+  )
+}

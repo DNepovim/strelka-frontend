@@ -11,5 +11,6 @@ export * from "./blockEditor/BlockFields"
 export * from "./layout/PageSection"
 export * from "./Popover"
 export * from "./blockEditor/BlockEditor"
+export * from "./blockEditor/EditorContext"
 
 export * from "./form/inputDefs"

@@ -27,7 +27,7 @@ export const action: ActionFunction = async ({ request, params }) => {
   const blocks = formData.get("blocks") as any
   const blocksParsed = JSON.parse(blocks)
 
-  await updatePage(slug, section, { title, blocks: blocksParsed })
+  await updatePage(section, slug, { title, blocks: blocksParsed })
   return null
 }
 

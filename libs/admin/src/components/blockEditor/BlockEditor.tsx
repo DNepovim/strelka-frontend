@@ -20,6 +20,8 @@ import { AddBlockButton } from "./AddBlockButton"
 import { Block, BlockDef } from "../../blockDefs"
 import { FieldArray } from "formik"
 import { BlockSortableWrapper } from "./BlockSortableWrapper"
+import React from "react"
+import { EditorProvider } from "./EditorContext"
 
 interface BlockFieldProps<BlockTemplates> {
   blocks: Block<BlockTemplates, any>[]
@@ -35,41 +37,35 @@ export const BlockEditor = <BlockTemplates extends string>({
   name,
 }: BlockFieldProps<BlockTemplates>) => {
   return (
-    <FieldArray name={name}>
-      {({ remove, push }) => (
-        <>
-          <BlockSortableWrapper<BlockTemplates>
-            blocks={blocks}
-            blockDefs={blockDefs}
-            setFieldValue={setFieldValue}
-          >
-            {blocks.map((block, index) => (
-              <Disclosure
-                header={
-                  blockDefs.find(
-                    (blockDef) => blockDef.template === block.template
-                  )?.title ?? block.template
-                }
-                onRemove={() => remove(index)}
-                key={block.id}
-                id={block.id}
-              >
-                <BlockFields<BlockTemplates>
-                  name={`blocks[${index}]`}
-                  template={block.template}
-                  blockDefs={blockDefs}
-                />
-              </Disclosure>
-            ))}
-          </BlockSortableWrapper>
-          <AddBlockButton
-            blockDefs={blockDefs}
-            onButtonAdd={(template) => {
-              push({ id: uuid(), template, fields: {} })
-            }}
-          />
-        </>
-      )}
-    </FieldArray>
+    <EditorProvider>
+      <FieldArray name={name}>
+        {({ remove, push }) => (
+          <>
+            <BlockSortableWrapper<BlockTemplates>
+              blocks={blocks}
+              blockDefs={blockDefs}
+              setFieldValue={setFieldValue}
+            >
+              <>
+                {blocks.map((block, index) =>
+                  React.createElement(
+                    blockDefs.find(
+                      (blockDef) => block.template === blockDef.template
+                    )?.component!,
+                    { order: index, key: block.id }
+                  )
+                )}
+              </>
+            </BlockSortableWrapper>
+            <AddBlockButton
+              blockDefs={blockDefs}
+              onButtonAdd={(template) => {
+                push({ id: uuid(), template, fields: { title: "", text: "" } })
+              }}
+            />
+          </>
+        )}
+      </FieldArray>
+    </EditorProvider>
   )
 }
