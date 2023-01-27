@@ -1,5 +1,10 @@
-import { ActionFunction, LoaderFunction } from "@remix-run/node"
-import { useFetcher, useLoaderData, useParams } from "@remix-run/react"
+import { ActionFunction, LoaderFunction, redirect } from "@remix-run/node"
+import {
+  useFetcher,
+  useLoaderData,
+  useParams,
+  useTransition,
+} from "@remix-run/react"
 import { createColumnHelper, ColumnDef } from "@tanstack/react-table"
 import { IoPencilOutline, IoTrashBinOutline } from "react-icons/io5"
 import {
@@ -43,6 +48,7 @@ export default function Index() {
   const data = useLoaderData()
   const fetcher = useFetcher()
   const { section } = useParams()
+  const deleting = fetcher.submission?.formData.get("slug")
 
   if (!section) {
     return <>Sekce není vybraná.</>
@@ -103,7 +109,7 @@ export default function Index() {
         </ButtonLink>
       </SiteHeader>
       <Table
-        data={data}
+        data={data.filter(({ slug }) => slug !== deleting)}
         columns={columns}
         emptyMessage="Žádné stránky tu nejsou..."
       />
