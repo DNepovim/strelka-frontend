@@ -2,7 +2,7 @@ import React from "react"
 import styled from "@emotion/styled"
 import { IoArrowBackOutline } from "react-icons/io5"
 import { User, UserBox } from "./UserBox"
-import { buttonHover, theme } from "../theme"
+import { theme } from "../theme"
 import { Navigation, NavigationItem } from "./Navigation"
 
 interface Section {
@@ -137,8 +137,6 @@ const Collapser = styled.button`
     );
     transition: transform 300ms ${theme.styles.animationFunction};
   }
-
-  ${buttonHover}
 `
 
 const StyledSelect = styled.select`

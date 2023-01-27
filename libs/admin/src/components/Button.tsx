@@ -32,8 +32,6 @@ const StyledButton = styled.button`
         `
       : ""}
 
-  ${buttonHover}
-
   svg {
     margin: 0 0.4em 0 -0.2em;
   }

@@ -1,7 +1,7 @@
 import { css } from "@emotion/react"
 import styled from "@emotion/styled"
 import React, { ReactNode } from "react"
-import { theme, buttonHover } from "../theme"
+import { theme } from "../theme"
 import { RouteLink } from "./RouteLink"
 
 export interface NavigationItem {
@@ -105,8 +105,6 @@ const GeneralLink = styled(RouteLink, {
   color: black;
   text-decoration: none;
   background-color: white;
-
-  ${buttonHover}
 `
 
 const Link = styled(GeneralLink, {
@@ -114,8 +112,10 @@ const Link = styled(GeneralLink, {
 })`
   position: relative;
   z-index: 1;
+  margin-right: -1px;
   padding: 0.4em 1em;
-  width: 100%;
+  border-right: ${theme.styles.border};
+  width: calc(100% + 1px);
   transition: width 300ms ${theme.styles.animationFunction};
   ${({ withAction }: LinkProps) =>
     withAction
@@ -137,8 +137,6 @@ const ActionLink = styled(GeneralLink)`
   top: 0;
   bottom: 0;
   width: 2.4rem;
-  box-shadow: inset 0 0 5px #ddd;
-  transition: box-shadow 300ms ${theme.styles.animationFunction};
 `
 
 const IconWrapper = styled.div`

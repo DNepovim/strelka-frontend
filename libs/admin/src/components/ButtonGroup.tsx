@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import React, { ReactNode } from "react"
 import { Link } from "@remix-run/react"
-import { buttonHover, theme } from "../theme"
+import { theme } from "../theme"
 import { css } from "@emotion/react"
 
 interface ButtonGroupItem {
@@ -114,7 +114,6 @@ const Button = styled.button`
   border: none;
   padding: 0.4rem;
   box-shadow: none;
-  ${buttonHover}
   ${({ layout }: ItemProps) =>
     layout === "vertical"
       ? css`

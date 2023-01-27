@@ -17,12 +17,3 @@ export const theme = {
     gap: 1,
   },
 }
-
-export const buttonHover = css`
-  box-shadow: inset 0 0 0 0 white;
-  transition: box-shadow 900ms ${theme.styles.animationFunction};
-
-  &:hover {
-    box-shadow: inset 0 0 13px 5px #ddd;
-  }
-`
