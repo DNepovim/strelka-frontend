@@ -12,6 +12,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useCatch,
   useLoaderData,
   useNavigate,
   useParams,
@@ -151,3 +152,21 @@ const MainContainer = styled.main`
   padding: 2em;
   max-width: 50rem;
 `
+
+export function CatchBoundary() {
+  const cought = useCatch()
+  return (
+    <div>
+      <h2>{cought.data}</h2>
+    </div>
+  )
+}
+
+export function ErrorBoundary({ error }) {
+  console.error(error)
+  return (
+    <div>
+      <h2>Section error</h2>
+    </div>
+  )
+}
