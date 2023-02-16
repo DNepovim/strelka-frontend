@@ -159,5 +159,8 @@ export const useValue = (name: string, order: number, fields?: BlockFields) => {
       }
     },
     onInput: (e) => setValue(e.currentTarget.textContent),
+    style: {
+      outline: "none",
+    },
   }
 }

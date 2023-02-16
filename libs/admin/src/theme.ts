@@ -1,5 +1,3 @@
-import { css } from "@emotion/react"
-
 export const theme = {
   styles: {
     border: "1px solid #ccc",

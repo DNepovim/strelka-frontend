@@ -12,8 +12,12 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable"
+import {
+  restrictToVerticalAxis,
+  restrictToWindowEdges,
+} from "@dnd-kit/modifiers"
 import { findIndex } from "lodash"
-import React, { ReactNode } from "react"
+import { ReactNode } from "react"
 import { Block, BlockDef } from "src"
 
 export interface BlockSortableWrapperProps<BlockTemplates> {
@@ -26,7 +30,6 @@ export interface BlockSortableWrapperProps<BlockTemplates> {
 export const BlockSortableWrapper = <BlockTemplates extends string>({
   children,
   blocks,
-  blockDefs,
   setFieldValue,
 }: BlockSortableWrapperProps<BlockTemplates>) => {
   const sensors = useSensors(
@@ -39,6 +42,7 @@ export const BlockSortableWrapper = <BlockTemplates extends string>({
     <DndContext
       sensors={sensors}
       collisionDetection={closestCenter}
+      modifiers={[restrictToVerticalAxis, restrictToWindowEdges]}
       onDragEnd={(event) => {
         const { active, over } = event
 

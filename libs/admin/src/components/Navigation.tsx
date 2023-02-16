@@ -99,7 +99,6 @@ const Item = styled("li", {
 const GeneralLink = styled(RouteLink, {
   shouldForwardProp,
 })`
-  box-sizing: border-box;
   display: flex;
   overflow: hidden;
   color: black;

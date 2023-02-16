@@ -34,7 +34,7 @@ export const meta: MetaFunction = () => ({
   viewport: "width=device-width,initial-scale=1",
 })
 
-const sidebarCollapsedWidth = "3em"
+const sidebarCollapsedWidth = "3.8em"
 const sidebarNotCollapsedWIdth = "12em"
 
 export const links: LinksFunction = () => [
@@ -150,7 +150,7 @@ const MainContainer = styled.main`
   transition: margin-left 300ms ${theme.styles.animationFunction},
     max-width 300ms ${theme.styles.animationFunction};
   min-height: 80vh;
-  padding: 2em;
+  padding: 2.4em;
   max-width: ${({ width }: { width: string }) => `calc(100vw - ${width})`};
 `
 

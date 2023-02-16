@@ -8,6 +8,8 @@ import { EditorProvider, getFieldName, useEditorState } from "./EditorContext"
 import styled from "@emotion/styled"
 import { map } from "lodash"
 import { inputDefs } from "../form/inputDefs"
+import { theme } from "../../theme"
+import { BlockSortableItem } from "./BlockSortableItem"
 
 interface BlockFieldProps<BlockTemplates> {
   blocks: Block<BlockTemplates, any>[]
@@ -43,25 +45,30 @@ export const BlockEditor = <BlockTemplates extends string>({
   return (
     <EditorProvider>
       <EditorContainer>
-        <div>
+        <EditorPreview>
           <FieldArray name={name}>
-            {({ remove, push }) => (
+            {({ remove, push, move }) => (
               <>
                 <BlockSortableWrapper<BlockTemplates>
                   blocks={blocks}
                   blockDefs={blockDefs}
                   setFieldValue={setFieldValue}
                 >
-                  <>
-                    {blocks.map((block, index) =>
-                      React.createElement(
+                  {blocks.map((block, index) => (
+                    <BlockSortableItem
+                      id={block.id}
+                      onMoveUp={() => move(index, index - 1)}
+                      onMoveDown={() => move(index, index + 1)}
+                      key={block.id}
+                    >
+                      {React.createElement(
                         blockDefs.find(
                           (blockDef) => block.template === blockDef.template
                         )?.component!,
-                        { order: index, key: block.id }
-                      )
-                    )}
-                  </>
+                        { order: index }
+                      )}
+                    </BlockSortableItem>
+                  ))}
                 </BlockSortableWrapper>
                 <AddBlockButton
                   blockDefs={blockDefs}
@@ -76,7 +83,7 @@ export const BlockEditor = <BlockTemplates extends string>({
               </>
             )}
           </FieldArray>
-        </div>
+        </EditorPreview>
         <div>
           <AdditionalFields />
         </div>
@@ -88,4 +95,10 @@ export const BlockEditor = <BlockTemplates extends string>({
 const EditorContainer = styled.div`
   display: grid;
   grid-template-columns: 4fr 1fr;
+`
+
+const EditorPreview = styled.div`
+  background-color: white;
+  border: ${theme.styles.border};
+  border-radius: 4px;
 `

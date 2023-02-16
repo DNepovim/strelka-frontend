@@ -9,6 +9,10 @@ export const global = css`
     background-color: ${theme.colors.bodyBackground};
   }
 
+  * {
+    box-sizing: border-box;
+  }
+
   a {
     color: black;
   }

@@ -123,7 +123,6 @@ const StyledsForToggle = styled.span`
     height: 22px;
     border-radius: 50%;
     background-color: ${theme.colors.brand};
-    box-sizing: border-box;
     transition: all 0.25s ease;
   }
 
