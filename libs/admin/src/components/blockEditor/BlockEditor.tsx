@@ -1,27 +1,13 @@
 import { v4 as uuid } from "uuid"
-import {
-  useSensors,
-  useSensor,
-  PointerSensor,
-  KeyboardSensor,
-  DndContext,
-  closestCenter,
-} from "@dnd-kit/core"
-import {
-  sortableKeyboardCoordinates,
-  arrayMove,
-  SortableContext,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable"
-import { findIndex } from "lodash"
-import { Disclosure } from "../Disclosure"
-import { BlockFields } from "./BlockFields"
 import { AddBlockButton } from "./AddBlockButton"
 import { Block, BlockDef } from "../../blockDefs"
 import { FieldArray } from "formik"
 import { BlockSortableWrapper } from "./BlockSortableWrapper"
-import React from "react"
-import { EditorProvider } from "./EditorContext"
+import React, { createElement } from "react"
+import { EditorProvider, getFieldName, useEditorState } from "./EditorContext"
+import styled from "@emotion/styled"
+import { map } from "lodash"
+import { inputDefs } from "../form/inputDefs"
 
 interface BlockFieldProps<BlockTemplates> {
   blocks: Block<BlockTemplates, any>[]
@@ -30,6 +16,24 @@ interface BlockFieldProps<BlockTemplates> {
   name: string
 }
 
+const AdditionalFields: React.FC = () => {
+  const { additionalFields, blockMeta, fieldMeta } = useEditorState()
+  const fieldAddFields = additionalFields.field
+  if (!fieldAddFields || !blockMeta || !fieldMeta) {
+    return <></>
+  }
+  return (
+    <>
+      {map(fieldAddFields, (field, key) => {
+        const name = getFieldName(blockMeta.order, fieldMeta.name, key)
+        return createElement(inputDefs[field.input], {
+          name,
+          key: name,
+        })
+      })}
+    </>
+  )
+}
 export const BlockEditor = <BlockTemplates extends string>({
   blocks,
   blockDefs,
@@ -38,34 +42,50 @@ export const BlockEditor = <BlockTemplates extends string>({
 }: BlockFieldProps<BlockTemplates>) => {
   return (
     <EditorProvider>
-      <FieldArray name={name}>
-        {({ remove, push }) => (
-          <>
-            <BlockSortableWrapper<BlockTemplates>
-              blocks={blocks}
-              blockDefs={blockDefs}
-              setFieldValue={setFieldValue}
-            >
+      <EditorContainer>
+        <div>
+          <FieldArray name={name}>
+            {({ remove, push }) => (
               <>
-                {blocks.map((block, index) =>
-                  React.createElement(
-                    blockDefs.find(
-                      (blockDef) => block.template === blockDef.template
-                    )?.component!,
-                    { order: index, key: block.id }
-                  )
-                )}
+                <BlockSortableWrapper<BlockTemplates>
+                  blocks={blocks}
+                  blockDefs={blockDefs}
+                  setFieldValue={setFieldValue}
+                >
+                  <>
+                    {blocks.map((block, index) =>
+                      React.createElement(
+                        blockDefs.find(
+                          (blockDef) => block.template === blockDef.template
+                        )?.component!,
+                        { order: index, key: block.id }
+                      )
+                    )}
+                  </>
+                </BlockSortableWrapper>
+                <AddBlockButton
+                  blockDefs={blockDefs}
+                  onButtonAdd={(template) => {
+                    push({
+                      id: uuid(),
+                      template,
+                      fields: { title: "", text: "" },
+                    })
+                  }}
+                />
               </>
-            </BlockSortableWrapper>
-            <AddBlockButton
-              blockDefs={blockDefs}
-              onButtonAdd={(template) => {
-                push({ id: uuid(), template, fields: { title: "", text: "" } })
-              }}
-            />
-          </>
-        )}
-      </FieldArray>
+            )}
+          </FieldArray>
+        </div>
+        <div>
+          <AdditionalFields />
+        </div>
+      </EditorContainer>
     </EditorProvider>
   )
 }
+
+const EditorContainer = styled.div`
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+`

@@ -1,58 +1,104 @@
 import { useField } from "formik"
 import React, {
   ReactNode,
-  ReducerWithoutAction,
   useContext,
+  useMemo,
   useReducer,
   useRef,
-  useState,
 } from "react"
 import { InputDefs } from "../.."
 
 export interface BlockField {
-  naem: string
   label: string
   input: InputDefs
 }
 
+export type BlockFields = Record<string, BlockField>
+
+export interface BlockMeta {
+  // TODO: someday it will be required
+  template?: string
+  order: number
+}
+
+export interface FieldMeta {
+  name: string
+}
+
 interface EditorState {
   isInEditor?: boolean
-  templates?: Record<string, { fields: BlockField[] }>
-}
-
-interface EditorContext {
-  state: EditorState
-  addBlockFields?: (template: string, fields: BlockField[]) => void
-}
-
-const defaultContext = {
-  state: {
-    isInEditor: true,
-  },
-}
-
-export const EditorContext = React.createContext<EditorContext>(defaultContext)
-
-interface EditorStateAction {
-  type: "addBlockFields"
-  payload: {
-    template: string
-    fields: BlockField[]
+  blockMeta?: BlockMeta
+  fieldMeta?: FieldMeta
+  additionalFields: {
+    block?: BlockFields
+    field?: BlockFields
   }
 }
 
+interface EditorContextDispatchers {
+  registerFieldAddFields?: (fields?: BlockFields) => void
+  registerBlockMeta?: (meta: BlockMeta) => void
+  registerFieldMeta?: (meta: FieldMeta) => void
+}
+
+const defaultContext = {
+  isInEditor: true,
+  additionalFields: {},
+} satisfies EditorState
+
+export const EditorContextState =
+  React.createContext<EditorState>(defaultContext)
+export const EditorContextDispatchers =
+  React.createContext<EditorContextDispatchers>({})
+
+export const useEditorState = () => useContext(EditorContextState)
+export const useEditorDispatchers = () => useContext(EditorContextDispatchers)
+
+interface RegisterFieldAddFieldsStateAction {
+  type: "registerFieldAddFields"
+  payload: {
+    fields?: BlockFields
+    blockMeta?: BlockMeta
+  }
+}
+
+interface RegisterBlockMetaStateAction {
+  type: "registerBlockMeta"
+  payload: BlockMeta
+}
+
+interface RegisterFieldMetaStateAction {
+  type: "registerFieldMeta"
+  payload: FieldMeta
+}
+
+type EditorContextStateAction =
+  | RegisterFieldAddFieldsStateAction
+  | RegisterBlockMetaStateAction
+  | RegisterFieldMetaStateAction
+
 const editorContextReducer = (
   state: EditorState,
-  action: EditorStateAction
+  { type, payload }: EditorContextStateAction
 ): EditorState => {
-  switch (action.type) {
-    case "addBlockFields":
+  switch (type) {
+    case "registerFieldAddFields":
       return {
         ...state,
-        templates: {
-          ...state.templates,
-          [action.payload.template]: { fields: action.payload.fields },
+        additionalFields: {
+          ...state.additionalFields,
+          field: payload.fields,
         },
+      }
+    case "registerBlockMeta":
+      return {
+        ...state,
+        blockMeta: payload,
+      }
+    case "registerFieldMeta":
+      return {
+        ...state,
+        fieldMeta: payload,
       }
     default:
       return state
@@ -62,39 +108,56 @@ const editorContextReducer = (
 export const EditorProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [state, dispatch] = useReducer(editorContextReducer, {
-    isInEditor: true,
-  })
+  const [state, dispatch] = useReducer(editorContextReducer, defaultContext)
+
+  const memoState = useMemo(() => state, [state])
+  const memoDispatchers = useMemo(
+    () => ({
+      registerFieldAddFields: (fields?: BlockFields) =>
+        dispatch({ type: "registerFieldAddFields", payload: { fields } }),
+      registerBlockMeta: (meta: BlockMeta) =>
+        dispatch({ type: "registerBlockMeta", payload: meta }),
+      registerFieldMeta: (meta: FieldMeta) =>
+        dispatch({ type: "registerFieldMeta", payload: meta }),
+    }),
+    []
+  )
 
   return (
-    <EditorContext.Provider
-      value={{
-        state,
-        addBlockFields: (template: string, fields: BlockField[]) =>
-          dispatch({ type: "addBlockFields", payload: { template, fields } }),
-      }}
-    >
-      {children}
-    </EditorContext.Provider>
+    <EditorContextState.Provider value={memoState}>
+      <EditorContextDispatchers.Provider value={memoDispatchers}>
+        {children}
+      </EditorContextDispatchers.Provider>
+    </EditorContextState.Provider>
   )
 }
 
-export const useValue = (name: string, order: number) => {
-  const context = useContext(EditorContext)
-  const isEditable = context.state.isInEditor
-  const [{ value }, _, { setValue }] = useField(
-    `blocks[${order}].fields.${name}`
-  )
+export const getFieldName = (
+  blockOrder: number,
+  fieldName: string,
+  additionalFieldName?: string
+) =>
+  additionalFieldName
+    ? `blocks[${blockOrder}].fields.${fieldName}.${additionalFieldName}`
+    : `blocks[${blockOrder}].fields.${fieldName}.value`
+
+export const useValue = (name: string, order: number, fields?: BlockFields) => {
+  const { registerFieldAddFields, registerBlockMeta, registerFieldMeta } =
+    useEditorDispatchers()
+  const [{ value }, _, { setValue }] = useField(getFieldName(order, name))
   const childrenRef = useRef<string>(value)
 
-  return isEditable
-    ? {
-        innertext: value,
-        children: childrenRef.current,
-        contentEditable: true,
-        onInput: (e) => setValue(e.currentTarget.textContent),
+  return {
+    innertext: value,
+    children: childrenRef.current,
+    contentEditable: true,
+    onFocus: () => {
+      if (registerFieldAddFields && registerBlockMeta && registerFieldMeta) {
+        registerFieldAddFields(fields)
+        registerBlockMeta({ order })
+        registerFieldMeta({ name })
       }
-    : {
-        children: value,
-      }
+    },
+    onInput: (e) => setValue(e.currentTarget.textContent),
+  }
 }

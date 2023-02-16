@@ -1,42 +1,25 @@
-import {
-  BlockField,
-  EditorContext,
-  InputDefs,
-  useValue,
-} from "@strelka/admin-ui"
-import React, { useContext } from "react"
+import { InputDefs, useValue } from "@strelka/admin-ui"
+import React from "react"
 import { Block } from "../../components/Block/Block"
 import { Column, Container, Row } from "../../components/Layout/Layout"
 import { Header2 } from "../../components/Typography/Typography"
 import { IoMenuOutline } from "react-icons/io5"
-import { useField } from "formik"
 
 export interface ParagraphProps {
-  title: string
-  text: string
-}
-
-const useBlock = (template: string, order: number, fields?: BlockField[]) => {
-  const { addBlockFields } = useContext(EditorContext)
-  if (fields?.length) {
-    addBlockFields(template, fields)
-  }
-  const [{ value }] = useField(`blocks[${order}].meta`)
-  return value
+  name: string
+  label: string
+  input: InputDefs
 }
 
 export const Paragraph: React.FC<{ order: number; template: string }> = ({
   order,
-  template,
 }) => {
-  const blockValues = useBlock(template, order, [
-    {
-      name: "neco",
-      label: "Neco",
-      in
-  }
-  ])
-  const titleProps = useValue("title", order)
+  const titleProps = useValue("title", order, {
+    color: {
+      label: "Barva",
+      input: InputDefs.Text,
+    },
+  })
   const textProps = useValue("text", order)
   return (
     <Block>

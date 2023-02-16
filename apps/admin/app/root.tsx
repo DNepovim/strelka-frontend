@@ -17,7 +17,7 @@ import {
   useNavigate,
   useParams,
 } from "@remix-run/react"
-import { Global } from "@emotion/react"
+import { css, Global } from "@emotion/react"
 import { globalStyles, Sidebar, theme } from "@strelka/admin-ui"
 import styled from "@emotion/styled"
 import { adminNavigation } from "data"
@@ -147,10 +147,11 @@ export default function App() {
 
 const MainContainer = styled.main`
   margin-left: ${({ width }: { width: string }) => width};
-  transition: margin-left 300ms ${theme.styles.animationFunction};
+  transition: margin-left 300ms ${theme.styles.animationFunction},
+    max-width 300ms ${theme.styles.animationFunction};
   min-height: 80vh;
   padding: 2em;
-  max-width: 50rem;
+  max-width: ${({ width }: { width: string }) => `calc(100vw - ${width})`};
 `
 
 export function CatchBoundary() {

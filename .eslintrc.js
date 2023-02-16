@@ -15,7 +15,7 @@ module.exports = {
       jsx: true,
     },
   },
-  plugins: ["react-hooks", "emotion"],
+  plugins: ["react-hooks", "emotion", "unused-imports"],
   rules: {
     indent: "off",
     "@typescript-eslint/indent": "off", // indentation is handled by prettier
@@ -30,14 +30,15 @@ module.exports = {
         },
       },
     ],
-    "@typescript-eslint/no-unused-vars": [
-      "error",
+    "@typescript-eslint/no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
       {
         vars: "all",
+        varsIgnorePattern: "^_",
         args: "after-used",
-        ignoreRestSiblings: false,
-        argsIgnorePattern: "^_|pgm",
-        varsIgnorePattern: "^_|React|react",
+        argsIgnorePattern: "^_",
       },
     ],
     "@typescript-eslint/naming-convention": [

@@ -14,7 +14,6 @@ export interface Page {
   slug: string
   lastEditedBy?: string
   lastEditedTime?: string
-  // TODO
   blocks: BlocksDefs[]
 }
 
