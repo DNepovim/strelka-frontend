@@ -6,6 +6,8 @@ import {
   IoEllipsisVerticalOutline,
   IoChevronDownOutline,
   IoAddOutline,
+  IoRemoveOutline,
+  IoTrashBinOutline,
 } from "react-icons/io5"
 import { CSS } from "@dnd-kit/utilities"
 import { theme } from "../../theme"
@@ -19,7 +21,16 @@ export const BlockSortableItem: React.FC<{
   onMoveDown: () => void
   onAddUp: () => void
   onAddBottom: () => void
-}> = ({ children, id, onMoveUp, onMoveDown, onAddUp, onAddBottom }) => {
+  onRemove: () => void
+}> = ({
+  children,
+  id,
+  onMoveUp,
+  onMoveDown,
+  onAddUp,
+  onAddBottom,
+  onRemove,
+}) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id })
 
@@ -49,6 +60,9 @@ export const BlockSortableItem: React.FC<{
         <AddBottomButton onClick={onAddBottom}>
           <IoAddOutline />
         </AddBottomButton>,
+        <RemoveButton onClick={onRemove}>
+          <IoTrashBinOutline color="red" />
+        </RemoveButton>,
       ]}
       {children}
     </BlockWrapper>
@@ -83,6 +97,14 @@ const ControlButton = styled(SimpleButton)`
   &:not(:last-of-type) {
     border-bottom: none;
   }
+`
+
+const RemoveButton = styled(ControlButton)`
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transform: translateX(calc(-100% - 0.4rem));
+  border-color: red;
 `
 
 const AddButton = styled(SimpleButton)`

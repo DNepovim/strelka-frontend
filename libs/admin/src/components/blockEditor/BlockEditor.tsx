@@ -1,5 +1,4 @@
 import { v4 as uuid } from "uuid"
-import { AddBlockButton } from "./AddBlockButton"
 import { Block, BlockDef } from "../../blockDefs"
 import { FieldArray } from "formik"
 import { BlockSortableWrapper } from "./BlockSortableWrapper"
@@ -72,6 +71,7 @@ export const BlockEditor = <BlockTemplates extends string>({
                         fields: { title: "", text: "" },
                       })
                     }
+                    onRemove={() => remove(index)}
                     key={block.id}
                   >
                     {React.createElement(
