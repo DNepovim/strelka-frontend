@@ -16,9 +16,9 @@ export interface BlockField {
 export type BlockFields = Record<string, BlockField>
 
 export interface BlockMeta {
-  // TODO: someday it will be required
-  template?: string
+  template: string
   order: number
+  id: string
 }
 
 export interface FieldMeta {
@@ -141,10 +141,16 @@ export const getFieldName = (
     ? `blocks[${blockOrder}].fields.${fieldName}.${additionalFieldName}`
     : `blocks[${blockOrder}].fields.${fieldName}.value`
 
-export const useValue = (name: string, order: number, fields?: BlockFields) => {
+export const useValue = (
+  name: string,
+  blockMeta: BlockMeta,
+  fields?: BlockFields
+) => {
   const { registerFieldAddFields, registerBlockMeta, registerFieldMeta } =
     useEditorDispatchers()
-  const [{ value }, _, { setValue }] = useField(getFieldName(order, name))
+  const [{ value }, _, { setValue }] = useField(
+    getFieldName(blockMeta.order, name)
+  )
   const childrenRef = useRef<string>(value)
 
   return {
@@ -154,7 +160,7 @@ export const useValue = (name: string, order: number, fields?: BlockFields) => {
     onFocus: () => {
       if (registerFieldAddFields && registerBlockMeta && registerFieldMeta) {
         registerFieldAddFields(fields)
-        registerBlockMeta({ order })
+        registerBlockMeta(blockMeta)
         registerFieldMeta({ name })
       }
     },

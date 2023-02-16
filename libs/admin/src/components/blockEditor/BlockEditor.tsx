@@ -47,40 +47,48 @@ export const BlockEditor = <BlockTemplates extends string>({
       <EditorContainer>
         <EditorPreview>
           <FieldArray name={name}>
-            {({ remove, push, move }) => (
-              <>
-                <BlockSortableWrapper<BlockTemplates>
-                  blocks={blocks}
-                  blockDefs={blockDefs}
-                  setFieldValue={setFieldValue}
-                >
-                  {blocks.map((block, index) => (
-                    <BlockSortableItem
-                      id={block.id}
-                      onMoveUp={() => move(index, index - 1)}
-                      onMoveDown={() => move(index, index + 1)}
-                      key={block.id}
-                    >
-                      {React.createElement(
-                        blockDefs.find(
-                          (blockDef) => block.template === blockDef.template
-                        )?.component!,
-                        { order: index }
-                      )}
-                    </BlockSortableItem>
-                  ))}
-                </BlockSortableWrapper>
-                <AddBlockButton
-                  blockDefs={blockDefs}
-                  onButtonAdd={(template) => {
-                    push({
-                      id: uuid(),
-                      template,
-                      fields: { title: "", text: "" },
-                    })
-                  }}
-                />
-              </>
+            {({ remove, insert, move }) => (
+              <BlockSortableWrapper<BlockTemplates>
+                blocks={blocks}
+                blockDefs={blockDefs}
+                setFieldValue={setFieldValue}
+              >
+                {blocks.map((block, index) => (
+                  <BlockSortableItem
+                    id={block.id}
+                    onMoveUp={() => move(index, index - 1)}
+                    onMoveDown={() => move(index, index + 1)}
+                    onAddUp={() =>
+                      insert(index, {
+                        id: uuid(),
+                        template: "paragraph",
+                        fields: { title: "", text: "" },
+                      })
+                    }
+                    onAddBottom={() =>
+                      insert(index + 1, {
+                        id: uuid(),
+                        template: "paragraph",
+                        fields: { title: "", text: "" },
+                      })
+                    }
+                    key={block.id}
+                  >
+                    {React.createElement(
+                      blockDefs.find(
+                        (blockDef) => block.template === blockDef.template
+                      )?.component!,
+                      {
+                        blockMeta: {
+                          order: index,
+                          template: block.template,
+                          id: block.id,
+                        },
+                      }
+                    )}
+                  </BlockSortableItem>
+                ))}
+              </BlockSortableWrapper>
             )}
           </FieldArray>
         </EditorPreview>

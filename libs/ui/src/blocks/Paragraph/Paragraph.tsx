@@ -1,4 +1,4 @@
-import { InputDefs, useValue } from "@strelka/admin-ui"
+import { BlockMeta, InputDefs, useValue } from "@strelka/admin-ui"
 import React from "react"
 import { Block } from "../../components/Block/Block"
 import { Column, Container, Row } from "../../components/Layout/Layout"
@@ -11,16 +11,16 @@ export interface ParagraphProps {
   input: InputDefs
 }
 
-export const Paragraph: React.FC<{ order: number; template: string }> = ({
-  order,
-}) => {
-  const titleProps = useValue("title", order, {
+export const Paragraph: React.FC<{
+  blockMeta: BlockMeta
+}> = ({ blockMeta }) => {
+  const titleProps = useValue("title", blockMeta, {
     color: {
       label: "Barva",
       input: InputDefs.Text,
     },
   })
-  const textProps = useValue("text", order)
+  const textProps = useValue("text", blockMeta)
   return (
     <Block>
       <Container>

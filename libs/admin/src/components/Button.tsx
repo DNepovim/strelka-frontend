@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import { buttonHover, theme } from "../theme"
+import { theme } from "../theme"
 import { css } from "@emotion/react"
 import React, { ButtonHTMLAttributes } from "react"
 import { RouteLink } from "./RouteLink"
