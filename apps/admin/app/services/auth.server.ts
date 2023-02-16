@@ -34,7 +34,6 @@ const googleStrategy = new GoogleStrategy<string>(
       })
     }
     await setUser(user)
-    console.log("auth server", user.email)
     return await user.email
   }
 )
