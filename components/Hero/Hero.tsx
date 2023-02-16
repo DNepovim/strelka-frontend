@@ -31,7 +31,7 @@ export const Hero: React.FC<HeroProps> = ({ words, imageUrls }) => {
       <ImageOverflowContainer>
         <ImageContainer>
           <ImageWithMask
-            layout={"responsive"}
+            layout={"fill"}
             width={3}
             height={2}
             objectFit={"cover"}
@@ -107,6 +107,9 @@ const ImageOverflowContainer = styled.div`
 
 const ImageContainer = styled.div`
   position: relative;
+  width: 100%;
+  height: 60vh;
+
   @media ${max("m")} {
     width: 140%;
     left: -20%;
