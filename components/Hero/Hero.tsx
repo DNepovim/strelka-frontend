@@ -1,48 +1,73 @@
 import { Header1, Header3 } from "../Typography/Typography"
 import { randomRectangle } from "../../utils/Masks"
 import { ImageWithMask } from "../ImageWithMask/ImageWithMask"
-import { TypeAnimation } from "react-type-animation"
 import { max, min, theme } from "../../styles/theme"
 import styled from "@emotion/styled"
+import React from "react"
+import { keyframes } from "@emotion/react"
 
 export interface HeroProps {
   words: string[]
   imageUrls: string[]
 }
 
-export const Hero: React.FC<HeroProps> = ({ words, imageUrls }) => {
-  const delayMS = 3000
-  // Words need a common first character so that the headline doesn't become empty (and with height 0), which leads to content jump
-  const wordSequence = words.map((word) => [`​${word}`, delayMS]).flat()
+export const Hero: React.FC<HeroProps> = ({ words, imageUrls }) => (
+  <HeroContainer>
+    {words.map((word, index) => (
+      <AnimatedHeroTitle
+        className={""}
+        titleCount={words.length}
+        title={word}
+        key={index}
+        index={index}
+      />
+    ))}
+    <ImageOverflowContainer>
+      <ImageContainer>
+        <ImageWithMask
+          layout={"fill"}
+          width={3}
+          height={2}
+          objectFit={"cover"}
+          mask={randomRectangle(6)}
+          src={imageUrls[Math.floor(Math.random() * imageUrls.length)]}
+        />
+      </ImageContainer>
+    </ImageOverflowContainer>
+  </HeroContainer>
+)
 
-  return (
-    <HeroContainer>
-      <Headline mask={randomRectangle(3)}>
-        <Title>
-          <TypeAnimation
-            sequence={wordSequence}
-            cursor={false}
-            speed={30}
-            repeat={Infinity}
-          ></TypeAnimation>
-        </Title>
-        <SubTitle>Skauti Kralupy</SubTitle>
-      </Headline>
-      <ImageOverflowContainer>
-        <ImageContainer>
-          <ImageWithMask
-            layout={"fill"}
-            width={3}
-            height={2}
-            objectFit={"cover"}
-            mask={randomRectangle(6)}
-            src={imageUrls[Math.floor(Math.random() * imageUrls.length)]}
-          />
-        </ImageContainer>
-      </ImageOverflowContainer>
-    </HeroContainer>
-  )
-}
+const HeroTitle: React.FC<{ title: string; className: string }> = ({
+  title,
+  className,
+}) => (
+  <Headline className={className} mask={randomRectangle(3)}>
+    <Title>{title}</Title>
+    <SubTitle>Skauti Kralupy</SubTitle>
+  </Headline>
+)
+
+const heroTitleAnimation = (
+  titleCount: number,
+  fadePercentage: number
+) => keyframes`
+  0% { opacity: 0; z-index: 20; }
+  ${(100 / titleCount) * fadePercentage}% {opacity: 1; z-index: 30;}
+  ${100 / titleCount}% { opacity: 1; }
+  ${(100 / titleCount) * (1 + fadePercentage)}% {opacity: 0; z-index: 20; }
+  100% { opacity: 0; }
+`
+
+const AnimatedHeroTitle = styled(HeroTitle)<{
+  index: number
+  titleCount: number
+}>`
+  opacity: 0;
+  animation-name: ${({ titleCount }) => heroTitleAnimation(titleCount, 0.3)};
+  animation-duration: ${({ titleCount }) => titleCount * 3}s;
+  animation-iteration-count: infinite;
+  animation-delay: ${({ index }) => index * 3}s;
+`
 
 const HeroContainer = styled.div`
   position: relative;
