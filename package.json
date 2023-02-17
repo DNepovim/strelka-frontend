@@ -4,7 +4,8 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "firebase:start": "firebase emulators:start --import=./firebase_data"
+    "firebase:start": "firebase emulators:start --import=./firebase_data",
+    "firebase:export": "firebase emulators:export ./firebase_data"
   },
   "devDependencies": {
     "eslint": "^8.20.0",
