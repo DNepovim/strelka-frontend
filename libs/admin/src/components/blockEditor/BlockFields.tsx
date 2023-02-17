@@ -3,17 +3,17 @@ import React, { ReactElement } from "react"
 import { BlockDef, isGroupField } from "../../blockDefs"
 import { inputDefs } from "../form/inputDefs"
 
-interface BlockFieldsProps<BlockTemplate> {
-  template: BlockTemplate
-  blockDefs: BlockDef<any, BlockTemplate>[]
+interface BlockFieldsProps {
+  template: string
+  blockDefs: BlockDef<any>[]
   name: string
 }
 
-export const BlockFields = <BlockTemplate extends any>({
+export const BlockFields = ({
   template,
   blockDefs,
   name,
-}: BlockFieldsProps<BlockTemplate>): ReactElement => {
+}: BlockFieldsProps): ReactElement => {
   const blockDef = blockDefs.find((def) => def.template === template)
   if (!blockDef) {
     return <></>

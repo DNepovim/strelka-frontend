@@ -1,13 +1,12 @@
 import { Block, BlockDef, InputDefs } from "@strelka/admin-ui"
 import { IoMenuOutline } from "react-icons/io5"
 import { Paragraph, ParagraphProps } from "./Paragraph"
-import { BlockTemplates } from ".."
 
-export type ParagraphBlock = Block<BlockTemplates.Paragraph, ParagraphProps>
+export type ParagraphBlock = Block<ParagraphProps>
 
-export const paragraphBlockDef: BlockDef<ParagraphProps, BlockTemplates> = {
+export const paragraphBlockDef: BlockDef<ParagraphProps> = {
   title: "Text",
-  template: BlockTemplates.Paragraph,
+  template: "paragraph",
   icon: <IoMenuOutline />,
   component: Paragraph,
   fields: {

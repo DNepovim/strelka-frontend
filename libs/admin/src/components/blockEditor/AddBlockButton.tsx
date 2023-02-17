@@ -7,15 +7,15 @@ import { ButtonGroup } from "../ButtonGroup"
 import { Popover } from "../Popover"
 import { GenericBlockDef } from "./BlockEditor"
 
-export interface AddBlockButtonProps<BlockTemplates> {
-  blockDefs: BlockDef<GenericBlockDef<BlockTemplates>, BlockTemplates>[]
-  onButtonAdd: (template: BlockTemplates) => void
+export interface AddBlockButtonProps {
+  blockDefs: BlockDef<GenericBlockDef>[]
+  onButtonAdd: (template: string) => void
 }
 
-export const AddBlockButton = <BlockTemplates extends string>({
+export const AddBlockButton = ({
   blockDefs,
   onButtonAdd,
-}: AddBlockButtonProps<BlockTemplates>) => {
+}: AddBlockButtonProps) => {
   return (
     <Popover
       content={

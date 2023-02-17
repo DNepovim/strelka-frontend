@@ -20,18 +20,18 @@ import { findIndex } from "lodash"
 import { ReactNode } from "react"
 import { Block, BlockDef } from "src"
 
-export interface BlockSortableWrapperProps<BlockTemplates> {
+export interface BlockSortableWrapperProps {
   children: ReactNode
-  blocks: Block<BlockTemplates, any>[]
-  blockDefs: BlockDef<any, BlockTemplates>[]
-  setFieldValue: (blocks: Block<BlockTemplates, any>[]) => void
+  blocks: Block<any>[]
+  blockDefs: BlockDef<any>[]
+  setFieldValue: (blocks: Block<any>[]) => void
 }
 
-export const BlockSortableWrapper = <BlockTemplates extends string>({
+export const BlockSortableWrapper = ({
   children,
   blocks,
   setFieldValue,
-}: BlockSortableWrapperProps<BlockTemplates>) => {
+}: BlockSortableWrapperProps) => {
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {

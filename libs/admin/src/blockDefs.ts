@@ -2,14 +2,14 @@ import { ReactElement } from "react"
 import { FieldProps, InputDefs } from "./components"
 import { Unarray } from "./utils/utilityTypes"
 
-export interface Block<T, F extends {}> {
+export interface Block<F extends {}> {
   id: string
-  template: T
+  template: string
   fields: F
 }
 
-export interface BlockDef<T, BlockTemplates> {
-  template: BlockTemplates
+export interface BlockDef<T> {
+  template: string
   title: string
   icon: ReactElement
   fields: AdminFields<T>
@@ -20,7 +20,7 @@ export type AdminFields<T> = {
   [K in keyof T]: AdminField<Unarray<T[K]>>
 }
 
-type AdminField<T> = GroupDef<T> | FieldDef<T>
+type AdminField<T> = GroupDef<T> | FieldDef
 
 interface GeneralDef {
   label: string
@@ -33,7 +33,7 @@ export interface AdminFieldProps<T> {
   children: React.FC<FieldProps>
 }
 
-interface FieldDef<T> extends GeneralDef {
+interface FieldDef extends GeneralDef {
   input: InputDefs
 }
 
