@@ -6,13 +6,11 @@ import {
   IoEllipsisVerticalOutline,
   IoChevronDownOutline,
   IoAddOutline,
-  IoRemoveOutline,
   IoTrashBinOutline,
 } from "react-icons/io5"
 import { CSS } from "@dnd-kit/utilities"
 import { theme } from "../../theme"
 import { SimpleButton } from "../SimpleButton"
-import { useEditorState } from "./EditorContext"
 
 export const BlockSortableItem: React.FC<{
   children: ReactNode
@@ -22,6 +20,8 @@ export const BlockSortableItem: React.FC<{
   onAddUp: () => void
   onAddBottom: () => void
   onRemove: () => void
+  onClick?: () => void
+  hideControl?: boolean
 }> = ({
   children,
   id,
@@ -30,6 +30,8 @@ export const BlockSortableItem: React.FC<{
   onAddUp,
   onAddBottom,
   onRemove,
+  onClick,
+  hideControl,
 }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id })
@@ -39,11 +41,10 @@ export const BlockSortableItem: React.FC<{
     transition,
   }
 
-  const { blockMeta } = useEditorState()
   return (
-    <BlockWrapper ref={setNodeRef} style={style}>
-      {blockMeta?.id === id && [
-        <ControlWrapper>
+    <BlockWrapper ref={setNodeRef} style={style} onClick={onClick}>
+      {!hideControl && [
+        <ControlWrapper key="controlWrapper">
           <ControlButton onClick={onMoveUp}>
             <IoChevronUpOutline />
           </ControlButton>
@@ -54,13 +55,13 @@ export const BlockSortableItem: React.FC<{
             <IoChevronDownOutline />
           </ControlButton>
         </ControlWrapper>,
-        <AddUpButton onClick={onAddUp}>
+        <AddUpButton onClick={onAddUp} key="addUpButton">
           <IoAddOutline />
         </AddUpButton>,
-        <AddBottomButton onClick={onAddBottom}>
+        <AddBottomButton onClick={onAddBottom} key="addBottomButton">
           <IoAddOutline />
         </AddBottomButton>,
-        <RemoveButton onClick={onRemove}>
+        <RemoveButton onClick={onRemove} key="removeButton">
           <IoTrashBinOutline color="red" />
         </RemoveButton>,
       ]}

@@ -1,9 +1,16 @@
-import { BlockMeta, InputDefs, useValue } from "@strelka/admin-ui"
-import React from "react"
+import {
+  BlockMeta,
+  getFieldName,
+  InputDefs,
+  Repeater,
+  useValue,
+} from "@strelka/admin-ui"
+import React, { ReactElement, ReactNode, useContext } from "react"
 import { Block } from "../../components/Block/Block"
 import { Column, Container, Row } from "../../components/Layout/Layout"
 import { Header2 } from "../../components/Typography/Typography"
 import { IoMenuOutline } from "react-icons/io5"
+import { FieldArray, useField } from "formik"
 
 export interface ParagraphProps {
   name: string
@@ -11,16 +18,13 @@ export interface ParagraphProps {
   input: InputDefs
 }
 
-export const Paragraph: React.FC<{
-  blockMeta: BlockMeta
-}> = ({ blockMeta }) => {
-  const titleProps = useValue("title", blockMeta, {
+export const Paragraph: React.FC<{ block: BlockMeta }> = ({ block }) => {
+  const titleProps = useValue("title", block, {
     color: {
       label: "Barva",
       input: InputDefs.Text,
     },
   })
-  const textProps = useValue("text", blockMeta)
   return (
     <Block>
       <Container>
@@ -29,11 +33,9 @@ export const Paragraph: React.FC<{
             <Header2 {...titleProps} />
           </Column>
         </Row>
-        <Row>
-          <Column col={12}>
-            <p {...textProps} />
-          </Column>
-        </Row>
+        <Repeater name="row" block={block}>
+          {(props) => <TextRow {...props} />}
+        </Repeater>
       </Container>
     </Block>
   )
@@ -43,4 +45,22 @@ export const paragraph = {
   template: "paragraph",
   icon: <IoMenuOutline />,
   component: Paragraph,
+}
+
+const TextRow: React.FC<{ block: BlockMeta; name: string }> = ({
+  block,
+  name,
+}) => {
+  const textProps = useValue(`${name}.fields.text`, block)
+  const anotherTextProps = useValue(`${name}.fields.anotherText`, block)
+  return (
+    <Row>
+      <Column col={6}>
+        <p {...textProps} />
+      </Column>
+      <Column col={6}>
+        <p {...anotherTextProps} />
+      </Column>
+    </Row>
+  )
 }

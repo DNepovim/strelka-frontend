@@ -1,12 +1,15 @@
 import { useField } from "formik"
 import React, {
+  FormEvent,
   ReactNode,
   useContext,
   useMemo,
   useReducer,
   useRef,
+  useState,
 } from "react"
 import { InputDefs } from "../.."
+import { useEditable } from "use-editable"
 
 export interface BlockField {
   label: string
@@ -132,39 +135,35 @@ export const EditorProvider: React.FC<{ children: ReactNode }> = ({
   )
 }
 
-export const getFieldName = (
-  blockOrder: number,
-  fieldName: string,
-  additionalFieldName?: string
-) =>
-  additionalFieldName
-    ? `blocks[${blockOrder}].fields.${fieldName}.${additionalFieldName}`
-    : `blocks[${blockOrder}].fields.${fieldName}.value`
-
 export const useValue = (
   name: string,
   blockMeta: BlockMeta,
   fields?: BlockFields
 ) => {
-  const { registerFieldAddFields, registerBlockMeta, registerFieldMeta } =
-    useEditorDispatchers()
+  const { registerFieldAddFields, registerFieldMeta } = useEditorDispatchers()
+
+  if (!blockMeta) {
+    return
+  }
+
   const [{ value }, _, { setValue }] = useField(
-    getFieldName(blockMeta.order, name)
+    `blocks[${blockMeta.order}].fields.${name}.value`
   )
-  const childrenRef = useRef<string>(value)
+  const childrenRef = useRef(null)
+
+  useEditable(childrenRef, (value) => setValue(value))
 
   return {
-    innertext: value,
-    children: childrenRef.current,
-    contentEditable: true,
+    ref: childrenRef,
+    children: value,
     onFocus: () => {
-      if (registerFieldAddFields && registerBlockMeta && registerFieldMeta) {
+      if (fields && registerFieldAddFields) {
         registerFieldAddFields(fields)
-        registerBlockMeta(blockMeta)
+      }
+      if (registerFieldMeta) {
         registerFieldMeta({ name })
       }
     },
-    onInput: (e) => setValue(e.currentTarget.textContent),
     style: {
       outline: "none",
     },

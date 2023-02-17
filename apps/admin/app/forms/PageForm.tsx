@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react"
 import { Formik, Form } from "formik"
-import { blockDefs, BlockTemplates } from "@strelka/ui"
+import { blockDefs } from "@strelka/ui"
 import {
   TitleInput,
   PageSection,
@@ -28,7 +28,7 @@ export const PageForm: React.FC<PageFormProps> = ({
     initialValues={{ ...initialData, blocks: initialData.blocks ?? [] }}
     onSubmit={onSubmit}
   >
-    {({ setFieldValue, values, submitForm, touched }) => (
+    {({ setFieldValue, submitForm, touched }) => (
       <Form>
         <PageSection>
           <TitleInput
@@ -47,9 +47,8 @@ export const PageForm: React.FC<PageFormProps> = ({
         </PageSection>
 
         <PageSection>
-          <BlockEditor<BlockTemplates>
-            name={"blocks"}
-            blocks={values.blocks}
+          <BlockEditor
+            name="blocks"
             blockDefs={blockDefs}
             setFieldValue={(value) => setFieldValue("blocks", value)}
           />
