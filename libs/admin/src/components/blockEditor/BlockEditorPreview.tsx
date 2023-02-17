@@ -1,6 +1,6 @@
 import { v4 as uuid } from "uuid"
 import styled from "@emotion/styled"
-import { FieldArray, useField, useFormik, useFormikContext } from "formik"
+import { FieldArray, useField } from "formik"
 import React from "react"
 import { BlockFieldProps } from "./BlockEditor"
 import { BlockSortableItem } from "./BlockSortableItem"
@@ -15,7 +15,6 @@ export const BlockEditorPreview: React.FC<BlockFieldProps> = ({
   setFieldValue,
 }) => {
   const [{ value }] = useField<Block<any>[]>(name)
-  const form = useFormikContext()
 
   const { registerBlockMeta } = useEditorDispatchers()
   const { blockMeta } = useEditorState()
@@ -23,11 +22,7 @@ export const BlockEditorPreview: React.FC<BlockFieldProps> = ({
     <EditorPreview>
       <FieldArray name={name}>
         {({ remove, insert, move }) => (
-          <BlockSortableWrapper
-            blocks={value}
-            blockDefs={blockDefs}
-            setFieldValue={setFieldValue}
-          >
+          <BlockSortableWrapper blocks={value} setFieldValue={setFieldValue}>
             {value.map((block, index) => (
               <BlockSortableItem
                 id={block.id}

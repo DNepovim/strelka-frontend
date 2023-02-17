@@ -1,6 +1,5 @@
 import React, { ChangeEvent } from "react"
 import { Formik, Form } from "formik"
-import { blockDefs } from "@strelka/ui"
 import {
   TitleInput,
   PageSection,
@@ -12,6 +11,7 @@ import {
 import { IoSaveOutline } from "react-icons/io5"
 import { config } from "~/config"
 import { Page } from "repo/firestore/page"
+import { blocksList } from "@strelka/ui"
 
 interface PageFormProps {
   onSubmit: (values: Page) => void
@@ -49,7 +49,7 @@ export const PageForm: React.FC<PageFormProps> = ({
         <PageSection>
           <BlockEditor
             name="blocks"
-            blockDefs={blockDefs}
+            blockDefs={blocksList}
             setFieldValue={(value) => setFieldValue("blocks", value)}
           />
         </PageSection>

@@ -1,7 +1,7 @@
 import { ActionFunction, LoaderFunction, redirect } from "@remix-run/node"
 import { useFetcher, useLoaderData } from "@remix-run/react"
-import { getSectionsList } from "repo/section"
-import { setUser, User } from "repo/user"
+import { getSectionsList } from "repo/firestore/section"
+import { setUser } from "repo/firestore/user"
 import { UserForm } from "~/forms/UserForm"
 
 export const loader: LoaderFunction = async () => {
@@ -13,7 +13,7 @@ export const action: ActionFunction = async ({ request, params }) => {
   const email = formData.get("email") as string
   const roles = formData.get("roles")
   const rolesParsed = JSON.parse(roles as string)
-  await setUser({ email, roles: rolesParsed })
+  await setUser({ email, role: rolesParsed })
   return redirect(`/uzivatele/${email}`)
 }
 

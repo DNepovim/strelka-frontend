@@ -10,10 +10,11 @@ import {
   Table,
   timestampToDisplay,
   Title,
+  User,
   UserPicture,
 } from "@strelka/admin-ui"
-import { getUsersList, User } from "repo/user"
 import { routes } from "routes"
+import { getUsersList } from "repo/firestore/user"
 
 export const loader: LoaderFunction = async () => {
   return await getUsersList()

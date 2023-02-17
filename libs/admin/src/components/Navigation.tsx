@@ -64,9 +64,11 @@ interface LinkProps {
 const shouldForwardProp = (prop: string) =>
   !["withAction", "isCollapsed", "notCollapsedWidth"].includes(prop)
 
-const Item = styled("li", {
-  shouldForwardProp,
-})`
+//   , {
+//   shouldForwardProp,
+// })
+
+const Item = styled("li")`
   position: relative;
   border-bottom: ${theme.styles.border};
   border-left: ${theme.styles.border};
@@ -78,9 +80,9 @@ const Item = styled("li", {
     border-top: ${theme.styles.border};
   }
 
-  &:has(+ li:hover) {
+  ${`&:has(+ li:hover) {
     border-bottom: none;
-  }
+  }`}
 
   &:hover {
     border-top: ${theme.styles.border};
@@ -88,12 +90,12 @@ const Item = styled("li", {
 
   ${({ isCollapsed, notCollapsedWidth }: LinkProps) =>
     isCollapsed
-      ? css`
+      ? `
           &:hover {
             width: calc(${notCollapsedWidth} - 0.8rem);
           }
         `
-      : ""};
+      : ``};
 `
 
 const GeneralLink = styled(RouteLink, {

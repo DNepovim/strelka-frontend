@@ -1,5 +1,5 @@
 import { collection, getDocs, query, where } from "firebase/firestore"
-import { db } from "./firebase"
+import { db } from "repo/firebase"
 import { getDocument, getDocsList, removeDoc, updateDoc } from "./docs"
 import { getUser, UserRole } from "./user"
 

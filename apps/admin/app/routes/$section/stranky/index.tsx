@@ -16,9 +16,9 @@ import {
   Table,
   Title,
 } from "@strelka/admin-ui"
-import { getPagesList, removePage, PagesTableItem } from "repo/page"
 import { routes } from "routes"
-import { getSection } from "repo/section"
+import { getSection } from "repo/firestore/section"
+import { getPagesList, removePage, PagesTableItem } from "repo/firestore/page"
 
 export const loader: LoaderFunction = async ({ params }) => {
   const section = await getSection(params.section!)
@@ -45,7 +45,7 @@ export const action: ActionFunction = async ({ request, params }) => {
 
 export default function Index() {
   const columnHelper = createColumnHelper<PagesTableItem>()
-  const data = useLoaderData()
+  const data = useLoaderData<PagesTableItem[]>()
   const fetcher = useFetcher()
   const { section } = useParams()
   const deleting = fetcher.submission?.formData.get("slug")

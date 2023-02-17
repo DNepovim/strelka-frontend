@@ -1,7 +1,6 @@
 import { doc, setDoc } from "@firebase/firestore"
-import { BlocksDefs } from "@strelka/ui"
 import { deleteDoc } from "firebase/firestore"
-import { db } from "./firebase"
+import { db } from "repo/firebase"
 import { getDocument, getDocsList } from "./docs"
 import { collectionName as sectionCollectionName } from "./section"
 
@@ -14,7 +13,8 @@ export interface Page {
   slug: string
   lastEditedBy?: string
   lastEditedTime?: string
-  blocks: BlocksDefs[]
+  //TODO
+  blocks: any[]
 }
 
 export type PagesTableItem = Omit<Page, "blocks">

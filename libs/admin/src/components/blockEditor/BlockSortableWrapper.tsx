@@ -23,7 +23,6 @@ import { Block, BlockDef } from "src"
 export interface BlockSortableWrapperProps {
   children: ReactNode
   blocks: Block<any>[]
-  blockDefs: BlockDef<any>[]
   setFieldValue: (blocks: Block<any>[]) => void
 }
 

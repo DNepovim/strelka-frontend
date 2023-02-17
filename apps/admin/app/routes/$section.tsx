@@ -23,7 +23,7 @@ export function CatchBoundary() {
   )
 }
 
-export function ErrorBoundary({ error }) {
+export function ErrorBoundary({ error }: { error: any }) {
   console.error(error)
   return (
     <div>

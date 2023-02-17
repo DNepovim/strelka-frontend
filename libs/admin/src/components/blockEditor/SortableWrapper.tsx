@@ -26,7 +26,7 @@ export interface SortableWrapperProps {
 }
 
 export const SortableWrapper = ({ children, name }: SortableWrapperProps) => {
-  const [{ value }, _, { setValue }] = useField(name)
+  const [{ value }, _, { setValue }] = useField<{ id: string }[]>(name)
   const items = value ?? []
   const sensors = useSensors(
     useSensor(PointerSensor),

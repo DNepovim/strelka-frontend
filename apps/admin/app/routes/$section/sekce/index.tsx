@@ -11,8 +11,8 @@ import {
   Table,
   Title,
 } from "@strelka/admin-ui"
-import { getSectionsList, removeSection, Section } from "repo/section"
 import { routes } from "routes"
+import { getSectionsList, removeSection, Section } from "repo/firestore/section"
 
 export const loader: LoaderFunction = async () => {
   return await getSectionsList()

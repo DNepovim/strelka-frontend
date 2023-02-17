@@ -1,16 +1,9 @@
-import {
-  BlockMeta,
-  getFieldName,
-  InputDefs,
-  Repeater,
-  useValue,
-} from "@strelka/admin-ui"
-import React, { ReactElement, ReactNode, useContext } from "react"
+import { BlockMeta, InputDefs, Repeater, useValue } from "@strelka/admin-ui"
+import React from "react"
 import { Block } from "../../components/Block/Block"
 import { Column, Container, Row } from "../../components/Layout/Layout"
 import { Header2 } from "../../components/Typography/Typography"
 import { IoMenuOutline } from "react-icons/io5"
-import { FieldArray, useField } from "formik"
 
 export interface ParagraphProps {
   name: string

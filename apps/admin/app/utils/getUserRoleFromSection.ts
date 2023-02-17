@@ -1,5 +1,5 @@
-import { Section } from "repo/section"
-import { User, UserRole } from "repo/user"
+import { Section } from "repo/firestore/section"
+import { User, UserRole } from "repo/firestore/user"
 
 export const getUserRoleFromSection = (
   user: User,

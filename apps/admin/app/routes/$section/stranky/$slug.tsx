@@ -1,6 +1,6 @@
 import { LoaderFunction, ActionFunction } from "@remix-run/node"
 import { useLoaderData, useSubmit } from "@remix-run/react"
-import { getPage, updatePage } from "repo/page"
+import { getPage, updatePage } from "repo/firestore/page"
 import { PageForm } from "~/forms/PageForm"
 
 export const loader: LoaderFunction = async ({ params }) => {

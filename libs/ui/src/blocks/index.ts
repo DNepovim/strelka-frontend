@@ -1,11 +1,4 @@
-import {
-  ParagraphBlock,
-  paragraphBlockDef,
-} from "./Paragraph/paragraphBlockDef"
+import { BlockDef } from "@strelka/admin-ui"
+import { paragraph } from "./Paragraph/Paragraph"
 
-export const blockDefs = [
-  paragraphBlockDef,
-  // personListBlockDef,
-]
-
-export type BlocksDefs = ParagraphBlock
+export const blocksList: BlockDef<any>[] = [paragraph]

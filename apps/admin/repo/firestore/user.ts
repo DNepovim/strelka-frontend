@@ -1,6 +1,6 @@
 import { getDocs, collection, setDoc, doc, Timestamp } from "firebase/firestore"
+import { db } from "repo/firebase"
 import { Optional } from "utility-types"
-import { db } from "./firebase"
 import { getDocument } from "./docs"
 
 export enum UserRole {

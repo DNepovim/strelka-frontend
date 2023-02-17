@@ -10,9 +10,7 @@ export interface Block<F extends {}> {
 
 export interface BlockDef<T> {
   template: string
-  title: string
   icon: ReactElement
-  fields: AdminFields<T>
   component: React.FC<T>
 }
 
