@@ -12,7 +12,7 @@ import {
   Title,
   UserPicture,
 } from "@strelka/admin-ui"
-import { getUsersList, User } from "firebase/user"
+import { getUsersList, User } from "repo/user"
 import { routes } from "routes"
 
 export const loader: LoaderFunction = async () => {

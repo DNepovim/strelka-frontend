@@ -3,8 +3,8 @@ import { Formik, Form } from "formik"
 import { PageSection, Button, ToggleInput, TextInput } from "@strelka/admin-ui"
 import { IoSaveOutline } from "react-icons/io5"
 import styled from "@emotion/styled"
-import { User } from "firebase/user"
-import { Section } from "firebase/section"
+import { User } from "repo/user"
+import { Section } from "repo/section"
 
 interface UserFormFormProps {
   onSubmit: (values: User) => void

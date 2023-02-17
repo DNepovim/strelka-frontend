@@ -10,8 +10,8 @@ import {
   EditableUrl,
 } from "@strelka/admin-ui"
 import { IoSaveOutline } from "react-icons/io5"
-import { Page } from "firebase/page"
 import { config } from "~/config"
+import { Page } from "repo/firestore/page"
 
 interface PageFormProps {
   onSubmit: (values: Page) => void

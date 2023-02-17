@@ -16,9 +16,9 @@ import {
   Table,
   Title,
 } from "@strelka/admin-ui"
-import { getPagesList, removePage, PagesTableItem } from "firebase/page"
+import { getPagesList, removePage, PagesTableItem } from "repo/page"
 import { routes } from "routes"
-import { getSection } from "firebase/section"
+import { getSection } from "repo/section"
 
 export const loader: LoaderFunction = async ({ params }) => {
   const section = await getSection(params.section!)

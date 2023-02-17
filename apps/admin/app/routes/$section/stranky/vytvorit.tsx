@@ -1,6 +1,6 @@
 import { useFetcher, useParams } from "@remix-run/react"
 import { ActionFunction, redirect } from "@remix-run/node"
-import { updatePage } from "firebase/page"
+import { updatePage } from "repo/page"
 import { PageForm } from "~/forms/PageForm"
 import { routes } from "routes"
 

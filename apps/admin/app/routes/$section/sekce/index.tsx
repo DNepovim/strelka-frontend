@@ -11,7 +11,7 @@ import {
   Table,
   Title,
 } from "@strelka/admin-ui"
-import { getSectionsList, removeSection, Section } from "firebase/section"
+import { getSectionsList, removeSection, Section } from "repo/section"
 import { routes } from "routes"
 
 export const loader: LoaderFunction = async () => {
@@ -87,7 +87,9 @@ export default function Index() {
   return (
     <>
       <SiteHeader>
-        <ButtonLink route={routes.sections.create.route()}>Nová sekce</ButtonLink>
+        <ButtonLink route={routes.sections.create.route()}>
+          Nová sekce
+        </ButtonLink>
       </SiteHeader>
       <Table
         data={data}

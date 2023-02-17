@@ -1,13 +1,12 @@
 import { NavigationItem } from "@strelka/admin-ui/src/components/Navigation"
-import { UserRole as UserRole } from "firebase/user"
 import {
   IoPeopleOutline,
-  IoSettingsOutline,
   IoAddOutline,
   IoDocumentTextOutline,
   IoBrowsersOutline,
   IoCalendarOutline,
 } from "react-icons/io5"
+import { UserRole } from "repo/firestore/user"
 import { routes } from "routes"
 
 export const adminNavigation: (NavigationItem & {

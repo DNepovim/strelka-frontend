@@ -17,19 +17,10 @@ const firebaseConfig = {
 }
 
 export const firebaseApp = initializeApp(firebaseConfig)
+
 export const db = getFirestore(firebaseApp)
 export const auth = getAuth()
 if (process.env.NODE_ENV === "development" && !auth.emulatorConfig) {
   connectFirestoreEmulator(db, "127.0.0.1", 8080)
   connectAuthEmulator(auth, "http://127.0.0.1:9099")
-}
-
-export const getData = async (collection: string, page: string) => {
-  const docRef = await doc(db, collection, page)
-  const docSnap = await getDoc(docRef)
-
-  if (!docSnap.exists()) {
-    return
-  }
-  return docSnap.data()
 }

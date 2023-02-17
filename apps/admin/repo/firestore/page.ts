@@ -1,8 +1,8 @@
 import { doc, setDoc } from "@firebase/firestore"
 import { BlocksDefs } from "@strelka/ui"
 import { deleteDoc } from "firebase/firestore"
-import { db } from "./db"
-import { getDoc, getDocsList } from "./docs"
+import { db } from "./firebase"
+import { getDocument, getDocsList } from "./docs"
 import { collectionName as sectionCollectionName } from "./section"
 
 const collectionName = "pages"
@@ -20,7 +20,7 @@ export interface Page {
 export type PagesTableItem = Omit<Page, "blocks">
 
 export const getPage = (section: string, slug: string) =>
-  getDoc<Page>(getCollectionPath(section))(slug)
+  getDocument<Page>(getCollectionPath(section))(slug)
 
 export const updatePage = async (
   section: string,

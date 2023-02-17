@@ -1,7 +1,7 @@
 import { getDocs, collection, setDoc, doc, Timestamp } from "firebase/firestore"
 import { Optional } from "utility-types"
-import { db } from "./db"
-import { getDoc } from "./docs"
+import { db } from "./firebase"
+import { getDocument } from "./docs"
 
 export enum UserRole {
   Editor = "editor",
@@ -32,7 +32,7 @@ export const getUsersList = async (): Promise<User[]> => {
   })
 }
 
-export const getUser = getDoc<User>(collectionName, "email")
+export const getUser = getDocument<User>(collectionName, "email")
 
 export const setUser = async (user: Optional<User, "role" | "superadmin">) => {
   const { email, ...restData } = user

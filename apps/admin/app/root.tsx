@@ -18,15 +18,15 @@ import {
   useParams,
 } from "@remix-run/react"
 import { css, Global } from "@emotion/react"
-import { globalStyles, Sidebar, theme } from "@strelka/admin-ui"
+import { globalStyles, Sidebar, theme, User } from "@strelka/admin-ui"
 import styled from "@emotion/styled"
 import { adminNavigation } from "data"
-import { Section, getSectionsList } from "firebase/section"
-import { getUser, User } from "firebase/user"
 import { useState } from "react"
 import { routes } from "routes"
 import { authenticator } from "./services/auth.server"
 import { getUserRoleFromSection } from "./utils/getUserRoleFromSection"
+import { Section, getSectionsList } from "repo/firestore/section"
+import { getUser } from "repo/firestore/user"
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",

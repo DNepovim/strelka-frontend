@@ -3,7 +3,7 @@ import { Formik, Form } from "formik"
 import { PageSection, Button, TitleInput, webalize } from "@strelka/admin-ui"
 import { IoSaveOutline } from "react-icons/io5"
 import styled from "@emotion/styled"
-import { Section } from "firebase/section"
+import { Section } from "repo/section"
 
 interface SectionFormFormProps {
   onSubmit: (values: Section) => void

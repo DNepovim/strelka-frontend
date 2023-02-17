@@ -1,6 +1,6 @@
 import { LoaderFunction } from "@remix-run/node"
 import { Outlet, useCatch } from "@remix-run/react"
-import { getSection } from "firebase/section"
+import { getSection } from "repo/firestore/section"
 
 export const loader: LoaderFunction = async ({ params }) => {
   const section = await getSection(params.section!)

@@ -1,7 +1,7 @@
 import { ActionFunction, LoaderFunction, redirect } from "@remix-run/node"
 import { useLoaderData, useSubmit } from "@remix-run/react"
-import { getSectionsList } from "firebase/section"
-import { getUser, setUser } from "firebase/user"
+import { getSectionsList } from "repo/section"
+import { getUser, setUser } from "repo/user"
 import { UserForm } from "~/forms/UserForm"
 
 export const action: ActionFunction = async ({ request, params }) => {

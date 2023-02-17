@@ -1,9 +1,9 @@
 import { Authenticator } from "remix-auth"
 import { sessionStorage } from "~/services/session.server"
 import { GoogleStrategy } from "remix-auth-google"
-import { setUser } from "firebase/user"
 import { signInWithCredential, GoogleAuthProvider } from "firebase/auth"
-import { auth } from "firebase/db"
+import { auth } from "repo/firebase"
+import { setUser } from "repo/firestore/user"
 
 export const authenticator = new Authenticator<string>(sessionStorage)
 

@@ -1,8 +1,8 @@
 import { useFetcher } from "@remix-run/react"
 import { ActionFunction, redirect } from "@remix-run/node"
-import { updateSection } from "firebase/section"
 import { SectionForm } from "~/forms/SectionForm"
 import { routes } from "routes"
+import { updateSection } from "repo/firestore/section"
 
 export const action: ActionFunction = async ({ request, params }) => {
   const section = params.section

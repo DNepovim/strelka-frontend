@@ -1,6 +1,6 @@
 import { collection, getDocs, query, where } from "firebase/firestore"
-import { db } from "./db"
-import { getDoc, getDocsList, removeDoc, updateDoc } from "./docs"
+import { db } from "./firebase"
+import { getDocument, getDocsList, removeDoc, updateDoc } from "./docs"
 import { getUser, UserRole } from "./user"
 
 export const collectionName = "sections"
@@ -16,7 +16,7 @@ export interface Section {
   }
 }
 
-export const getSection = getDoc<Section>(collectionName)
+export const getSection = getDocument<Section>(collectionName)
 export const updateSection = updateDoc<Section>(collectionName)
 export const removeSection = removeDoc(collectionName)
 

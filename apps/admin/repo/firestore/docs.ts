@@ -1,5 +1,15 @@
-import { collection, deleteDoc, doc, getDocs, setDoc } from "firebase/firestore"
-import { db, getData } from "./db"
+import { collection, deleteDoc, doc, getDoc, getDocs, setDoc } from "firebase/firestore"
+import { db } from "../firebase"
+
+export const getData = async (collection: string, page: string) => {
+  const docRef = await doc(db, collection, page)
+  const docSnap = getDoc(docRef)
+
+  if (!(await docSnap).exists()) {
+    return
+  }
+  return (await docSnap).data()
+}
 
 export const getDocsList =
   <T extends {}>(collectionName: string) =>
@@ -24,7 +34,7 @@ export const updateDoc =
     await setDoc(doc(db, collectionName, slug), data, { merge: true })
   }
 
-export const getDoc =
+export const getDocument =
   <T extends {}>(collectionName: string, key?: string) =>
   async (slug: string): Promise<T | undefined> => {
     const document = (await getData(collectionName, slug)) as T
