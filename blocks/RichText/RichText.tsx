@@ -8,6 +8,7 @@ import {
   RichText as RichTextProps,
 } from "../../types/RichText"
 import styled from "@emotion/styled"
+import { InlineImage } from "../../components/InlineImage/InlineImage"
 
 export const RichText: React.FC<RichTextProps> = ({ items }) => (
   <Block>
@@ -16,6 +17,9 @@ export const RichText: React.FC<RichTextProps> = ({ items }) => (
         <Column col={12}>
           {items.map(({ content, type }, index) => {
             switch (type) {
+              case RichTextItemType.Image:
+                // @ts-ignore custom type checking
+                return <InlineImage key={index} {...content} />
               case RichTextItemType.TextBlock:
                 // @ts-ignore custom type checking
                 return <TextBlock key={index} {...content} />

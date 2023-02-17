@@ -1,4 +1,5 @@
 import { Image } from "./Image"
+import { InlineImageProps as InlineImage } from "../components/InlineImage/InlineImage"
 
 export const enum HorizontalAlignment {
   Left,
@@ -13,6 +14,7 @@ export const enum ListType {
 export const enum RichTextItemType {
   TextBlock,
   List,
+  Image,
 }
 
 export interface TextNode {
@@ -38,7 +40,7 @@ export interface List {
 }
 
 export interface RichTextItem {
-  content: TextBlock | List
+  content: TextBlock | List | InlineImage
   type: RichTextItemType
 }
 

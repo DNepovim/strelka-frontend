@@ -51,6 +51,7 @@ import {
   RichTextItemType,
   TextNode,
 } from "../types/RichText"
+import { InlineImageProps } from "../components/InlineImage/InlineImage"
 
 export const groupData: SubMenuItemProps[] = [
   {
@@ -689,6 +690,18 @@ export const shortLine: Line = {
   nodes: [shortTextNode, shortBoldLink, shortTextNode],
 }
 
+export const mediumLine: Line = {
+  nodes: [
+    shortTextNode,
+    longTextNode,
+    longBoldLink,
+    shortTextNode,
+    shortLink,
+    shortTextNode,
+    shortBoldLink,
+  ],
+}
+
 export const longLine: Line = {
   nodes: [
     shortTextNode,
@@ -699,6 +712,15 @@ export const longLine: Line = {
     longLink,
     longTextNode,
   ],
+}
+
+export const inlineImage: InlineImageProps = {
+  image: Gallery4,
+}
+
+export const inlineImageWithCaption: InlineImageProps = {
+  image: Gallery3,
+  caption: "Howdy partner!",
 }
 
 export const textBlockWithList: List = {
@@ -756,6 +778,26 @@ export const textBlockWithList: List = {
 
 export const richTextData: RichText = {
   items: [
+    {
+      content: { lines: [mediumLine] },
+      type: RichTextItemType.TextBlock,
+    },
+    {
+      content: inlineImage,
+      type: RichTextItemType.Image,
+    },
+    {
+      content: { lines: [mediumLine] },
+      type: RichTextItemType.TextBlock,
+    },
+    {
+      content: inlineImageWithCaption,
+      type: RichTextItemType.Image,
+    },
+    {
+      content: { lines: [mediumLine] },
+      type: RichTextItemType.TextBlock,
+    },
     {
       content: {
         lines: [longLine],
