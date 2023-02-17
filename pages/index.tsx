@@ -11,6 +11,7 @@ import {
   statisticsData,
   textHighlightData,
   headerData,
+  richTextData,
 } from "../mockData/mockData"
 import { PostList } from "../blocks/PostList/PostList"
 import { Hero } from "../components/Hero/Hero"
@@ -21,6 +22,7 @@ import { GroupList } from "../blocks/GroupList/GroupList"
 import { Statistics } from "../blocks/Statistics/Statistics"
 import { VerticalSpace } from "../blocks/VerticalSpace/VerticalSpace"
 import { BaseComponentWrapper } from "./_app"
+import { RichText } from "../blocks/RichText/RichText"
 
 const Home: NextPage<Props> = () => (
   <BaseComponentWrapper headerData={headerData}>
@@ -33,6 +35,8 @@ const Home: NextPage<Props> = () => (
         </Row>
       </Container>
     </Block>
+    <VerticalSpace height={4} />
+    <RichText {...richTextData} />
     <VerticalSpace height={4} />
     <TextHighlight {...textHighlightData} />
     <VerticalSpace height={4} />

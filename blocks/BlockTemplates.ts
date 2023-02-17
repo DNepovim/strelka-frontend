@@ -6,4 +6,5 @@ export enum BlockTemplates {
   Heading1 = "heading1",
   Heading2 = "heading2",
   PersonList = "personList",
+  RichText = "richText",
 }

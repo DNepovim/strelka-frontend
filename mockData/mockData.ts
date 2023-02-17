@@ -29,7 +29,7 @@ import Spina from "../assets/images/people/spina.webp"
 
 import { MenuItemProps, MenuProps, SubMenuItemProps } from "../types/Navigation"
 import { PersonListProps, PersonProps } from "../blocks/PersonList/PersonList"
-import { ImageTextProps, Icons } from "../blocks/ImageText/ImageText"
+import { Icons, ImageTextProps } from "../blocks/ImageText/ImageText"
 import { HistoryProps } from "../blocks/History/History"
 import {
   GalleryListProps,
@@ -42,6 +42,16 @@ import { StatisticsProps } from "../blocks/Statistics/Statistics"
 import { UnorderedListProps } from "../components/UnordoredList/UnorderedList"
 import { GalleryProps } from "../blocks/Gallery/Gallery"
 import { HeaderProps } from "../blocks/Header/Header"
+import {
+  HorizontalAlignment,
+  Line,
+  List,
+  ListType,
+  RichText,
+  RichTextItemType,
+  TextNode,
+} from "../types/RichText"
+import { InlineImageProps } from "../components/InlineImage/InlineImage"
 
 export const groupData: SubMenuItemProps[] = [
   {
@@ -637,5 +647,184 @@ export const vlcataIntroData: UnorderedListProps = {
     "Fungujeme díky dobrovolnické práci 4 vedoucích, občasné pomoci roverů* a střediska",
     "Každý týden se scházíme na Báře na 2 hodinovou schůzku, 1 – 2x měsíčně jezdíme na výpravu a v létě vyrážíme na tábor pod tee-pee*.",
     "Jsme oddíl s rozšířenou duchovní výchovou, ale vítáme mezi nás všechny, které skauting oslovil tak, jako nás.",
+  ],
+}
+
+export const shortTextNode: TextNode = {
+  content: "Hello there, ",
+}
+
+export const shortBoldTextNode: TextNode = {
+  content: "General Kenobi. ",
+  isBold: true,
+}
+
+export const shortLink: TextNode = {
+  content: "google ",
+  to: "www.google.com",
+}
+
+export const shortBoldLink: TextNode = {
+  content: "skaut.cz ",
+  isBold: true,
+  to: "https://www.skaut.cz",
+}
+
+export const longLink: TextNode = {
+  content: "this is some veeeery long link with many words ",
+  to: "https://www.canon.co.uk",
+}
+
+export const longBoldLink: TextNode = {
+  content: "someveryconvolutedurlwithnospacesinbetweeen ",
+  isBold: true,
+  to: "https://www.apple.com",
+}
+
+export const longTextNode: TextNode = {
+  content:
+    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. ",
+}
+
+export const shortLine: Line = {
+  nodes: [shortTextNode, shortBoldLink, shortTextNode],
+}
+
+export const mediumLine: Line = {
+  nodes: [
+    shortTextNode,
+    longTextNode,
+    longBoldLink,
+    shortTextNode,
+    shortLink,
+    shortTextNode,
+    shortBoldLink,
+  ],
+}
+
+export const longLine: Line = {
+  nodes: [
+    shortTextNode,
+    shortBoldTextNode,
+    longTextNode,
+    shortLink,
+    longTextNode,
+    longLink,
+    longTextNode,
+  ],
+}
+
+export const inlineImage: InlineImageProps = {
+  image: Gallery4,
+}
+
+export const inlineImageWithCaption: InlineImageProps = {
+  image: Gallery3,
+  caption: "Howdy partner!",
+}
+
+export const textBlockWithList: List = {
+  items: [
+    [
+      {
+        content: { lines: [shortLine, shortLine] },
+        type: RichTextItemType.TextBlock,
+      },
+      {
+        content: { lines: [shortLine, shortLine] },
+        type: RichTextItemType.TextBlock,
+      },
+    ],
+    [
+      {
+        content: { lines: [shortLine] },
+        type: RichTextItemType.TextBlock,
+      },
+      {
+        content: {
+          items: [
+            [
+              {
+                content: { lines: [shortLine] },
+                type: RichTextItemType.TextBlock,
+              },
+            ],
+            [
+              {
+                content: { lines: [shortLine] },
+                type: RichTextItemType.TextBlock,
+              },
+            ],
+          ],
+          type: ListType.Ordered,
+        },
+        type: RichTextItemType.List,
+      },
+      {
+        content: { lines: [longLine] },
+        type: RichTextItemType.TextBlock,
+      },
+    ],
+    [
+      {
+        content: {
+          lines: [{ nodes: [shortTextNode, longBoldLink, longTextNode] }],
+        },
+        type: RichTextItemType.TextBlock,
+      },
+    ],
+  ],
+}
+
+export const richTextData: RichText = {
+  items: [
+    {
+      content: { lines: [mediumLine] },
+      type: RichTextItemType.TextBlock,
+    },
+    {
+      content: inlineImage,
+      type: RichTextItemType.Image,
+    },
+    {
+      content: { lines: [mediumLine] },
+      type: RichTextItemType.TextBlock,
+    },
+    {
+      content: inlineImageWithCaption,
+      type: RichTextItemType.Image,
+    },
+    {
+      content: { lines: [mediumLine] },
+      type: RichTextItemType.TextBlock,
+    },
+    {
+      content: {
+        lines: [longLine],
+        figure: { image: Gallery1, alignment: HorizontalAlignment.Left },
+      },
+      type: RichTextItemType.TextBlock,
+    },
+    {
+      content: {
+        lines: [longLine],
+        figure: { image: Gallery1, alignment: HorizontalAlignment.Right },
+      },
+      type: RichTextItemType.TextBlock,
+    },
+    {
+      content: {
+        ...textBlockWithList,
+        type: ListType.Unordered,
+      },
+      type: RichTextItemType.List,
+    },
+    {
+      content: {
+        lines: [longLine],
+        figure: { image: Gallery1, alignment: HorizontalAlignment.Left },
+      },
+      type: RichTextItemType.TextBlock,
+    },
   ],
 }
