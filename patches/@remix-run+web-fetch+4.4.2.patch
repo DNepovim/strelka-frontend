@@ -1,0 +1,110 @@
+diff --git a/node_modules/@remix-run/web-fetch/dist/lib.node.cjs b/node_modules/@remix-run/web-fetch/dist/lib.node.cjs
+index d1a349e..1c90243 100644
+--- a/node_modules/@remix-run/web-fetch/dist/lib.node.cjs
++++ b/node_modules/@remix-run/web-fetch/dist/lib.node.cjs
+@@ -1003,54 +1003,60 @@ class Headers extends URLSearchParams {
+ 
+ 		super(result);
+ 
+-		// Returning a Proxy that will lowercase key names, validate parameters and sort keys
+-		// eslint-disable-next-line no-constructor-return
+-		return new Proxy(this, {
+-			get(target, p, receiver) {
+-				switch (p) {
+-					case 'append':
+-					case 'set':
+-						/**
+-						 * @param {string} name
+-						 * @param {string} value
+-						 */
+-						return (name, value) => {
+-							validateHeaderName(name);
+-							validateHeaderValue(name, String(value));
+-							return URLSearchParams.prototype[p].call(
+-								target,
+-								String(name).toLowerCase(),
+-								String(value)
+-							);
+-						};
++		// PATCHED (remix-run/remix#6118): the original returned `new Proxy(this, ...)`
++		// from this URLSearchParams subclass constructor. On Node >=18.14/20 the native
++		// URLSearchParams brand-check on `append`/`set`/etc. throws ERR_INVALID_THIS
++		// under V8 optimization when `this` is that Proxy. We drop the Proxy and expose
++		// the same behavior via real methods that call `super.*` on the genuine instance.
++	}
+ 
+-					case 'delete':
+-					case 'has':
+-					case 'getAll':
+-						/**
+-						 * @param {string} name
+-						 */
+-						return name => {
+-							validateHeaderName(name);
+-							// @ts-ignore
+-							return URLSearchParams.prototype[p].call(
+-								target,
+-								String(name).toLowerCase()
+-							);
+-						};
++	/**
++	 * @param {string} name
++	 * @param {string} value
++	 */
++	append(name, value) {
++		validateHeaderName(name);
++		validateHeaderValue(name, String(value));
++		return super.append(String(name).toLowerCase(), String(value));
++	}
+ 
+-					case 'keys':
+-						return () => {
+-							target.sort();
+-							return new Set(URLSearchParams.prototype.keys.call(target)).keys();
+-						};
++	/**
++	 * @param {string} name
++	 * @param {string} value
++	 */
++	set(name, value) {
++		validateHeaderName(name);
++		validateHeaderValue(name, String(value));
++		return super.set(String(name).toLowerCase(), String(value));
++	}
+ 
+-					default:
+-						return Reflect.get(target, p, receiver);
+-				}
+-			}
+-			/* c8 ignore next */
+-		});
++	/**
++	 * @param {string} name
++	 */
++	delete(name) {
++		validateHeaderName(name);
++		return super.delete(String(name).toLowerCase());
++	}
++
++	/**
++	 * @param {string} name
++	 */
++	has(name) {
++		validateHeaderName(name);
++		return super.has(String(name).toLowerCase());
++	}
++
++	/**
++	 * @param {string} name
++	 */
++	getAll(name) {
++		validateHeaderName(name);
++		return super.getAll(String(name).toLowerCase());
++	}
++
++	keys() {
++		this.sort();
++		return new Set(super.keys()).keys();
+ 	}
+ 
+ 	get [Symbol.toStringTag]() {
